@@ -1,12 +1,13 @@
 include header
 body(ng-app="thanxbits")
     .topbar https://bitconnect.me - welcome
-    .surround(ng-show="!user")
-        center(style="width:100%",ng-controller="ThanxCtrl")
+    .surround(ng-controller="ThanxCtrl")
+        center(style="width:100%",ng-hide="user.username")
             div hi {{ profile.firstname }}, nice to have you here :)
             div please accept or modify the
             div username below. it will be part of
             div your bitconnect address
+            div &nbsp;
             div
                 input(type='text',ng-model='firstname',style='width:40%')
                 span .
@@ -16,11 +17,13 @@ body(ng-app="thanxbits")
                 div.green.pill {{ firstname }}.{{ lastname }}@bitconnect.me
             div(ng-show="!available")
                 div.red.pill the username is not available
+            div &nbsp;
             div
-                input(type='checkbox',ng-model='acceptterms')
+                input(type='checkbox',ng-model='acceptedterms')
                 small i have read and agree to the 
                 a(href="/terms")
                     small terms and conditions
-            div &nbsp;
-            a.btn(ng-click="register()",ng-enable="available") bitconnect me please
-    .surround(ng-show="user")
+            a.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me please
+        center(style="width:100%",ng-show="user.username")
+            div gahfbgyjbgyjb
+            a.btn(ng-click="kill()") kill account (for testing)
