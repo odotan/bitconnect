@@ -1,0 +1,26 @@
+include header
+body(ng-app="thanxbits")
+    .topbar https://bitconnect.me - welcome
+    .surround(ng-show="!user")
+        center(style="width:100%",ng-controller="ThanxCtrl")
+            div hi {{ profile.firstname }}, nice to have you here :)
+            div please accept or modify the
+            div username below. it will be part of
+            div your bitconnect address
+            div
+                input(type='text',ng-model='firstname',style='width:40%')
+                span .
+                input(type='text',ng-model='lastname',style='width:40%')
+            div(ng-show="available")
+                div your bitconnect address will be:
+                div.green.pill {{ firstname }}.{{ lastname }}@bitconnect.me
+            div(ng-show="!available")
+                div.red.pill the username is not available
+            div
+                input(type='checkbox',ng-model='acceptterms')
+                small i have read and agree to the 
+                a(href="/terms")
+                    small terms and conditions
+            div &nbsp;
+            a.btn(ng-click="register()",ng-enable="available") bitconnect me please
+    .surround(ng-show="user")
