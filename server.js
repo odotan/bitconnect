@@ -9,8 +9,8 @@ var db              = require('./db'),
     _               = require('underscore'),
     Facebook        = require('facebook-node-sdk');
 
-var FBappId = '551936651494127',
-    FBsecret = '3a2e02d4e014860a6b8c0ed4e91dc7f3';
+var FBappId = '761433597207088',
+    FBsecret = '483c2bafec24598467c82270bbde6dbc';
 
 var facebook = new Facebook({ appID: FBappId, secret: FBsecret });
 
