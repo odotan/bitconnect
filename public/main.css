@@ -8,8 +8,14 @@ div.topbar {
     text-align: center;
     padding: 5px;
 }
+.bubble {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px 6px;
+    text-align: center;
+}
 div.surround {
-    width: 300px;
+    width: 320px;
     height: 100px;
 
     position: absolute;
@@ -19,6 +25,12 @@ div.surround {
     right: 0;
 
     margin: auto;
+}
+.inline {
+    display: inline-block;
+}
+.small {
+    font-size: 75%;
 }
 .blue { background-color: #88f; }
 .green { background-color: #4f4; }

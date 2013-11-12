@@ -31,8 +31,20 @@ var random = function(modulus) {
            },0);
 }
 
+var cbsetter = function(obj, prop, callback) {
+    return function(err, val) {
+        if (err) callback(err);
+        else {
+            obj[prop] = val;
+            callback(null,val);
+        }
+    }
+}
+
+
 module.exports = {
     eh: eh,
     mkrespcb: mkrespcb,
-    random: random
+    random: random,
+    cbsetter: cbsetter
 }

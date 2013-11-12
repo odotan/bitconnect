@@ -22,5 +22,9 @@ db.open(function(err,dbb) {
         if (err) { throw err; }
         module.exports.User = collection;
     });
+    db.collection('requests',function(err,collection) { 
+        if (err) { throw err; }
+        module.exports.Request = collection;
+    });
 });
 

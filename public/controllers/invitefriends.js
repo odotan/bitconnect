@@ -1,28 +1,11 @@
-
-function ThanxCtrl($scope, $http, $location) {
+function InviteFriendsCtrl($scope, $rootScope, $http, $location, me) {
 
     window.wscope = $scope;
 
     $scope.message = {};
 
-    $scope.checkname = function() {
-        $http.post('/checkname',{ name:$scope.firstname+'.'+$scope.lastname })
-            .success(function(r) {
-                if (r == '"available"') $scope.available = true;
-                else $scope.available = false;
-             })
-            .error(errhandle);
-    }
-
-    $scope.register = function() {
-        $http.post('/register',{ name:$scope.firstname+'.'+$scope.lastname })
-            .success(function(u) {
-                $scope.user = u;
-             })
-            .error(errhandle);
-    }
-
-    $scope.showFriendsLimit = 30;
+    // Control the visible friend list
+    $scope.visibleFriendsLimit = 30;
 
     $scope.getfriends = function() {
         $http.get('/friends')
@@ -32,11 +15,11 @@ function ThanxCtrl($scope, $http, $location) {
             .error(errhandle);
     }
 
-    $scope.$watch('user.fbUser',$scope.getfriends);
+    $rootScope.$watch('user.fbUser',$scope.getfriends);
 
-    $scope.updateShowFriends = function() {
+    $scope.updateVisibleFriends = function() {
         var filter = function(f) {
-            if ($scope.user.friends.indexOf(f.id) >= 0)
+            if ($rootScope.user.friends.indexOf(f.id) >= 0)
                 return false;
             if (!$scope.searchstring)
                 return true;
@@ -44,34 +27,35 @@ function ThanxCtrl($scope, $http, $location) {
                 searchString = $scope.searchstring.toLowerCase();
             return friendString.indexOf(searchString) >= 0;
         }
-        if ($scope.user && $scope.user.friends && $scope.FBfriends) {
+        if ($rootScope.user && $rootScope.user.friends && $scope.FBfriends) {
             $scope.filteredFriends = $scope.FBfriends.filter(filter);
-            $scope.showFriends = $scope.filteredFriends.slice(0,$scope.showFriendsLimit);
+            $scope.visibleFriends = $scope.filteredFriends.slice(0,$scope.visibleFriendsLimit);
         }
     };
 
-    $scope.$watch('FBfriends',$scope.updateShowFriends);
+    $scope.$watch('FBfriends',$scope.updateVisibleFriends);
     $scope.$watch('searchstring',$scope.updateShowFriends);
-    $scope.$watch('showFriendsLimit',$scope.updateShowFriends);
+    $scope.$watch('visibleFriendsLimit',$scope.updateShowFriends);
 
     setInterval(function() {
-        if (!$scope.friends) return;
-        if (window.pageYOffset > document.height - 1000 && $scope.showFriendsLimit < $scope.filteredFriends.length) {
-            $scope.$apply(function() {
-                $scope.showFriendsLimit += 40;
-            });
+        if (!$scope.FBfriends) return;
+        if (window.pageYOffset > document.height - 1000 && $scope.visibleFriendsLimit < $scope.filteredFriends.length) {
+            $scope.visibleFriendsLimit += 40;
+            if (!$scope.$$phase) $scope.$apply();
         }
     },500);
 
+    // Kill account (testing only)
     $scope.kill = function() {
         $http.post('/kill')
             .success(function(r) {
-                $scope.user = r 
-                $scope.checkname()
+                $rootScope.user = r 
+                window.location.href = '/newaccount';
              })
             .error(errhandle);
     }
 
+    // Select friends
     $scope.selected = {}
     $scope.numselected = 0
 
@@ -97,32 +81,32 @@ function ThanxCtrl($scope, $http, $location) {
         $scope.numselected = 0;
     }
 
-    $scope.$watch('firstname',$scope.checkname)
-    $scope.$watch('lastname',$scope.checkname)
-
+    // Invite friends
     $scope.invite = function() {
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
              title: 'Invite to Bitconnect', 
              message: 'Hey! I just invited you to Bitconnect. Do you want to join and get 54321 free satoshis? :)',
         }, function(req) { 
+            if (!req) return;
             console.log(req);
             $http.post('/mkinvite',{
-                from: $scope.user.id, 
+                from: $rootScope.user.id, 
                 to: Object.keys($scope.selected),
                 reqid: req.request
             })
             .success(function(r) {
                 $scope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
-                    canceltext: 'cool thanx',
-                    actiontext:  'i wanna invite more friends',
-                    action: function(){ $scope.message = null }
+                    actiontext: 'cool thanx',
+                    action: function(){ window.location.href = '/giveget' },
+                    canceltext:  'i wanna invite more friends'
                 }
             });
         });
     }
 
-    setInterval(me.getme,6000);
+    // Done
+    $scope.done = function() { window.location.href = '/giveget' }
 }
 

@@ -1,33 +1,12 @@
 include header
 body(ng-app="thanxbits")
-    .surround(ng-controller="ThanxCtrl")
-        center(style="width:100%",ng-hide="user.username")
-            div hi {{ profile.first_name }}, nice to have you here :)
-            div please accept or modify the
-            div username below. it will be part of
-            div your bitconnect address
-            div &nbsp;
+    .surround(ng-controller="InviteFriendsCtrl")
+        center(style="width:100%")
             div
-                input(type='text',ng-model='firstname',style='width:40%')
-                span .
-                input(type='text',ng-model='lastname',style='width:40%')
-            div(ng-show="available")
-                div your bitconnect address will be:
-                div.green.pill {{ firstname }}.{{ lastname }}.bitconnect.me
-            div(ng-show="!available")
-                div.red.pill the username is not available
-            div &nbsp;
-            div
-                input(type='checkbox',ng-model='acceptedterms')
-                small i have read and agree to the 
-                a(href="/terms")
-                    small terms and conditions
-            a.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
-        center(style="width:100%",ng-show="user.username")
-            div
-                span.bubble.inline(style="width:40%") {{ user.tnx }} x
-                span.bubble.inline(style="width:40%") {{ user.btc }} b
+                span.bubble.inline(style="width:25%") {{ user.tnx }} x
+                span.bubble.inline(style="width:25%") {{ user.btc }} b
                 img(src="gear.png")
+                a.btn.inline(style="width:18%",ng-click="done()") give/get
             div &nbsp;
             div invite your friends to bitconnect with you!
             div &nbsp;
@@ -45,15 +24,15 @@ body(ng-app="thanxbits")
                     div.bubble.inline.small = {{ numselected * 5432 }} x
                 div(style="width:50%; float:right")
                     img.inline(ng-src="lens.png",style="cursor: pointer",ng-click="showsearchbar = !showsearchbar")
-                    a.btn.inline(style="width:15%",ng-hide="numselected == filteredFriends.length",ng-click="selectAll()") all
-                    a.btn.inline(style="width:15%",ng-show="numselected == filteredFriends.length",ng-click="selectNone()") clear
-                    a.btn.inline(style="width:15%",ng-click="invite()") invite
+                    a.btn.inline(style="width:20%",ng-hide="numselected == filteredFriends.length",ng-click="selectAll()") all
+                    a.btn.inline(style="width:20%",ng-show="numselected == filteredFriends.length",ng-click="selectNone()") clear
+                    a.btn.inline(style="width:20%",ng-click="invite()") invite
             div
                 input(type="text",ng-show="showsearchbar",placeholder="Search",ng-model="searchstring")
             div &nbsp;
                 
             div(style="position:relative")
-                div.bubble(ng-repeat="(i,friend) in showFriends",style="position:absolute; left:{{ i%2 * 150 }}px; top:{{ (i-(i%2)) * 40}}px; width: 145px; height: 75px; overflow-h: hidden; cursor: pointer",onclick="wscope.selectFriend({{friend.id}})")
+                div.bubble(ng-repeat="(i,friend) in visibleFriends",style="position:absolute; left:{{ i%2 * 150 }}px; top:{{ (i-(i%2)) * 40}}px; width: 145px; height: 75px; overflow-h: hidden; cursor: pointer",onclick="wscope.selectFriend({{friend.id}})")
                     img(ng-src="{{friend.picture.data.url}}",style="position:absolute; left: 0; top: 0; height:75px; width:75px")
                     div(style="position:absolute; left: 80px; top: 17px") {{ friend.first_name }}
                     div(style="position:absolute; left: 80px; top: 37px") {{ friend.last_name }}
