@@ -13,8 +13,12 @@ window.app.service('me',function($rootScope, $http) {
                         window.location.href = '/newaccount'
                 }
                 else {
-                    if (window.location.href.indexOf('newaccount') >= 0)
-                        window.location.href = '/invitefriends'
+                    if (window.location.href.indexOf('newaccount') >= 0) {
+                        if ($rootScope.user.firstUse)
+                            window.location.href = 'http://' + u.username + '.bitconnect.me/invitefriends';
+                        else
+                            window.location.href = 'http://' + u.username + '.bitconnect.me/giveget';
+                    }
                 }
              })
             .error(function(e) {

@@ -2,11 +2,17 @@ include header
 body(ng-app="thanxbits")
     .surround(ng-controller="InviteFriendsCtrl")
         center(style="width:100%")
+            div(ng-show="invoices.length > 0")
+                div.green.pill(style="cursor:pointer",ng-click="acceptinvoices()")
+                    span(ng-show="invoices.length == 1") You have a new request!
+                    span(ng-show="invoices.length > 1") You have {{ invoices.length }} new requests!
             div
                 span.bubble.inline(style="width:25%") {{ user.tnx }} x
                 span.bubble.inline(style="width:25%") {{ user.btc }} b
-                img(src="gear.png")
-                a.btn.inline(style="width:18%",ng-click="done()") give/get
+                span(style="position:relative")
+                    img(src="gear.png",style="position:absolute",ng-click="dropdown_visible = !dropdown_visible")
+                    div.lightblue.bubble(style="position:absolute; top: 15px; right: -15px; width: 125px",ng-show="dropdown_visible")
+                        div.menuitem(ng-click="giveget()") give/get
             div &nbsp;
             div invite your friends to bitconnect with you!
             div &nbsp;

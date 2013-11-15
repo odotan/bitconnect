@@ -18,13 +18,16 @@ module.exports = {};
 db.open(function(err,dbb) {
     if (err) { throw err; }
     db = dbb;
-    db.collection('users',function(err,collection) { 
-        if (err) { throw err; }
-        module.exports.User = collection;
-    });
-    db.collection('requests',function(err,collection) { 
-        if (err) { throw err; }
-        module.exports.Request = collection;
-    });
+    var databases = {
+        'users': 'User',
+        'requests': 'Request',
+        'invoices': 'Invoice'
+    }
+    for (var v in databases) {
+        db.collection(v,function(err,collection) { 
+            if (err) { throw err; }
+            module.exports[databases[v]] = collection;
+        });
+    };
 });
 

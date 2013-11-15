@@ -37,6 +37,8 @@ div.surround {
 .red { background-color: #f77; }
 .semilightblue { background-color: #aaf; }
 .lightblue { background-color: #ddf; }
+.menuitem { padding: 5px; background-color: #ddf; }
+.menuitem:hover { background-color: #aaf; }
 .white { background-color: #fff; }
 .grey { background-color: #ddd; }
 .pill {

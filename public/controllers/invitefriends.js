@@ -1,4 +1,4 @@
-function InviteFriendsCtrl($scope, $rootScope, $http, $location, me) {
+function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
 
     window.wscope = $scope;
 
@@ -16,6 +16,8 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me) {
     }
 
     $rootScope.$watch('user.fbUser',$scope.getfriends);
+
+    $scope.giveget = function() { window.location.href = '/giveget' }
 
     $scope.updateVisibleFriends = function() {
         var filter = function(f) {

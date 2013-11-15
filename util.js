@@ -1,4 +1,5 @@
-var crypto = require('crypto');
+var crypto = require('crypto'),
+    sha256 = function(x) { return crypto.createHash('sha256').update(x).digest('hex') };
     
 var eh = function(fail, success) {
     return function(err, res) {
@@ -31,6 +32,10 @@ var random = function(modulus) {
            },0);
 }
 
+var randomHex = function(b) {
+    return sha256(entropy+new Date().getTime()+Math.random()).substring(0,b)
+}
+
 var cbsetter = function(obj, prop, callback) {
     return function(err, val) {
         if (err) callback(err);
@@ -46,5 +51,6 @@ module.exports = {
     eh: eh,
     mkrespcb: mkrespcb,
     random: random,
+    randomHex: randomHex,
     cbsetter: cbsetter
 }

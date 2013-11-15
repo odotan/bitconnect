@@ -56,9 +56,43 @@ var smartParse = function(x) {
     return (typeof x == "string") ? JSON.parse(x) : x;
 }
 
-app.use('/',function(req,res) {                       
-    res.render('welcome.jade',{});                                                           
+app.get('/', Facebook.loginRequired(), function(req,res) {                       
+    var parts = req.host.split('.'),
+        profileId = parts.slice(0,2).join('.');
+    if (parts.length == 2) res.render('welcome.jade',{});                                                           
+    else {
+        db.User.findOne({ username: profileId },mkrespcb(res,400,function(u) {
+            if (!u) res.render('welcome.jade',{})
+            else res.redirect('/profile')
+        }));
+    }
 });
+
+app.get('/picture', function(req, res) {
+    var parts = req.host.split('.'),
+        profileId = parts.slice(0,2).join('.');
+    if (parts.length == 2) return json.res(null);
+    db.User.findOne({ username: profileId },mkrespcb(res,400,function(u) {
+        if (!u) return json.res(null);
+        req.facebook.api('/'+u.id+'/picture?width=300&height=300&redirect=false',mkrespcb(res,400,function(pic) {
+            return res.json(pic.data.url)
+        }));
+    }));
+});
+
+app.get('/profile', function(req, res) {
+    res.render('profile.jade',{})
+});
+
+app.get('/sendto', Facebook.loginRequired(), FBify(function(profile, req, res) {
+    var parts = req.host.split('.'),
+        profileId = parts.slice(0,2).join('.');
+    db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
+        if (!u) res.redirect('/newaccount');
+        else if (u.username == profileId) res.redirect('/invitefriends');
+        else res.render('sendto.jade');
+    }));
+}));
 
 app.get('/app', Facebook.loginRequired(), FBify(function (profile, req, res) {
     db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
@@ -175,7 +209,8 @@ app.post('/register', Facebook.loginRequired(), FBify(function(profile, req, res
             id: profile.id,
             tnx: 5432,
             sat: 0,
-            friends: []
+            friends: [],
+            firstUse: true
         }
         db.User.insert(newuser,mkrespcb(res,400,function() {
             db.Request.find({
@@ -224,7 +259,10 @@ app.post('/mkinvite', Facebook.loginRequired(), function(req,res) {
             db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
                 console.log('giving to',u.fbUser.first_name,'from',u.tnx,'to',u.tnx + bonus);
                 db.User.update({ id: profile.id }, {
-                    $set: { tnx: (u.tnx || 0) + bonus } 
+                    $set: {
+                        tnx: (u.tnx || 0) + bonus,
+                        firstUse: false
+                    } 
                 },mkrespcb(res,400,function() {
                     console.log('requests registered, bonus:',bonus);
                     res.json({ success: true, bonus: bonus });
@@ -294,6 +332,96 @@ app.post('/give', Facebook.loginRequired(), FBify(function(profile, req, res) {
             } },cb2);
         }
     ], mkrespcb(res,400, function() { res.json('success') }))
+}));
+
+app.post('/get', Facebook.loginRequired(), FBify(function(profile, req, res) {
+    var payer = req.param('from'),
+        sat = parseInt(req.param('sat')) || Math.ceil(parseFloat(req.param('btc')) * 100000000) || 0,
+        tnx = parseInt(req.param('tnx')) || 0,
+        msg = req.param('message') || '';
+
+    var scope = {};
+    async.series([
+        function(cb2) {
+            db.User.findOne({ id: profile.id },setter(scope,'payee',cb2))
+        },
+        function(cb2) {
+            if (!scope.payee) return res.json('unauthorized',403);
+            db.User.findOne({ username: payer },setter(scope,'payer',cb2))
+        },
+        function(cb2) {
+            if (!scope.payer) return res.json('payer not found',400);
+            scope.invoice = {
+                payer: scope.payer.username,
+                payee: scope.payee.username,
+                sat: sat,
+                tnx: tnx,
+                message: msg,
+                id: util.randomHex(32)
+            }
+            console.log(scope.invoice);
+            db.Invoice.insert(scope.invoice,cb2)
+        }
+    ], mkrespcb(res,400,function() { res.json(scope.invoice) }));
+}));
+
+app.post('/reject', Facebook.loginRequired(), FBify(function(profile, req, res) {
+    console.log(req.param('invoice_id'));
+    db.Invoice.findOne({ id: req.param('invoice_id') }, mkrespcb(res,400,function(x) { console.log(x) }))
+    db.Invoice.remove({ id: req.param('invoice_id') },
+                        mkrespcb(res,400,function() { res.json('gone') }))
+}));
+
+app.post('/accept', Facebook.loginRequired(), FBify(function(profile, req, res) {
+    var reqid = req.param('invoice_id')
+    var scope = {};
+    async.series([
+        function(cb2) {
+            db.Invoice.findOne({ id: reqid },setter(scope,'invoice',cb2))
+        },
+        function(cb2) {
+            if (!scope.invoice) return res.json('no invoice found',400);
+            db.User.findOne({ username: scope.invoice.payee },setter(scope,'payee',cb2))
+        },
+        function(cb2) {
+            if (!scope.payee) return res.json('no payee found',400);
+            db.User.findOne({ id: profile.id },setter(scope,'payer',cb2))
+        },
+        function(cb2) {
+            if (!scope.payer) return res.json('no payer found',400);
+            db.Invoice.remove({ id: reqid },cb2)
+        },
+        function(cb2) {
+            if (scope.invoice.sat > scope.payer.sat)
+                return res.json('not enough btp',400)
+            else if ((scope.invoice.sat + scope.invoice.tnx) > (scope.payer.sat + scope.payer.tnx))
+                return res.json('not enough tnx',400)
+
+            var cost = { tnx: scope.invoice.tnx, sat: scope.invoice.sat }
+            if (cost.tnx > scope.payer.tnx) {
+                cost.sat += (cost.tnx - scope.payer.tnx)
+                cost.tnx = scope.payer.tnx
+            }
+            db.User.update({ id: scope.payer.id }, { $set: {
+                tnx: (scope.payer.tnx || 0) - cost.tnx,
+                sat: (scope.payer.sat || 0) - cost.sat
+            } },cb2);
+        },
+        function(cb2) {
+            db.User.update({ id: scope.payee.id }, { $set: {
+                tnx: (scope.payee.tnx || 0) + scope.invoice.tnx,
+                sat: (scope.payee.sat || 0) + scope.invoice.sat
+            } },cb2);
+        },
+    ],mkrespcb(res,400,function(){ res.json('success') }));
+}));
+
+app.get('/invoices', Facebook.loginRequired(), FBify(function(profile, req, res) {
+    db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
+        if (!u) return res.json([])
+        db.Invoice.find({ payer: u.username })
+                  .toArray(mkrespcb(res,400,_.bind(res.json,res)))
+    }));
 }));
 
 var options = {

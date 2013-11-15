@@ -3,30 +3,17 @@ body(ng-app="thanxbits")
     .surround(ng-controller="GiveGetCtrl")
         center(style="width:100%")
             div
+                img(ng-src="{{picurl}}")
+            div
                 span.bubble.inline(style="width:40%") {{ user.tnx }} x
                 span.bubble.inline(style="width:40%") {{ user.btc }} b
-                span(style="position:relative")
-                    img(src="gear.png",style="position:absolute",ng-click="dropdown_visible = !dropdown_visible")
-                    div.lightblue.bubble(style="position:absolute; top: 15px; right: -15px; width: 125px",ng-show="dropdown_visible")
-                        div.menuitem(ng-click="invitefriends()") Invite friends
+                img(src="gear.png")
             div &nbsp;
             div
                 span.bubble.inline(style="width:45%",ng-class="{ give: 'lightblue', get: 'none' }[mode]",ng-click="mode = 'give'") give
                 span.bubble.inline(style="width:45%",ng-class="{ give: 'none', get: 'lightblue' }[mode]",ng-click="mode = 'get'") get
-            div(ng-show="invoices.length > 0")
-                div.green.pill(style="cursor:pointer",ng-click="acceptinvoices()")
-                    span(ng-show="invoices.length == 1") You have a new request!
-                    span(ng-show="invoices.length > 1") You have {{ invoices.length }} new requests!
         div &nbsp;
         center(style="width:100%",ng-show="mode == 'give'")
-            div.lightblue.pill(ng-repeat="invoice in invoices")
-                span {{ invoice.payee }} requests {{ invoice.sat / 100000000 }} btp and {{ invoice.tnx }} tnx
-                img(src="checkmark.png",style="cursor:pointer",ng-click="accept(invoice.id)")
-                img(src="uncheckmark.png",style="cursor:pointer",ng-click="reject(invoice.id)")
-            div(ng-show="invoices.length > 0") &nbsp;
-            div
-                span to:
-                input(type="text",style="width:80%",ng-model="to")
             div
                 div(style="width:50%; float:left")
                     input(type="text",style="width:65%",ng-model="givetnx")
@@ -40,9 +27,6 @@ body(ng-app="thanxbits")
             div
                 a.btn.green(ng-click="give()") give
         center(style="width:100%",ng-show="mode == 'get'")
-            div
-                span from:
-                input(type="text",style="width:80%",ng-model="from")
             div
                 div(style="width:50%; float:left")
                     input(type="text",style="width:65%",ng-model="gettnx")
@@ -63,4 +47,4 @@ body(ng-app="thanxbits")
             .modal-footer
                 center(style="width:90%; margin-left: 5%; margin-right:5%")
                 button.btn.fullwidth(ng-show="message.actiontext",ng-click="message.action()") {{ message.actiontext }}
-                button.btn.fullwidth(ng-click="message = null") {{ message.canceltext || "Done" }}
+                button.btn.fullwidth(ng-click="message = null") {{ message.canceltext || "Done" }}nect with facebook

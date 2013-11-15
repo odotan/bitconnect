@@ -12,12 +12,10 @@ function NewAccountCtrl($scope, $rootScope, $http, $location, me) {
     }
 
     $scope.register = function() {
-        console.log(123);
         $http.post('/register',{ name:$scope.firstname+'.'+$scope.lastname })
             .success(function(u) {
-                console.log(456);
                 $rootScope.user = u;
-                window.location.href = '/invitefriends';
+                window.location.href = 'http://' + u.username + '.bitconnect.me/invitefriends';
              })
             .error(errhandle);
     }
