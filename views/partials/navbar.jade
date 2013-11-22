@@ -1,0 +1,21 @@
+nav.navbar.navbar-default
+    ul.nav.navbar-nav(style="text-align:center")
+        li(style="margin: 0px 8px; cursor:pointer",ng-click="goto('requests')"): table
+                tr: td: img(style="width:100px",src="/img/old/email.png")
+                tr: td(align="center"): span Requests
+                div(style="position:absolute; left: 30px; border-radius: 5px; z-index: 200; background-color: #f66",ng-show="requests.length > 0") &nbsp;{{ requests.length }}&nbsp;
+        li(style="margin: 0px 8px; cursor:pointer",ng-click="goto('settings')"): table
+                tr: td: img(style="width:100px",src="/img/01 me.svg")
+                tr: td(align="center"): span Me
+        li(style="margin: 0px 8px; cursor:pointer",ng-click="goto('give')"): table
+                tr: td: img(style="width:100px",src="/img/02 give.svg")
+                tr: td(align="center"): span Give
+        li(style="margin: 0px 8px; cursor:pointer",ng-click="goto('get')"): table
+                tr: td: img(style="width:100px",src="/img/04 get.svg")
+                tr: td(align="center"): span Get
+        li(style="margin: 0px 8px; cursor:pointer",ng-click="goto('invitefriends')"): table
+                tr: td: img(style="width:100px",src="/img/05 us.svg")
+                tr: td(align="center"): span Invite
+    ul.nav.nav-pills.nav-justified
+        li.bubble.largetext {{ (balance / 100000000) || 0 }} btc
+        li.bubble.largetext {{ user.tnx }} tnx

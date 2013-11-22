@@ -1,5 +1,5 @@
 {
-    "name": "socialwal",
+    "name": "bitconnect",
     "version": "0.0.1",
     "description": "Social wallet",
     "dependencies": {
@@ -20,7 +20,7 @@
     "keywords": ["bitcoin", "crypto", "finance", "social"],
     "repository" : {                                                                      
          "type": "git",                                                                    
-         "url": "https://github.com/vbuterin/socialwal.git"                                     
+         "url": "https://github.com/bitconnect/bitconnect.git"                                     
     },
     "engines": { "node": "*" }
 }

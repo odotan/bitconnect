@@ -11,7 +11,7 @@ var port = process.env['MONGO_NODE_DRIVER_PORT'] != null
         ? process.env['MONGO_NODE_DRIVER_PORT']
         : Connection.DEFAULT_PORT;
 
-var db = new Db('2fawal', new Server(host, port), {safe: false}, {auto_reconnect: true}, {});
+var db = new Db('bitconnect', new Server(host, port), {safe: false}, {auto_reconnect: true}, {});
 
 module.exports = {};
 
@@ -20,8 +20,9 @@ db.open(function(err,dbb) {
     db = dbb;
     var databases = {
         'users': 'User',
+        'fbinvite': 'FBInvite',
         'requests': 'Request',
-        'invoices': 'Invoice'
+        'transactions': 'Transaction'
     }
     for (var v in databases) {
         db.collection(v,function(err,collection) { 

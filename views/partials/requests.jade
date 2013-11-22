@@ -1,0 +1,46 @@
+include header
+body(ng-app="thanxbits")
+    .surround(ng-controller="RequestController")
+        include navbar
+        .row
+            b Requests ({{ requests.length || 0 }})
+        div(ng-repeat="request in requests",style="margin: 5px 0px")
+            .row
+                .col-xs-2: img(style="height:100px",ng-src="/pic?username={{ request.payee.username }}&size=100")
+                .col-xs-7
+                    span(style="float:left") {{ request.payee.fbUser.first_name }} {{ request.payee.fbUser.last_name }}
+                    span(style="float:right")
+                        span(ng-show="request.tnx") {{ request.tnx }} tnx
+                        span(ng-show="request.sat") {{ request.sat / 100000000 }} btp
+                    br
+                    span.small(style="word-wrap:break-word") {{ request.message.slice(0,200) }}
+                .col-xs-1(style="height:50px"): img(src="/img/checkmark.png",style="cursor:pointer",ng-click="accept(request.id)")
+                .col-xs-1(style="height:50px"): img(src="/img/uncheckmark.png",style="cursor:pointer",ng-click="reject(request.id)")
+            .row(ng-show="request.message")
+
+        div &nbsp;
+        .row
+            b History ({{ history.length }})
+        div(ng-repeat="hitem in history",style="margin: 5px 0px")
+            .row(ng-show="hitem.payer.id == user.id")
+                .col-xs-2: img(style="height:100px",ng-src="/pic?username={{ hitem.payee.username }}&size=100")
+                .col-xs-7
+                    span(style="float:left") {{ hitem.payee.fbUser.first_name }} {{ hitem.payee.fbUser.last_name }}
+                    span(style="float:right")
+                        span(ng-show="hitem.tnx") -{{ hitem.tnx }} tnx
+                        span(ng-show="hitem.sat") -{{ hitem.sat / 100000000 }} btp
+                    br
+                    span.small(style="word-wrap:break-word") {{ hitem.message.slice(0,200) }}
+            .row(ng-hide="hitem.payer.id == user.id")
+                .col-xs-2: img(style="height:100px",ng-src="/pic?username={{ hitem.payer.username }}&size=100")
+                .col-xs-7
+                    span(style="float:left") {{ hitem.payer.fbUser.first_name }} {{ hitem.payer.fbUser.last_name }}
+                    span(style="float:right")
+                        span(ng-show="hitem.tnx") +{{ hitem.tnx }} tnx
+                        span(ng-show="hitem.sat") +{{ hitem.sat / 100000000 }} btp
+                    br
+                    span.small(style="word-wrap:break-word") {{ hitem.message.slice(0,200) }}
+    
+        include modal
+    
+        include modal

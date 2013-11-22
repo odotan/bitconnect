@@ -1,9 +1,9 @@
-function NewAccountCtrl($scope, $rootScope, $http, $location, me) {
+function NewAccountController($scope, $rootScope, $http, $location, me) {
 
     window.wscope = $scope;
 
     $scope.checkname = function() {
-        $http.post('/checkname',{ name:$scope.firstname+'.'+$scope.lastname })
+        $http.post('/checkname',{ name:$scope.firstname+'.'+$scope.lastname+'.bitconnect.me' })
             .success(function(r) {
                 if (r == '"available"') $scope.available = true;
                 else $scope.available = false;
@@ -12,10 +12,9 @@ function NewAccountCtrl($scope, $rootScope, $http, $location, me) {
     }
 
     $scope.register = function() {
-        $http.post('/register',{ name:$scope.firstname+'.'+$scope.lastname })
+        $http.post('/register',{ name:$scope.firstname+'.'+$scope.lastname+'.bitconnect.me' })
             .success(function(u) {
-                $rootScope.user = u;
-                window.location.href = 'http://' + u.username + '.bitconnect.me/invitefriends';
+                window.location.href = 'http://' + u.username + '/app/invitefriends';
              })
             .error(errhandle);
     }

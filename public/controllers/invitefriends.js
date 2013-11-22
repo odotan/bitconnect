@@ -1,8 +1,6 @@
-function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
+window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', function($scope, $rootScope, $http, $location, me, requests, bitcoin) {
 
     window.wscope = $scope;
-
-    $scope.message = {};
 
     // Control the visible friend list
     $scope.visibleFriendsLimit = 30;
@@ -21,8 +19,6 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
 
     $scope.updateVisibleFriends = function() {
         var filter = function(f) {
-            if ($rootScope.user.friends.indexOf(f.id) >= 0)
-                return false;
             if (!$scope.searchstring)
                 return true;
             var friendString = (f.first_name + ' ' + f.last_name).toLowerCase(),
@@ -31,16 +27,28 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
         }
         if ($rootScope.user && $rootScope.user.friends && $scope.FBfriends) {
             $scope.filteredFriends = $scope.FBfriends.filter(filter);
-            $scope.visibleFriends = $scope.filteredFriends.slice(0,$scope.visibleFriendsLimit);
+            var nvf = $scope.filteredFriends.slice(0,$scope.visibleFriendsLimit),
+                nvflist = nvf.map(function(x) { return x.id }),
+                ovflist = ($scope.visibleFriends || []).map(function(x) { return x.id })
+            if (JSON.stringify(nvflist) != JSON.stringify(ovflist)) {
+                $scope.visibleFriends = nvf
+                $scope.visibleFriends.map(function(f) {
+                    if (f.isUser) $scope.unaddableFriends[f.id] = true
+                    else if ($scope.unaddableFriends[f.id]) delete $scope.unaddableFriends[f.id]
+                })
+            }
         }
     };
 
+    $scope.unaddableFriends = {}
+
     $scope.$watch('FBfriends',$scope.updateVisibleFriends);
-    $scope.$watch('searchstring',$scope.updateShowFriends);
-    $scope.$watch('visibleFriendsLimit',$scope.updateShowFriends);
+    $scope.$watch('searchstring',$scope.updateVisibleFriends);
+    $scope.$watch('visibleFriendsLimit',$scope.updateVisibleFriends);
 
     setInterval(function() {
-        if (!$scope.FBfriends) return;
+        if ($rootScope.path() != 'invitefriends') return;
+        if (!$scope.FBfriends || !$scope.filteredFriends) return;
         if (window.pageYOffset > document.height - 1000 && $scope.visibleFriendsLimit < $scope.filteredFriends.length) {
             $scope.visibleFriendsLimit += 40;
             if (!$scope.$$phase) $scope.$apply();
@@ -52,7 +60,7 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
         $http.post('/kill')
             .success(function(r) {
                 $rootScope.user = r 
-                window.location.href = '/newaccount';
+                $location.path('/app/newaccount');
              })
             .error(errhandle);
     }
@@ -62,6 +70,7 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
     $scope.numselected = 0
 
     $scope.selectFriend = function(id) {
+        if ($scope.unaddableFriends[id]) return
         if (!$scope.selected[id]) {
             $scope.selected[id] = true;
             $scope.numselected += 1;
@@ -74,6 +83,7 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
     }
     $scope.selectAll = function() {
         $scope.filteredFriends.map(function(f) {
+            if ($scope.unaddableFriends[f.id]) return
             $scope.selected[f.id] = true;
         });
         $scope.numselected = $scope.filteredFriends.length;
@@ -98,10 +108,10 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
                 reqid: req.request
             })
             .success(function(r) {
-                $scope.message = {   
+                $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
                     actiontext: 'cool thanx',
-                    action: function(){ window.location.href = '/giveget' },
+                    action: function(){ goto('give') },
                     canceltext:  'i wanna invite more friends'
                 }
             });
@@ -110,5 +120,4 @@ function InviteFriendsCtrl($scope, $rootScope, $http, $location, me, invoices) {
 
     // Done
     $scope.done = function() { window.location.href = '/giveget' }
-}
-
+}])

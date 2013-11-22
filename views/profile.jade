@@ -2,5 +2,5 @@ include header
 body(ng-app="thanxbits")
     .surround(ng-controller="ProfileCtrl")
         center(style="width:100%")
-            img(style="width:300px; height:300px",ng-src="{{ picurl }}")
+            img(style="width:320px; height:320px",ng-src="/pic?size=320&username={{ username }}")
             a.btn(href="/sendto") bitconnect with facebook

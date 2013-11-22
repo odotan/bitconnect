@@ -1,5 +1,9 @@
-include header
-body(ng-app="thanxbits")
+head
+    link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
+    link(rel="stylesheet",type="text/css",href="main.css")
+    link(rel="stylesheet",type="text/css",href="bootstrap.min.css")
+    title https://bitconnect.me - welcome
+body
     .surround
         center(style="width:100%")
             div thanx for coming by
@@ -7,4 +11,4 @@ body(ng-app="thanxbits")
             div to connect with your friends
             div please click the big button below
             div &nbsp;
-            a.btn(href="/app") bitconnect with facebook
+            a.button.btn(href="/login") bitconnect with facebook

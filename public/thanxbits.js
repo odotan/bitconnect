@@ -3,7 +3,7 @@ function ThanxCtrl($scope, $http, $location) {
 
     window.wscope = $scope;
 
-    $scope.message = {};
+    $rootScope.message = {};
 
     $scope.checkname = function() {
         $http.post('/checkname',{ name:$scope.firstname+'.'+$scope.lastname })
@@ -113,11 +113,11 @@ function ThanxCtrl($scope, $http, $location) {
                 reqid: req.request
             })
             .success(function(r) {
-                $scope.message = {   
+                $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
                     canceltext: 'cool thanx',
                     actiontext:  'i wanna invite more friends',
-                    action: function(){ $scope.message = null }
+                    action: function(){ $rootScope.message = null }
                 }
             });
         });

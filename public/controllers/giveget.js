@@ -1,4 +1,4 @@
-function GiveGetCtrl($scope, $rootScope, $http, $location, me, invoices) {
+function GiveGetCtrl($scope, $rootScope, $http, $location, me, requests) {
 
     window.wscope = $scope;
 
@@ -23,16 +23,16 @@ function GiveGetCtrl($scope, $rootScope, $http, $location, me, invoices) {
             sat: Math.ceil($scope.givebtc * 100000000),
             tnx: $scope.givetnx,
             to: $scope.to,
-            message: $scope.message
+            message: $rootScope.message
         })
         .success(function(r) {
-            $scope.message = {
+            $rootScope.message = {
                 body: 'you have given '+$scope.to+' '+($scope.tnx || 0)+' thanxbits and '+($scope.btc || 0)+' btp successfully.',
                 canceltext: 'cool thanx'
             }
         })
         .error(function(e) {
-            $scope.message = {
+            $rootScope.message = {
                 body: e,
                 canceltext: 'cool thanx'
             }
@@ -48,13 +48,13 @@ function GiveGetCtrl($scope, $rootScope, $http, $location, me, invoices) {
             message: $scope.getmessage
         })
         .success(function(r) {
-            $scope.message = {
+            $rootScope.message = {
                 body: 'request sent!',
                 canceltext: 'cool thanx'
             }
         })
         .error(function(e) {
-            $scope.message = {
+            $rootScope.message = {
                 body: e,
                 canceltext: 'cool thanx'
             }
@@ -62,12 +62,12 @@ function GiveGetCtrl($scope, $rootScope, $http, $location, me, invoices) {
     }
 
     $scope.accept = function(invoice_id) {
-        $scope.message = {
+        $rootScope.message = {
             body: 'are you sure you want to accept?',
             action: function() {
                 $http.post('/accept',{ invoice_id: invoice_id })
-                    .success(function() { $scope.message = { body: 'accepted', canceltext: 'cool thanx' } })
-                    .error(function(e) { $scope.message = { body: e, canceltext: 'cool thanx' } })
+                    .success(function() { $rootScope.message = { body: 'accepted', canceltext: 'cool thanx' } })
+                    .error(function(e) { $rootScope.message = { body: e, canceltext: 'cool thanx' } })
                 },
             actiontext: 'yep',
             canceltext: 'nope'
@@ -75,12 +75,12 @@ function GiveGetCtrl($scope, $rootScope, $http, $location, me, invoices) {
     }
 
     $scope.reject = function(invoice_id) {
-        $scope.message = {
+        $rootScope.message = {
             body: 'are you sure you want to reject?',
             action: function() {
                 $http.post('/reject',{ invoice_id: invoice_id })
-                    .success(function() { $scope.message = { body: 'rejected', canceltext: 'cool thanx' } })
-                    .error(function(e) { $scope.message = { body: e, canceltext: 'cool thanx' } })
+                    .success(function() { $rootScope.message = { body: 'rejected', canceltext: 'cool thanx' } })
+                    .error(function(e) { $rootScope.message = { body: e, canceltext: 'cool thanx' } })
                 },
             actiontext: 'yep',
             canceltext: 'nope'

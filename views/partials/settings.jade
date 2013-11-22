@@ -1,0 +1,25 @@
+.surround(ng-controller="SettingsController")
+    include navbar
+    form
+        .form-group
+            label Phone number:
+            input.form-control(type="text",ng-model="phonenum")
+            button.btn(ng-click="sendtext()") Send SMS
+        .form-group
+            label Enter six-digit code:
+            input.form-control(type="text",ng-model="smscode")
+        .row
+            button.btn(ng-click="vefify()") Verify
+        .form-group(ng-show="user.address")
+            label My address:
+            span {{ user.address }}
+        .form-group(ng-hide="user.address")
+            label Generate address
+            input.form-control(type="password",ng-model="cpassword",placeholder="Password")
+            input.form-control(type="password",ng-model="cconfirm",placeholder="Confirm")
+            button.btn(ng-hide="user.address",ng-click="checkLogin(cpassword,cconfirm)") Generate
+        .form-group(ng-show="user.address")
+            label Convert to thanxbits
+            input.form-control(type="txt",ng-model="amount",placeholder="Amount")
+            button.btn(ng-click="buyTnx(amount * 100000000)") Convert
+    include modal

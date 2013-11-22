@@ -15,9 +15,9 @@ window.app.service('me',function($rootScope, $http) {
                 else {
                     if (window.location.href.indexOf('newaccount') >= 0) {
                         if ($rootScope.user.firstUse)
-                            window.location.href = 'http://' + u.username + '.bitconnect.me/invitefriends';
+                            window.location.href = 'http://' + u.username + '.bitconnect.me/app/invitefriends';
                         else
-                            window.location.href = 'http://' + u.username + '.bitconnect.me/giveget';
+                            window.location.href = 'http://' + u.username + '.bitconnect.me/app/give';
                     }
                 }
              })

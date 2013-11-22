@@ -1,50 +1,11 @@
 include header
 body(ng-app="thanxbits")
-    .surround(ng-controller="GiveGetCtrl")
-        center(style="width:100%")
-            div
-                img(ng-src="{{picurl}}")
-            div
-                span.bubble.inline(style="width:40%") {{ user.tnx }} x
-                span.bubble.inline(style="width:40%") {{ user.btc }} b
-                img(src="gear.png")
-            div &nbsp;
-            div
-                span.bubble.inline(style="width:45%",ng-class="{ give: 'lightblue', get: 'none' }[mode]",ng-click="mode = 'give'") give
-                span.bubble.inline(style="width:45%",ng-class="{ give: 'none', get: 'lightblue' }[mode]",ng-click="mode = 'get'") get
+    .surround(ng-controller="ProfileCtrl")
+        include navbar
+        img(style="width:320px; height:320px",ng-src="/pic?size=320&username={{ username }}")
         div &nbsp;
-        center(style="width:100%",ng-show="mode == 'give'")
-            div
-                div(style="width:50%; float:left")
-                    input(type="text",style="width:65%",ng-model="givetnx")
-                    span x
-                div(style="width:50%; float:right")
-                    span b
-                    input(type="text",style="width:65%",ng-model="givebtc")
-            div
-                span description
-                input(type="text",style="width:60%",ng-model="givemessage")
-            div
-                a.btn.green(ng-click="give()") give
-        center(style="width:100%",ng-show="mode == 'get'")
-            div
-                div(style="width:50%; float:left")
-                    input(type="text",style="width:65%",ng-model="gettnx")
-                    span x
-                div(style="width:50%; float:right")
-                    span b
-                    input(type="text",style="width:65%",ng-model="getbtc")
-            div
-                span description
-                input(type="text",style="width:60%",ng-model="getmessage")
-            div
-                a.btn.green(ng-click="get()") get
-
-        .modal.bubble(ng-show="message.body")
-            .modal-body
-                span(style="float:right",ng-click="message = null") x
-                div(style="text-align:justify",ng-bind-html-unsafe="message.body")
-            .modal-footer
-                center(style="width:90%; margin-left: 5%; margin-right:5%")
-                button.btn.fullwidth(ng-show="message.actiontext",ng-click="message.action()") {{ message.actiontext }}
-                button.btn.fullwidth(ng-click="message = null") {{ message.canceltext || "Done" }}nect with facebook
+        .row
+            center.col-xs-6
+                button.btn(ng-click="gotoGive()") Give
+            center.col-xs-6
+                button.btn(ng-click="gotoGet()") Get
