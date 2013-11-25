@@ -97,8 +97,8 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     $scope.invite = function() {
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
-             title: 'Invite to Bitconnect', 
-             message: 'Hey! I just invited you to Bitconnect. Do you want to join and get 54321 free satoshis? :)',
+             title: 'come bitconnect with me :)', 
+             message: 'it’s an amazing cool new way to connect with others. you’ll get 5432 thanx :)',
         }, function(req) { 
             if (!req) return;
             console.log(req);

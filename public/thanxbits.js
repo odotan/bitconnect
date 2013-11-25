@@ -103,8 +103,8 @@ function ThanxCtrl($scope, $http, $location) {
     $scope.invite = function() {
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
-             title: 'Invite to Bitconnect', 
-             message: 'Hey! I just invited you to Bitconnect. Do you want to join and get 54321 free satoshis? :)',
+             title: 'come bitconnect with me :), 
+             message: 'it’s an amazing cool new way to connect with others. you’ll get a lot of thanx :)
         }, function(req) { 
             console.log(req);
             $http.post('/mkinvite',{
@@ -114,9 +114,9 @@ function ThanxCtrl($scope, $http, $location) {
             })
             .success(function(r) {
                 $rootScope.message = {   
-                    body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
+                    body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanx. don\'t forget to remind your friends to sign up. you will both get a lot more thanx when they do :)',
                     canceltext: 'cool thanx',
-                    actiontext:  'i wanna invite more friends',
+                    actiontext:  ‘i’d like to invite more friends,
                     action: function(){ $rootScope.message = null }
                 }
             });

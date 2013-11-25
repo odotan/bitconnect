@@ -14,7 +14,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         $rootScope.thanxSend($scope.give.to,parseInt($scope.give.tnx),null,$scope.give.message)
     }
     $scope.givebtc = function() {
-        if (!$scope.give.bts) return;
+        if (!parseInt($scope.give.bts)) return;
         $rootScope.bitcoinSend($scope.give.to,parseInt($scope.give.bts),10000,$scope.give.message)
     }
     $scope.usernames = []

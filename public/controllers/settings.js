@@ -15,4 +15,17 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
         else $rootScope.bitcoinLogin(pw,callback)
     }
 
+    $scope.buy = function() {
+        if ($scope.amount < 10000)
+            return $rootScope.errHandle("minimum buy 10000")
+        if ($scope.amount > $scope.balance - 10000)
+            return $rootScope.errHandle("not enough bts")
+
+        var msg = "are you sure you want to buy "+$scope.amount+" satoshis"
+
+        $rootScope.confirmDialog(msg,function() {
+            $rootScope.buyTnx($scope.amount)
+        })
+    }
+
 }])

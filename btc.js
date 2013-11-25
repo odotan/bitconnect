@@ -3,6 +3,7 @@ var db              = require('./db'),
     config          = require('./config'),
     async           = require('async'),
     _               = require('underscore'),
+    https           = require('https'),
     Bitcoin         = require('bitcoinjs-lib');
 
 var eh = util.eh,
@@ -133,12 +134,22 @@ m.submitAddress = FBify(function(profile, req, res) {
     }));
 })
 
+var price = 0,
+    lastChecked = 0;
+
 m.price = function(req,res) {
+    var now = new Date().getTime() / 1000;
+    if (now < lastChecked + 60000)
+        return res.json(price)
     https.get('https://blockchain.info/ticker',function(r) {
         var d = ''
         r.on('data',function(chunk) { d += chunk })
         r.on('end',function() {
-            try { res.json(parseFloat(JSON.parse(d)['USD']['15m'])) }
+            try {
+                price = parseFloat(JSON.parse(d)['USD']['15m']) 
+                lastChecked = new Date().getTime() / 1000;
+                return res.json(price);
+            }
             catch(e) { res.json(e,400) }
         })
         r.on('error',function(e) { res.json(e,400) })

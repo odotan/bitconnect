@@ -4,14 +4,14 @@
         .form-group(style="position:relative")
             label to:
             input.form-control(type="text",ng-model="give.to",typeahead="u for u in usernames | filter:$viewValue | limitTo:8")
-            img(style="position:absolute; right:10px; top: 10px; cursor: pointer",src="give.png",ng-click="btcmode = true",ng-hide="btcmode")
-            img(style="position:absolute; right:10px; top: 10px; cursor: pointer",src="get.png",ng-click="btcmode = false",ng-show="btcmode")
+            img(style="position:absolute; right:10px; top: 10px; cursor: pointer",style="width:24px",src="/img/refresh.png",ng-click="btcmode = true",ng-hide="btcmode")
+            img(style="position:absolute; right:10px; top: 10px; cursor: pointer",style="width:24px",src="/img/refresh.png",ng-click="btcmode = false",ng-show="btcmode")
         .form-group(ng-hide="btcmode")
-            label amount (tnx):
+            label amount (thanx):
             input.form-control(type="text",ng-model="give.tnx")
         .form-group(ng-show="btcmode")
-            label amount (btc):
-            input.form-control(type="text",ng-model="give.btc")
+            label amount (satoshi):
+            input.form-control(type="text",ng-model="give.bts")
         .form-group
             label description:
             textarea.form-control(type="text",rows="3",ng-model="give.message")

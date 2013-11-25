@@ -1,29 +1,44 @@
-html(ng-app="thanxbits")
-    head
-        script(src="/angular.min.js")
-        script(src="/ui-bootstrap-custom-0.6.0.min.js")
-        script(src="/ui-bootstrap-custom-tpls-0.6.0.min.js")
-        script(src="/underscore-min.js")
-        script(src="/bitcoinjs-min.js")
-        script(src="/bitcoinjs-wrapper.js")
-        script(src="/facebook.js")
-        script(src="/app.js")
-        script(src="/directives.js")
-        script(src="/services/me.js")
-        script(src="/services/requests.js")
-        script(src="/services/bitcoin.js")
-        script(src="/controllers/get.js")
-        script(src="/controllers/give.js")
-        script(src="/controllers/history.js")
-        script(src="/controllers/invitefriends.js")
-        script(src="/controllers/request.js")
-        script(src="/controllers/newaccount.js")
-        script(src="/controllers/profile.js")
-        script(src="/controllers/settings.js")
-        link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
-        link(rel="stylesheet",type="text/css",href="/main.css")
-        link(rel="stylesheet",type="text/css",href="/bootstrap.min.css")
-        title https://bitconnect.me - welcome
-    body
-        div(ng-view)
+doctype
+//if lt IE 7
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+//if IE 7
+  <html class="no-js lt-ie9 lt-ie8">
+//if IE 8
+  <html class="no-js lt-ie9">
+//[if gt IE 8]><!
+html(ng-app="thanxbits").no-js
+  //<![endif]
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title https://bitconnect.me
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    script(src="/angular.min.js")
+    script(src="/ui-bootstrap-custom-0.6.0.min.js")
+    script(src="/ui-bootstrap-custom-tpls-0.6.0.min.js")
+    script(src="/underscore-min.js")
+    script(src="/bitcoinjs-min.js")
+    script(src="/bitcoinjs-wrapper.js")
+    script(src="/facebook.js")
+    script(src="/app.js")
+    script(src="/directives.js")
+    script(src="/services/me.js")
+    script(src="/services/requests.js")
+    script(src="/services/bitcoin.js")
+    script(src="/controllers/get.js")
+    script(src="/controllers/give.js")
+    script(src="/controllers/history.js")
+    script(src="/controllers/invitefriends.js")
+    script(src="/controllers/request.js")
+    script(src="/controllers/newaccount.js")
+    script(src="/controllers/profile.js")
+    script(src="/controllers/settings.js")
+    link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
+    link(rel="stylesheet",type="text/css",href="/main.css")
+    link(rel="stylesheet",type="text/css",href="/bootstrap.min.css")
+    title 
+body
+    div(ng-view, style="max-width:640px")
     

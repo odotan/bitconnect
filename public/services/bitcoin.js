@@ -1,19 +1,31 @@
 window.app.service('bitcoin',function($rootScope, $http) {
 
     $rootScope.bitcoinLogin = function(pw,callback,errback) {
+        console.log('bl',pw,callback,errback);
         var key = new Bitcoin.Key(Bitcoin.Crypto.SHA256($rootScope.user.seed + pw)),
             address = key.getBitcoinAddress().toString();
-        console.log(key.priv.toRadix(16),address);
-        $http.post('/submitaddress',{ address: address })
-             .success(function() {
-                $rootScope.key = key;
-                $rootScope.user.address = address;
-                if (callback) callback();
-             })
-             .error(errback || $rootScope.errHandle);
+
+        var success = function() {
+            $rootScope.key = key;
+            $rootScope.user.address = address;
+            if (callback) callback();
+        }
+        var fail = errback || $rootScope.errHandle;
+
+        if ($rootScope.user && $rootScope.user.address) {
+            if (address == $rootScope.user.address) success()
+            else fail();
+        }
+        else if ($rootScope.user) {
+            $http.post('/submitaddress',{ address: address })
+                 .success(success)
+                 .error(fail)
+        }
+        else $rootScope.errHandle("not logged in");
     }
 
     $rootScope.checkBitcoinLoggedIn = function(callback) {
+        console.log('checking if logged in',$rootScope.user,$rootScope.key);
         if (!$rootScope.user)
             return
         if ($rootScope.key) 
@@ -46,6 +58,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
     }
 
     $rootScope.bitcoinSend = function(to, satoshis, fee, message, callback) {
+        console.log('bitcoinSend', to, satoshis, fee, message, callback);
         if (!fee) fee = 10000;
         satoshis = Math.ceil(satoshis);
         if (!$rootScope.key) {
@@ -123,7 +136,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
     }
 
     $rootScope.rawSend = function(address, satoshis, fee, url, aux, callback) {
-        console.log(address, satoshis, fee);
+        console.log('rawSend',address, satoshis, fee);
         $rootScope.showMessage("generating transaction")
         var tx = gentx(address, satoshis, fee);
         console.log(Bitcoin.Script.createOutputScript(tx.outs[0].address));
@@ -176,7 +189,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
                 $rootScope.gettxouts(function() { $scope.buyTnx(amount) })
             }
             if ($rootScope.balance < amount + 10000) {
-                return $scope.errHandle('not enough funds')
+                return $rootScope.errHandle('not enough funds')
             }
             $http.get('/thanxaddress')
                 .success(function(r) {
@@ -205,7 +218,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
             })
             return
         }
-        var shortfall = Math.max(5430,tnx - $rootScope.user.tnx)
+        var shortfall = Math.max(10000,tnx - $rootScope.user.tnx)
         if ($rootScope.balance >= shortfall + 10000) {
             var body = 'you don\'t have enough tnx to give this many, but you certainly can convert some btc. do it now?'
             $rootScope.confirmDialog(body,function() {
@@ -218,4 +231,13 @@ window.app.service('bitcoin',function($rootScope, $http) {
             $rootScope.errHandle('you don\' have enough tnx or btc to give')
         }
     }
+
+    $rootScope.checkBitcoinPrice = function() {
+        $http.get('/price')
+            .success(function(p) {
+                $rootScope.price = parseFloat(p)
+            })
+    }
+    setInterval($rootScope.checkBitcoinPrice,6667);
+    $rootScope.checkBitcoinPrice();
 })

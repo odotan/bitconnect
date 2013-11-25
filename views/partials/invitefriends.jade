@@ -3,8 +3,9 @@
     center(style="width:100%")
         div invite your friends to bitconnect with you!
         div &nbsp;
-        div(style="text-align:left") - for every friend you invite, both you and your friend will get 5432 thanxbits... just to say thanx :) every tenth friend you invite you will count double!
-        div(style="text-align:left") - when a friend that you invited signs up, both you and your friend will get an additional 54321 thanxbits. every tenth friend that signs up will also count double!
+        div for every friend you invite, both you and your friend will get 54 thanx... just to say thanx :) every tenth friend you invite you will count double!
+        div &nbsp;
+        div when a friend that you invited signs up, both you and your friend will get up to an additional 5432 thanx. every tenth friend that signs up will also count double!
         div &nbsp;
         div that's a lot of thanx! :)
         div so make sure your friends sign up!
@@ -14,7 +15,7 @@
         div(style="width:100%; height: 40px")
             div(style="width:50%; float:left")
                 div.bubble.inline.small selected: {{ numselected }}
-                div.bubble.inline.small = {{ numselected * 5432 }} x
+                div.bubble.inline.small = {{ numselected * 54 }} x
             div(style="width:50%; float:right")
                 img.inline(ng-src="/img/lens.png",style="cursor: pointer",ng-click="showsearchbar = !showsearchbar")
                 a.btn.inline(style="width:20%",ng-hide="numselected == filteredFriends.length",ng-click="selectAll()") all
@@ -25,12 +26,10 @@
         div &nbsp;
             
         div(style="position:relative")
-            div.bubble(ng-repeat="(i,friend) in visibleFriends",style="position:absolute; left:0px; top:{{ i * 160}}px; width: 700px; height: 150px; overflow-h: hidden; cursor: pointer",onclick="wscope.selectFriend({{friend.id}})")
-                img(ng-src="{{friend.picture.data.url}}",style="position:absolute; left: 0; top: 0; height:148; width:150px")
-                div(style="position:absolute; left: 160px; top: 17px")
-                    span {{ friend.first_name }}
-                    br
-                    span {{ friend.last_name }}
-                img(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend",style="position:absolute; left: 660px; bottom: 7px; height:30px")
+            div.bubble(ng-repeat="(i,friend) in visibleFriends",style="position:absolute; left:0px; top:{{ i * 50}}px; width: 100%; height: 50px; overflow-h: hidden; cursor: pointer",onclick="wscope.selectFriend({{friend.id}})")
+                img(ng-src="{{friend.picture.data.url}}",style="position:absolute; left: 0; top: 0; height:50; width:50px")
+                div(style="position:absolute; left: 60px; top: 17px")
+                    span {{friend.first_name}} {{friend.last_name}}
+                img(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend",style="position:absolute; left: 300px; bottom: 7px; height:10px")
                 div(ng-show="friend.isUser && !friend.isFriend",style="position:absolute; top:0; left:0; right:0; bottom:0; background-color: #888; opacity:0.5")
     include modal
