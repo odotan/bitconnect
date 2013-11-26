@@ -146,8 +146,8 @@ var options = {
     cert: fs.readFileSync('cert.pem')
 };
 
-http.createServer(app).listen(80);
-https.createServer(options,app).listen(443);
+http.createServer(app).listen(8000);
+//https.createServer(options,app).listen(443);
 
 return app;
 

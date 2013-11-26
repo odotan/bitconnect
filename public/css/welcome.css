@@ -1,0 +1,36 @@
+/* line 1, ../sass/welcome.scss */
+#welcome_page {
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  max-width: 320px;
+}
+/* line 6, ../sass/welcome.scss */
+#welcome_page .logo {
+  margin: 0px 10px;
+  margin-bottom: 20px;
+}
+/* line 11, ../sass/welcome.scss */
+#welcome_page .text p {
+  font-size: 16px;
+  line-height: 15px;
+}
+/* line 16, ../sass/welcome.scss */
+#welcome_page .fbcon {
+  font-size: 16px;
+  border: 2px solid #3399cc;
+  border-radius: 100px;
+  padding: 20px;
+  line-height: 70px;
+  margin-top: 15px;
+  color: #333;
+}
+/* line 24, ../sass/welcome.scss */
+#welcome_page .fbcon, #welcome_page .fbcon:hover {
+  text-decoration: none;
+}
+/* line 27, ../sass/welcome.scss */
+#welcome_page .fbcon:hover {
+  background-color: #3399cc;
+  color: white;
+}

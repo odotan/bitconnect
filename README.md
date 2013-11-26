@@ -27,6 +27,11 @@ start mongodb
    chown `id -u` /data/db
    mongod
    ``` 
+4. Install and run compass
+ ``` 
+  gem install compass
+  compass watch
+ ```
 4. Go to the directory, and type ```npm install```
 5. To run the server, type ```node server.js```
  * verify server.js https and http ports are available

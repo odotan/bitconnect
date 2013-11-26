@@ -1,10 +1,42 @@
 head
-    link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
-    link(rel="stylesheet",type="text/css",href="main.css")
-    link(rel="stylesheet",type="text/css",href="bootstrap.min.css")
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='description', content='bitcoin social wallet')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0; user-scalable=0;')
+    meta(name="apple-mobile-web-app-capable",content="yes")
+
     title https://bitconnect.me
+
+    link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
+    link(rel="stylesheet",type="text/css",href="css/main.css")
+    link(rel="stylesheet",type="text/css",href="css/welcome.css")
+    link(rel="stylesheet",type="text/css",href="css/bootstrap.min.css")
 body
-    .surround
+    center#welcome_page
+        img.logo(src="/img/bitconnectsbwx.svg")
+        center.text
+            p thanx
+            p for coming by
+            p bitconnect is a new way
+            p to connect with your friends
+            p it’s a place where thanx means a lot
+            p please click the button below
+            p you will receive 543 thanx
+        a.fbcon(href="/login") bitconnect me with facebook
+    script
+        // When ready...
+        window.addEventListener("load",function() {
+            // Set a timeout...
+            setTimeout(function(){
+                // Hide the address bar!
+                window.scrollTo(0, 1);
+            }, 0);
+        });
+
+
+
+
+    .surround(style="display:none")
         center(style="width:100%")
             div &nbsp;
             img(style="position:center",src="/img/bitconnectsbwx.svg")
