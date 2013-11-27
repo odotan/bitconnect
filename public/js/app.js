@@ -17,7 +17,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/partials/get',
         controller: 'GetController'
     })
-    .when('/app/requests', {
+    .when('/app/thanx', {
         templateUrl: '/partials/requests',
         controller: 'RequestController'
     })
