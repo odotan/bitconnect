@@ -142,8 +142,9 @@ app.post('/checkname', accounts.checkName)
 app.get('/pic', accounts.getPic)
 
 var options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('/root/ssl/bitconnectwildkey.pem'),
+    cert: fs.readFileSync('/root/ssl/bitconnectwildcert.pem'),
+    ca: fs.readFileSync('/root/ssl/bitconnectwildca.pem')
 };
 
 http.createServer(app).listen(8000);
