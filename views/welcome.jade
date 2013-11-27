@@ -1,9 +1,5 @@
 head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='description', content='bitcoin social wallet')
-    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0; user-scalable=0;')
-    meta(name="apple-mobile-web-app-capable",content="yes")
+    include partials/meta
 
     title https://bitconnect.me
 
@@ -32,20 +28,3 @@ body
                 window.scrollTo(0, 1);
             }, 0);
         });
-
-
-
-
-    .surround(style="display:none")
-        center(style="width:100%")
-            div &nbsp;
-            img(style="position:center",src="/img/bitconnectsbwx.svg")
-            div &nbsp;
-            div(style="font-size:33px;") thanx for coming by
-            div(style="font-size:33px;") bitconnect is a new way
-            div(style="font-size:33px;") to connect with your friends
-            dive(style="font-size:33px;") it’s a place where thanx means a lot
-            div(style="font-size:33px;") please click the button below
-            div(style="font-size:33px;") you will receive 543 thanx
-            div &nbsp;
-            a.button.btn.fbcon(href="/login") bitconnect me with facebook

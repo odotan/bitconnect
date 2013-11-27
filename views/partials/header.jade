@@ -1,30 +1,42 @@
-head
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title https://bitconnect.me
-    meta(name='description', content='')
-    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0; user-scalable=0;')
+doctype
+//if lt IE 7
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+//if IE 7
+  <html class="no-js lt-ie9 lt-ie8">
+//if IE 8
+  <html class="no-js lt-ie9">
+//[if gt IE 8]><!
+html(ng-app="thanxbits").no-js
+    //<![endif]
+    head
+        include meta
 
-    link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
-    link(rel="stylesheet",type="text/css",href="css/main.css")
-    link(rel="stylesheet",type="text/css",href="css/bootstrap.min.css")
+        link(rel="stylesheet",media="screen",href="http://openfontlibrary.org/face/comfortaa",type="text/css")
+        link(rel="stylesheet",type="text/css",href="css/app.css")
+        link(rel="stylesheet",type="text/css",href="css/bootstrap.min.css")
 
-    script(src="angular.min.js")
-    script(src="ui-bootstrap-custom-0.6.0.min.js")
-    script(src="ui-bootstrap-custom-tpls-0.6.0.min.js")
-    script(src="underscore-min.js")
-    script(src="bitcoinjs-min.js")
-    script(src="bitcoinjs-wrapper.js")
-    script(src="app.js")
-    script(src="services/me.js")
-    script(src="services/requests.js")
-    script(src="services/bitcoin.js")
-    script(src="controllers/get.js")
-    script(src="controllers/give.js")
-    script(src="controllers/newaccount.js")
-    script(src="controllers/invitefriends.js")
-    script(src="controllers/request.js")
-    script(src="controllers/newaccount.js")
-    script(src="controllers/profile.js")
-    script(src="controllers/settings.js")
-    script(src="facebook.js")
+        script(src="js/lib/underscore-min.js")
+        script(src="js/lib/angular.min.js")
+        script(src="js/lib/ui-bootstrap-custom-0.6.0.min.js")
+        script(src="js/lib/bitcoinjs-min.js")
+
+        script(src="js/bitcoinjs-wrapper.js")
+        script(src="js/facebook.js")
+
+        script(src="js/app.js")
+
+        script(src="js/services/me.js")
+        script(src="js/services/requests.js")
+        script(src="js/services/bitcoin.js")
+
+        script(src="js/controllers/get.js")
+        script(src="js/controllers/give.js")
+        script(src="js/controllers/newaccount.js")
+        script(src="js/controllers/invitefriends.js")
+        script(src="js/controllers/request.js")
+        script(src="js/controllers/newaccount.js")
+        script(src="js/controllers/profile.js")
+        script(src="js/controllers/settings.js")
+
+
+
