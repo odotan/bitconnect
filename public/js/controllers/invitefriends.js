@@ -111,7 +111,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                 $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
                     actiontext: 'cool thanx',
-                    action: function(){ goto('give') },
+                    action: function(){ $rootScope.goto('requests') },
                     canceltext:  'i wanna invite more friends'
                 }
             });

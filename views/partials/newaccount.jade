@@ -2,7 +2,7 @@ include header
 body
     .surround(ng-controller="NewAccountController")
         center(style="width:100%")
-            div hi {{ profile.first_name }}, nice to have you here :)
+            div hi {{ user.fbUser.first_name }}, nice to have you here :)
             div please accept or modify the usernames below
             div you have to select two parts - one before and one after the dot
             div this is to allow more people to have great names

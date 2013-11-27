@@ -147,8 +147,8 @@ var options = {
     ca: fs.readFileSync('/root/ssl/bitconnectwildca.pem')
 };
 
-http.createServer(app).listen(8000);
-//https.createServer(options,app).listen(443);
+http.createServer(app).listen(80);
+https.createServer(options,app).listen(443);
 
 return app;
 

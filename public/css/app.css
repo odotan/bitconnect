@@ -4,6 +4,35 @@
   margin: 0 auto;
 }
 
+/* line 6, ../sass/_common.scss */
+.mymodal {
+  position: fixed;
+  top: 10%;
+  z-index: 1050;
+  width: 300px;
+  margin: auto 10px;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+/* line 27, ../sass/_common.scss */
+.mymodal .fullwidth {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /* line 3, ../sass/_navbar.scss */
 .main .navbar-default {
   background-color: transparent;
@@ -69,6 +98,53 @@
   color: red;
 }
 
+/* line 1, ../sass/_friendsList.scss */
+.friendsList {
+  margin: auto 1px;
+  margin-top: 10px;
+}
+/* line 4, ../sass/_friendsList.scss */
+.friendsList .friend {
+  position: relative;
+  height: 50px;
+  cursor: pointer;
+  border: 4px solid #3399cc;
+  border-radius: 30px;
+  margin-bottom: -4px;
+}
+/* line 11, ../sass/_friendsList.scss */
+.friendsList .friend img.friendImg {
+  position: absolute;
+  left: -3px;
+  top: -4px;
+  width: 50px;
+  border-radius: 50%;
+  border: 4px solid #3399cc;
+}
+/* line 20, ../sass/_friendsList.scss */
+.friendsList .friend .body .name {
+  position: absolute;
+  left: 60px;
+  top: 13px;
+}
+/* line 25, ../sass/_friendsList.scss */
+.friendsList .friend .body .check4invite {
+  height: 10px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+/* line 32, ../sass/_friendsList.scss */
+.friendsList .friend .invited {
+  background-color: #3399cc;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 30px;
+}
+
 /* line 1, ../sass/main.scss */
 * {
   font-family: "Comfortaa";
@@ -105,98 +181,74 @@ xxxdiv.surround {
   text-align: center;
 }
 
-/* line 29, ../sass/main.scss */
-.mymodal {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  z-index: 1050;
-  width: 560px;
-  margin-left: 0px;
-  background-color: #fff;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  outline: 0;
-  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
-}
-
-/* line 51, ../sass/main.scss */
+/* line 30, ../sass/main.scss */
 .inline {
   display: inline-block;
 }
 
-/* line 54, ../sass/main.scss */
+/* line 33, ../sass/main.scss */
 .small {
   font-size: 75%;
 }
 
-/* line 58, ../sass/main.scss */
+/* line 37, ../sass/main.scss */
 .tiny {
   font-size: 70%;
 }
 
-/* line 61, ../sass/main.scss */
+/* line 40, ../sass/main.scss */
 .blue {
   background-color: #88f;
 }
 
-/* line 62, ../sass/main.scss */
+/* line 41, ../sass/main.scss */
 .green {
   background-color: #4f4;
 }
 
-/* line 63, ../sass/main.scss */
+/* line 42, ../sass/main.scss */
 .red {
   background-color: #f77;
 }
 
-/* line 64, ../sass/main.scss */
+/* line 43, ../sass/main.scss */
 .semilightblue {
   background-color: #aaf;
 }
 
-/* line 65, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
 .lightblue {
   background-color: #ddf;
 }
 
-/* line 66, ../sass/main.scss */
+/* line 45, ../sass/main.scss */
 .menuitem {
   padding: 5px;
   background-color: #ddf;
 }
 
-/* line 67, ../sass/main.scss */
+/* line 46, ../sass/main.scss */
 .menuitem:hover {
   background-color: #aaf;
 }
 
-/* line 68, ../sass/main.scss */
+/* line 47, ../sass/main.scss */
 .white {
   background-color: #fff;
 }
 
-/* line 69, ../sass/main.scss */
+/* line 48, ../sass/main.scss */
 .grey {
   background-color: #ddd;
 }
 
-/* line 70, ../sass/main.scss */
+/* line 49, ../sass/main.scss */
 .pill {
   border-radius: 20px;
   text-align: center;
 }
 
-/* line 74, ../sass/main.scss */
+/* line 53, ../sass/main.scss */
 .bigpill {
   border-radius: 5px;
   text-align: center;
@@ -204,7 +256,7 @@ xxxdiv.surround {
   max-width: 500px;
 }
 
-/* line 80, ../sass/main.scss */
+/* line 59, ../sass/main.scss */
 .monospace {
   font-family: monospace;
   word-wrap: break-word;
@@ -213,24 +265,24 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 87, ../sass/main.scss */
+/* line 66, ../sass/main.scss */
 .squish {
   line-height: 1.2em;
   font-size: small;
 }
 
-/* line 91, ../sass/main.scss */
+/* line 70, ../sass/main.scss */
 .largetext {
   font-size: 18px;
 }
 
-/* line 94, ../sass/main.scss */
+/* line 73, ../sass/main.scss */
 .verylargetext {
   font-size: 72px;
   height: 100px;
 }
 
-/* line 98, ../sass/main.scss */
+/* line 77, ../sass/main.scss */
 .signature {
   font-family: monospace;
   word-wrap: break-word;
@@ -240,40 +292,40 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 106, ../sass/main.scss */
+/* line 85, ../sass/main.scss */
 .cmdline {
   text-align: left;
 }
 
-/* line 109, ../sass/main.scss */
+/* line 88, ../sass/main.scss */
 .cmdline::before {
   content: "> ";
   color: #888;
 }
 
-/* line 113, ../sass/main.scss */
+/* line 92, ../sass/main.scss */
 .tabselect {
   padding: 10px;
 }
 
-/* line 116, ../sass/main.scss */
+/* line 95, ../sass/main.scss */
 .tabwindow {
   position: relative;
 }
 
-/* line 119, ../sass/main.scss */
+/* line 98, ../sass/main.scss */
 .tabwindow .tabheader {
   position: absolute;
   top: 0px;
   height: 40px;
 }
 
-/* line 124, ../sass/main.scss */
+/* line 103, ../sass/main.scss */
 .tabheader .tabselect {
   display: inline-block;
 }
 
-/* line 127, ../sass/main.scss */
+/* line 106, ../sass/main.scss */
 .tabwindow .tabbody {
   position: absolute;
   top: 50px;
@@ -282,30 +334,25 @@ xxxdiv.surround {
   width: 100%;
 }
 
-/* line 134, ../sass/main.scss */
+/* line 113, ../sass/main.scss */
 .raise4 {
   position: relative;
   top: -4px;
 }
 
-/* line 139, ../sass/main.scss */
+/* line 118, ../sass/main.scss */
 input[type='text'], input[type='password'] {
   height: 25px !important;
   word-wrap: break-word;
   margin-right: 5%;
 }
 
-/* line 144, ../sass/main.scss */
-.fullwidth {
-  width: 100%;
-}
-
-/* line 145, ../sass/main.scss */
+/* line 123, ../sass/main.scss */
 .fullheight {
   height: 100%;
 }
 
-/* line 146, ../sass/main.scss */
+/* line 124, ../sass/main.scss */
 table.tb {
   width: 100%;
   height: 100%;
@@ -314,44 +361,44 @@ table.tb {
   table-layout: fixed;
 }
 
-/* line 153, ../sass/main.scss */
+/* line 131, ../sass/main.scss */
 table.tb tr td {
   word-wrap: break-word;
 }
 
-/* line 156, ../sass/main.scss */
+/* line 134, ../sass/main.scss */
 td {
   position: relative;
 }
 
-/* line 159, ../sass/main.scss */
+/* line 137, ../sass/main.scss */
 .tab {
   position: absolute;
   height: 100%;
 }
 
-/* line 163, ../sass/main.scss */
+/* line 141, ../sass/main.scss */
 .tab table.tb {
   padding: 20px;
 }
 
-/* line 166, ../sass/main.scss */
+/* line 144, ../sass/main.scss */
 td.td-label {
   width: 80px;
 }
 
-/* line 169, ../sass/main.scss */
+/* line 147, ../sass/main.scss */
 td.td-wide-label {
   width: 130px;
 }
 
-/* line 172, ../sass/main.scss */
+/* line 150, ../sass/main.scss */
 .txcheckbox {
   width: 15px;
   height: 15px;
 }
 
-/* line 176, ../sass/main.scss */
+/* line 154, ../sass/main.scss */
 .help {
   font-weight: strong;
   font-size: 105%;
@@ -363,22 +410,22 @@ td.td-wide-label {
   cursor: hand;
 }
 
-/* line 187, ../sass/main.scss */
+/* line 165, ../sass/main.scss */
 .nav > li:not(.bubble) {
   display: inline-block !important;
 }
 
-/* line 190, ../sass/main.scss */
+/* line 168, ../sass/main.scss */
 .nav-justified {
   text-align: center !important;
 }
 
-/* line 193, ../sass/main.scss */
+/* line 171, ../sass/main.scss */
 .navbar-default {
   background-color: transparent !important;
 }
 
-/* line 196, ../sass/main.scss */
+/* line 174, ../sass/main.scss */
 .navbar-nav {
   margin-left: 0 !important;
 }

@@ -23,13 +23,12 @@ div(ng-controller="InviteFriendsController")
                 a.btn.inline(style="width:20%",ng-click="invite()") invite
         div
             input.form-control(type="text",ng-show="showsearchbar",placeholder="Search",ng-model="searchstring")
-        div &nbsp;
             
-        div(style="position:relative")
-            div.bubble(ng-repeat="(i,friend) in visibleFriends",style="position:absolute; left:0px; top:{{ i * 50}}px; width: 100%; height: 50px; overflow-h: hidden; cursor: pointer",onclick="wscope.selectFriend({{friend.id}})")
-                img(ng-src="{{friend.picture.data.url}}",style="position:absolute; left: 0; top: 0; height:50; width:50px")
-                div(style="position:absolute; left: 60px; top: 17px")
-                    span {{friend.first_name}} {{friend.last_name}}
-                img(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend",style="position:absolute; left: 300px; bottom: 7px; height:10px")
-                div(ng-show="friend.isUser && !friend.isFriend",style="position:absolute; top:0; left:0; right:0; bottom:0; background-color: #888; opacity:0.5")
+        .friendsList
+            .friend(ng-repeat="(i,friend) in visibleFriends",onclick="wscope.selectFriend({{friend.id}})")
+                .invited(ng-show="friend.isUser && !friend.isFriend")
+                img.friendImg(ng-src="{{friend.picture.data.url}}")
+                .body
+                    .name {{friend.first_name}} {{friend.last_name}}
+                    img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
     include modal

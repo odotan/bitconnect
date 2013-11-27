@@ -1,0 +1,42 @@
+.friendsList{
+	margin: auto 1px;
+	margin-top: 10px;
+	.friend{
+		position: relative;
+		height: 50px;
+		cursor: pointer;
+		border: 4px solid #3399cc;
+		border-radius: 30px;
+		margin-bottom: -4px;
+		img.friendImg{
+			position: absolute;
+			left: -3px;
+			top: -4px;
+			width: 50px;
+			border-radius: 50%;
+			border: 4px solid #3399cc;
+		}
+		.body{
+			.name{
+				position: absolute;
+				left: 60px;
+				top: 13px;
+			}
+			.check4invite{		
+				height:10px;
+				position: absolute;
+				right: 15px;
+				top: 15px;
+			}
+		}
+		.invited{
+			background-color: #3399cc;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			border-radius: 30px;
+		}
+	}
+}
