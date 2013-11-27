@@ -1,28 +1,28 @@
-include partials/header
-    body
-        .surround(ng-controller="NewAccountController")
-            center(style="width:100%")
-                div hi {{ profile.first_name }}, nice to have you here :)
-                div please accept or modify the usernames below
-                div you have to select two parts - one before and one after the dot
-                div this is to allow more people to have great names
-                div thanx :)
-                div &nbsp;
-                div
-                    input(type='text',ng-model='firstname',style='width:40%')
-                    span  .
-                    input(type='text',ng-model='lastname',style='width:40%')
-                div(ng-show="available")
-                div &nbsp;
-                    div your bitconnect address will be:
-                div &nbsp;
-                    div.green.pill {{ firstname }}.{{ lastname }}.bitconnect.me
-                div(ng-show="!available")
-                    div.red.pill the username is not available
-                div &nbsp;
-                div
-                    input(type='checkbox',ng-model='acceptedterms')
-                    small  i have read and agree to the 
-                    a(href="/terms")
-                        small terms and conditions
-                a.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
+include header
+body
+    .surround(ng-controller="NewAccountController")
+        center(style="width:100%")
+            div hi {{ profile.first_name }}, nice to have you here :)
+            div please accept or modify the usernames below
+            div you have to select two parts - one before and one after the dot
+            div this is to allow more people to have great names
+            div thanx :)
+            div &nbsp;
+            div
+                input(type='text',ng-model='firstname',style='width:40%')
+                span  .
+                input(type='text',ng-model='lastname',style='width:40%')
+            div(ng-show="available")
+            div &nbsp;
+                div your bitconnect address will be:
+            div &nbsp;
+                div.green.pill {{ firstname }}.{{ lastname }}.bitconnect.me
+            div(ng-show="!available")
+                div.red.pill the username is not available
+            div &nbsp;
+            div
+                input(type='checkbox',ng-model='acceptedterms')
+                small  i have read and agree to the 
+                a(href="/terms")
+                    small terms and conditions
+            a.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
