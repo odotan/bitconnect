@@ -1,4 +1,384 @@
+/* line 1, ../sass/_common.scss */
+.main {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* line 3, ../sass/_navbar.scss */
+.main .navbar-default {
+  background-color: transparent;
+  border: none;
+}
+/* line 10, ../sass/_navbar.scss */
+.main nav.navbar .moneybar {
+  margin-top: 5px;
+}
+/* line 12, ../sass/_navbar.scss */
+.main nav.navbar .moneybar p {
+  font-size: 18px;
+  padding: 3px 6px;
+  text-align: center;
+  border: 4px solid #3399cc;
+  border-radius: 30px;
+  margin: 0px 1px;
+  cursor: pointer;
+}
+/* line 20, ../sass/_navbar.scss */
+.main nav.navbar .moneybar p:last-child {
+  margin-top: -4px;
+}
+/* line 23, ../sass/_navbar.scss */
+.main nav.navbar .moneybar p:hover {
+  background-color: #3399cc;
+  color: white;
+}
+/* line 30, ../sass/_navbar.scss */
+.main nav.navbar ul.nav.iconbar {
+  white-space: nowrap;
+  display: inline-flex;
+  text-align: center;
+  width: 100%;
+}
+/* line 35, ../sass/_navbar.scss */
+.main nav.navbar ul.nav.iconbar li {
+  cursor: pointer;
+}
+/* line 37, ../sass/_navbar.scss */
+.main nav.navbar ul.nav.iconbar li td {
+  padding: 0px;
+}
+/* line 42, ../sass/_navbar.scss */
+.main nav.navbar ul.nav > li:not(.bubble) {
+  display: inline-block;
+}
+/* line 47, ../sass/_navbar.scss */
+.main nav.navbar ul.nav > li table tr td img {
+  width: 64px;
+}
+/* line 50, ../sass/_navbar.scss */
+.main nav.navbar ul.nav > li table tr td .count {
+  position: absolute;
+  center: 0px;
+  border-radius: 0px;
+  z-index: 200;
+  background-color: #fff;
+}
+
 /* line 1, ../sass/_newaccount.scss */
 .newaccount {
   color: red;
+}
+
+/* line 1, ../sass/main.scss */
+* {
+  font-family: "Comfortaa";
+}
+
+/* line 2, ../sass/main.scss */
+div.topbar {
+  border-bottom: 1px solid black;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  padding: 5px;
+}
+
+/* line 11, ../sass/main.scss */
+.bubble {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 3px 6px;
+  text-align: center;
+}
+
+/* line 17, ../sass/main.scss */
+xxxdiv.surround {
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+}
+
+/* line 29, ../sass/main.scss */
+.mymodal {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  z-index: 1050;
+  width: 560px;
+  margin-left: 0px;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+/* line 51, ../sass/main.scss */
+.inline {
+  display: inline-block;
+}
+
+/* line 54, ../sass/main.scss */
+.small {
+  font-size: 75%;
+}
+
+/* line 58, ../sass/main.scss */
+.tiny {
+  font-size: 70%;
+}
+
+/* line 61, ../sass/main.scss */
+.blue {
+  background-color: #88f;
+}
+
+/* line 62, ../sass/main.scss */
+.green {
+  background-color: #4f4;
+}
+
+/* line 63, ../sass/main.scss */
+.red {
+  background-color: #f77;
+}
+
+/* line 64, ../sass/main.scss */
+.semilightblue {
+  background-color: #aaf;
+}
+
+/* line 65, ../sass/main.scss */
+.lightblue {
+  background-color: #ddf;
+}
+
+/* line 66, ../sass/main.scss */
+.menuitem {
+  padding: 5px;
+  background-color: #ddf;
+}
+
+/* line 67, ../sass/main.scss */
+.menuitem:hover {
+  background-color: #aaf;
+}
+
+/* line 68, ../sass/main.scss */
+.white {
+  background-color: #fff;
+}
+
+/* line 69, ../sass/main.scss */
+.grey {
+  background-color: #ddd;
+}
+
+/* line 70, ../sass/main.scss */
+.pill {
+  border-radius: 20px;
+  text-align: center;
+}
+
+/* line 74, ../sass/main.scss */
+.bigpill {
+  border-radius: 5px;
+  text-align: center;
+  width: 500px;
+  max-width: 500px;
+}
+
+/* line 80, ../sass/main.scss */
+.monospace {
+  font-family: monospace;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.1em;
+  font-size: small;
+}
+
+/* line 87, ../sass/main.scss */
+.squish {
+  line-height: 1.2em;
+  font-size: small;
+}
+
+/* line 91, ../sass/main.scss */
+.largetext {
+  font-size: 18px;
+}
+
+/* line 94, ../sass/main.scss */
+.verylargetext {
+  font-size: 72px;
+  height: 100px;
+}
+
+/* line 98, ../sass/main.scss */
+.signature {
+  font-family: monospace;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.1em;
+  height: 60px !important;
+  font-size: small;
+}
+
+/* line 106, ../sass/main.scss */
+.cmdline {
+  text-align: left;
+}
+
+/* line 109, ../sass/main.scss */
+.cmdline::before {
+  content: "> ";
+  color: #888;
+}
+
+/* line 113, ../sass/main.scss */
+.tabselect {
+  padding: 10px;
+}
+
+/* line 116, ../sass/main.scss */
+.tabwindow {
+  position: relative;
+}
+
+/* line 119, ../sass/main.scss */
+.tabwindow .tabheader {
+  position: absolute;
+  top: 0px;
+  height: 40px;
+}
+
+/* line 124, ../sass/main.scss */
+.tabheader .tabselect {
+  display: inline-block;
+}
+
+/* line 127, ../sass/main.scss */
+.tabwindow .tabbody {
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+}
+
+/* line 134, ../sass/main.scss */
+.raise4 {
+  position: relative;
+  top: -4px;
+}
+
+/* line 139, ../sass/main.scss */
+input[type='text'], input[type='password'] {
+  height: 25px !important;
+  word-wrap: break-word;
+  margin-right: 5%;
+}
+
+/* line 144, ../sass/main.scss */
+.fullwidth {
+  width: 100%;
+}
+
+/* line 145, ../sass/main.scss */
+.fullheight {
+  height: 100%;
+}
+
+/* line 146, ../sass/main.scss */
+table.tb {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  table-layout: fixed;
+}
+
+/* line 153, ../sass/main.scss */
+table.tb tr td {
+  word-wrap: break-word;
+}
+
+/* line 156, ../sass/main.scss */
+td {
+  position: relative;
+}
+
+/* line 159, ../sass/main.scss */
+.tab {
+  position: absolute;
+  height: 100%;
+}
+
+/* line 163, ../sass/main.scss */
+.tab table.tb {
+  padding: 20px;
+}
+
+/* line 166, ../sass/main.scss */
+td.td-label {
+  width: 80px;
+}
+
+/* line 169, ../sass/main.scss */
+td.td-wide-label {
+  width: 130px;
+}
+
+/* line 172, ../sass/main.scss */
+.txcheckbox {
+  width: 15px;
+  height: 15px;
+}
+
+/* line 176, ../sass/main.scss */
+.help {
+  font-weight: strong;
+  font-size: 105%;
+  position: absolute;
+  left: -15px;
+  top: 4px;
+  color: #44f;
+  cursor: pointer;
+  cursor: hand;
+}
+
+/* line 187, ../sass/main.scss */
+.nav > li:not(.bubble) {
+  display: inline-block !important;
+}
+
+/* line 190, ../sass/main.scss */
+.nav-justified {
+  text-align: center !important;
+}
+
+/* line 193, ../sass/main.scss */
+.navbar-default {
+  background-color: transparent !important;
+}
+
+/* line 196, ../sass/main.scss */
+.navbar-nav {
+  margin-left: 0 !important;
 }

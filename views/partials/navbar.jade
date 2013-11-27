@@ -1,36 +1,38 @@
 nav.navbar.navbar-default
-    ul.nav.navbar-nav(style="text-align:center;width:100%;")
-        li(style="cursor:pointer;",ng-click="goto('settings')"): table
+    ul.iconbar.nav
+        li(ng-click="goto('settings')"): table
                 tr: td
-                    img(ng-show="path() == 'settings'",style="width:61px",ng-src="/img/01 mei.svg")
-                    img(ng-hide="path() == 'settings'",style="width:61px",ng-src="/img/01 me.svg")
+                    img(ng-show="path() == 'settings'",ng-src="/img/01 mei.svg")
+                    img(ng-hide="path() == 'settings'",ng-src="/img/01 me.svg")
                 tr: td(align="center"): span me
-                div(style="position:absolute; center: 0px; border-radius: 0px; z-index: 200; background-color: #fff",ng-show="requests.length > 0") &nbsp;{{ requests.length }}&nbsp;
-        li(style="cursor:pointer",ng-click="goto('give')"): table
+                div.count(style="",ng-show="requests.length > 0") &nbsp;{{ requests.length }}&nbsp;
+        li(ng-click="goto('give')"): table
                 tr: td
-                    img(ng-show="path() == 'give'",style="width:61px",ng-src="/img/02 givei.svg")
-                    img(ng-hide="path() == 'give'",style="width:61px",ng-src="/img/02 give.svg")
+                    img(ng-show="path() == 'give'",ng-src="/img/02 givei.svg")
+                    img(ng-hide="path() == 'give'",ng-src="/img/02 give.svg")
                 tr: td(align="center"): span give
-        li(style="cursor:pointer",ng-click="goto('requests')"): table
+        li(ng-click="goto('requests')"): table
                 tr: td
-                    img(ng-show="path() == 'requests'",style="width:61px",ng-src="/img/03 thanxi.svg")
-                    img(ng-hide="path() == 'requests'",style="width:61px",ng-src="/img/03 thanx.svg")
+                    img(ng-show="path() == 'requests'",ng-src="/img/03 thanxi.svg")
+                    img(ng-hide="path() == 'requests'",ng-src="/img/03 thanx.svg")
                 tr: td(align="center"): span thanx
-        li(style="cursor:pointer",ng-click="goto('get')"): table
+        li(ng-click="goto('get')"): table
                 tr: td
-                    img(ng-show="path() == 'get'",style="width:61px",ng-src="/img/04 geti.svg")
-                    img(ng-hide="path() == 'get'",style="width:61px",ng-src="/img/04 get.svg")
+                    img(ng-show="path() == 'get'",ng-src="/img/04 geti.svg")
+                    img(ng-hide="path() == 'get'",ng-src="/img/04 get.svg")
                 tr: td(align="center"): span get
-        li(style="cursor:pointer",ng-click="goto('invitefriends')"): table
+        li(ng-click="goto('invitefriends')"): table
                 tr: td
-                    img(ng-show="path() == 'invitefriends'",style="width:61px",ng-src="/img/05 usi.svg")
-                    img(ng-hide="path() == 'invitefriends'",style="width:61px",ng-src="/img/05 us.svg")
+                    img(ng-show="path() == 'invitefriends'",ng-src="/img/05 usi.svg")
+                    img(ng-hide="path() == 'invitefriends'",ng-src="/img/05 us.svg")
                 tr: td(align="center"): span us
-    ul.nav.nav-pills.nav-justified(ng-hide="showusd")
-        li.bubble.largetext(style="position:relative") {{ balance || 0 }} satoshi
-            img(style="position:absolute; left:20px",style="width:24px",src="/img/refresh.png",ng-click="showusd = 1")
-        li.bubble.largetext {{ user.tnx }} thanx
-    ul.nav.nav-pills.nav-justified(ng-show="showusd")
-        li.bubble.largetext(style="position:relative") {{ (balance / 100000000 * price || 0) | number:2 }} us$
-            img(style="position:absolute; left:30px",style="width:24px",src="/img/refresh.png",ng-show="showusd",ng-click="showusd = 0")
-        li.bubble.largetext {{ (user.tnx / 100000000 * price || 0) | number:2 }} us$
+    
+
+    .moneybar(ng-show="showusd",ng-click="showusd = 0")
+        p {{ (user.tnx / 100000000 * price || 0) | number:2 }} us$
+        p {{ (balance / 100000000 * price || 0) | number:2 }} us$
+    .moneybar(ng-hide="showusd",ng-click="showusd = 1")
+        p {{ user.tnx }} thanx
+        p {{ balance || 0 }} satoshi
+  
+   

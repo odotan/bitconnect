@@ -1,0 +1,62 @@
+.main{
+
+	.navbar-default {
+	    background-color: transparent;
+	    border: none;
+	}
+	
+
+	nav.navbar{
+		.moneybar{
+			margin-top: 5px;
+			p{
+				font-size: 18px;
+				padding: 3px 6px;
+				text-align: center;
+				border: 4px solid #3399cc;
+				border-radius: 30px;
+				margin: 0px 1px;
+				cursor: pointer;
+				&:last-child{
+					margin-top: -4px;
+				}
+				&:hover{
+					background-color: #3399cc;
+					color: white;
+				}
+			}
+		}
+		ul.nav{
+			&.iconbar{
+				white-space: nowrap;
+				display: inline-flex;
+				text-align:center;
+				width:100%;
+				li{
+					cursor: pointer;
+					td{
+						padding: 0px;
+					}
+				}
+			}
+			> li:not(.bubble) {
+		    	display: inline-block;
+		    }
+		    > li{
+		    	table tr td{
+		    		img{
+		    			width: 64px;
+		    		}
+		    		.count{
+		    			position:absolute; 
+		    			center: 0px; 
+		    			border-radius: 0px; 
+		    			z-index: 200; 
+		    			background-color: #fff;
+		    		}
+		    	}
+		    }
+		}
+		
+	}
+}
