@@ -1,4 +1,4 @@
-window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', function($scope, $rootScope, $http, $location, me, requests, bitcoin) {
+window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
 
     window.wscope = $scope;
 
@@ -9,6 +9,10 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
     }
 
     $scope.gettnx = function() {
+        /*$http.get('/autofill?partial='+$scope.get.from)
+             .success(function(r) {
+                if (r.length == 0) 
+             })*/
         if (!parseInt($scope.get.tnx)) return;
         $http.post('/mkrequest',{
             tnx: parseInt($scope.get.tnx),
@@ -28,7 +32,10 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         if (!$scope.get.from || $scope.get.from.length < 2) return;
         $http.get('/autofill?partial='+$scope.get.from)
              .success(function(r) {
-                $scope.usernames = r
+                var friends = $rootScope.FBfriends.map(function(f) {
+                    return f.first_name+' '+f.last_name
+                })
+                $scope.usernames = r.concat(friends)
              })
     })
 }])

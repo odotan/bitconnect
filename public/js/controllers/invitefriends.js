@@ -1,17 +1,9 @@
-window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', function($scope, $rootScope, $http, $location, me, requests, bitcoin) {
+window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
 
     window.wscope = $scope;
 
     // Control the visible friend list
     $scope.visibleFriendsLimit = 30;
-
-    $scope.getfriends = function() {
-        $http.get('/friends')
-            .success(function(f) {
-                $scope.FBfriends = f;
-             })
-            .error(errhandle);
-    }
 
     $rootScope.$watch('user.fbUser',$scope.getfriends);
 
@@ -25,8 +17,8 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                 searchString = $scope.searchstring.toLowerCase();
             return friendString.indexOf(searchString) >= 0;
         }
-        if ($rootScope.user && $rootScope.user.friends && $scope.FBfriends) {
-            $scope.filteredFriends = $scope.FBfriends.filter(filter);
+        if ($rootScope.user && $rootScope.user.friends && $rootScope.FBfriends) {
+            $scope.filteredFriends = $rootScope.FBfriends.filter(filter);
             var nvf = $scope.filteredFriends.slice(0,$scope.visibleFriendsLimit),
                 nvflist = nvf.map(function(x) { return x.id }),
                 ovflist = ($scope.visibleFriends || []).map(function(x) { return x.id })
@@ -42,7 +34,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     $scope.unaddableFriends = {}
 
-    $scope.$watch('FBfriends',$scope.updateVisibleFriends);
+    $rootScope.$watch('FBfriends',$scope.updateVisibleFriends);
     $scope.$watch('searchstring',$scope.updateVisibleFriends);
     $scope.$watch('visibleFriendsLimit',$scope.updateVisibleFriends);
 
@@ -98,7 +90,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
              title: 'come bitconnect with me :)', 
-             message: 'it’s an amazing cool new way to connect with others. you’ll get 5432 thanx :)',
+             message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)',
         }, function(req) { 
             if (!req) return;
             console.log(req);
@@ -111,7 +103,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                 $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
                     actiontext: 'cool thanx',
-                    action: function(){ $rootScope.goto('requests') },
+                    action: function(){ $rootScope.goto('thanx') },
                     canceltext:  'i wanna invite more friends'
                 }
             });
@@ -119,5 +111,5 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     }
 
     // Done
-    $scope.done = function() { window.location.href = '/giveget' }
+    $scope.done = function() { $rootScope.goto('thanx') }
 }])

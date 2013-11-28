@@ -104,7 +104,7 @@ function ThanxCtrl($scope, $http, $location) {
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
              title: 'come bitconnect with me :), 
-             message: 'it’s an amazing cool new way to connect with others. you’ll get a lot of thanx :)
+             message: 'it’s an amazing cool new way to connect with friends . you’ll get a lot of thanx :)
         }, function(req) { 
             console.log(req);
             $http.post('/mkinvite',{
