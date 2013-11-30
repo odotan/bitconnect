@@ -3,7 +3,8 @@
     form
         .form-group(ng-show="user.address")
             big my bitconnect bitcoin address
-            div.lightblue.pill {{ user.address }}
+            div.lightblue.pill
+                a(href="http://blockchain.info/address/{{ user.address }}",style="color:black") {{ user.address }}
             label send bitcoins to this address to add it to your satoshi balance. one bitcoin = 100,000,000 satoshis
         .form-group(ng-hide="user.address")
             label my bitconnect bitcoin address:

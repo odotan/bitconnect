@@ -1,30 +1,30 @@
 nav.navbar.navbar-default
     ul.iconbar.nav
-        li(ng-click="goto('settings')"): table
+        li(ng-click="goto('me')"): table
                 tr: td
-                    img(ng-show="path() == 'settings'",ng-src="/img/01 mei.svg")
-                    img(ng-hide="path() == 'settings'",ng-src="/img/01 me.svg")
+                    img(ng-show="path() == 'me'",ng-src="/img/01 mei.svg")
+                    img(ng-hide="path() == 'me'",ng-src="/img/01 me.svg")
                 tr: td(align="center"): span me
-                div.count(style="",ng-show="requests.length > 0") &nbsp;{{ requests.length }}&nbsp;
         li(ng-click="goto('give')"): table
                 tr: td
                     img(ng-show="path() == 'give'",ng-src="/img/02 givei.svg")
                     img(ng-hide="path() == 'give'",ng-src="/img/02 give.svg")
                 tr: td(align="center"): span give
-        li(ng-click="goto('thanx')"): table
+        li(style="position:relative",ng-click="goto('thanx')"): table
                 tr: td
-                    img(ng-show="path() == 'requests'",ng-src="/img/03 thanxi.svg")
-                    img(ng-hide="path() == 'requests'",ng-src="/img/03 thanx.svg")
+                    img(ng-show="path() == 'thanx'",ng-src="/img/03 thanxi.svg")
+                    img(ng-hide="path() == 'thanx'",ng-src="/img/03 thanx.svg")
                 tr: td(align="center"): span thanx
+                div.count(style="position:absolute; background-color:#f88; z-index:1000; border-radius:5px",ng-show="requests.length > 0") &nbsp;{{ requests.length }}&nbsp;
         li(ng-click="goto('get')"): table
                 tr: td
                     img(ng-show="path() == 'get'",ng-src="/img/04 geti.svg")
                     img(ng-hide="path() == 'get'",ng-src="/img/04 get.svg")
                 tr: td(align="center"): span get
-        li(ng-click="goto('invitefriends')"): table
+        li(ng-click="goto('us')"): table
                 tr: td
-                    img(ng-show="path() == 'invitefriends'",ng-src="/img/05 usi.svg")
-                    img(ng-hide="path() == 'invitefriends'",ng-src="/img/05 us.svg")
+                    img(ng-show="path() == 'us'",ng-src="/img/05 usi.svg")
+                    img(ng-hide="path() == 'us'",ng-src="/img/05 us.svg")
                 tr: td(align="center"): span us
     
 

@@ -58,7 +58,7 @@ app.get('/sendto', Facebook.loginRequired(), FBify(function(profile, req, res) {
         profileId = parts.slice(0,2).join('.')+'.bitconnect.me';
     db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
         if (!u) res.redirect('/app/newaccount');
-        else if (u.username == profileId && u.firstUse) res.redirect('/app/invitefriends');
+        else if (u.username == profileId && u.firstUse) res.redirect('/app/us');
         else if (u.username == profileId) res.redirect('/app/give');
         else res.render('sendto.jade');
     }));
@@ -67,7 +67,7 @@ app.get('/sendto', Facebook.loginRequired(), FBify(function(profile, req, res) {
 app.get('/login', Facebook.loginRequired(), FBify(function (profile, req, res) {
     db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
         if (!u) res.redirect('/app/newaccount')
-        else if (u.firstUse) res.redirect('/app/invitefriends')
+        else if (u.firstUse) res.redirect('/app/us')
         else res.redirect('/app/give')
     }));
 }));
@@ -123,6 +123,7 @@ app.get('/thanxaddress', btc.getThanxAddress)
 app.post('/buytnx', Facebook.loginRequired(), btc.buyTNX)
 app.post('/submitaddress', Facebook.loginRequired(), btc.submitAddress)
 app.get('/price', btc.price)
+app.get('/fetchheight', btc.fetchHeight)
 
 app.post('/mkrequest', Facebook.loginRequired(), tnx.mkRequest)
 app.post('/clearrequest', Facebook.loginRequired(), tnx.clearRequest)
@@ -141,13 +142,21 @@ app.get('/autofill', accounts.autoFill)
 app.post('/checkname', accounts.checkName)
 app.get('/pic', accounts.getPic)
 
+setInterval(btc.updateBTCTxs,60000);
+setTimeout(btc.updateBTCTxs,1000);
+
 var options = {
     key: fs.readFileSync('/root/ssl/bitconnectwildkey.pem'),
     cert: fs.readFileSync('/root/ssl/bitconnectwildcert.pem'),
     ca: fs.readFileSync('/root/ssl/bitconnectwildca.pem')
 };
 
-http.createServer(app).listen(80);
+express()
+    .get('*',function(req,res){  
+        res.redirect('https://bitconnect.me'+req.url)
+    })
+    .listen(80);
+
 https.createServer(options,app).listen(443);
 
 return app;

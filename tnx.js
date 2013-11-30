@@ -29,10 +29,13 @@ m.mkRequest = FBify(function(profile, req, res) {
         },
         function(cb2) {
             if (!scope.payee) return res.json('unauthorized',403);
-            db.User.findOne({ username: payer },setter(scope,'payer',cb2))
+            db.User.findOne({ $or: [ { username: payer }, { id: payer } ] },setter(scope,'payer',cb2))
         },
         function(cb2) {
-            if (!scope.payer) return res.json('payer not found',400);
+            if (!scope.payer) {
+                if (parseInt(payer)) scope.payer = { id: payer }
+                else return res.json('payer not found',400);
+            }
             scope.request = {
                 payer: dumpUser(scope.payer),
                 payee: dumpUser(scope.payee),
@@ -63,25 +66,24 @@ m.getRequests = FBify(function(profile, req, res) {
               .toArray(mkrespcb(res,400,_.bind(res.json,res)))
 });
 
-// Send thanx
+// Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
-m.sendTNX = FBify(function(profile, req, res) {
-    var to = req.param('to'),
-        tnx = req.param('tnx') || 0,
-        request = req.param('request'),
-        message = req.param('message'),
-        scope = {};
-    console.log(to, tnx, request, message);
+var rawsend = function(fromquery, toquery, tnx, cb) {
+    if (!parseInt(tnx)) return cb('invalid tnx count')
+    if (tnx < 0) return cb('you can\'t send a negative amount, you clever thief!')
+    var scope = {}
     async.series([
         function(cb2) {
-            db.User.findOne({ id: profile.id },setter(scope,'from',cb2))
+            db.User.findOne(fromquery,setter(scope,'from',cb2))
         },
         function(cb2) {
-            if (!scope.from) return res.json('user not found',403)
-            db.User.findOne({ username: to },setter(scope,'to',cb2))
+            if (!scope.from) return cb('user not found')
+            scope.from.tnx = parseInt(scope.from.tnx)
+            if (scope.from.tnx < tnx) return cb('sender too poor')
+            db.User.findOne(toquery,setter(scope,'to',cb2))
         },
         function(cb2) {
-            if (!scope.to) return res.json('user not found',400)
+            if (!scope.to) return cb('user not found')
             db.User.update({ id: scope.from.id },{ $set:
                 { tnx: scope.from.tnx - tnx }
             },cb2)
@@ -99,6 +101,25 @@ m.sendTNX = FBify(function(profile, req, res) {
                 tnx: tnx,
                 timestamp: new Date().getTime() / 1000
             },cb2)
+        }
+    ],eh(cb,function() { cb(null,'success') }))
+}
+
+// Send thanx
+
+m.sendTNX = FBify(function(profile, req, res) {
+    var to = req.param('to'),
+        tnx = parseInt(req.param('tnx')) || 0,
+        message = req.param('message'),
+        request = req.param('request'),
+        scope = {};
+    console.log(to, tnx, request, message);
+    async.series([
+        function(cb2) {
+            rawsend({ id: profile.id },
+                    { $or: [ { id: to }, { username: to } ] },
+                    tnx,
+                    cb2)
         },
         function(cb2) {
             db.Request.remove({ id: request },cb2)

@@ -14,7 +14,7 @@ function NewAccountController($scope, $rootScope, $http, $location, me) {
     $scope.register = function() {
         $http.post('/register',{ name:$scope.firstname+'.'+$scope.lastname+'.bitconnect.me' })
             .success(function(u) {
-                window.location.href = 'http://' + u.username + '/app/invitefriends';
+                window.location.href = 'http://' + u.username + '/app/us';
              })
             .error(errhandle);
     }

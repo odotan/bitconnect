@@ -15,12 +15,36 @@ var eh = util.eh,
 
 var m = module.exports = {}
 
+m.fetchHeight = function(req,res) {
+    pybtctool('last_block_height',mkrespcb(res,400,function(x) { res.json(parseInt(x)) }))
+}
+
+m.updateBTCTxs = function(cb) {
+    db.Transaction.find({ confirmed: false })
+                  .toArray(eh(cb,function(txs) {
+        async.map(txs,function(tx,cb2) {
+            pybtctool('get_tx_data '+tx.txid,function(e,data) {
+                if (e) return cb2();
+                try {
+                    var jsonobj = JSON.parse(data)
+                    if (jsonobj.block_height) {
+                        db.Transaction.update({ txid: tx.txid },{ $set: { confirmed: jsonobj.block_height } },cb2)
+                    }
+                    else cb2();
+                }
+                catch(e) { cb2(e) }
+            })
+            
+        },cb || function(){})
+    }))
+}
+
 m.sendBTC = FBify(function(profile, req, res) {
     var tx = req.param('tx'),
         to = req.param('to') || '',
         message = req.param('message'),
         txObj = tx ? Bitcoin.Transaction.deserialize(tx) : null,
-        txHash = tx ? txObj.getHash() : null,
+        txHash = tx ? Bitcoin.convert.bytesToHex(txObj.getHash()) : null,
         scope = {};
 
     async.series([
@@ -38,14 +62,6 @@ m.sendBTC = FBify(function(profile, req, res) {
             pybtctool('pushtx',tx,setter(scope,'result',cb2))
         },
         function(cb2) {
-            if (scope.to.id) {
-                db.User.update({ id: scope.to.id },{ $set:
-                    { tnx: scope.to.tnx + scope.tnx }
-                },cb2)
-            }
-            else cb2();
-        },
-        function(cb2) {
             scope.satsent = 0;
             txObj.outs.map(function(o) {
                 if (o.address == scope.to.address) scope.satsent += o.value
@@ -56,6 +72,7 @@ m.sendBTC = FBify(function(profile, req, res) {
                 id: util.randomHex(32),
                 sat: scope.satsent,
                 txid: txHash,
+                confirmed: false,
                 message: message,
                 timestamp: new Date().getTime() / 1000
             },cb2)
@@ -101,7 +118,7 @@ m.buyTNX = FBify(function(profile, req, res) {
         },
         function(cb2) {
             db.User.update({ id: scope.from.id },{ $set:
-                { tnx: scope.from.tnx + scope.purchase - tnx }
+                { tnx: (scope.from.tnx + scope.purchase - tnx) || 0 }
             },cb2)
         },
         function(cb2) {
@@ -111,6 +128,7 @@ m.buyTNX = FBify(function(profile, req, res) {
                 id: util.randomHex(32),
                 sat: scope.purchase,
                 txid: txHash,
+                confirmed: false,
                 timestamp: new Date().getTime() / 1000
             },cb2)
         }

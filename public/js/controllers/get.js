@@ -9,14 +9,34 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
     }
 
     $scope.gettnx = function() {
-        /*$http.get('/autofill?partial='+$scope.get.from)
+        $http.get('/autofill?partial='+$scope.get.from)
              .success(function(r) {
-                if (r.length == 0) 
-             })*/
+                 if (r.length == 0) {
+                     var f = $rootScope.FBfriends.filter(function(x) {
+		                 return x.first_name+" "+x.last_name == $scope.get.from 
+                     })[0]
+                     if (!f) return;
+                     FB.ui({method: 'apprequests',
+                         to: f.id,
+                         title: 'come bitconnect with me :)', 
+                         message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
+                     }, function(req) {
+                         $http.post('/mkinvite',{
+                             from: $rootScope.user.id, 
+                             to: f.id,
+                             reqid: req.request
+                         })
+                         .success(function() { $scope.gettnx2(f.id) });
+                     })
+                 }
+                 else $scope.gettnx2($scope.get.from);
+             })
+    }
+    $scope.gettnx2 = function(id) {
         if (!parseInt($scope.get.tnx)) return;
         $http.post('/mkrequest',{
             tnx: parseInt($scope.get.tnx),
-            from: $scope.get.from,
+            from: id || $scope.get.from,
             message: $scope.get.message
         })
         .success(function(r) {

@@ -79,7 +79,15 @@ var consumeFBInvites = function (reqs, to, cb) {
                     acceptedInviteCounter: newCounter,
                     friends: user.friends.concat([to.id])
                 }
-            },cb2);
+            },eh(cb2,function() {
+				db.Transaction.insert({
+					payer: null,
+					payee: dumpUser(user),
+					id: util.randomHex(32),
+					tnx: newTnx - user.tnx,
+					timestamp: new Date().getTime() / 1000
+				},cb2)
+			}))
         },eh(cb,function() {
             // Clear all users with more than 10 in their counter score
             // Give to receiving user
@@ -120,11 +128,11 @@ m.mkInvite = function(req,res) {
                 var newCounter = u.inviteCounter + bonus,
                     newTnx = (u.tnx || 0) + bonus * 543;
 
-                while (newCounter > 10) {
+                while (newCounter >= 10) {
                     newCounter -= 10;
                     newTnx += 543;
                 }
-                console.log('giving to',u.fbUser.first_name,'from',u.tnx,'to',u.tnx + bonus);
+                console.log('giving to',u.fbUser.first_name,'from',u.tnx,'to',newTnx);
                 db.User.update({ id: profile.id }, {
                     $set: {
                         tnx: newTnx,
@@ -132,8 +140,16 @@ m.mkInvite = function(req,res) {
                         firstUse: false
                     } 
                 },mkrespcb(res,400,function() {
-                    console.log('fbinvites registered, bonus:',bonus);
-                    res.json({ success: true, bonus: bonus });
+					db.Transaction.insert({
+						payer: null,
+						payee: dumpUser(u),
+						id: util.randomHex(32),
+						tnx: newTnx - u.tnx,
+						timestamp: new Date().getTime() / 1000
+					},mkrespcb(res,400,function() {
+                    	console.log('fbinvites registered, bonus:',bonus);
+                    	res.json({ success: true, bonus: bonus });
+					}))
                 }));
             }));
         }));
@@ -246,7 +262,7 @@ m.autoFill = function(req,res) {
         ] }
     ] })
        .toArray(mkrespcb(res,400,function(r) {
-            res.json(r);
+            res.json(r.map(function(x) { return x.username }));
         }))
 };
 

@@ -1,4 +1,4 @@
-window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
+window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
 
     window.wscope = $scope;
 
@@ -39,13 +39,13 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     $scope.$watch('visibleFriendsLimit',$scope.updateVisibleFriends);
 
     setInterval(function() {
-        if ($rootScope.path() != 'invitefriends') return;
+        if ($rootScope.path() != 'us') return;
         if (!$scope.FBfriends || !$scope.filteredFriends) return;
-        if (window.pageYOffset > document.height - 1000 && $scope.visibleFriendsLimit < $scope.filteredFriends.length) {
+        if (window.pageYOffset > document.height - 1250 && $scope.visibleFriendsLimit < $scope.filteredFriends.length) {
             $scope.visibleFriendsLimit += 40;
             if (!$scope.$$phase) $scope.$apply();
         }
-    },500);
+    },416);
 
     // Kill account (testing only)
     $scope.kill = function() {
@@ -103,7 +103,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                 $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
                     actiontext: 'cool thanx',
-                    action: function(){ $rootScope.goto('thanx') },
+                    action: function(){ $rootScope.message.body = null; $rootScope.goto('thanx'); },
                     canceltext:  'i wanna invite more friends'
                 }
             });

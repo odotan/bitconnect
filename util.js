@@ -74,10 +74,10 @@ var dumpUser = function(u) {
     return {
         id: u.id,
         username: u.username,
-        fbUser: {
+        fbUser: u.fbUser ? {
             first_name: u.fbUser.first_name,
             last_name: u.fbUser.last_name,
-        }
+        } : {}
     }
 }
 

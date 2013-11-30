@@ -1,6 +1,9 @@
 div(ng-controller="InviteFriendsController")
     include navbar
     center(style="width:100%")
+        div
+            meter(style="width:80%; text-align:left",value="{{ user.inviteCounter / 10 }}")
+            span &nbsp; {{ user.inviteCounter * 10 }}%
         div invite your friends to bitconnect with you!
         div &nbsp;
         div for every friend you invite, both you and your friend will get 54 thanx... just to say thanx :) every tenth friend you invite you will count double!

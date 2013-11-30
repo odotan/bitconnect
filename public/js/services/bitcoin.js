@@ -75,10 +75,10 @@ window.app.service('bitcoin',function($rootScope, $http) {
         else if (to.indexOf('.') >= 0) {
             $http.get('/userdata?username='+encodeURIComponent(to))
                  .success(function(r) {
-                    if (!r[0]) return $scope.errHandle('user not found')
-                    if (!r[0].address) return $scope.errHandle('getter has no address')
-                    $rootScope.rawSend(r[0].address, satoshis, {
-                        toUser: to,
+                    if (!r[0]) return $rootScope.errHandle('user not found')
+                    if (!r[0].address) return $rootScope.errHandle('getter has no address')
+                    $rootScope.rawSend(r[0].address, satoshis, fee, '/sendbtc', {
+                        to: to,
                         message: message 
                     },function() {
                         $rootScope.showMessage('success')
@@ -88,7 +88,8 @@ window.app.service('bitcoin',function($rootScope, $http) {
                  .error($rootScope.errHandle);
         }
         else $rootScope.rawSend(to, satoshis, fee, '/sendbtc', {
-            message: message 
+            message: message, 
+            to: to
         }, function() {
             $rootScope.showMessage('success')
             if (callback) callback();
@@ -120,6 +121,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
             if (tx.outs[i].address == $rootScope.user.address) {
                 $rootScope.txouts[txhash+':'+i] = {
                     output: txhash+':'+i,
+                    value: tx.outs[i].value,
                     timestamp: new Date().getTime() / 1000,
                     pending: true
                 }
@@ -136,7 +138,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
     }
 
     $rootScope.rawSend = function(address, satoshis, fee, url, aux, callback) {
-        console.log('rawSend',address, satoshis, fee);
+        console.log('rawSend',address, satoshis, fee, url, aux);
         $rootScope.showMessage("generating transaction")
         var tx = gentx(address, satoshis, fee);
         console.log(Bitcoin.Script.createOutputScript(tx.outs[0].address));
@@ -232,12 +234,16 @@ window.app.service('bitcoin',function($rootScope, $http) {
         }
     }
 
-    $rootScope.checkBitcoinPrice = function() {
+    $rootScope.checkBitcoinData = function() {
         $http.get('/price')
             .success(function(p) {
                 $rootScope.price = parseFloat(p)
             })
+        $http.get('/fetchheight')
+            .success(function(h) {
+                $rootScope.lastheight = parseInt(h)
+            })
     }
-    setInterval($rootScope.checkBitcoinPrice,6667);
-    $rootScope.checkBitcoinPrice();
+    setInterval($rootScope.checkBitcoinData,6667);
+    $rootScope.checkBitcoinData();
 })

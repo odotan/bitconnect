@@ -21,11 +21,11 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/partials/requests',
         controller: 'RequestController'
     })
-    .when('/app/settings', {
+    .when('/app/me', {
         templateUrl: '/partials/settings',
         controller: 'SettingsController'
     })
-    .when('/app/invitefriends', {
+    .when('/app/us', {
         templateUrl: '/partials/invitefriends',
         controller: 'InviteFriendsController'
     })
@@ -42,8 +42,9 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.run(function($rootScope, $location) {
     $rootScope.goto = function(path) {
-        if (window.location.pathname.indexOf(path) == -1)
-             $location.path('/app/'+path)
+        if (window.location.pathname.indexOf(path) == -1) {
+            $location.path('/app/'+path)
+	}
     }
     $rootScope.path = function() {
         var p = window.location.pathname.split('/')
