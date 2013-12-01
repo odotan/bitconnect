@@ -1,0 +1,71 @@
+.thanx{
+	padding: 0 20px;
+	label{
+		display: block;
+	}
+
+	.requests{
+		.request{
+			position: relative;
+
+			height: 50px;
+			cursor: pointer;
+			border: 2px solid #3399cc;
+			border-radius: 30px;
+			margin-bottom: -2px;
+
+			img.friendImg{
+				position: absolute;
+				left: -2px;
+				top: -2px;
+				width: 50px;
+				border-radius: 50%;
+				border: 2px solid #3399cc;
+			}
+			.body{
+				.fbname{
+					position: absolute;
+					left: 60px;
+					top: 0px;
+				}
+				.tnx{
+					position: absolute;
+					right: 30px;
+					top: 0px;
+
+
+				}
+				.sat{
+					position: absolute;
+					right: 30px;
+					top: 0px;
+
+				}
+				.message{
+					position: absolute;
+					left: 51px;
+					top: 27px;
+					width: 147px;
+					height: 17px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: block;
+					white-space: nowrap;
+				}
+				.accept, .reject{		
+					height:10px;
+					position: absolute;
+					right: 15px;
+					top: 15px;
+				}
+				.reject{
+					right: 0px;	
+				}
+			}
+		}
+
+	}
+
+
+
+}

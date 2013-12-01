@@ -135,18 +135,18 @@
   position: relative;
   height: 50px;
   cursor: pointer;
-  border: 4px solid #3399cc;
+  border: 2px solid #3399cc;
   border-radius: 30px;
-  margin-bottom: -4px;
+  margin-bottom: -2px;
 }
 /* line 11, ../sass/_friendsList.scss */
 .friendsList .friend img.friendImg {
   position: absolute;
-  left: -3px;
-  top: -4px;
+  left: -2px;
+  top: -2px;
   width: 50px;
   border-radius: 50%;
-  border: 4px solid #3399cc;
+  border: 2px solid #3399cc;
 }
 /* line 20, ../sass/_friendsList.scss */
 .friendsList .friend .body .name {
@@ -213,6 +213,74 @@
   width: 64px;
   height: 64px;
   cursor: pointer;
+}
+
+/* line 1, ../sass/_thanx.scss */
+.thanx {
+  padding: 0 20px;
+}
+/* line 3, ../sass/_thanx.scss */
+.thanx label {
+  display: block;
+}
+/* line 8, ../sass/_thanx.scss */
+.thanx .requests .request {
+  position: relative;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid #3399cc;
+  border-radius: 30px;
+  margin-bottom: -2px;
+}
+/* line 17, ../sass/_thanx.scss */
+.thanx .requests .request img.friendImg {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid #3399cc;
+}
+/* line 26, ../sass/_thanx.scss */
+.thanx .requests .request .body .fbname {
+  position: absolute;
+  left: 60px;
+  top: 0px;
+}
+/* line 31, ../sass/_thanx.scss */
+.thanx .requests .request .body .tnx {
+  position: absolute;
+  right: 30px;
+  top: 0px;
+}
+/* line 38, ../sass/_thanx.scss */
+.thanx .requests .request .body .sat {
+  position: absolute;
+  right: 30px;
+  top: 0px;
+}
+/* line 44, ../sass/_thanx.scss */
+.thanx .requests .request .body .message {
+  position: absolute;
+  left: 51px;
+  top: 27px;
+  width: 147px;
+  height: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+}
+/* line 55, ../sass/_thanx.scss */
+.thanx .requests .request .body .accept, .thanx .requests .request .body .reject {
+  height: 10px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+/* line 61, ../sass/_thanx.scss */
+.thanx .requests .request .body .reject {
+  right: 0px;
 }
 
 /* line 1, ../sass/main.scss */
