@@ -37,3 +37,7 @@ start mongodb
  * verify server.js https and http ports are available
  * verify you have added the key.pem and cert.pem files to the projects root directory
 6. To see the page, visit http://localhost:80 in your browser.
+
+
+### Notes
+http://dataurl.net/#dataurlmaker
