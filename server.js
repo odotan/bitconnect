@@ -146,18 +146,22 @@ setInterval(btc.updateBTCTxs,60000);
 setTimeout(btc.updateBTCTxs,1000);
 
 var options = {
-    key: fs.readFileSync('/root/ssl/bitconnectwildkey.pem'),
-    cert: fs.readFileSync('/root/ssl/bitconnectwildcert.pem'),
-    ca: fs.readFileSync('/root/ssl/bitconnectwildca.pem')
+    key: fs.readFileSync('ssl/bitconnectwildkey.pem'),
+    cert: fs.readFileSync('ssl/bitconnectwildcert.pem'),
+    ca: fs.readFileSync('ssl/bitconnectwildca.pem')
 };
 
-express()
-    .get('*',function(req,res){  
-        res.redirect('https://bitconnect.me'+req.url)
-    })
-    .listen(80);
-
-https.createServer(options,app).listen(443);
+var dev= true;
+if(dev){
+    http.createServer(app).listen(8000);
+}else{
+    express()
+        .get('*',function(req,res){  
+            res.redirect('https://bitconnect.me'+req.url);
+        })
+        .listen(80);
+    https.createServer(options,app).listen(443);
+}
 
 return app;
 
