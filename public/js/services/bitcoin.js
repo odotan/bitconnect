@@ -69,6 +69,9 @@ window.app.service('bitcoin',function($rootScope, $http) {
         else if (!to) {
             $rootScope.errHandle('giving btc to whom?');
         }
+        else if (satoshis < 5430) {
+            $rootScope.errHandle('must send at least 5430 satoshis');
+        }
         else if ($rootScope.balance < satoshis + fee) {
             $rootScope.errHandle('not enough balance!');
         }
@@ -77,23 +80,29 @@ window.app.service('bitcoin',function($rootScope, $http) {
                  .success(function(r) {
                     if (!r[0]) return $rootScope.errHandle('user not found')
                     if (!r[0].address) return $rootScope.errHandle('getter has no address')
-                    $rootScope.rawSend(r[0].address, satoshis, fee, '/sendbtc', {
-                        to: to,
-                        message: message 
-                    },function() {
-                        $rootScope.showMessage('success')
-                        if (callback) callback();
-                    })
+                    try {
+                        $rootScope.rawSend(r[0].address, satoshis, fee, '/sendbtc', {
+                            to: to,
+                            message: message 
+                        },function() {
+                            $rootScope.showMessage('success')
+                            if (callback) callback();
+                        })
+                    }
+                    catch(e) { $rootScope.body = e }
                  })
                  .error($rootScope.errHandle);
         }
-        else $rootScope.rawSend(to, satoshis, fee, '/sendbtc', {
-            message: message, 
-            to: to
-        }, function() {
-            $rootScope.showMessage('success')
-            if (callback) callback();
-        })
+        else try {
+            $rootScope.rawSend(to, satoshis, fee, '/sendbtc', {
+                message: message, 
+                to: to
+            }, function() {
+                $rootScope.showMessage('success')
+                if (callback) callback();
+            })
+        }
+        catch(e) { $rootScope.body = e }
     }
 
     var gentx = function(address, satoshis, fee) {
