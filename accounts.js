@@ -262,7 +262,7 @@ m.autoFill = function(req,res) {
         ] }
     ] })
        .toArray(mkrespcb(res,400,function(r) {
-            res.json(r.map(function(x) { return x.username }));
+            res.json(r.map(function(x) { return { username: x.username, id: x.id, fullname: x.fbUser.first_name + " " + x.fbUser.last_name } }));
         }))
 };
 

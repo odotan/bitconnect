@@ -212,13 +212,15 @@ window.app.service('bitcoin',function($rootScope, $http) {
         })
     }
 
-    $rootScope.thanxSend = function(toUser, tnx, request, message) {
+    $rootScope.thanxSend = function(userWalletAddr, tnx, request, message) {
         if ($rootScope.user.tnx >= tnx) {
-            var body = 'are you sure you want to send '+toUser+' '+tnx+' tnx?'
+            var body = 'are you sure you want to send '+userWalletAddr+' '+tnx+' tnx?';
+            //var btc_usr= userWalletAddr.split(" ")[0] + "." + userWalletAddr.split(" ")[1] + ".bitconnect.me";
+            //btc_usr = btc_usr.toLowerCase();
             $rootScope.confirmDialog(body,function() {
                 $http.post('/sendtnx',{
                     tnx: tnx,
-                    to: toUser,
+                    to: userWalletAddr,
                     request: request ? request.id : null,
                     message: message || ((request && request.message) ? 'Re: '+request.message : '')
                 })
@@ -227,7 +229,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
                     $rootScope.user.tnx -= tnx;
                 })
                 .error(function(e) {
-                    $rootScope.message = { body: 'failed sending ' + tnx + ' to user ' + toUser + ' error: ' + e, canceltext: 'close' }
+                    $rootScope.message = { body: 'failed sending ' + tnx + ' to user ' + userWalletAddr + ' error: ' + e, canceltext: 'close' }
                 })
 
             })
@@ -238,7 +240,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
             var body = 'you don\'t have enough tnx to give this many, but you certainly can convert some btc. do it now?'
             $rootScope.confirmDialog(body,function() {
                 $rootScope.buyTnx(shortfall,function() {
-                    $rootScope.thanxSend(toUser, tnx, request, message);
+                    $rootScope.thanxSend(userWalletAddr, tnx, request, message);
                 })
             })
         }
