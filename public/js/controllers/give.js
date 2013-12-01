@@ -9,6 +9,13 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         message: $location.search().message
     }
 
+    $scope.givemain = function() {
+        if ($scope.btcmode){
+            $scope.givebtc();
+        }else{
+            $scope.givetnx();
+        }
+    }
     $scope.givetnx = function() {
         if (!parseInt($scope.give.tnx)) return;
         $rootScope.thanxSend($scope.give.to,parseInt($scope.give.tnx),null,$scope.give.message)
@@ -22,7 +29,19 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         if (!$scope.give.to || $scope.give.to.length < 2) return;
         $http.get('/autofill?partial='+$scope.give.to)
              .success(function(r) {
-                $scope.usernames = r
+                console.log("*********  " + $scope.give.to);
+                var filter = function(f) {
+                    if (!$scope.give.to)
+                        return true;
+                    var friendString = (f.first_name + ' ' + f.last_name).toLowerCase(),
+                        searchString = $scope.give.to.toLowerCase();
+                    return friendString.indexOf(searchString) >= 0;
+                }
+                var friends= $rootScope.FBfriends.filter(filter).map(function(f) {
+                    return f.first_name+' '+f.last_name;                        
+                });
+                $scope.usernames = r.concat(friends);
+                return;
              })
     })
 }])

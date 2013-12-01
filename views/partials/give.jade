@@ -1,22 +1,16 @@
 .surround(ng-controller="GiveController")
     include navbar
-    form
-        .form-group(style="position:relative")
-            label to:
-            input.form-control(type="text",ng-model="give.to",typeahead="u for u in usernames | filter:$viewValue | limitTo:8")
-            img(style="position:absolute; right:10px; top: 10px; cursor: pointer",style="width:24px",src="/img/refresh.png",ng-click="btcmode = true",ng-hide="btcmode")
-            img(style="position:absolute; right:10px; top: 10px; cursor: pointer",style="width:24px",src="/img/refresh.png",ng-click="btcmode = false",ng-show="btcmode")
-        .form-group(ng-hide="btcmode")
-            label amount (thanx):
-            input.form-control(type="text",ng-model="give.tnx")
-        .form-group(ng-show="btcmode")
-            label amount (satoshi):
-            input.form-control(type="text",ng-model="give.bts")
+    form.giveget_form.give
         .form-group
-            label description:
-            textarea.form-control(type="text",rows="3",ng-model="give.message")
-        div
-            a.btn.btn-default(ng-click="givetnx()",ng-hide="btcmode") give
-            a.btn.btn-default(ng-click="givebtc()",ng-show="btcmode") give
+            input.form-control(type="text",ng-model="give.to",typeahead="u for u in usernames | limitTo:8", placeholder="give to")
+        .form-group(ng-hide="btcmode")
+            input.form-control(type="number",ng-model="give.tnx", min="0", step="1", pattern="[0-9]", required, placeholder="number of thanx")
+        .form-group(ng-show="btcmode")
+            input.form-control(type="number",ng-model="give.bts", min="0", step="1", pattern="[0-9]", required, placeholder="number of satoshi")
+        .form-group
+            textarea.form-control(type="text",rows="3",ng-model="give.message", placeholder="message")
+
+        .submit_btn
+            img(ng-click="givemain()", ng-src="/img/02 give.svg")
 
     include modal

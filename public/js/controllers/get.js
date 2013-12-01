@@ -8,15 +8,16 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         message: $location.search().message
     }
 
-    $scope.gettnx = function() {
+    $scope.getmain = function() {
         $http.get('/autofill?partial='+$scope.get.from)
              .success(function(r) {
                  if (r.length == 0) {
                      var f = $rootScope.FBfriends.filter(function(x) {
-		                 return x.first_name+" "+x.last_name == $scope.get.from 
+                         return x.first_name+" "+x.last_name == $scope.get.from 
                      })[0]
                      if (!f) return;
-                     FB.ui({method: 'apprequests',
+                     FB.ui({
+                         method: 'apprequests',
                          to: f.id,
                          title: 'come bitconnect with me :)', 
                          message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
@@ -26,13 +27,40 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                              to: f.id,
                              reqid: req.request
                          })
-                         .success(function() { $scope.gettnx2(f.id) });
-                     })
+                         .success(function() { 
+                            if($scope.btcmode){
+                                $scope.getbtc(f.id);
+                            }else{
+                                $scope.gettnx(f.id);
+                            }
+                        })
+                     });
                  }
-                 else $scope.gettnx2($scope.get.from);
+                 else{
+                    if( $scope.btcmode){
+                        $scope.getbtc($scope.get.from);
+                    }else{
+                        $scope.gettnx($scope.get.from);
+                    }
+                 }
              })
     }
-    $scope.gettnx2 = function(id) {
+    $scope.getbtc = function(id) {
+        if (!parseInt($scope.get.bts)) return;
+        $http.post('/mkrequest',{
+            sat: parseInt($scope.get.bts),
+            from: id || $scope.get.from,
+            message: $scope.get.message
+        })
+        .success(function(r) {
+            $rootScope.message = {
+                body: 'request sent!',
+                canceltext: 'cool sat'
+            }
+        })
+        .error($rootScope.errHandle);
+    }
+    $scope.gettnx = function(id) {
         if (!parseInt($scope.get.tnx)) return;
         $http.post('/mkrequest',{
             tnx: parseInt($scope.get.tnx),
@@ -42,7 +70,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         .success(function(r) {
             $rootScope.message = {
                 body: 'request sent!',
-                canceltext: 'cool thanx'
+                canceltext: 'cool tnx'
             }
         })
         .error($rootScope.errHandle);
@@ -52,10 +80,18 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         if (!$scope.get.from || $scope.get.from.length < 2) return;
         $http.get('/autofill?partial='+$scope.get.from)
              .success(function(r) {
-                var friends = $rootScope.FBfriends.map(function(f) {
-                    return f.first_name+' '+f.last_name
-                })
-                $scope.usernames = r.concat(friends)
+                var filter = function(f) {
+                    if (!$scope.get.from)
+                        return true;
+                    var friendString = (f.first_name + ' ' + f.last_name).toLowerCase(),
+                        searchString = $scope.get.from.toLowerCase();
+                    return friendString.indexOf(searchString) >= 0;
+                }
+                var friends= $rootScope.FBfriends.filter(filter).map(function(f) {
+                    return f.first_name+' '+f.last_name;                        
+                });
+                $scope.usernames = r.concat(friends);
+                return;
              })
     })
 }])

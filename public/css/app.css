@@ -57,34 +57,40 @@
   margin-top: -2px;
 }
 /* line 23, ../sass/_navbar.scss */
-.main nav.navbar .moneybar p:hover {
+.main nav.navbar .moneybar p.selected, .main nav.navbar .moneybar p:hover {
   background-color: #3399cc;
   color: white;
 }
-/* line 30, ../sass/_navbar.scss */
+/* line 27, ../sass/_navbar.scss */
+.main nav.navbar .moneybar p small {
+  display: none;
+  padding-left: 20px;
+  color: green;
+}
+/* line 35, ../sass/_navbar.scss */
 .main nav.navbar ul.nav.iconbar {
   white-space: nowrap;
   display: inline-flex;
   text-align: center;
   width: 100%;
 }
-/* line 35, ../sass/_navbar.scss */
+/* line 40, ../sass/_navbar.scss */
 .main nav.navbar ul.nav.iconbar li {
   cursor: pointer;
 }
-/* line 37, ../sass/_navbar.scss */
+/* line 42, ../sass/_navbar.scss */
 .main nav.navbar ul.nav.iconbar li td {
   padding: 0px;
 }
-/* line 42, ../sass/_navbar.scss */
+/* line 47, ../sass/_navbar.scss */
 .main nav.navbar ul.nav > li:not(.bubble) {
   display: inline-block;
 }
-/* line 47, ../sass/_navbar.scss */
+/* line 52, ../sass/_navbar.scss */
 .main nav.navbar ul.nav > li table tr td img {
   width: 64px;
 }
-/* line 50, ../sass/_navbar.scss */
+/* line 55, ../sass/_navbar.scss */
 .main nav.navbar ul.nav > li table tr td .count {
   position: absolute;
   center: 0px;
@@ -143,6 +149,49 @@
   right: 0;
   left: 0;
   border-radius: 30px;
+}
+
+/* line 1, ../sass/_give.scss */
+.giveget_form {
+  padding: 20px;
+}
+/* line 3, ../sass/_give.scss */
+.giveget_form input[type=text], .giveget_form input[type=number], .giveget_form textarea {
+  /*-webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;*/
+  font-size: 20px;
+  border: 2px solid #3399cc;
+  border-radius: 30px;
+  height: 35px !important;
+}
+/* line 13, ../sass/_give.scss */
+.giveget_form textarea {
+  resize: none;
+  height: 70px !important;
+  border-radius: 18px;
+}
+/* line 18, ../sass/_give.scss */
+.giveget_form label {
+  font-size: 18px;
+  font-weight: normal;
+  display: none;
+}
+/* line 26, ../sass/_give.scss */
+.giveget_form .submit_btn {
+  text-align: center;
+}
+/* line 28, ../sass/_give.scss */
+.giveget_form .submit_btn a {
+  font-size: 20px;
+  border: 2px solid #3399cc;
+  border-radius: 20px;
+}
+/* line 33, ../sass/_give.scss */
+.giveget_form .submit_btn img {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
 }
 
 /* line 1, ../sass/main.scss */

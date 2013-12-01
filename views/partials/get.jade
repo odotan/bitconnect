@@ -1,15 +1,17 @@
 .surround(ng-controller="GetController")
     include navbar
-    form
+    form.giveget_form
         .form-group
-            label from:
-            input.form-control(type="text",ng-model="get.from",typeahead="u for u in usernames |  limitTo:8")
+            input.form-control(type="text",ng-model="get.from",typeahead="u for u in usernames |  limitTo:8", placeholder="get from")
+        .form-group(ng-hide="btcmode")
+            input.form-control(type="number",ng-model="get.tnx", min="0", step="1", pattern="[0-9]", required, placeholder="number of thanx")
+        .form-group(ng-show="btcmode")
+            input.form-control(type="number",ng-model="get.bts", min="0", step="1", pattern="[0-9]", required, placeholder="number of satoshi")
         .form-group
-            label amount (thanx):
-            input.form-control(type="text",ng-model="get.tnx")
-        .form-group
-            label message:
-            textarea.form-control(type="text",rows="3",ng-model="get.message")
-        div
-            a.btn.btn-default(ng-click="gettnx()") get
+            textarea.form-control(type="text",rows="3",ng-model="get.message", placeholder="message")
+
+
+        .submit_btn
+            img(ng-click="getmain()", ng-src="/img/04 get.svg")
+
     include modal

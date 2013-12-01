@@ -1,0 +1,42 @@
+.giveget_form{
+	padding: 20px;
+	input[type=text], input[type=number], textarea{
+		/*-webkit-appearance: none;
+		-moz-appearance:    none;
+		appearance:         none;*/
+
+		font-size: 20px;
+		border: 2px solid #3399cc;
+		border-radius: 30px;
+		height: 35px !important;
+	}
+	textarea{
+		resize: none;
+		height: 70px !important;
+		border-radius: 18px;
+	}
+	label{
+		font-size: 18px;
+		font-weight: normal;
+		display: none;
+	}
+	.form-group{
+		//position: relative;
+	}
+	.submit_btn{
+		text-align:center;
+		a{
+			font-size: 20px;
+			border: 2px solid #3399cc;
+			border-radius: 20px;
+		}
+		img{
+			width: 64px;
+			height: 64px;
+			cursor: pointer;
+			&:hover{
+
+			}
+		}
+	}
+}
