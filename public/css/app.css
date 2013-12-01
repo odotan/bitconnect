@@ -153,29 +153,34 @@
   position: absolute;
   left: 60px;
   top: 13px;
+  width: 175px;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-/* line 25, ../sass/_friendsList.scss */
+/* line 30, ../sass/_friendsList.scss */
 .friendsList .friend .body .check4invite {
   position: absolute;
   height: 16px;
   right: 10px;
   top: 15px;
 }
-/* line 31, ../sass/_friendsList.scss */
+/* line 36, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget {
   position: absolute;
   right: 26px;
   top: 10px;
 }
-/* line 35, ../sass/_friendsList.scss */
+/* line 40, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget img {
   width: 26px;
 }
-/* line 38, ../sass/_friendsList.scss */
+/* line 43, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget.give {
   right: 53px;
 }
-/* line 43, ../sass/_friendsList.scss */
+/* line 48, ../sass/_friendsList.scss */
 .friendsList .friend .invited {
   background-color: #3399cc;
   position: absolute;

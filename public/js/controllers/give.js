@@ -40,6 +40,10 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                     return f.first_name+' '+f.last_name;                        
                 });
                 $scope.usernames = r.concat(friends);
+                if( $scope.usernames.length == 0){
+                    $scope.usernames = ["no match for: " + $scope.give.to];
+                }
+
                 return;
              })
     })

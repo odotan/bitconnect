@@ -21,6 +21,11 @@
 				position: absolute;
 				left: 60px;
 				top: 13px;
+				width: 175px;
+				text-align: left;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
 			}
 			.check4invite{		
 				position: absolute;
