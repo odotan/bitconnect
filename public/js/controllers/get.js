@@ -38,18 +38,27 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                  }
                  else{
                     if( $scope.btcmode){
-                        $scope.getbtc($scope.get.from);
+                        $scope.getbtc();
                     }else{
-                        $scope.gettnx($scope.get.from);
+                        $scope.gettnx();
                     }
                  }
              })
     }
     $scope.getbtc = function(id) {
         if (!parseInt($scope.get.bts)) return;
+
+        var giver;
+        for(var i=0; i < $scope.usernames.length; i++){
+            if( $scope.usernames[i].fullname == $scope.get.from ){
+                giver= $scope.usernames[i];
+                break;
+            }
+        }
+
         $http.post('/mkrequest',{
             sat: parseInt($scope.get.bts),
-            from: id || $scope.get.from,
+            from: id || giver.id,
             message: $scope.get.message
         })
         .success(function(r) {
@@ -62,9 +71,18 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
     }
     $scope.gettnx = function(id) {
         if (!parseInt($scope.get.tnx)) return;
+
+        var giver;
+        for(var i=0; i < $scope.usernames.length; i++){
+            if( $scope.usernames[i].fullname == $scope.get.from ){
+                giver= $scope.usernames[i];
+                break;
+            }
+        }
+
         $http.post('/mkrequest',{
             tnx: parseInt($scope.get.tnx),
-            from: id || $scope.get.from,
+            from: id || giver.id,
             message: $scope.get.message
         })
         .success(function(r) {
@@ -80,6 +98,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         if (!$scope.get.from || $scope.get.from.length < 2) return;
         $http.get('/autofill?partial='+$scope.get.from)
              .success(function(r) {
+                 //get the facebook friends validated against the search query
                 var filter = function(f) {
                     if (!$scope.get.from)
                         return true;
@@ -88,9 +107,45 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     return friendString.indexOf(searchString) >= 0;
                 }
                 var friends= $rootScope.FBfriends.filter(filter).map(function(f) {
-                    return f.first_name+' '+f.last_name;                        
+                    return { fullname: f.first_name+' '+f.last_name,
+                            id: f.id };                        
                 });
-                $scope.usernames = r.concat(friends);
+
+
+                var tmp= {};
+                for(var i=0; i < friends.length; i++){
+                    var friend= friends[i];
+                    tmp[friend.id]= {
+                         fullname: friend.fullname
+                    };
+                }
+                for(var j=0; j < r.length; j++){
+                    var friend= r[j];
+                    if(tmp[friend.id]){
+                        tmp[friend.id].username= friend.username;
+                    }else{
+                        tmp[friend.id]= {
+                             username: friend.username,
+                             fullname: friend.fullname
+                        };
+                    }
+                }
+
+                var res= [];
+                for(var key in tmp){
+                    res.push({
+                        id: key,
+                        username: tmp[key].username,
+                        fullname: tmp[key].fullname
+                    });
+                }
+           
+                $scope.usernames = res;
+
+                if( res.length == 0){
+                    $scope.usernames = ["no match for: " + $scope.get.from];
+                }
+
                 return;
              })
     })

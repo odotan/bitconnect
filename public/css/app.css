@@ -137,7 +137,7 @@
   cursor: pointer;
   border: 2px solid #3399cc;
   border-radius: 30px;
-  margin-bottom: -2px;
+  margin-bottom: 2px;
 }
 /* line 11, ../sass/_friendsList.scss */
 .friendsList .friend img.friendImg {
@@ -300,6 +300,14 @@
 /* line 61, ../sass/_thanx.scss */
 .thanx .requests .request .body .reject {
   right: 0px;
+}
+/* line 70, ../sass/_thanx.scss */
+.thanx .history .row {
+  position: relative;
+  height: 50px;
+  border: 2px solid #3399cc;
+  border-radius: 30px;
+  margin-bottom: -2px;
 }
 
 /* line 1, ../sass/main.scss */

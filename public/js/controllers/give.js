@@ -18,22 +18,64 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
     }
     $scope.givetnx = function() {
         if (!parseInt($scope.give.tnx)) return;
-        var index;
+        var getter;
         for(var i=0; i < $scope.usernames.length; i++){
             if( $scope.usernames[i].fullname == $scope.give.to ){
-                index= $scope.usernames[i];
+                getter= $scope.usernames[i];
                 break;
             }
         }
-        if($scope.usernames[i].username){
-            $rootScope.thanxSend($scope.usernames[i].username, parseInt($scope.give.tnx),null,$scope.give.message)
+        if(getter.username){
+            $rootScope.thanxSend(getter.username, parseInt($scope.give.tnx),null,$scope.give.message)
         }else{
-            $rootScope.message = { body: $scope.usernames[i].fullname + ' is not signed up, would you like to invite them? They will recieve your thanx when they sign up.', canceltext: 'invite' }
+            FB.ui({
+                     method: 'apprequests',
+                     to: getter.id,
+                     title: 'come bitconnect with me :)', 
+                     message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
+                 }, function(req) {
+                     $http.post('/mkinvite',{
+                         from: $rootScope.user.id, 
+                         to: getter.id,
+                         reqid: req.request
+                     })
+                     .success(function() { 
+                      //  $scope.givetnx();
+                    })
+            }); 
+            //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your thanx when they sign up.', canceltext: 'invite' }
         }
     }
     $scope.givebtc = function() {
         if (!parseInt($scope.give.bts)) return;
-        $rootScope.bitcoinSend($scope.give.to,parseInt($scope.give.bts),10000,$scope.give.message)
+        var getter;
+        for(var i=0; i < $scope.usernames.length; i++){
+            if( $scope.usernames[i].fullname == $scope.give.to ){
+                getter= $scope.usernames[i];
+                break;
+            }
+        }
+        if(getter.username){
+            $rootScope.bitcoinSend(getter.username, parseInt($scope.give.bts),10000,$scope.give.message)
+        }else{
+             FB.ui({
+                 method: 'apprequests',
+                 to: getter.id,
+                 title: 'come bitconnect with me :)', 
+                 message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
+             }, function(req) {
+                 $http.post('/mkinvite',{
+                     from: $rootScope.user.id, 
+                     to: getter.id,
+                     reqid: req.request
+                 })
+                 .success(function() { 
+                  //  $scope.givetnx();
+                })
+             });
+            //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your satoshi when they sign up.', canceltext: 'invite' }
+        }
+        
     }
     $scope.usernames = []
     $scope.$watch('give.to',function() {

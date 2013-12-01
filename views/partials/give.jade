@@ -6,7 +6,7 @@
         .form-group(ng-hide="btcmode")
             input.form-control(type="number",ng-model="give.tnx", min="0", step="1", pattern="[0-9]", required, placeholder="number of thanx")
         .form-group(ng-show="btcmode")
-            input.form-control(type="number",ng-model="give.bts", min="0", step="1", pattern="[0-9]", required, placeholder="number of satoshi")
+            input.form-control(type="number",ng-model="give.bts", min="5430", step="1", pattern="[0-9]", required, placeholder="number of satoshi")
         .form-group
             textarea.form-control(type="text",rows="3",ng-model="give.message", placeholder="message")
 

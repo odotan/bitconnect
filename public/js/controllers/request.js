@@ -18,8 +18,13 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ht
 
     $scope.accept = function(invoice_id) {
         var inv = $rootScope.requests.filter(function(x) { return x.id == invoice_id })[0]
-        if (!inv) return
-        $rootScope.thanxSend(inv.payee.username, inv.tnx, inv)
+        if (!inv) return;
+        if( inv.tnx > 0){
+            $rootScope.thanxSend(inv.payee.username, inv.tnx, inv);   
+        }else{
+            $rootScope.bitcoinSend(inv.payee.username, inv.sat, null, inv);    
+        }
+        //TODO: clear handled requests
     }
 
     $scope.reject = function(request_id) {
