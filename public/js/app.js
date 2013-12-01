@@ -43,8 +43,8 @@ app.config(['$routeProvider', function ($routeProvider) {
 app.run(function($rootScope, $location) {
     $rootScope.goto = function(path) {
         if (window.location.pathname.indexOf(path) == -1) {
-            $location.path('/app/'+path)
-	}
+            $location.path('/app/'+path);
+	   }
     }
     $rootScope.path = function() {
         var p = window.location.pathname.split('/')

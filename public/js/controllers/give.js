@@ -29,7 +29,6 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         if (!$scope.give.to || $scope.give.to.length < 2) return;
         $http.get('/autofill?partial='+$scope.give.to)
              .success(function(r) {
-                console.log("*********  " + $scope.give.to);
                 var filter = function(f) {
                     if (!$scope.give.to)
                         return true;

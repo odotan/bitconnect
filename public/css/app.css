@@ -156,12 +156,26 @@
 }
 /* line 25, ../sass/_friendsList.scss */
 .friendsList .friend .body .check4invite {
-  height: 10px;
   position: absolute;
-  right: 15px;
+  height: 16px;
+  right: 10px;
   top: 15px;
 }
-/* line 32, ../sass/_friendsList.scss */
+/* line 31, ../sass/_friendsList.scss */
+.friendsList .friend .body .giveget {
+  position: absolute;
+  right: 26px;
+  top: 10px;
+}
+/* line 35, ../sass/_friendsList.scss */
+.friendsList .friend .body .giveget img {
+  width: 26px;
+}
+/* line 38, ../sass/_friendsList.scss */
+.friendsList .friend .body .giveget.give {
+  right: 53px;
+}
+/* line 43, ../sass/_friendsList.scss */
 .friendsList .friend .invited {
   background-color: #3399cc;
   position: absolute;
@@ -227,12 +241,11 @@
 .thanx .requests .request {
   position: relative;
   height: 50px;
-  cursor: pointer;
   border: 2px solid #3399cc;
   border-radius: 30px;
   margin-bottom: -2px;
 }
-/* line 17, ../sass/_thanx.scss */
+/* line 16, ../sass/_thanx.scss */
 .thanx .requests .request img.friendImg {
   position: absolute;
   left: -2px;
@@ -241,25 +254,25 @@
   border-radius: 50%;
   border: 2px solid #3399cc;
 }
-/* line 26, ../sass/_thanx.scss */
+/* line 25, ../sass/_thanx.scss */
 .thanx .requests .request .body .fbname {
   position: absolute;
   left: 60px;
   top: 0px;
 }
-/* line 31, ../sass/_thanx.scss */
+/* line 30, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx {
   position: absolute;
   right: 30px;
   top: 0px;
 }
-/* line 38, ../sass/_thanx.scss */
+/* line 37, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat {
   position: absolute;
   right: 30px;
   top: 0px;
 }
-/* line 44, ../sass/_thanx.scss */
+/* line 43, ../sass/_thanx.scss */
 .thanx .requests .request .body .message {
   position: absolute;
   left: 51px;
@@ -271,9 +284,10 @@
   display: block;
   white-space: nowrap;
 }
-/* line 55, ../sass/_thanx.scss */
+/* line 54, ../sass/_thanx.scss */
 .thanx .requests .request .body .accept, .thanx .requests .request .body .reject {
   height: 10px;
+  cursor: pointer;
   position: absolute;
   right: 15px;
   top: 15px;

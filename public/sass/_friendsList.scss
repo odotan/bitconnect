@@ -23,10 +23,21 @@
 				top: 13px;
 			}
 			.check4invite{		
-				height:10px;
 				position: absolute;
-				right: 15px;
+				height: 16px;
+				right: 10px;
 				top: 15px;
+			}
+			.giveget{
+				position: absolute;
+				right: 26px;
+				top: 10px;
+				img{
+					width: 26px;
+				}
+				&.give{
+					right:53px;
+				}
 			}
 		}
 		.invited{

@@ -33,5 +33,9 @@ div(ng-controller="InviteFriendsController")
                 img.friendImg(ng-src="{{friend.picture.data.url}}")
                 .body
                     .name {{friend.first_name}} {{friend.last_name}}
-                    img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
+                    img.check4invite(ng-src="/img/check.svg", ng-show="selected[friend.id] || friend.isFriend")
+                    a.giveget.get(href="/app/get?from={{friend.first_name}} {{friend.last_name}}", title="get")
+                        img(ng-src="/img/get.svg")
+                    a.giveget.give(href="/app/give?to={{friend.first_name}} {{friend.last_name}}", title="give")
+                        img(ng-src="/img/give.svg")
     include modal

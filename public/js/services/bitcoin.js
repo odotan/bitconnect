@@ -226,6 +226,10 @@ window.app.service('bitcoin',function($rootScope, $http) {
                     $rootScope.message = { body: 'success', canceltext: 'cool thanx' }
                     $rootScope.user.tnx -= tnx;
                 })
+                .error(function(e) {
+                    $rootScope.message = { body: 'failed sending ' + tnx + ' to user ' + toUser + ' error: ' + e, canceltext: 'close' }
+                })
+
             })
             return
         }
