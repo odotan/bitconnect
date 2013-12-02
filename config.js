@@ -5,7 +5,7 @@ module.exports = {
     // The address to which one sends money to buy thanx
     thanxAddress: '33tnxKbQFKVQF9ibpoHTkNi77Stsc4tr6h',
     // SSL private key
-    keyfile: 'key.pem',
+    keyfile: 'ssl/bitconnectwildkey.pem',
     // SSL public key/certificate
-    certfile: 'cert.pem'
+    certfile: 'ssl/bitconnectwildcert.pem'
 }
