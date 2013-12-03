@@ -28,7 +28,7 @@ div(ng-controller="InviteFriendsController")
             input.form-control(type="text",ng-show="showsearchbar",placeholder="Search",ng-model="searchstring")
             
         .friendsList
-            .friend(ng-repeat="(i,friend) in visibleFriends",onclick="wscope.selectFriend({{friend.id}})")
+            .friend(ng-repeat="(i,friend) in visibleFriends | orderBy:'first_name'",onclick="wscope.selectFriend({{friend.id}})")
                 .invited(ng-show="friend.isUser && !friend.isFriend")
                 img.friendImg(ng-src="{{friend.picture.data.url}}")
                 .body
