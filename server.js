@@ -133,7 +133,7 @@ app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory)
 
 app.post('/register', Facebook.loginRequired(), accounts.register)
 app.post('/mkinvite', Facebook.loginRequired(), accounts.mkInvite)
-app.post('/acceptinvite', accounts.acceptInvite)
+app.post('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite)
 app.get('/kill', Facebook.loginRequired(), accounts.kill)
 app.post('/kill', Facebook.loginRequired(), accounts.kill)
 app.get('/me', accounts.getMe)
