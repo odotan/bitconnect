@@ -158,7 +158,7 @@ m.mkInvite = function(req,res) {
 
 m.acceptInvite = function(req, res) {
     console.log('accessing from facebook');
-    req.facebook.api('/me/', mkrespcb(res,400,function(profile) {
+    req.facebook.api('/me', mkrespcb(res,400,function(profile) {
         var reqidStr = req.param('request_ids')
         var reqids = reqidStr ? reqidStr.split(',') : []
         console.log('reqids',reqids)
