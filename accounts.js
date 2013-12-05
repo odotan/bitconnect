@@ -157,6 +157,16 @@ m.mkInvite = function(req,res) {
 };
 
 m.acceptInvite = function(req, res) {
+    res.send( '<!DOCTYPE html>' +
+              '<body>' +
+                '<script type="text/javascript">' +
+                  'top.location.href = "/acceptinvite2";' +
+                '</script>' +
+              '</body>' +
+            '</html>' );
+}
+
+m.acceptInvite2 = function(req, res) {
     console.log('accessing from facebook');
     req.facebook.api('/me', mkrespcb(res,400,function(profile) {
         var reqidStr = req.param('request_ids')
