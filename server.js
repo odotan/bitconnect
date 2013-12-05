@@ -36,10 +36,10 @@ app.configure(function() {
      app.use(Facebook.middleware({ appId: config.FBappId, secret: config.FBsecret }));
      app.use(express.static(__dirname + '/public'));
      app.use(app.router);
-     /*app.use(function(req, res, next) {
-        res.setHeader("X-Frame-Options", "GOFORIT");
+     app.use(function(req, res, next) {
+        res.setHeader("X-Frame-Options", "SAMEORIGIN");
         return next();
-     });*/
+     });
 });
 
 
