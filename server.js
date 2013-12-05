@@ -35,10 +35,10 @@ app.configure(function() {
      app.use(Facebook.middleware({ appId: config.FBappId, secret: config.FBsecret }));
      app.use(express.static(__dirname + '/public'));
      app.use(app.router);
-     app.use(function(req, res, next) {
+     /*app.use(function(req, res, next) {
         res.setHeader("X-Frame-Options", "GOFORIT");
         return next();
-     });
+     });*/
 });
 
 
@@ -137,7 +137,7 @@ app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory)
 
 app.post('/register', Facebook.loginRequired(), accounts.register)
 app.post('/mkinvite', Facebook.loginRequired(), accounts.mkInvite)
-app.post('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite)
+app.post('/acceptinvite', accounts.acceptInvite)
 app.get('/kill', Facebook.loginRequired(), accounts.kill)
 app.post('/kill', Facebook.loginRequired(), accounts.kill)
 app.get('/me', accounts.getMe)
