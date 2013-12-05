@@ -28,7 +28,8 @@ var app = express();
 
 app.configure(function() {
      app.set('views',__dirname + '/views'); 
-     app.set('view engine', 'jade'); app.set('view options', { layout: false });
+     app.set('view engine', 'jade'); 
+     app.set('view options', { layout: false });
      app.use(express.bodyParser());
      app.use(express.cookieParser());
      app.use(express.session({ secret: '314159265358979' }));
@@ -137,7 +138,7 @@ app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory)
 
 app.post('/register', Facebook.loginRequired(), accounts.register)
 app.post('/mkinvite', Facebook.loginRequired(), accounts.mkInvite)
-app.post('/acceptinvite', accounts.acceptInvite)
+app.post('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite)
 app.get('/kill', Facebook.loginRequired(), accounts.kill)
 app.post('/kill', Facebook.loginRequired(), accounts.kill)
 app.get('/me', accounts.getMe)
