@@ -30,9 +30,9 @@ body(ng-app="thanxbits")
                         .sat(ng-show="hitem.txid && hitem.confirmed") -{{ hitem.sat }} satoshi ({{ lastheight + 1 - hitem.confirmed }} confirmations)
                         .message(ng-show="hitem.message") {{ hitem.message.slice(0,200) }}
                 .request(ng-hide="hitem.payer.id == user.id")
-                    img.friendImg(ng-src="/pic?username={{ hitem.payee.username }}&size=100",width="50px",height="50px")
+                    img.friendImg(ng-src="/pic?username={{ hitem.payer.username }}&size=100",width="50px",height="50px")
                     .body
-                        .fbname(title="{{hitem.payee.username}}") {{ hitem.payee.fbUser.first_name }} {{ hitem.payee.fbUser.last_name }}
+                        .fbname(title="{{hitem.payee.username}}") {{ hitem.payer.fbUser.first_name }} {{ hitem.payer.fbUser.last_name }}
                         img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
                         .tnx(ng-show="hitem.tnx") +{{ hitem.tnx }} thanx
                         .sat(ng-show="hitem.sat") +{{ hitem.sat }} satoshi
