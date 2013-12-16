@@ -4,7 +4,7 @@
 		display: block;
 	}
 
-	.requests{
+	.requests, .history{
 		.request{
 			position: relative;
 
@@ -38,6 +38,11 @@
 					position: absolute;
 					right: 30px;
 					top: 0px;
+					max-width: 100px;
+					overflow: hidden;
+					&.unconfirmed{
+						color: red;
+					}
 
 				}
 				.message{

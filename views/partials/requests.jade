@@ -9,8 +9,8 @@ body(ng-app="thanxbits")
                     .body
                         .fbname(title="{{request.payee.username}}") {{ request.payee.fbUser.first_name }} {{ request.payee.fbUser.last_name }}
                         img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
-                        .tnx(ng-show="request.tnx") {{ request.tnx }} tnx
-                        .sat(ng-show="request.sat") {{ request.sat }} sat
+                        .tnx(ng-show="request.tnx") {{ request.tnx }} thanx
+                        .sat(ng-show="request.sat") {{ request.sat }} satoshi
                         .accept
                             img(src="/img/checkmark.png", ng-click="accept(request.id)")
                         .reject
@@ -20,25 +20,22 @@ body(ng-app="thanxbits")
 
             label History ({{ history.length }})
             .history(ng-repeat="hitem in history",style="margin: 5px 0px")
-                .row(ng-show="hitem.payer.id == user.id")
-                    .col-xs-2: img(style="height:40px",ng-src="/pic?username={{ hitem.payee.username }}&size=100")
-                    .col-xs-7
-                        span(style="float:left") {{ hitem.payee.fbUser.first_name }} {{ hitem.payee.fbUser.last_name }}
-                        span(style="float:right")
-                            span(ng-show="hitem.tnx") -{{ hitem.tnx }} tnx
-                            span(ng-show="hitem.txid && !hitem.confirmed") -{{ hitem.sat }} sat (unconfirmed)
-                            span(ng-show="hitem.txid && hitem.confirmed") -{{ hitem.sat }} sat ({{ lastheight + 1 - hitem.confirmed }} confirmations)
-                        br
-                        span.small(style="word-wrap:break-word") {{ hitem.message.slice(0,200) }}
-                .row(ng-hide="hitem.payer.id == user.id")
-                    .col-xs-2: img(style="height:40px",ng-src="/pic?username={{ hitem.payer.username }}&size=100")
-                    .col-xs-7
-                        span(style="float:left") {{ hitem.payer.fbUser.first_name }} {{ hitem.payer.fbUser.last_name }}
-                        span(style="float:right")
-                            span(ng-show="hitem.tnx") +{{ hitem.tnx }} tnx
-                            span(ng-show="hitem.sat") +{{ hitem.sat / 100000000 }} btp
-                        br
-                        span.small(style="word-wrap:break-word") {{ hitem.message.slice(0,200) }}
-    
-    
+                .request(ng-show="hitem.payer.id == user.id")
+                    img.friendImg(ng-src="/pic?username={{ hitem.payee.username }}&size=100",width="50px",height="50px")
+                    .body
+                        .fbname(title="{{hitem.payee.username}}") {{ hitem.payee.fbUser.first_name }} {{ hitem.payee.fbUser.last_name }}
+                        img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
+                        .tnx(ng-show="hitem.tnx") -{{ hitem.tnx }} thanx
+                        .sat.unconfirmed(ng-show="hitem.txid && !hitem.confirmed") -{{ hitem.sat }} satoshi
+                        .sat(ng-show="hitem.txid && hitem.confirmed") -{{ hitem.sat }} satoshi ({{ lastheight + 1 - hitem.confirmed }} confirmations)
+                        .message(ng-show="hitem.message") {{ hitem.message.slice(0,200) }}
+                .request(ng-hide="hitem.payer.id == user.id")
+                    img.friendImg(ng-src="/pic?username={{ hitem.payee.username }}&size=100",width="50px",height="50px")
+                    .body
+                        .fbname(title="{{hitem.payee.username}}") {{ hitem.payee.fbUser.first_name }} {{ hitem.payee.fbUser.last_name }}
+                        img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
+                        .tnx(ng-show="hitem.tnx") +{{ hitem.tnx }} thanx
+                        .sat(ng-show="hitem.sat") +{{ hitem.sat }} satoshi
+                        .message(ng-show="hitem.message") {{ hitem.message.slice(0,200) }}
+
         include modal

@@ -25,6 +25,13 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 break;
             }
         }
+        if( $rootScope.user.id == getter.id){
+            $rootScope.message = {
+                body: 'you can\'t give to yourself',
+                canceltext: 'ok'
+            }
+             return;
+         } 
         if(getter.username){
             $rootScope.thanxSend(getter.username, parseInt($scope.give.tnx),null,$scope.give.message)
         }else{
@@ -55,6 +62,13 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 break;
             }
         }
+         if( $rootScope.user.id == getter.id){
+            $rootScope.message = {
+                body: 'you can\'t give to yourself',
+                canceltext: 'ok'
+            }
+             return;
+         } 
         if(getter.username){
             $rootScope.bitcoinSend(getter.username, parseInt($scope.give.bts),10000,$scope.give.message)
         }else{

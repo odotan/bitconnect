@@ -16,6 +16,13 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                          return x.first_name+" "+x.last_name == $scope.get.from 
                      })[0]
                      if (!f) return;
+                     if( $rootScope.user.id == f.id) {
+                        $rootScope.message = {
+                            body: 'you can\'t get from yourself',
+                            canceltext: 'ok'
+                        }
+                         return;
+                     }
                      FB.ui({
                          method: 'apprequests',
                          to: f.id,
@@ -56,6 +63,14 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             }
         }
 
+        if( $rootScope.user.id == giver.id){
+            $rootScope.message = {
+                body: 'you can\'t get from yourself',
+                canceltext: 'ok'
+            }
+             return;
+         } 
+
         $http.post('/mkrequest',{
             sat: parseInt($scope.get.bts),
             from: id || giver.id,
@@ -79,6 +94,13 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 break;
             }
         }
+         if( $rootScope.user.id == giver.id){
+            $rootScope.message = {
+                body: 'you can\'t get from yourself',
+                canceltext: 'ok'
+            }
+             return;
+         } 
 
         $http.post('/mkrequest',{
             tnx: parseInt($scope.get.tnx),
