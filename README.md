@@ -41,3 +41,27 @@ start mongodb
 
 ### Notes
 http://dataurl.net/#dataurlmaker
+
+
+### Development Steps
+
+'''
+mongod
+'''
+
+'''
+compass watch
+'''
+
+change server.js dev flag to true
+
+'''
+node server.js
+'''
+
+run ngrok from project root dir
+'''
+./ngrok localhost:8000
+'''
+
+go to facebook dev and modify App Domains to include the ngrok generated domain
