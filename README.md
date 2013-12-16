@@ -64,4 +64,6 @@ run ngrok from project root dir
 ./ngrok localhost:8000
 ```
 
-go to facebook dev and modify App Domains to include the ngrok generated domain
+go to facebook dev and modify Site Url to include the ngrok generated domain
+
+now browse to the ngrok url for development changes tracking
