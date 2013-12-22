@@ -9,20 +9,20 @@ body
             div thanx :)
             div &nbsp;
             div
-                input(type='text',ng-model='firstname',style='width:40%')
-                span  .
-                input(type='text',ng-model='lastname',style='width:40%')
+                input.username(type='text',ng-model='username')
+                //- span  .
+                //- input(type='text',ng-model='lastname',style='width:40%')
             div(ng-show="available")
             div &nbsp;
                 div your bitconnect address will be:
             div &nbsp;
-                div.green.pill {{ firstname }}.{{ lastname }}.bitconnect.me
+                div.green.pill {{ username }}.bitconnect.me
             div(ng-show="!available")
                 div.red.pill the username is not available
             div &nbsp;
             div
-                input(type='checkbox',ng-model='acceptedterms')
-                small  i have read and agree to the 
+                input#acceptTerms(type='checkbox',ng-model='acceptedterms')
+                label(for="acceptTerms")  i have read and agreed to the&nbsp;
                 a(href="/terms")
                     small terms and conditions
-            a.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
+            button.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
