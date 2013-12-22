@@ -3,7 +3,9 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     window.wscope = $scope;
 
     // Control the visible friend list
-    $scope.visibleFriendsLimit = 30;
+    $scope.visibleFriendsLimit = 20;
+    //chunk of friends to get when scrolling down
+    $scope.friendsChunk = 30;
 
     $rootScope.$watch('user.fbUser',$scope.getfriends);
 
@@ -112,4 +114,16 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     // Done
     $scope.done = function() { $rootScope.goto('thanx') }
+	
+    $scope.loadMoreFriends = function () {
+		var nextChunk = $scope.visibleFriendsLimit + $scope.friendsChunk;
+        var diff = $scope.FBfriends.length - nextChunk;
+        if (diff >= 0) {
+            $scope.visibleFriendsLimit = nextChunk;    
+        } else {
+            $scope.visibleFriendsLimit = $scope.FBfriends.length;
+        }
+	}
 }])
+
+
