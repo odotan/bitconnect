@@ -26,8 +26,20 @@ var eh = util.eh,
 
 var app = express();
 
+/*
+//TODO: use env for production
+//express defaults:  this.set('env', process.env.NODE_ENV || 'development');
+app.set("env", "production");
+app.configure("production", function(){
+
+});
+app.configure("development", function(){
+
+});
+*/
+
 app.configure(function() {
-     app.set('views',__dirname + '/views'); 
+     app.set('views', __dirname + '/views'); 
      app.set('view engine', 'jade'); 
      app.set('view options', { layout: false });
      app.use(express.bodyParser());
