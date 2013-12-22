@@ -15,6 +15,25 @@ var db              = require('./db'),
     tnx             = require('./tnx'),
     config          = require('./config');
 
+Facebook.prototype.isRegistered = function(config) {
+  return function(req, res, next) {
+    if (!req.facebook) {
+      Facebook.middleware(config)(req, res, afterNew);
+    }
+    else {
+      afterNew();
+    }
+    function afterNew() {
+      req.facebook.getUser(function(err, user) {
+        if (err == undefined && user !== 0) {
+          res.redirect('/requests');
+        }
+        next();
+        next = null;  
+      });
+    }
+  };
+};
 
 var eh = util.eh,
     mkrespcb = util.mkrespcb,
@@ -56,7 +75,7 @@ app.configure(function() {
 
 
 
-app.get('/', function(req,res) {                       
+app.get('/', Facebook.isRegistered(), function(req,res) {                       
     var parts = req.host.split('.'),
         profileId = parts.slice(0,2).join('.');
     if (parts.length == 2) {
