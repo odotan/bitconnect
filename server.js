@@ -28,8 +28,8 @@ Facebook.prototype.isRegistered = function(config) {
         if (err == undefined && user !== 0) {
           res.redirect('/requests');
         }
-        next();
-        next = null;  
+        // next();
+        // next = null;  
       });
     }
   };
