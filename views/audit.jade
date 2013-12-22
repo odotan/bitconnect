@@ -1,0 +1,41 @@
+include partials/header
+   
+body
+    .surround
+            br
+            br
+            div(style="float:left; left: 50%; position: relative")
+                div(style="float:left; left: -50%; position: relative")
+                    span Here is the verification code to make sure that the auditing file is legitimate:
+            br
+            br
+            div(style="float:left; left: 50%; position: relative")
+                div(style="float:left; left: -50%; position: relative")
+                    pre.
+                        import urllib, json
+                        from pybitcointools import *
+                       
+                        data = json.loads(urllib.urlopen('https://bitconnect.me/auditdata').read())
+                        history = history('3BiT8syuxEgNPfqrPzcJ4Uf4YhBot7TYjz')
+                        balance = sum([x["output"] for x in history if "spend" not in x])
+                        print "Loaded auditing data and balance, starting verification"
+                        total = int(data["total"])
+                        if (balance + 1) * 2**128 < total:
+                            raise Exception("Warning: fractional reserve!")
+                        totalpubkey = '04'+'00'*64
+                        for datum in data["users"]:
+                            totalpubkey = add_pubkeys(totalpubkey,datum["pubkey"])
+                        if privtopub(encode(total,16,64)) != totalpubkey:
+                            raise Exception("Private and public keys do not match")
+                        username = raw_input("Enter your username: ").strip()
+                        mydatum = None
+                        for datum in data["users"]:
+                            if sha256(username) == datum["hash"]: mydatum = datum
+                        if not mydatum:
+                           raise Exception("Didn't find myself in the list!")
+                        balance = int(raw_input("Enter your exact thanx balance: ").strip())
+                        key = encode(balance,16,32)+'000000000000'+sha256(username)[-20:]
+                        if mydatum["pubkey"] != privtopub(key):
+                            raise Exception("The public key doesn't match my balance!")
+                        print "Audit successful"
+                       
