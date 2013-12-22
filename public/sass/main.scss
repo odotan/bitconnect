@@ -118,7 +118,15 @@ xxxdiv.surround {
 input[type='text'], input[type='password'] {
     height: 25px !important;
     word-wrap: break-word;
-    margin-right: 5%;
+    height: 25px !important;
+    word-wrap: break-word;
+    padding-left: 5px;
+    border:2px solid #3399cc;
+    border:2px solid rgba(51,153,204,1.0);
+    *border:2px solid #3399cc;
+    -webkit-border-radius:32px;
+    -moz-border-radius:32px;
+    border-radius:32px; 
 }
 .fullheight { height: 100%; }
 table.tb {

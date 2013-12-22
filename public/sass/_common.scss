@@ -30,3 +30,20 @@
         overflow: hidden;
     }
 }
+
+.btn {
+    border: 2px solid #3399cc;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0);
+    background-color: transparent; 
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    border-color: #dddddd;
+}
+
+.btn:hover, .btn:active {
+    background-color: #3399cc;
+    color: #f3f3f3;
+}
