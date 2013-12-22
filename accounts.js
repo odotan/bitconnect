@@ -299,3 +299,30 @@ m.getPic = function(req,res) {
         }));
     }))
 }
+
+// Return verification table
+
+m.printVerificationTable = function(req,res) {
+    db.User.find().toArray(mkrespcb(res,400,function(users) {
+        var twoToThe80 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1,0,0,0,0,0,0,0,0,0,0]),
+            twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]),
+            counter = new Bitcoin.BigInteger('0');
+
+        var usertable = users.map(function(u) {
+            var hash = Bitcoin.Crypto.SHA256(u.username),
+                hashBytes = Bitcoin.convert.hexToBytes(hash),
+                offset = new Bitcoin.BigInteger.fromByteArrayUnsigned(hashBytes).mod(twoToThe80),
+                key = new Bitcoin.BigInteger(''+u.tnx).multiply(twoToThe128).add(offset),
+                pub = Bitcoin.convert.bytesToHex(new Bitcoin.Key(key).getPub());
+            counter = counter.add(key);
+            return {
+                hash: hash,
+                pubkey: pub
+            }
+        })
+        res.json({
+            total: counter.toString(),
+            users: usertable
+        })
+    }))
+}

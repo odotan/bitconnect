@@ -110,6 +110,7 @@
 /* line 52, ../sass/_navbar.scss */
 .main nav.navbar ul.nav > li table tr td img {
   width: 64px;
+  padding: 1px;
 }
 /* line 55, ../sass/_navbar.scss */
 .main nav.navbar ul.nav > li table tr td .count {

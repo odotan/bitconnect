@@ -90,13 +90,14 @@ app.get('/partials/:name', function(req, res) {
 // Show a specific page
 
 function showpage(path,template) {
-    app.get(path, Facebook.loginRequired(), FBify(function (profile, req, res) {
+    app.get(path, function(req, res) {
         res.render(template,{})
-    }));
+    });
 }
 
 showpage('/profile','profile.jade');
 showpage('/terms','terms.jade');
+showpage('/audit','audit.jade');
 
 // Direct database API query
 
@@ -149,6 +150,7 @@ app.get('/friends', Facebook.loginRequired(), accounts.getFriends)
 app.get('/autofill', accounts.autoFill)
 app.post('/checkname', accounts.checkName)
 app.get('/pic', accounts.getPic)
+app.get('/auditdata',accounts.printVerificationTable)
 
 setInterval(btc.updateBTCTxs,60000);
 setTimeout(btc.updateBTCTxs,1000);

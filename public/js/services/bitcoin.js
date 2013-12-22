@@ -67,7 +67,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
             })
         }
         else if (!userWalletAddr) {
-            $rootScope.errHandle('giving btc to whom?');
+            $rootScope.errHandle('giving satoshi to whom?');
         }
         else if (satoshis < 5430) {
             $rootScope.errHandle('must send at least 5430 satoshis');
@@ -214,7 +214,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
 
     $rootScope.thanxSend = function(userWalletAddr, tnx, request, message) {
         if ($rootScope.user.tnx >= tnx) {
-            var body = 'are you sure you want to send '+userWalletAddr+' '+tnx+' tnx?';
+            var body = 'are you sure you want to send '+userWalletAddr+' '+tnx+' thanx?';
             $rootScope.confirmDialog(body,function() {
                 $http.post('/sendtnx',{
                     tnx: tnx,
@@ -223,7 +223,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
                     message: message || ((request && request.message) ? 'Re: '+request.message : '')
                 })
                 .success(function(r) {
-                    $rootScope.message = { body: 'success', canceltext: 'cool thanx' }
+                    $rootScope.message = { body: 'success', canceltext: 'cool, thanx' }
                     $rootScope.user.tnx -= tnx;
                 })
                 .error(function(e) {
@@ -235,7 +235,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
         }
         var shortfall = Math.max(10000,tnx - $rootScope.user.tnx)
         if ($rootScope.balance >= shortfall + 10000) {
-            var body = 'you don\'t have enough tnx to give this many, but you certainly can convert some btc. do it now?'
+            var body = 'you don\'t have enough thanx to give this many, but you certainly can convert some satoshi. do it now?'
             $rootScope.confirmDialog(body,function() {
                 $rootScope.buyTnx(shortfall,function() {
                     $rootScope.thanxSend(userWalletAddr, tnx, request, message);
@@ -243,7 +243,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
             })
         }
         else {
-            $rootScope.errHandle('you don\' have enough tnx or btc to give')
+            $rootScope.errHandle('you don\' have enough thanx or satoshi to give')
         }
     }
 

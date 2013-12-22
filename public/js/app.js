@@ -55,21 +55,21 @@ app.run(function($rootScope, $location) {
     $rootScope.errHandle = function(msg) {
         $rootScope.message = {
             body: msg || 'error',
-            canceltext: 'cool thanx'
+            canceltext: 'cool, thanx'
         }
     }
     $rootScope.confirmDialog = function(msg,action) {
         $rootScope.message = {
             body: msg,
             action: action,
-            actiontext: 'yes plz',
+            actiontext: 'yes please',
             canceltext: 'no thanx'
         }
     }
     $rootScope.showMessage = function(msg) {
         $rootScope.message = {
             body: msg || 'success',
-            canceltext: 'cool thanx'
+            canceltext: 'cool, thanx'
         }
     }
 });
