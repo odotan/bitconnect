@@ -15,6 +15,25 @@ var db              = require('./db'),
     tnx             = require('./tnx'),
     config          = require('./config');
 
+Facebook.prototype.isRegistered = function(config) {
+  return function(req, res, next) {
+    if (!req.facebook) {
+      Facebook.middleware(config)(req, res, afterNew);
+    }
+    else {
+      afterNew();
+    }
+    function afterNew() {
+      req.facebook.getUser(function(err, user) {
+        if (err == undefined && user !== 0) {
+          res.redirect('/requests');
+        }
+        // next();
+        // next = null;  
+      });
+    }
+  };
+};
 
 var eh = util.eh,
     mkrespcb = util.mkrespcb,
@@ -26,8 +45,20 @@ var eh = util.eh,
 
 var app = express();
 
+/*
+//TODO: use env for production
+//express defaults:  this.set('env', process.env.NODE_ENV || 'development');
+app.set("env", "production");
+app.configure("production", function(){
+
+});
+app.configure("development", function(){
+
+});
+*/
+
 app.configure(function() {
-     app.set('views',__dirname + '/views'); 
+     app.set('views', __dirname + '/views'); 
      app.set('view engine', 'jade'); 
      app.set('view options', { layout: false });
      app.use(express.bodyParser());
@@ -44,7 +75,7 @@ app.configure(function() {
 
 
 
-app.get('/', function(req,res) {                       
+app.get('/', Facebook.isRegistered(), function(req,res) {                       
     var parts = req.host.split('.'),
         profileId = parts.slice(0,2).join('.');
     if (parts.length == 2) {
@@ -90,13 +121,14 @@ app.get('/partials/:name', function(req, res) {
 // Show a specific page
 
 function showpage(path,template) {
-    app.get(path, Facebook.loginRequired(), FBify(function (profile, req, res) {
+    app.get(path, function(req, res) {
         res.render(template,{})
-    }));
+    });
 }
 
 showpage('/profile','profile.jade');
 showpage('/terms','terms.jade');
+showpage('/audit','audit.jade');
 
 // Direct database API query
 
@@ -149,6 +181,7 @@ app.get('/friends', Facebook.loginRequired(), accounts.getFriends)
 app.get('/autofill', accounts.autoFill)
 app.post('/checkname', accounts.checkName)
 app.get('/pic', accounts.getPic)
+app.get('/auditdata',accounts.printVerificationTable)
 
 setInterval(btc.updateBTCTxs,60000);
 setTimeout(btc.updateBTCTxs,1000);
