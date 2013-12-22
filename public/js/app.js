@@ -1,4 +1,4 @@
-window.app = angular.module('thanxbits', ['ui.bootstrap.typeahead','thanxbits.controllers']);
+window.app = angular.module('thanxbits', ['ui.bootstrap.typeahead', 'thanxbits.controllers', 'infinite-scroll']);
 
 window.controllers = angular.module('thanxbits.controllers', []);
 
