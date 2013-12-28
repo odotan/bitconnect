@@ -1,7 +1,7 @@
 window.controllers.controller('RequestController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
 
     window.wscope = $scope;
-
+    
     this.gethistory = function() {
         $http.get('/rawhistory')
             .success(function(h) { 
@@ -20,7 +20,7 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ht
         var inv = $rootScope.requests.filter(function(x) { return x.id == invoice_id })[0]
         if (!inv) return;
         if( inv.tnx > 0){
-            $rootScope.thanxSend(inv.payee.username, inv.tnx, inv);   
+            $rootScope.thanxSend(inv.payee.username, inv.tnx, inv, inv.message, $rootScope.TxTypes.getRequest);   
         }else{
             $rootScope.bitcoinSend(inv.payee.username, inv.sat, null, inv);    
         }

@@ -31,7 +31,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                      }, function(req) {
                          $http.post('/mkinvite',{
                              from: $rootScope.user.id, 
-                             to: f.id,
+                             to: [f.id],
                              reqid: req.request
                          })
                          .success(function() { 

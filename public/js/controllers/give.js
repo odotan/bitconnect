@@ -33,7 +33,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
              return;
          } 
         if(getter.username){
-            $rootScope.thanxSend(getter.username, parseInt($scope.give.tnx),null,$scope.give.message)
+            $rootScope.thanxSend(getter.username, parseInt($scope.give.tnx),null,$scope.give.message, $rootScope.TxTypes.giveRequest);
         }else{
             FB.ui({
                      method: 'apprequests',
@@ -43,7 +43,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                  }, function(req) {
                      $http.post('/mkinvite',{
                          from: $rootScope.user.id, 
-                         to: getter.id,
+                         to: [getter.id],
                          reqid: req.request
                      })
                      .success(function() { 
@@ -80,7 +80,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
              }, function(req) {
                  $http.post('/mkinvite',{
                      from: $rootScope.user.id, 
-                     to: getter.id,
+                     to: [getter.id],
                      reqid: req.request
                  })
                  .success(function() { 

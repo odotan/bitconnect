@@ -12,6 +12,13 @@ var eh = util.eh,
     FBify = util.FBify,
     dumpUser = util.dumpUser;
 
+var TxTypes = {
+            "giveRequest": "giveRequest",
+            "getRequest" : "getRequest",
+            "inviteReward": "inviteReward",
+            "signupReward": "signupReward"
+        }
+
 var m = module.exports = {}
 
 // Register a new account
@@ -36,7 +43,7 @@ m.register = FBify(function(profile, req, res) {
                 accepted: true 
             }).toArray(mkrespcb(res,400,function(reqs) {
                 console.log('requests found',reqs);
-                consumeFBInvites(reqs,profile,mkrespcb(res,400,function() {
+                consumeFBInvites(reqs,newuser,mkrespcb(res,400,function() {
                     console.log('registered');
                     res.json(newuser);
                 }));
@@ -53,7 +60,7 @@ var consumeFBInvites = function (reqs, to, cb) {
             db.User.findOne({ id: req.from },cb2);
         }));
     },eh(cb,function(users) {
-        console.log('consuming invites from',users,'to',to.first_name);
+        console.log('consuming invites from',users,'to',to.fbUser ? to.fbUser.first_name : "undefined");
         // Uniquefy users
         var umap = {};
         users.map(function(u) { if (u) umap[u.id] = u });
@@ -81,10 +88,11 @@ var consumeFBInvites = function (reqs, to, cb) {
                 }
             },eh(cb2,function() {
 				db.Transaction.insert({
-					payer: null,
+					payer: dumpUser(to),
 					payee: dumpUser(user),
 					id: util.randomHex(32),
 					tnx: newTnx - user.tnx,
+                    type: "inviteReward",
 					timestamp: new Date().getTime() / 1000
 				},cb2)
 			}))
@@ -145,6 +153,7 @@ m.mkInvite = function(req,res) {
 						payee: dumpUser(u),
 						id: util.randomHex(32),
 						tnx: newTnx - u.tnx,
+                        txType: TxTypes.inviteReward,
 						timestamp: new Date().getTime() / 1000
 					},mkrespcb(res,400,function() {
                     	console.log('fbinvites registered, bonus:',bonus);
@@ -157,10 +166,11 @@ m.mkInvite = function(req,res) {
 };
 
 m.acceptInvite = function(req, res) {
+    var params = req.url.split("?")[1];
     res.send( '<!DOCTYPE html>' +
               '<body>' +
                 '<script type="text/javascript">' +
-                  'top.location.href = "/acceptinvite2";' +
+                  'top.location.href = "/acceptinvite2?' + params + '"' +
                 '</script>' +
               '</body>' +
             '</html>' );
@@ -287,9 +297,11 @@ m.checkName = function(req,res) {
 
 m.getPic = function(req,res) {
     var username = req.param('username'),
-        sz = parseInt(req.param('size')) || 50;
+    sz = parseInt(req.param('size')) || 50;
     db.User.findOne({ username: username },mkrespcb(res,400,function(u) {
-        if (!u) return res.json("user not found",404)
+        if (!u) {
+            return res.json("user not found",404)
+        }
         req.facebook.api('/'+u.id+'/picture?width='+sz+'&height='+sz+'&redirect=false',mkrespcb(res,400,function(pic) {
             var extension = pic.data.url.slice(pic.data.url.length -3)
             https.get(pic.data.url,function(r) {

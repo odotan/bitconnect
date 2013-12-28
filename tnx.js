@@ -68,7 +68,7 @@ m.getRequests = FBify(function(profile, req, res) {
 
 // Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
-var rawsend = function(fromquery, toquery, tnx, cb) {
+var rawsend = function(fromquery, toquery, tnx, txType, cb) {
     if (!parseInt(tnx)) return cb('invalid tnx count')
     if (tnx < 0) return cb('you can\'t send a negative amount, you clever thief!')
     var scope = {}
@@ -99,6 +99,7 @@ var rawsend = function(fromquery, toquery, tnx, cb) {
                 payee: dumpUser(scope.to),
                 id: util.randomHex(32),
                 tnx: tnx,
+                txType: txType,
                 timestamp: new Date().getTime() / 1000
             },cb2)
         }
@@ -112,13 +113,15 @@ m.sendTNX = FBify(function(profile, req, res) {
         tnx = parseInt(req.param('tnx')) || 0,
         message = req.param('message'),
         request = req.param('request'),
+        txType = req.param('txType'),
         scope = {};
-    console.log(to, tnx, request, message);
+    console.log(to, tnx, request, message, txType);
     async.series([
         function(cb2) {
             rawsend({ id: profile.id },
                     { $or: [ { id: to }, { username: to } ] },
                     tnx,
+                    txType,
                     cb2)
         },
         function(cb2) {

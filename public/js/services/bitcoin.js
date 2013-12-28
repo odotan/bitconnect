@@ -1,4 +1,10 @@
 window.app.service('bitcoin',function($rootScope, $http) {
+    $rootScope.TxTypes = {
+            "giveRequest": "giveRequest",
+            "getRequest" : "getRequest",
+            "inviteReward": "inviteReward",
+            "signupReward": "signupReward"
+    }
 
     $rootScope.bitcoinLogin = function(pw,callback,errback) {
         console.log('bl',pw,callback,errback);
@@ -212,7 +218,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
         })
     }
 
-    $rootScope.thanxSend = function(userWalletAddr, tnx, request, message) {
+    $rootScope.thanxSend = function(userWalletAddr, tnx, request, message, txType) {
         if ($rootScope.user.tnx >= tnx) {
             var body = 'are you sure you want to send '+userWalletAddr+' '+tnx+' thanx?';
             $rootScope.confirmDialog(body,function() {
@@ -220,6 +226,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
                     tnx: tnx,
                     to: userWalletAddr,
                     request: request ? request.id : null,
+                    txType: txType,
                     message: message || ((request && request.message) ? 'Re: '+request.message : '')
                 })
                 .success(function(r) {
