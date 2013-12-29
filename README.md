@@ -4,9 +4,9 @@ Download from: https://github.com/odotan/bitconnect
 
 1. Install Node from http://nodejs.org
 
-'''
+ ```
 sudo apt-get install nodejs
-'''
+ ```
 
 Make sure to get NPM as well (to see if you have NPM installed, just try running '''npm''' on the command line)
 
