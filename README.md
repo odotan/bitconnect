@@ -7,8 +7,8 @@ Download from: https://github.com/odotan/bitconnect
  ```
 sudo apt-get install nodejs
  ```
-
-Make sure to get NPM as well (to see if you have NPM installed, just try running ```npm``` on the command line)
+ 
+ Make sure to get NPM as well (to see if you have NPM installed, just try running ```npm``` on the command line)
 
 2. Install pybitcointools from http://github.com/vbuterin/pybitcointools
  ```
