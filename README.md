@@ -9,6 +9,11 @@ sudo apt-get install nodejs
  ```
  
  Make sure to get NPM as well (to see if you have NPM installed, just try running ```npm``` on the command line)
+ 
+ if you do not have it, run
+ ```
+ apt-get install npm
+ ```
 
 2. Install pybitcointools from http://github.com/vbuterin/pybitcointools
  ```
