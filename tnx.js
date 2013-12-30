@@ -68,7 +68,7 @@ m.getRequests = FBify(function(profile, req, res) {
 
 // Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
-var rawsend = function(fromquery, toquery, tnx, txType, cb) {
+var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {
     if (!parseInt(tnx)) return cb('invalid tnx count')
     if (tnx < 0) return cb('you can\'t send a negative amount, you clever thief!')
     var scope = {}
@@ -100,6 +100,7 @@ var rawsend = function(fromquery, toquery, tnx, txType, cb) {
                 id: util.randomHex(32),
                 tnx: tnx,
                 txType: txType,
+                message: message,
                 timestamp: new Date().getTime() / 1000
             },cb2)
         }
@@ -122,7 +123,8 @@ m.sendTNX = FBify(function(profile, req, res) {
                     { $or: [ { id: to }, { username: to } ] },
                     tnx,
                     txType,
-                    cb2)
+                    cb2,
+                    message)
         },
         function(cb2) {
             db.Request.remove({ id: request },cb2)

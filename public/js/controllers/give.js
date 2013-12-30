@@ -19,9 +19,9 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
     $scope.givetnx = function() {
         if (!parseInt($scope.give.tnx)) return;
         var getter;
-        for(var i=0; i < $scope.usernames.length; i++){
-            if( $scope.usernames[i].fullname == $scope.give.to ){
-                getter= $scope.usernames[i];
+        for(var key in $scope.usersById){
+            if( $scope.usersById[key].fullname == $scope.give.to ){
+                getter= $scope.usersById[key];
                 break;
             }
         }
@@ -91,81 +91,76 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         }
         
     }
-    $scope.usernames = []
+    var userFilter = function(user, enteredText) {
+        var names = user.fullname.toLowerCase().split(' '),
+        enteredNames = enteredText.toLowerCase().split(' '),
+        i=0;
+        for (i=0; i<enteredNames.length-1; i++) {
+            var nameIndex = names.indexOf(enteredNames[i]);
+            if (nameIndex === -1) {
+                return false;
+            }
+            else {
+                names.splice(nameIndex, 1);
+            }
+        }
+        for (i=0; i<names.length; i++) {
+            if (names[i].indexOf(enteredNames[enteredNames.length-1]) === 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+    $scope.getFilteredUsers = function(enteredText) {
+        if (!enteredText || enteredText.length < 2) {
+            return;
+        }
+        var res = [];
+        for (var key in $scope.usersById) {
+            res.push($scope.usersById[key]);
+        }
+        res = res.filter(function(u) {
+            return userFilter(u, enteredText);
+        });
+        res.$$v = res;
+        return res;
+    };
+    $scope.usersById = {};
     $scope.$watch('give.to',function() {
-        if (!$scope.give.to || $scope.give.to.length < 2) return;
+        if (!$scope.give.to || $scope.give.to.length < 2) {
+            return;
+        }
+        $scope.usersById = {};
+        if($rootScope.FBfriends) {
+            var friends = $rootScope.FBfriends.map(function(f) {
+                return { fullname: f.first_name+' '+f.last_name,
+                        id: f.id };                        
+            }).filter(function(u) {
+                return userFilter(u, $scope.give.to);
+            });
+
+            for(var i=0; i < friends.length; i++){
+                var friend= friends[i];
+                $scope.usersById[friend.id]= {
+                     fullname: friend.fullname,
+                };
+            }
+        }
         $http.get('/autofill?partial='+$scope.give.to)
              .success(function(r) {
-                //get the facebook friends validated against the search query
-                var filter = function(f) {
-                    if (!$scope.give.to)
-                        return true;
-                    var friendString = (f.first_name + ' ' + f.last_name).toLowerCase(),
-                        searchString = $scope.give.to.toLowerCase();
-                    return friendString.indexOf(searchString) >= 0;
-                }
-                var friends= $rootScope.FBfriends.filter(filter).map(function(f) {
-                    return { fullname: f.first_name+' '+f.last_name,
-                            id: f.id };                        
-                });
-
-
-                var tmp= {};
-                for(var i=0; i < friends.length; i++){
-                    var friend= friends[i];
-                    tmp[friend.id]= {
-                         fullname: friend.fullname
-                    };
-                }
                 for(var j=0; j < r.length; j++){
                     var friend= r[j];
-                    if(tmp[friend.id]){
-                        tmp[friend.id].username= friend.username;
-                    }else{
-                        tmp[friend.id]= {
+                    if($scope.usersById[friend.id]){
+                        $scope.usersById[friend.id].username = friend.username;
+                        $scope.usersById[friend.id].id = friend.id;
+                    } else {
+                        $scope.usersById[friend.id] = {
+                             id: friend.id,
                              username: friend.username,
-                             fullname: friend.fullname
+                             fullname: friend.fullname,
                         };
                     }
                 }
-
-                var res= [];
-                for(var key in tmp){
-                    res.push({
-                        id: key,
-                        username: tmp[key].username,
-                        fullname: tmp[key].fullname
-                    });
-                }
-
-/*
-                var res= [];
-                //get users that are friends and signed up
-                for(var i=0; i < friends.length; i++){
-                    var friend= friends[i];
-                    for(var j=0; j < r.length; j++){
-                        if( friend.id == r[j].id ){
-                            res.push({
-                                fullname: friend.fullname,
-                                id: friend.id,
-                                username: r[j].username
-                            });
-                        }
-                    }   
-                }
-                //get users that are friends but are NOT signed up
-                
-
-                //get users that are signed up but not friends
-*/           
-                
-                $scope.usernames = res;
-
-                if( res.length == 0){
-                    $scope.usernames = ["no match for: " + $scope.give.to];
-                }
-
-                return;
-             })
-    })
+             });
+    });
 }])
