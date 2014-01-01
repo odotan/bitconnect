@@ -2,7 +2,7 @@
     include navbar
     form.giveget_form
         .form-group
-            input.form-control(type="text",ng-model="get.from",typeahead="u.fullname for u in usernames |  limitTo:8", placeholder="get from")
+            input.form-control(type="text",ng-model="get.from",typeahead="u.fullname for u in getFilteredUsers($viewValue) |  limitTo:8", placeholder="get from")
         .form-group(ng-hide="btcmode")
             input.form-control(type="number",ng-model="get.tnx", min="0", step="1", pattern="[0-9]", required, placeholder="number of thanx")
         .form-group(ng-show="btcmode")

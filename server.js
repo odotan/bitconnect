@@ -193,7 +193,7 @@ var options = {
     ca: fs.readFileSync('ssl/bitconnectwildca.pem')
 };
 
-var dev= false;
+var dev= true;
 if(dev){
     http.createServer(app).listen(8000);
 }else{
