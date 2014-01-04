@@ -1,341 +1,422 @@
-var db              = require('./db'),
-    util            = require('./util'),
-    async           = require('async'),
-    _               = require('underscore'),
-    https           = require('https'),
-    Bitcoin         = require('bitcoinjs-lib');
+var db = require('./db'),
+	util = require('./util'),
+	async = require('async'),
+	_ = require('underscore'),
+	https = require('https'),
+	Bitcoin = require('bitcoinjs-lib');
 
 var eh = util.eh,
-    mkrespcb = util.mkrespcb,
-    setter = util.cbsetter,
-    pybtctool = util.pybtctool,
-    FBify = util.FBify,
-    dumpUser = util.dumpUser;
+	mkrespcb = util.mkrespcb,
+	setter = util.cbsetter,
+	pybtctool = util.pybtctool,
+	FBify = util.FBify,
+	dumpUser = util.dumpUser;
 
 var TxTypes = {
-            "giveRequest": "giveRequest",
-            "getRequest" : "getRequest",
-            "inviteReward": "inviteReward",
-            "signupReward": "signupReward"
-        }
+	"giveRequest": "giveRequest",
+	"getRequest": "getRequest",
+	"inviteReward": "inviteReward",
+	"signupReward": "signupReward"
+}
 
 var m = module.exports = {}
 
 // Register a new account
 m.register = FBify(function(profile, req, res) {
-    db.User.findOne({ username: req.param('name') }, mkrespcb(res,400,function(u) {
-        if (u) return res.json('Account already exists',400);
-        console.log('registering');
-        var newuser = { 
-            username: req.param('name'),    
-            fbUser: profile,
-            id: profile.id,
-            tnx: 543,
-            inviteCounter: 0,
-            inviteAcceptedCounter: 0,
-            seed: util.randomHex(40),
-            friends: [],
-            firstUse: true
-        }
-        db.User.insert(newuser,mkrespcb(res,400,function() {
-            db.FBInvite.find({
-                to: profile.id,
-                accepted: true 
-            }).toArray(mkrespcb(res,400,function(reqs) {
-                console.log('requests found',reqs);
-                consumeFBInvites(reqs,newuser,mkrespcb(res,400,function() {
-                    console.log('registered');
-                    res.json(newuser);
-                }));
-            }));
-        }));
-    }));
+	db.User.findOne({
+		username: req.param('name')
+	}, mkrespcb(res, 400, function(u) {
+		if (u) return res.json('Account already exists', 400);
+		console.log('registering');
+		var newuser = {
+			username: req.param('name'),
+			fbUser: profile,
+			id: profile.id,
+			tnx: 543,
+			inviteCounter: 0,
+			inviteAcceptedCounter: 0,
+			seed: util.randomHex(40),
+			friends: [],
+			firstUse: true
+		}
+		db.User.insert(newuser, mkrespcb(res, 400, function() {
+			db.FBInvite.find({
+				to: profile.id,
+				accepted: true
+			}).toArray(mkrespcb(res, 400, function(reqs) {
+				console.log('requests found', reqs);
+				consumeFBInvites(reqs, newuser, mkrespcb(res, 400, function() {
+					console.log('registered');
+					res.json(newuser);
+				}));
+			}));
+		}));
+	}));
 });
 
 // Consume outstanting Facebook requests when creating an account
 
-var consumeFBInvites = function (reqs, to, cb) {
-    async.map(reqs,function(req,cb2) {
-        db.FBInvite.remove({ reqid: req.reqid },eh(cb2,function() {
-            db.User.findOne({ id: req.from },cb2);
-        }));
-    },eh(cb,function(users) {
-        console.log('consuming invites from',users,'to',to.fbUser ? to.fbUser.first_name : "undefined");
-        // Uniquefy users
-        var umap = {};
-        users.map(function(u) { if (u) umap[u.id] = u });
-        users = [];
-        for (var uid in umap) users.push(umap[uid]);
-        // Distribute thanx
-        var reward = Math.floor(5432 / users.length);
-        async.map(users,function(user,cb2) {
-            // Give to each inviting user
-            console.log('giving to',user.fbUser.first_name,'from',user.tnx,'to',user.tnx + reward);
+var consumeFBInvites = function(reqs, to, cb) {
+	async.map(reqs, function(req, cb2) {
+		db.FBInvite.remove({
+			reqid: req.reqid
+		}, eh(cb2, function() {
+			db.User.findOne({
+				id: req.from
+			}, cb2);
+		}));
+	}, eh(cb, function(users) {
+		console.log('consuming invites from', users, 'to', to.fbUser ? to.fbUser.first_name : "undefined");
+		// Uniquefy users
+		var umap = {};
+		users.map(function(u) {
+			if (u) umap[u.id] = u
+		});
+		users = [];
+		for (var uid in umap) users.push(umap[uid]);
+		// Distribute thanx
+		var reward = Math.floor(5432 / users.length);
+		async.map(users, function(user, cb2) {
+			// Give to each inviting user
+			console.log('giving to', user.fbUser.first_name, 'from', user.tnx, 'to', user.tnx + reward);
 
-            var newCounter = (user.acceptedInviteCounter || 0) + (1 / users.length),
-                newTnx = (user.tnx || 0) + reward;
+			var newCounter = (user.acceptedInviteCounter || 0) + (1 / users.length),
+				newTnx = (user.tnx || 0) + reward;
 
-            while (newCounter >= 10) {
-                newCounter -= 10;
-                newTnx += 5432;
-            }
-            
-            db.User.update({ id: user.id },{ 
-                $set: { 
-                    tnx: newTnx,
-                    acceptedInviteCounter: newCounter,
-                    friends: user.friends.concat([to.id])
-                }
-            },eh(cb2,function() {
+			while (newCounter >= 10) {
+				newCounter -= 10;
+				newTnx += 5432;
+			}
+
+			db.User.update({
+				id: user.id
+			}, {
+				$set: {
+					tnx: newTnx,
+					acceptedInviteCounter: newCounter,
+					friends: user.friends.concat([to.id])
+				}
+			}, eh(cb2, function() {
 				db.Transaction.insert({
 					payer: dumpUser(to),
 					payee: dumpUser(user),
 					id: util.randomHex(32),
 					tnx: newTnx - user.tnx,
-                    type: "inviteReward",
+					type: "inviteReward",
 					timestamp: new Date().getTime() / 1000
-				},cb2)
+				}, cb2)
 			}))
-        },eh(cb,function() {
-            // Clear all users with more than 10 in their counter score
-            // Give to receiving user
-            db.User.update({ id: to.id },{
-                $set: {
-                    tnx: 5975,
-                    friends: users.map(function(u) { return u.id })
-                }
-            },cb);
-        }));
-    }));
+		}, eh(cb, function() {
+			// Clear all users with more than 10 in their counter score
+			// Give to receiving user
+			db.User.update({
+				id: to.id
+			}, {
+				$set: {
+					tnx: 5975,
+					friends: users.map(function(u) {
+						return u.id
+					})
+				}
+			}, cb);
+		}));
+	}));
 }
 
 
+m.mkInvite = function(req, res) {
+	req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
+		var bonus = 0;
+		async.map(req.param('to'), function(to, cb) {
+			var fbinvite = {
+				from: profile.id,
+				to: to,
+				reqid: req.param('reqid')
+			}
+			db.FBInvite.findOne({
+				from: profile.id,
+				to: to
+			}, mkrespcb(res, 400, function(r) {
+				if (!r) {
+					console.log('fbinvite added', fbinvite);
+					bonus++;
+					db.FBInvite.insert(fbinvite, cb);
+				} else {
+					console.log('fbinvite already exists')
+					cb();
+				}
+			}));
+		}, mkrespcb(res, 400, function() {
+			db.User.findOne({
+				id: profile.id
+			}, mkrespcb(res, 400, function(u) {
+				var newCounter = u.inviteCounter + bonus,
+					newTnx = (u.tnx || 0) + bonus * 543;
 
-m.mkInvite = function(req,res) {
-    req.facebook.api('/me', mkrespcb(res,400,function(profile) {
-        var bonus = 0;
-        async.map(req.param('to'),function(to,cb) {
-            var fbinvite = {
-                from: profile.id,
-                to: to,
-                reqid: req.param('reqid')
-            }
-            db.FBInvite.findOne({ from: profile.id, to: to },mkrespcb(res,400,function(r) {
-                if (!r) {
-                    console.log('fbinvite added',fbinvite);
-                    bonus++;
-                    db.FBInvite.insert(fbinvite,cb);
-                }
-                else {
-                    console.log('fbinvite already exists')
-                    cb();
-                }
-            }));
-        }, mkrespcb(res,400,function() {
-            db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
-                var newCounter = u.inviteCounter + bonus,
-                    newTnx = (u.tnx || 0) + bonus * 543;
-
-                while (newCounter >= 10) {
-                    newCounter -= 10;
-                    newTnx += 543;
-                }
-                console.log('giving to',u.fbUser.first_name,'from',u.tnx,'to',newTnx);
-                db.User.update({ id: profile.id }, {
-                    $set: {
-                        tnx: newTnx,
-                        inviteCounter: newCounter,
-                        firstUse: false
-                    } 
-                },mkrespcb(res,400,function() {
+				while (newCounter >= 10) {
+					newCounter -= 10;
+					newTnx += 543;
+				}
+				console.log('giving to', u.fbUser.first_name, 'from', u.tnx, 'to', newTnx);
+				db.User.update({
+					id: profile.id
+				}, {
+					$set: {
+						tnx: newTnx,
+						inviteCounter: newCounter,
+						firstUse: false
+					}
+				}, mkrespcb(res, 400, function() {
 					db.Transaction.insert({
-						payer: null,
+						payer: req.param('to'),
 						payee: dumpUser(u),
 						id: util.randomHex(32),
 						tnx: newTnx - u.tnx,
-                        txType: TxTypes.inviteReward,
+						txType: TxTypes.inviteReward,
 						timestamp: new Date().getTime() / 1000
-					},mkrespcb(res,400,function() {
-                    	console.log('fbinvites registered, bonus:',bonus);
-                    	res.json({ success: true, bonus: bonus });
+					}, mkrespcb(res, 400, function() {
+						console.log('fbinvites registered, bonus:', bonus);
+						res.json({
+							success: true,
+							bonus: bonus
+						});
 					}))
-                }));
-            }));
-        }));
-    }));
+				}));
+			}));
+		}));
+	}));
 };
 
 m.acceptInvite = function(req, res) {
-    var params = req.url.split("?")[1];
-    res.send( '<!DOCTYPE html>' +
-              '<body>' +
-                '<script type="text/javascript">' +
-                  'top.location.href = "/acceptinvite2?' + params + '"' +
-                '</script>' +
-              '</body>' +
-            '</html>' );
+	var params = req.url.split("?")[1];
+	res.send('<!DOCTYPE html>' +
+		'<body>' +
+		'<script type="text/javascript">' +
+		'top.location.href = "/acceptinvite2?' + params + '"' +
+		'</script>' +
+		'</body>' +
+		'</html>');
 }
 
 m.acceptInvite2 = function(req, res) {
-    console.log('accessing from facebook');
-    req.facebook.api('/me', mkrespcb(res,400,function(profile) {
-        var reqidStr = req.param('request_ids')
-        var reqids = reqidStr ? reqidStr.split(',') : []
-        console.log('reqids',reqids)
-        var query = {
-            reqid: { $in: reqids },
-            to: profile.id
-        }
-        db.FBInvite.update(query, {
-            $set: { accepted: true }
-        },mkrespcb(res,400,function() {
-            async.map(reqids,function(reqid,cb) {
-                var full_reqid = reqid+'_'+profile.id;
-                req.facebook.api('/'+full_reqid,'delete',function(e,r) {
-                    cb(null,e || r);
-                });
-            },mkrespcb(res,400,function(results) {
-                console.log('updated requests',results);
-                res.render('welcome.jade',{}) 
-            }));
-        }));
-    }));
+	console.log('accessing from facebook');
+	req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
+		var reqidStr = req.param('request_ids')
+		var reqids = reqidStr ? reqidStr.split(',') : []
+		console.log('reqids', reqids)
+		var query = {
+			reqid: {
+				$in: reqids
+			},
+			to: profile.id
+		}
+		db.FBInvite.update(query, {
+			$set: {
+				accepted: true
+			}
+		}, mkrespcb(res, 400, function() {
+			async.map(reqids, function(reqid, cb) {
+				var full_reqid = reqid + '_' + profile.id;
+				req.facebook.api('/' + full_reqid, 'delete', function(e, r) {
+					cb(null, e || r);
+				});
+			}, mkrespcb(res, 400, function(results) {
+				console.log('updated requests', results);
+				res.render('welcome.jade', {})
+			}));
+		}));
+	}));
 };
 
 m.kill = FBify(function(profile, req, res) {
-    console.log('killing');
-    db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
-        if (!u) return res.json("User not found",400); 
-        db.User.remove({ id: profile.id },mkrespcb(res,400,function() {
-            db.User.find({}).toArray(mkrespcb(res,400,function(users) {
-                async.map(users, function(u,cb) {
-                    db.User.update({ id: u.id },{
-                        $set: {
-                            friends: (u.friends || []).filter(function(i) {
-                                return i != profile.id; 
-                            }) 
-                        }
-                    },mkrespcb(res,400,function() {
-                        db.FBInvite.remove({ 
-                            $or: [ { from: u.id }, { to: u.id } ]
-                        },cb);
-                    }));
-                }, mkrespcb(res,400,function() {
-                    res.json({ username: null, fbUser: profile });
-                }));
-            }));
-        }));
-    }));
+	console.log('killing');
+	db.User.findOne({
+		id: profile.id
+	}, mkrespcb(res, 400, function(u) {
+		if (!u) return res.json("User not found", 400);
+		db.User.remove({
+			id: profile.id
+		}, mkrespcb(res, 400, function() {
+			db.User.find({}).toArray(mkrespcb(res, 400, function(users) {
+				async.map(users, function(u, cb) {
+					db.User.update({
+						id: u.id
+					}, {
+						$set: {
+							friends: (u.friends || []).filter(function(i) {
+								return i != profile.id;
+							})
+						}
+					}, mkrespcb(res, 400, function() {
+						db.FBInvite.remove({
+							$or: [{
+								from: u.id
+							}, {
+								to: u.id
+							}]
+						}, cb);
+					}));
+				}, mkrespcb(res, 400, function() {
+					res.json({
+						username: null,
+						fbUser: profile
+					});
+				}));
+			}));
+		}));
+	}));
 });
 
 // Me
 
 m.getMe = FBify(function(profile, req, res) {
-    db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
-        if (u) res.json(u);
-        else res.json({ username: null, fbUser: profile });
-    }));
+	db.User.findOne({
+		id: profile.id
+	}, mkrespcb(res, 400, function(u) {
+		if (u) res.json(u);
+		else res.json({
+			username: null,
+			fbUser: profile
+		});
+	}));
 });
 
 // Get friendlist
 
-m.getFriends = FBify(function(profile,req,res) {
-    var scope = {}
-    async.series([
-        function(cb2) {
-            req.facebook.api('/me/friends', { 
-                fields: 'id, first_name, last_name, picture'
-            },setter(scope,'response',cb2))
-        },
-        function(cb2) {
-            db.User.find({}).toArray(setter(scope,'users',cb2))
-        },
-        function(cb2) {
-            db.User.findOne({ id: profile.id },setter(scope,'me',cb2))
-        },
-        function(cb2) {
-            if (!scope.me) return res.json('me not found',400);
-            var friends = scope.response.data;
-            var usermap = {}
-            scope.users.map(function(u) { usermap[u.id] = u })
-            var friendmap = {}
-            scope.me.friends.map(function(f) { friendmap[f] = f })
-            friends.map(function(f) {
-                if (usermap[f.id]) f.isUser = true
-                if (friendmap[f.id]) f.isFriend = true
-            })
-            setter(scope,'friends',cb2)(null,friends);
-        }
-    ],mkrespcb(res,400,function() { res.json(scope.friends) }))
+m.getFriends = FBify(function(profile, req, res) {
+	var scope = {}
+	async.series([
+
+		function(cb2) {
+			req.facebook.api('/me/friends', {
+				fields: 'id, first_name, last_name, picture'
+			}, setter(scope, 'response', cb2))
+		},
+		function(cb2) {
+			db.User.find({}).toArray(setter(scope, 'users', cb2))
+		},
+		function(cb2) {
+			db.User.findOne({
+				id: profile.id
+			}, setter(scope, 'me', cb2))
+		},
+		function(cb2) {
+			if (!scope.me) return res.json('me not found', 400);
+			var friends = scope.response.data;
+			var usermap = {}
+			scope.users.map(function(u) {
+				usermap[u.id] = u
+			})
+			var friendmap = {}
+			scope.me.friends.map(function(f) {
+				friendmap[f] = f
+			})
+			friends.map(function(f) {
+				if (usermap[f.id]) f.isUser = true
+				if (friendmap[f.id]) f.isFriend = true
+			})
+			setter(scope, 'friends', cb2)(null, friends);
+		}
+	], mkrespcb(res, 400, function() {
+		res.json(scope.friends)
+	}))
 });
 
 // Autocomplete usernames
 
-m.autoFill = function(req,res) {
-    var partial = req.param('partial') || ''
-    var names = partial.split(' ');
-    var nameConditions = [{ 'fbUser.first_name' : { $regex: '^'+names[0], $options: 'i' } }];
-    if(names[1]) {
-        nameConditions.push({ 'fbUser.last_name' : { $regex: '^'+names[1], $options: 'i' } });
-    }
-    db.User.find({ $or: [
-        { username: { $regex: '^'+partial, $options: 'i' } },
-        { $and: nameConditions }
-    ] })
-       .toArray(mkrespcb(res,400,function(r) {
-            res.json(r.map(function(x) { return { username: x.username, id: x.id, fullname: x.fbUser.first_name + " " + x.fbUser.last_name } }));
-        }))
+m.autoFill = function(req, res) {
+	var partial = req.param('partial') || ''
+	var names = partial.split(' ');
+	var nameConditions = [{
+		'fbUser.first_name': {
+			$regex: '^' + names[0],
+			$options: 'i'
+		}
+	}];
+	if (names[1]) {
+		nameConditions.push({
+			'fbUser.last_name': {
+				$regex: '^' + names[1],
+				$options: 'i'
+			}
+		});
+	}
+	db.User.find({
+		$or: [{
+			username: {
+				$regex: '^' + partial,
+				$options: 'i'
+			}
+		}, {
+			$and: nameConditions
+		}]
+	})
+		.toArray(mkrespcb(res, 400, function(r) {
+			res.json(r.map(function(x) {
+				return {
+					username: x.username,
+					id: x.id,
+					fullname: x.fbUser.first_name + " " + x.fbUser.last_name
+				}
+			}));
+		}))
 };
 
 // Is a username available?
 
-m.checkName = function(req,res) {
-    db.User.findOne({ username: req.param('name') },mkrespcb(res,400,function(u) {
-        if (!u) res.json('available');
-        else res.json('used');
-    }));
+m.checkName = function(req, res) {
+	db.User.findOne({
+		username: req.param('name')
+	}, mkrespcb(res, 400, function(u) {
+		if (!u) res.json('available');
+		else res.json('used');
+	}));
 };
 
-m.getPic = function(req,res) {
-    var username = req.param('username'),
-    sz = parseInt(req.param('size')) || 50;
-    db.User.findOne({ username: username },mkrespcb(res,400,function(u) {
-        if (!u) {
-            return res.json("user not found",404)
-        }
-        req.facebook.api('/'+u.id+'/picture?width='+sz+'&height='+sz+'&redirect=false',mkrespcb(res,400,function(pic) {
-            var extension = pic.data.url.slice(pic.data.url.length -3)
-            https.get(pic.data.url,function(r) {
-                res.writeHead(200, {'Content-Type': 'image/'+extension });
-                r.pipe(res);
-            })
-        }));
-    }))
+m.getPic = function(req, res) {
+	var username = req.param('username'),
+		sz = parseInt(req.param('size')) || 50;
+	db.User.findOne({
+		username: username
+	}, mkrespcb(res, 400, function(u) {
+		if (!u) {
+			return res.json("user not found", 404)
+		}
+		req.facebook.api('/' + u.id + '/picture?width=' + sz + '&height=' + sz + '&redirect=false', mkrespcb(res, 400, function(pic) {
+			var extension = pic.data.url.slice(pic.data.url.length - 3)
+			https.get(pic.data.url, function(r) {
+				res.writeHead(200, {
+					'Content-Type': 'image/' + extension
+				});
+				r.pipe(res);
+			})
+		}));
+	}))
 }
 
 // Return verification table
 
-m.printVerificationTable = function(req,res) {
-    db.User.find().toArray(mkrespcb(res,400,function(users) {
-        var twoToThe80 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1,0,0,0,0,0,0,0,0,0,0]),
-            twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]),
-            counter = new Bitcoin.BigInteger('0');
+m.printVerificationTable = function(req, res) {
+	db.User.find().toArray(mkrespcb(res, 400, function(users) {
+		var twoToThe80 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+			twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+			counter = new Bitcoin.BigInteger('0');
 
-        var usertable = users.map(function(u) {
-            var hash = Bitcoin.Crypto.SHA256(u.username),
-                hashBytes = Bitcoin.convert.hexToBytes(hash),
-                offset = new Bitcoin.BigInteger.fromByteArrayUnsigned(hashBytes).mod(twoToThe80),
-                key = new Bitcoin.BigInteger(''+u.tnx).multiply(twoToThe128).add(offset),
-                pub = Bitcoin.convert.bytesToHex(new Bitcoin.Key(key).getPub());
-            counter = counter.add(key);
-            return {
-                hash: hash,
-                pubkey: pub
-            }
-        })
-        res.json({
-            total: counter.toString(),
-            users: usertable
-        })
-    }))
+		var usertable = users.map(function(u) {
+			var hash = Bitcoin.Crypto.SHA256(u.username),
+				hashBytes = Bitcoin.convert.hexToBytes(hash),
+				offset = new Bitcoin.BigInteger.fromByteArrayUnsigned(hashBytes).mod(twoToThe80),
+				key = new Bitcoin.BigInteger('' + u.tnx).multiply(twoToThe128).add(offset),
+				pub = Bitcoin.convert.bytesToHex(new Bitcoin.Key(key).getPub());
+			counter = counter.add(key);
+			return {
+				hash: hash,
+				pubkey: pub
+			}
+		})
+		res.json({
+			total: counter.toString(),
+			users: usertable
+		})
+	}))
 }
