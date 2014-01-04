@@ -167,6 +167,7 @@ app.post('/mkrequest', Facebook.loginRequired(), tnx.mkRequest)
 app.post('/clearrequest', Facebook.loginRequired(), tnx.clearRequest)
 app.get('/requests', Facebook.loginRequired(), tnx.getRequests)
 app.post('/sendtnx', Facebook.loginRequired(), tnx.sendTNX)
+app.post('/acceptgive', Facebook.loginRequired(), tnx.acceptGive)
 app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory)
 
 app.post('/register', Facebook.loginRequired(), accounts.register)
