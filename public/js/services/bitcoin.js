@@ -1,11 +1,15 @@
 window.app.service('bitcoin',function($rootScope, $http) {
+    // TODO move these to separate constants file:
     $rootScope.TxTypes = {
             "giveRequest": "giveRequest",
             "getRequest" : "getRequest",
             "inviteReward": "inviteReward",
             "signupReward": "signupReward"
     }
-
+    $rootScope.RequestTypes = {
+            "GET": "GET",
+            "GIVE": "GIVE"
+    }
     $rootScope.bitcoinLogin = function(pw,callback,errback) {
         console.log('bl',pw,callback,errback);
         var key = new Bitcoin.Key(Bitcoin.Crypto.SHA256($rootScope.user.seed + pw)),

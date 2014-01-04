@@ -274,12 +274,13 @@ m.getFriends = FBify(function(profile,req,res) {
 m.autoFill = function(req,res) {
     var partial = req.param('partial') || ''
     var names = partial.split(' ');
+    var nameConditions = [{ 'fbUser.first_name' : { $regex: '^'+names[0], $options: 'i' } }];
+    if(names[1]) {
+        nameConditions.push({ 'fbUser.last_name' : { $regex: '^'+names[1], $options: 'i' } });
+    }
     db.User.find({ $or: [
         { username: { $regex: '^'+partial, $options: 'i' } },
-        { $and: [
-            { 'fbUser.first_name' : { $regex: '^'+names[0], $options: 'i' } },
-            { 'fbUser.last_name' : { $regex: '^'+names[1], $options: 'i' } }
-        ] }
+        { $and: nameConditions }
     ] })
        .toArray(mkrespcb(res,400,function(r) {
             res.json(r.map(function(x) { return { username: x.username, id: x.id, fullname: x.fbUser.first_name + " " + x.fbUser.last_name } }));

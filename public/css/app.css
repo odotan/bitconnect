@@ -635,3 +635,17 @@ td.td-wide-label {
 .navbar-nav {
   margin-left: 0 !important;
 }
+
+.rightButtons {
+  float: left;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+}
+.rightButton {
+  display:inline;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #3399cc;
+}

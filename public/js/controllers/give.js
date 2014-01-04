@@ -34,7 +34,19 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 return;
             }
             if (getter.username) {
-                $rootScope.thanxSend(getter.username, parseInt($scope.give.tnx), null, $scope.give.message, $rootScope.TxTypes.giveRequest);
+                $http.post('/mkrequest', {
+                    tnx: parseInt($scope.give.tnx),
+                    giveTo: getter.id,
+                    message: $scope.give.message,
+                    requestType: $rootScope.RequestTypes.GIVE
+                })
+                    .success(function(r) {
+                        $rootScope.message = {
+                            body: 'request sent!',
+                            canceltext: 'cool tnx'
+                        }
+                    })
+                    .error($rootScope.errHandle);
             } else {
                 FB.ui({
                     method: 'apprequests',

@@ -73,8 +73,9 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
 
             $http.post('/mkrequest', {
                 sat: parseInt($scope.get.bts),
-                from: id || giver.id,
-                message: $scope.get.message
+                getFrom: id || giver.id,
+                message: $scope.get.message,
+                requestType: $rootScope.RequestTypes.GET
             })
                 .success(function(r) {
                     $rootScope.message = {
@@ -104,8 +105,9 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
 
             $http.post('/mkrequest', {
                 tnx: parseInt($scope.get.tnx),
-                from: id || giver.id,
-                message: $scope.get.message
+                getFrom: id || giver.id,
+                message: $scope.get.message,
+                requestType: $rootScope.RequestTypes.GET
             })
                 .success(function(r) {
                     $rootScope.message = {
