@@ -260,7 +260,7 @@ m.acceptGive = FBify(function(profile, req, res) {
             if (!scope.giver) {
                 return res.json('giver not found', 400);
             } else if (scope.giver.tnx < scope.request.tnx) {
-                return res.json('giver has insufficient funds', 200);
+                return res.json('giver has insufficient funds', 400);
             }
             db.User.update({
                 id: scope.giver.id
@@ -278,6 +278,17 @@ m.acceptGive = FBify(function(profile, req, res) {
                     tnx: scope.request.tnx
                 }
             }, cb);
+        },
+        function(cb) {
+            db.Transaction.insert({
+                payer: dumpUser(scope.giver),
+                payee: dumpUser(scope.request.recipient),
+                id: util.randomHex(32),
+                tnx: scope.request.tnx,
+                txType: constants.TxTypes.giveRequest,
+                message: scope.request.message,
+                timestamp: new Date().getTime() / 1000
+            }, cb)
         },
         function(cb) {
             db.Request.remove({

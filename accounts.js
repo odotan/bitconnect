@@ -3,7 +3,8 @@ var db = require('./db'),
 	async = require('async'),
 	_ = require('underscore'),
 	https = require('https'),
-	Bitcoin = require('bitcoinjs-lib');
+	Bitcoin = require('bitcoinjs-lib'),
+	constants = require('./constants');
 
 var eh = util.eh,
 	mkrespcb = util.mkrespcb,
@@ -11,13 +12,6 @@ var eh = util.eh,
 	pybtctool = util.pybtctool,
 	FBify = util.FBify,
 	dumpUser = util.dumpUser;
-
-var TxTypes = {
-	"giveRequest": "giveRequest",
-	"getRequest": "getRequest",
-	"inviteReward": "inviteReward",
-	"signupReward": "signupReward"
-}
 
 var m = module.exports = {}
 
@@ -172,7 +166,7 @@ m.mkInvite = function(req, res) {
 						payee: dumpUser(u),
 						id: util.randomHex(32),
 						tnx: newTnx - u.tnx,
-						txType: TxTypes.inviteReward,
+						txType: constants.TxTypes.inviteReward,
 						timestamp: new Date().getTime() / 1000
 					}, mkrespcb(res, 400, function() {
 						console.log('fbinvites registered, bonus:', bonus);
