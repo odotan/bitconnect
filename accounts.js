@@ -308,8 +308,8 @@ m.getFriends = FBify(function(profile, req, res) {
 				usermap[u.id] = u
 			})
 			var friendmap = {}
-			scope.me.friends.map(function(f) {
-				friendmap[f] = f
+			friends.map(function(f) {
+				friendmap[f.id] = f
 			})
 			friends.map(function(f) {
 				if (usermap[f.id]) f.isUser = true
