@@ -178,12 +178,11 @@
 .friendsList .friend {
   position: relative;
   height: 50px;
-  cursor: pointer;
   border: 2px solid #3399cc;
   border-radius: 30px;
   margin-bottom: 2px;
 }
-/* line 11, ../sass/_friendsList.scss */
+/* line 10, ../sass/_friendsList.scss */
 .friendsList .friend img.friendImg {
   position: absolute;
   left: -2px;
@@ -192,7 +191,7 @@
   border-radius: 50%;
   border: 2px solid #3399cc;
 }
-/* line 20, ../sass/_friendsList.scss */
+/* line 19, ../sass/_friendsList.scss */
 .friendsList .friend .body .name {
   position: absolute;
   left: 60px;
@@ -203,28 +202,28 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 30, ../sass/_friendsList.scss */
+/* line 29, ../sass/_friendsList.scss */
 .friendsList .friend .body .check4invite {
   position: absolute;
   height: 16px;
   right: 10px;
   top: 15px;
 }
-/* line 36, ../sass/_friendsList.scss */
+/* line 35, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget {
   position: absolute;
   right: 26px;
   top: 10px;
 }
-/* line 40, ../sass/_friendsList.scss */
+/* line 39, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget img {
   width: 26px;
 }
-/* line 43, ../sass/_friendsList.scss */
+/* line 42, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget.give {
   right: 53px;
 }
-/* line 48, ../sass/_friendsList.scss */
+/* line 47, ../sass/_friendsList.scss */
 .friendsList .friend .invited {
   background-color: #3399cc;
   position: absolute;
