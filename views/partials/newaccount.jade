@@ -9,16 +9,16 @@ body
             div thanx :)
             div &nbsp;
             div
-                input.username(type='text',ng-model='username')
+                input.username(type='text',ng-model='username', ng-class='{red-outline: !available }')
                 //- span  .
                 //- input(type='text',ng-model='lastname',style='width:40%')
             div(ng-show="available")
             div &nbsp;
                 div your bitconnect address will be:
             div &nbsp;
-                div.green.pill {{ username }}.bitconnect.me
+                div.pill {{ username }}.bitconnect.me
             div(ng-show="!available")
-                div.red.pill the username is not available
+                div.red-outline.pill the username is not available
             div &nbsp;
             div
                 input#acceptTerms(type='checkbox',ng-model='acceptedterms')

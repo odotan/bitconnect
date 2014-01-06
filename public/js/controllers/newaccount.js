@@ -1,24 +1,27 @@
 function NewAccountController($scope, $rootScope, $http, $location, me) {
 
-    window.wscope = $scope;
+	window.wscope = $scope;
 
-    $scope.checkname = function() {
-        $http.post('/checkname',{ name:$scope.username+'.bitconnect.me' })
-            .success(function(r) {
-                if (r == '"available"') $scope.available = true;
-                else $scope.available = false;
-             })
-            .error(errhandle);
-    }
+	$scope.checkname = function() {
+		$http.post('/checkname', {
+			name: $scope.username + '.bitconnect.me'
+		})
+			.success(function(r) {
+				if (r == '"available"') $scope.available = true;
+				else $scope.available = false;
+			})
+			.error(errhandle);
+	}
 
-    $scope.register = function() {
-        $http.post('/register',{ name:$scope.username+'.bitconnect.me' })
-            .success(function(u) {
-                window.location.href = 'http://' + u.username + '/app/us';
-             })
-            .error(errhandle);
-    }
+	$scope.register = function() {
+		$http.post('/register', {
+			name: $scope.username + '.bitconnect.me'
+		})
+			.success(function(u) {
+				window.location.href = 'http://' + u.username + '/app/us';
+			})
+			.error(errhandle);
+	}
 
-    $scope.$watch('username',$scope.checkname)
+	$scope.$watch('username', $scope.checkname)
 }
-
