@@ -1,7 +1,7 @@
 .mymodal(ng-show="message.body")
     .modal-body
         span(style="float:right",ng-click="message = null") x
-        div(style="text-align:justify",ng-bind-html-unsafe="message.body")
+        div(style="text-align:justify"){{message.body}}
         input.form-input(type="{{ field.type || 'text' }}",ng-repeat="field in message.fields",ng-model="field.value")
     .modal-footer
         center(style="width:90%; margin-left: 5%; margin-right:5%")
