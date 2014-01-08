@@ -1,42 +1,56 @@
-var crypto          = require('crypto'),
-    cp              = require('child_process'),
-    Facebook        = require('facebook-node-sdk'),
-    config          = require('./config'),
-    sha256          = function(x) { return crypto.createHash('sha256').update(x).digest('hex') };
-    
+var crypto = require('crypto'),
+    cp = require('child_process'),
+    Facebook = require('facebook-node-sdk'),
+    config = require('./config'),
+    sha256 = function(x) {
+        return crypto.createHash('sha256').update(x).digest('hex')
+    };
+/*
+ * Returns a callback function(err, res) that in case of error runs given fail function,
+ * otherwise runs given success function with results as argument.
+ */
 var eh = function(fail, success) {
     return function(err, res) {
         if (err) {
-            console.log('e',err,'f',fail,'s',success);
-            if (fail) { fail(err); }
-        }
-        else {
-            success.apply(this,Array.prototype.slice.call(arguments,1));
+            console.log('e', err, 'f', fail, 's', success);
+            if (fail) {
+                fail(err);
+            }
+        } else {
+            // calls success callback with result as argument
+            success.apply(this, Array.prototype.slice.call(arguments, 1));
         }
     };
 };
-
-var mkrespcb = function(res,code,success) {
-    return eh(function(msg) { res.json(msg,code);  },success);
+/*
+ * Returns a callback function(err, results) that in case of error writes http error with given code to given response.
+ * Otherwise runs given success function with results as argument.
+ */
+var mkrespcb = function(res, code, success) {
+    return eh(function(msg) {
+        res.json(msg, code);
+    }, success);
 }
 
-var entropy = ''+new Date().getTime()+Math.random();
+var entropy = '' + new Date().getTime() + Math.random();
 
-crypto.randomBytes(100,function(err,buf) {
-    if (err) { throw err; }
+crypto.randomBytes(100, function(err, buf) {
+    if (err) {
+        throw err;
+    }
     entropy += buf.toString('hex');
 });
 
 var random = function(modulus) {
     var alphabet = '0123456789abcdef';
-    return sha256(entropy+new Date().getTime()+Math.random()).split('')
-           .reduce(function(tot,x) {
-                return (tot * 16 + alphabet.indexOf(x)) % modulus;
-           },0);
+    return sha256(entropy + new Date().getTime() + Math.random()).split('')
+        .reduce(function(tot, x) {
+            return (tot * 16 + alphabet.indexOf(x)) % modulus;
+        }, 0);
 }
 
 var randomHex = function(b) {
-    return sha256(entropy+new Date().getTime()+Math.random()).substring(0,b)
+    return sha256(entropy + new Date().getTime() + Math.random()).substring(0, b)
 }
 
 var cbsetter = function(obj, prop, callback) {
@@ -44,30 +58,33 @@ var cbsetter = function(obj, prop, callback) {
         if (err) callback(err);
         else {
             obj[prop] = val;
-            callback(null,val);
+            callback(null, val);
         }
     }
 }
 
 var FBify = function(c) {
-    return function(req,res) {
-        req.facebook.api('/me',mkrespcb(res,400,function(profile) {
+    return function(req, res) {
+        req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
             if (profile && profile.error)
-                return res.json(profile.error,404);
-            c(profile,req,res);
+                return res.json(profile.error, 404);
+            c(profile, req, res);
         }));
     }
 }
 
-var facebook = new Facebook({ appID: config.FBappId, secret: config.FBsecret });
+var facebook = new Facebook({
+    appID: config.FBappId,
+    secret: config.FBsecret
+});
 
 var pybtctool = function(command, argz) {
     var cb = arguments[arguments.length - 1]
-        args = Array.prototype.slice.call(arguments,1,arguments.length-1)
-                    .map(function(x) { 
-                        return (''+x).replace('\\','\\\\').replace(' ','\\ ')
-                     })
-    cp.exec('pybtctool '+command+' '+args.join(' '),cb);
+    args = Array.prototype.slice.call(arguments, 1, arguments.length - 1)
+        .map(function(x) {
+            return ('' + x).replace('\\', '\\\\').replace(' ', '\\ ')
+        })
+    cp.exec('pybtctool ' + command + ' ' + args.join(' '), cb);
 }
 
 var dumpUser = function(u) {

@@ -14,3 +14,7 @@ define("TxTypes", {
 	"inviteReward": "inviteReward",
 	"signupReward": "signupReward"
 })
+define("Rewards", {
+	"signupReward": 5432,
+	"inviteReward": 543
+})

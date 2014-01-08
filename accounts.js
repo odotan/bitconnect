@@ -26,7 +26,6 @@ m.register = FBify(function(profile, req, res) {
 			username: req.param('name'),
 			fbUser: profile,
 			id: profile.id,
-			tnx: 543,
 			inviteCounter: 0,
 			inviteAcceptedCounter: 0,
 			seed: util.randomHex(40),
@@ -36,7 +35,6 @@ m.register = FBify(function(profile, req, res) {
 		db.User.insert(newuser, mkrespcb(res, 400, function() {
 			db.FBInvite.find({
 				to: profile.id,
-				accepted: true
 			}).toArray(mkrespcb(res, 400, function(reqs) {
 				console.log('requests found', reqs);
 				consumeFBInvites(reqs, newuser, mkrespcb(res, 400, function() {
@@ -69,7 +67,7 @@ var consumeFBInvites = function(reqs, to, cb) {
 		users = [];
 		for (var uid in umap) users.push(umap[uid]);
 		// Distribute thanx
-		var reward = Math.floor(5432 / users.length);
+		var reward = Math.floor(constants.Rewards.signupReward / users.length);
 		async.map(users, function(user, cb2) {
 			// Give to each inviting user
 			console.log('giving to', user.fbUser.first_name, 'from', user.tnx, 'to', user.tnx + reward);
@@ -79,7 +77,7 @@ var consumeFBInvites = function(reqs, to, cb) {
 
 			while (newCounter >= 10) {
 				newCounter -= 10;
-				newTnx += 5432;
+				newTnx += constants.Rewards.signupReward;
 			}
 
 			db.User.update({
@@ -92,27 +90,40 @@ var consumeFBInvites = function(reqs, to, cb) {
 				}
 			}, eh(cb2, function() {
 				db.Transaction.insert({
-					payer: dumpUser(to),
+					payer: [to.id],
 					payee: dumpUser(user),
 					id: util.randomHex(32),
 					tnx: newTnx - user.tnx,
-					type: "inviteReward",
-					timestamp: new Date().getTime() / 1000
+					type: "signupReward",
+					timestamp: new Date().getTime() / 1000,
+					message: to.fbUser.first_name + ' ' + to.fbUser.last_name + " signed up!"
 				}, cb2)
 			}))
 		}, eh(cb, function() {
 			// Clear all users with more than 10 in their counter score
 			// Give to receiving user
+			var userIds = users.map(function(u) {
+				return u.id
+			}),
+				initialTnx = constants.Rewards.signupReward + reqs.length * constants.Rewards.inviteReward;
 			db.User.update({
 				id: to.id
 			}, {
 				$set: {
-					tnx: 5975,
-					friends: users.map(function(u) {
-						return u.id
-					})
+					tnx: initialTnx,
+					friends: userIds
 				}
-			}, cb);
+			}, eh(cb, function() {
+				db.Transaction.insert({
+					payer: userIds,
+					payee: dumpUser(to),
+					id: util.randomHex(32),
+					tnx: initialTnx,
+					message: "a welcome gift",
+					type: "signupReward",
+					timestamp: new Date().getTime() / 1000
+				});
+			}));
 		}));
 	}));
 }
@@ -145,11 +156,11 @@ m.mkInvite = function(req, res) {
 				id: profile.id
 			}, mkrespcb(res, 400, function(u) {
 				var newCounter = u.inviteCounter + bonus,
-					newTnx = (u.tnx || 0) + bonus * 543;
+					newTnx = (u.tnx || 0) + bonus * constants.Rewards.inviteReward;
 
 				while (newCounter >= 10) {
 					newCounter -= 10;
-					newTnx += 543;
+					newTnx += constants.Rewards.inviteReward;
 				}
 				console.log('giving to', u.fbUser.first_name, 'from', u.tnx, 'to', newTnx);
 				db.User.update({
@@ -162,11 +173,12 @@ m.mkInvite = function(req, res) {
 					}
 				}, mkrespcb(res, 400, function() {
 					db.Transaction.insert({
-						payer: req.param('to'),
+						payer: [req.param('to').id],
 						payee: dumpUser(u),
 						id: util.randomHex(32),
 						tnx: newTnx - u.tnx,
 						txType: constants.TxTypes.inviteReward,
+						message: "for inviting your friends to bitconnect!",
 						timestamp: new Date().getTime() / 1000
 					}, mkrespcb(res, 400, function() {
 						console.log('fbinvites registered, bonus:', bonus);
