@@ -94,7 +94,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
              title: 'come bitconnect with me :)', 
              message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)',
         }, function(req) { 
-            if (!req) return;
+            if (!req || angular.isUndefined(req.to)) return;
             console.log(req);
             $http.post('/mkinvite',{
                 from: $rootScope.user.id, 
