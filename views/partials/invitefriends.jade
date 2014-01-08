@@ -33,10 +33,10 @@ div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()")
                 .body
                     .name {{friend.first_name}} {{friend.last_name}}
                     .rightButtons
-                        a.get(href="/app/get?from={{friend.first_name}} {{friend.last_name}}", title="get", ng-show="friend.isUser")
+                        a.get(href="/app/get?from={{friend.first_name}} {{friend.last_name}}", title="get", ng-if="friend.isUser")
                             img.rightButton(ng-src="/img/get.svg")
-                        a.give(href="/app/give?to={{friend.first_name}} {{friend.last_name}}", title="give", ng-show="friend.isUser")
+                        a.give(href="/app/give?to={{friend.first_name}} {{friend.last_name}}", title="give", ng-if="friend.isUser")
                             img.rightButton(ng-src="/img/give.svg")
-                        a.invite(title="invite", ng-show="!friend.isUser", ng-click="selectFriend(friend.id)")
+                        a.invite(title="invite", ng-if="!friend.isUser", ng-click="selectFriend(friend.id)")
                             img.rightButton(ng-src="/img/facebook{{{true: 'i'}[selected[friend.id]]}}.svg")
     include modal
