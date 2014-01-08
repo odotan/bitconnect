@@ -16,8 +16,8 @@ body
                         from pybitcointools import *
                        
                         data = json.loads(urllib.urlopen('https://bitconnect.me/auditdata').read())
-                        history = history('3BiT8syuxEgNPfqrPzcJ4Uf4YhBot7TYjz')
-                        balance = sum([x["output"] for x in history if "spend" not in x])
+                        unspent_outputs = unspent('34thanx7WzFR33Efzb9zbyLxLQHFVKn1HS')
+                        balance = sum([x["output"] for x in unspent_outputs])
                         print "Loaded auditing data and balance, starting verification"
                         total = int(data["total"])
                         if (balance + 1) * 2**128 < total:
@@ -27,15 +27,37 @@ body
                             totalpubkey = add_pubkeys(totalpubkey,datum["pubkey"])
                         if privtopub(encode(total,16,64)) != totalpubkey:
                             raise Exception("Private and public keys do not match")
-                        username = raw_input("Enter your username: ").strip()
+                        vseed = raw_input("Go to bitconnect.me/verificationseed for your verification seed and enter here: ").strip()
                         mydatum = None
                         for datum in data["users"]:
-                            if sha256(username) == datum["hash"]: mydatum = datum
+                            if sha256(vseed) == datum["vsHash"]: mydatum = datum
                         if not mydatum:
                            raise Exception("Didn't find myself in the list!")
                         balance = int(raw_input("Enter your exact thanx balance: ").strip())
-                        key = encode(balance,16,32)+'000000000000'+sha256(username)[-20:]
+                        key = encode(balance,16,32)+'000000000000'+vseed
                         if mydatum["pubkey"] != privtopub(key):
                             raise Exception("The public key doesn't match my balance!")
                         print "Audit successful"
                        
+            div(style="float:left; left: 50%; position: relative")
+                div(style="float:left; left: -50%; position: relative")
+                    The way that the verificaion works is as follows:
+                    ul
+                        li 
+                            span Every user has their own private "verification seed" which can be accessed at 
+                            a(href="/verificationseed") http://bitconnect.me/verificationseed
+                            span when logged in
+                        li
+                            span In the verification table at
+                            a(href="/auditdata") http://bitconnect.me/auditdata
+                            span you can find a public key which is equal to
+                            code privtopub(balance * 2^128 + verificationSeed)
+                            span alongside the hash of the verification seed for each user. Note that the verification seed is always at least zero and below 2
+                            sup 80
+                        li
+                            span To verify your account balance,
+                            ol
+                                li Hash your verification seed, and make sure you are in the list
+                                li Make sure that the public key correctly represents your balance
+                                li Convert the total balance given in the verification table into a public key and make sure that it matches the sum of all user public keys
+                                li Make sure the total balance given in the verification table is equal to at least the actual balance of the address

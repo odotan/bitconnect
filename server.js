@@ -184,6 +184,7 @@ app.get('/autofill', accounts.autoFill)
 app.post('/checkname', accounts.checkName)
 app.get('/pic', accounts.getPic)
 app.get('/auditdata',accounts.printVerificationTable)
+app.get('/verificationseed',Facebook.loginRequired(),accounts.printMyVerificationSeed)
 
 setInterval(btc.updateBTCTxs,60000);
 setTimeout(btc.updateBTCTxs,1000);

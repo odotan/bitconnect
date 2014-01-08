@@ -29,6 +29,7 @@ m.register = FBify(function(profile, req, res) {
 			inviteCounter: 0,
 			inviteAcceptedCounter: 0,
 			seed: util.randomHex(40),
+            verificationSeed: util.randomHex(20),
 			friends: [],
 			firstUse: true
 		}
@@ -404,19 +405,17 @@ m.getPic = function(req, res) {
 
 m.printVerificationTable = function(req, res) {
 	db.User.find().toArray(mkrespcb(res, 400, function(users) {
-		var twoToThe80 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
-			twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+	    var twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
 			counter = new Bitcoin.BigInteger('0');
 
 		var usertable = users.map(function(u) {
-			var hash = Bitcoin.Crypto.SHA256(u.username),
-				hashBytes = Bitcoin.convert.hexToBytes(hash),
-				offset = new Bitcoin.BigInteger.fromByteArrayUnsigned(hashBytes).mod(twoToThe80),
+			var vsBytes = Bitcoin.convert.hexToBytes(u.verificationSeed || '00000000000000000000'),
+				offset = new Bitcoin.BigInteger.fromByteArrayUnsigned(vsBytes),
 				key = new Bitcoin.BigInteger('' + u.tnx).multiply(twoToThe128).add(offset),
 				pub = Bitcoin.convert.bytesToHex(new Bitcoin.Key(key).getPub());
 			counter = counter.add(key);
 			return {
-				hash: hash,
+				vsHash: Bitcoin.Crypto.SHA256(u.verificationSeed),
 				pubkey: pub
 			}
 		})
@@ -426,3 +425,10 @@ m.printVerificationTable = function(req, res) {
 		})
 	}))
 }
+
+m.printMyVerificationSeed = FBify(function(profile, req, res) {
+    User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
+        if (u) res.send(u.verificationSeed || '00000000000000000000');
+        else res.json("No user found",400)
+    }))
+})
