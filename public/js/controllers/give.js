@@ -75,6 +75,13 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                     break;
                 }
             }
+            if (!getter) {
+                var re=/^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
+                if (re.test($scope.give.to)) {
+                    $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.bts), 10000, $scope.give.message);
+                }
+                return;
+            }
             if ($rootScope.user.id == getter.id) {
                 $rootScope.message = {
                     body: 'you can\'t give to yourself',
@@ -83,7 +90,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 return;
             }
             if (getter.username) {
-                $rootScope.bitcoinSend(getter.username, parseInt($scope.give.bts), 10000, $scope.give.message)
+                $rootScope.bitcoinSend(getter.username, parseInt($scope.give.bts), 10000, $scope.give.message);
             } else {
                 FB.ui({
                     method: 'apprequests',
