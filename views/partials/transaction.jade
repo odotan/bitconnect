@@ -1,0 +1,12 @@
+.surround
+    include navbar
+
+    div Transaction Details
+    div From: {{historyItem.payer.fbUser.first_name}} {{historyItem.payer.fbUser.last_name}}
+    div To: {{historyItem.payee.fbUser.first_name}} {{historyItem.payee.fbUser.last_name}}
+    div Amount:
+        span(ng-if="historyItem.tnx")  {{historyItem.tnx}} thanx
+        span(ng-if="historyItem.sat")  {{historyItem.sat}} satoshi
+    div {{historyItem.message}}
+    div {{timestamp.toLocaleDateString()}} {{timestamp.toLocaleTimeString()}}
+    include modal

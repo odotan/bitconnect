@@ -1,5 +1,5 @@
-window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService',
-    function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService) {
+window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes',
+    function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes) {
 
         window.wscope = $scope;
 
@@ -38,7 +38,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                     tnx: parseInt($scope.give.tnx),
                     giveTo: getter.id,
                     message: $scope.give.message,
-                    requestType: $rootScope.RequestTypes.GIVE
+                    requestType: RequestTypes.GIVE
                 })
                     .success(function(r) {
                         $rootScope.message = {

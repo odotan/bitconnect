@@ -18,8 +18,10 @@ html(ng-app="thanxbits").no-js
 
         script(src="/js/lib/add2home.js")
         script(src="/js/lib/underscore-min.js")
-        //- script(src="/js/lib/jquery-1.10.2.min.js")
         script(src="/js/lib/angular.min.js")
+        script(src="/js/lib/jquery-1.10.2.min.js")
+        script $.noConflict();
+        script(src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js")
         script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js")
         script(src="/js/lib/ui-bootstrap-custom-0.6.0.min.js")
         script(src="/js/lib/bitcoinjs-min.js")
@@ -29,12 +31,14 @@ html(ng-app="thanxbits").no-js
         script(src="/js/facebook.js")
 
         script(src="/js/app.js")
+        script(src="/js/constants.js")
 
         script(src="/js/services/me.js")
         script(src="/js/services/requests.js")
         script(src="/js/services/bitcoin.js")
         script(src="/js/services/friends.js")
         script(src="/js/services/users.js")
+        script(src="/js/services/history.js")
 
         script(src="/js/controllers/get.js")
         script(src="/js/controllers/give.js")
@@ -44,6 +48,9 @@ html(ng-app="thanxbits").no-js
         script(src="/js/controllers/newaccount.js")
         script(src="/js/controllers/profile.js")
         script(src="/js/controllers/settings.js")
+        script(src="/js/controllers/transaction.js")
+
+        script(src="/js/directives/history-item-drtv.js")
 
 
 

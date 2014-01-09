@@ -21,23 +21,7 @@ body(ng-app="thanxbits")
             label History ({{ history.length }})
             .history(ng-repeat="hitem in history",style="margin: 5px 0px")
                 .request(ng-if="hitem.payer.id == user.id")
-                    img.friendImg(ng-src="/pic?username={{ hitem.payee.username }}&size=100",width="50px",height="50px")
-                    .body
-                        .fbname(title="{{hitem.payee.username}}") {{ hitem.payee.fbUser.first_name }} {{ hitem.payee.fbUser.last_name }}
-                        img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
-                        .tnx(ng-if="hitem.tnx") -{{ hitem.tnx }} thanx
-                        .sat.unconfirmed(ng-show="hitem.txid && !hitem.confirmed") -{{ hitem.sat }} satoshi
-                        .sat(ng-show="hitem.txid && hitem.confirmed") -{{ hitem.sat }} satoshi ({{ lastheight + 1 - hitem.confirmed }} confirmations)
-                        .message(ng-if="hitem.message") {{ hitem.message.slice(0,200) }}
+                    history-item(item="hitem", other-user="hitem.payee")
                 .request(ng-if="hitem.payer.id != user.id")
-                    img.friendImg(ng-if="hitem.payer.fbUser",ng-src="/pic?username={{hitem.payer.username}}&size=100",width="50px",height="50px")
-                    img.friendImg(ng-if="!hitem.payer.fbUser",ng-src="{{ {true: '/img/x.svg', false: '/img/s.svg'}[hitem.tnx > 0]}}",width="50px",height="50px")
-                    .body
-                        .fbname(ng-if="hitem.payer.fbUser",title="{{hitem.payer.username}}") {{ hitem.payer.fbUser.first_name + ' ' + hitem.payer.fbUser.last_name}}
-                        .fbname(ng-if="!hitem.payer.fbUser",title="Reward") reward
-                        img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
-                        .tnx(ng-if="hitem.tnx") +{{ hitem.tnx }} thanx
-                        .sat(ng-if="hitem.sat") +{{ hitem.sat }} satoshi
-                        .message(ng-if="hitem.message") {{ hitem.message.slice(0,200) }}
-
+                    history-item(item="hitem", other-user="hitem.payer")
         include modal

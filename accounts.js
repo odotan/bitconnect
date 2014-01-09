@@ -95,7 +95,7 @@ var consumeFBInvites = function(reqs, to, cb) {
 					payee: dumpUser(user),
 					id: util.randomHex(32),
 					tnx: newTnx - user.tnx,
-					type: "signupReward",
+					txType: "signupReward",
 					timestamp: new Date().getTime() / 1000,
 					message: to.fbUser.first_name + ' ' + to.fbUser.last_name + " signed up!"
 				}, cb2)
@@ -121,7 +121,7 @@ var consumeFBInvites = function(reqs, to, cb) {
 					id: util.randomHex(32),
 					tnx: initialTnx,
 					message: "a welcome gift",
-					type: "signupReward",
+					txType: "signupReward",
 					timestamp: new Date().getTime() / 1000
 				});
 			}));

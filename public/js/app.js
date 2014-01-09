@@ -21,6 +21,10 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/partials/requests',
         controller: 'RequestController'
     })
+    .when('/app/transaction/:id', {
+        templateUrl: '/partials/transaction',
+        controller: 'TransactionController'
+    })
     .when('/app/me', {
         templateUrl: '/partials/settings',
         controller: 'SettingsController'

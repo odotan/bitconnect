@@ -1,5 +1,5 @@
-window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService',
-    function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService) {
+window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes',
+    function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes) {
 
         window.wscope = $scope;
 
@@ -75,7 +75,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 sat: parseInt($scope.get.bts),
                 getFrom: id || giver.id,
                 message: $scope.get.message,
-                requestType: $rootScope.RequestTypes.GET
+                requestType: RequestTypes.GET
             })
                 .success(function(r) {
                     $rootScope.message = {
@@ -107,7 +107,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 tnx: parseInt($scope.get.tnx),
                 getFrom: id || giver.id,
                 message: $scope.get.message,
-                requestType: $rootScope.RequestTypes.GET
+                requestType: RequestTypes.GET
             })
                 .success(function(r) {
                     $rootScope.message = {

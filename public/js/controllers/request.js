@@ -1,5 +1,5 @@
-window.controllers.controller('RequestController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends',
-    function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
+window.controllers.controller('RequestController', ['$scope', '$rootScope', '$timeout', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'HistoryService', 'TxTypes', 'RequestTypes',
+    function($scope, $rootScope, $timeout, $http, $location, me, requests, bitcoin, friends, HistoryService, TxTypes, RequestTypes) {
 
         window.wscope = $scope;
 
@@ -10,36 +10,35 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ht
         }
 
         this.gethistory = function() {
-            $http.get('/rawhistory')
-                .success(function(h) {
-                    // Do the object equality check so that we do not refresh unless we have to
-                    var newh = h.map(function(x) {
-                        return x.id
-                    }),
-                        oldh = ($scope.history || []).map(function(x) {
-                            return x.id
-                        });
-                    if (JSON.stringify(newh) != JSON.stringify(oldh)) {
-                        $scope.history = h
-                    };
-                })
-        }
+            HistoryService.getHistory(function(h) {
+                // Do the object equality check so that we do not refresh unless we have to
+                var newh = h.map(function(x) {
+                    return x.id;
+                }),
+                    oldh = ($scope.history || []).map(function(x) {
+                        return x.id;
+                    });
+                if (JSON.stringify(newh) != JSON.stringify(oldh)) {
+                    $scope.history = h;
+                };
+            });
+        };
         setInterval(this.gethistory, 5000);
         this.gethistory();
 
         $scope.accept = function(request) {
-            if (request.requestType === $rootScope.RequestTypes.GET) {
+            if (request.requestType === RequestTypes.GET) {
                 if (!request) return;
                 if (request.tnx > 0) {
-                    $rootScope.thanxSend(request.sender.username, request.tnx, request, request.message, $rootScope.TxTypes.getRequest);
+                    $rootScope.thanxSend(request.sender.username, request.tnx, request, request.message, TxTypes.getRequest);
                 } else {
                     $rootScope.bitcoinSend(request.sender.username, request.sat, null, request);
                 }
-            } else if (request.requestType === $rootScope.RequestTypes.GIVE) {
+            } else if (request.requestType === RequestTypes.GIVE) {
                 acceptGiveRequest(request.id);
             }
             //TODO: clear handled requests
-        }
+        };
 
         $scope.reject = function(request_id) {
             $rootScope.message = {
@@ -64,6 +63,6 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ht
                 actiontext: 'yep',
                 canceltext: 'nope'
             }
-        }
+        };
     }
 ])
