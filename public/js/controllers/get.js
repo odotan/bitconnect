@@ -2,11 +2,19 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
     function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes) {
 
         window.wscope = $scope;
-
-        $scope.get = {
-            from: $location.search().from,
-            tnx: $location.search().tnx,
-            message: $location.search().message
+        if ($location.search().fromId) {
+            UsersService.getUserById($location.search().fromId, function(user) {
+                $scope.get = {
+                    from: user
+                };
+            });
+        }
+        else {
+            $scope.get = {
+                from: $location.search().from,
+                tnx: $location.search().tnx,
+                message: $location.search().message
+            }
         }
 
         $scope.getmain = function() {
@@ -56,11 +64,8 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             if (!parseInt($scope.get.bts)) return;
 
             var giver;
-            for (var key in $scope.usersById) {
-                if ($scope.usersById.hasOwnProperty(key) && $scope.usersById[key].fullname == $scope.get.from) {
-                    giver = $scope.usersById[key];
-                    break;
-                }
+            if (angular.isObject($scope.get.from)) {
+                giver = $scope.get.from;
             }
 
             if ($rootScope.user.id == giver.id) {
@@ -89,11 +94,8 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             if (!parseInt($scope.get.tnx)) return;
 
             var giver;
-            for (var key in $scope.usersById) {
-                if ($scope.usersById.hasOwnProperty(key) && $scope.usersById[key].fullname == $scope.get.from) {
-                    giver = $scope.usersById[key];
-                    break;
-                }
+            if (angular.isObject($scope.get.from)) {
+                giver = $scope.get.from;
             }
             if ($rootScope.user.id == giver.id) {
                 $rootScope.message = {

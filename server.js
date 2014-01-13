@@ -74,18 +74,19 @@ app.configure(function() {
 });
 
 
-
 //app.get('/', Facebook.isRegistered(), function(req,res) {                       
 app.get('/', function(req,res) {                       
     var parts = req.host.split('.'),
-        profileId = parts.slice(0,2).join('.');
-    if (parts.length == 2) {
+        profileId = parts.slice(0,3).join('.');
+    if (parts.length <= 2) {
         res.render('welcome.jade',{});                                                           
     }
-    else {
+    else if(req.url.length<=1){
         db.User.findOne({ username: profileId },mkrespcb(res,400,function(u) {
-            if (!u) res.render('welcome.jade',{})
-            else res.redirect('/profile')
+            if (!u) res.json(404, 'Profile Not Found');
+            else {
+                res.redirect('http://' + req.headers.host.split('.').slice(1,3).join('.') + req.url + 'profile/' + u.id);
+            }
         }));
     }
 });
@@ -115,6 +116,10 @@ app.get('/app/*', Facebook.loginRequired(), function(req,res) {
     res.render('index.jade');
 })
 
+app.get('/profile/*', function(req,res) {
+    res.render('index.jade');
+})
+
 app.get('/partials/:name', function(req, res) {
     res.render('partials/' + req.params.name);
 });
@@ -127,7 +132,6 @@ function showpage(path,template) {
     });
 }
 
-showpage('/profile','profile.jade');
 showpage('/terms','terms.jade');
 showpage('/audit','audit.jade');
 
@@ -181,6 +185,7 @@ app.post('/kill', Facebook.loginRequired(), accounts.kill)
 app.get('/me', accounts.getMe)
 app.get('/friends', Facebook.loginRequired(), accounts.getFriends)
 app.get('/autofill', accounts.autoFill)
+app.get('/user', accounts.getUserById)
 app.post('/checkname', accounts.checkName)
 app.get('/pic', accounts.getPic)
 app.get('/auditdata',accounts.printVerificationTable)

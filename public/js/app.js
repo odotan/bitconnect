@@ -37,6 +37,10 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/partials/newaccount',
         controller: 'NewAccountController'
     })
+    .when('/profile/:userId', {
+        templateUrl: '/partials/profile',
+        controller: 'ProfileCtrl'
+    })
     .otherwise({
         redirectTo: '/'
     });
@@ -45,9 +49,12 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.run(function($rootScope, $location) {
-    $rootScope.goto = function(path) {
+    $rootScope.goto = function(path, searchValues) {
         if (window.location.pathname.indexOf(path) == -1) {
             $location.path('/app/'+path);
+            if (searchValues) {
+                $location.search(searchValues);
+            }
 	   }
     }
     $rootScope.path = function() {

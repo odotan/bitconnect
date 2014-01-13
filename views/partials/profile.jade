@@ -1,0 +1,9 @@
+body
+	.surround(ng-controller="ProfileCtrl")
+		.profilePage(style="width:100%")
+			img.profilePicture(style="width:320px; height:320px",ng-if="userId", ng-src="/pic?size=320&id={{userId}}")
+			.profileName {{user.fullname}}
+			div.profileButtons
+				img.profileButton(ng-click="give()", ng-src="/img/give.svg")
+				img.profileButton(ng-click="get()", ng-src="/img/get.svg")
+

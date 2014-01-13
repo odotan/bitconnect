@@ -91,6 +91,31 @@
   border: 1px solid #3399cc;
 }
 
+/* line 1, ../sass/_profile.scss */
+.profileButton {
+  width: 150px;
+  height: 150px;
+  padding: 20px;
+}
+
+/* line 7, ../sass/_profile.scss */
+.profileButtons {
+  text-align: center;
+}
+
+/* line 11, ../sass/_profile.scss */
+.profilePicture {
+  border-radius: 50%;
+  border: 2px solid #3399cc;
+}
+
+/* line 15, ../sass/_profile.scss */
+.profileName {
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+}
+
 /* line 3, ../sass/_navbar.scss */
 .main .navbar-default {
   background-color: transparent;

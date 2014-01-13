@@ -29,6 +29,12 @@ window.app.service('UsersService', function($rootScope, $http) {
             });
     }
 
+    this.getUserById = function getUserById(userId, cb) {
+        $http.get('/user?userId=' + userId).success(function(res) {
+            cb(res);
+        });
+    };
+
     /*
      * Returns true iff the given user matches the given partial name, in terms of search criteria.
      */

@@ -369,6 +369,18 @@ m.autoFill = function(req, res) {
 		}))
 };
 
+m.getUserById = function getUserById(req, res) {
+	db.User.findOne({
+		id: req.param('userId')
+	}, mkrespcb(res, 400, function(u) {
+		res.json({
+			username: u.username,
+			id: u.id,
+			fullname: u.fbUser.first_name + " " + u.fbUser.last_name
+		});
+	}));
+}
+
 // Is a username available?
 
 m.checkName = function(req, res) {
@@ -381,15 +393,8 @@ m.checkName = function(req, res) {
 };
 
 m.getPic = function(req, res) {
-	var username = req.param('username'),
-		sz = parseInt(req.param('size')) || 50;
-	db.User.findOne({
-		username: username
-	}, mkrespcb(res, 400, function(u) {
-		if (!u) {
-			return res.json("user not found", 404)
-		}
-		req.facebook.api('/' + u.id + '/picture?width=' + sz + '&height=' + sz + '&redirect=false', mkrespcb(res, 400, function(pic) {
+	function getPicture(userId) {
+		req.facebook.api('/' + userId + '/picture?width=' + sz + '&height=' + sz + '&redirect=false', mkrespcb(res, 400, function(pic) {
 			var extension = pic.data.url.slice(pic.data.url.length - 3)
 			https.get(pic.data.url, function(r) {
 				res.writeHead(200, {
@@ -398,7 +403,23 @@ m.getPic = function(req, res) {
 				r.pipe(res);
 			})
 		}));
-	}))
+	}
+	var username = req.param('username'),
+		userId = username && undefined || req.param('id'),
+		sz = parseInt(req.param('size')) || 50;
+	if (username) {
+		db.User.findOne({
+			username: username
+		}, mkrespcb(res, 400, function(u) {
+			if (!u) {
+				return res.json("user not found", 404)
+			}
+			return getPicture(u.id);
+		}));
+	}
+	else if (userId) {
+		return getPicture(userId);
+	}
 }
 
 // Return verification table
@@ -427,7 +448,7 @@ m.printVerificationTable = function(req, res) {
 }
 
 m.printMyVerificationSeed = FBify(function(profile, req, res) {
-    User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
+    db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
         if (u) res.send(u.verificationSeed || '00000000000000000000');
         else res.json("No user found",400)
     }))

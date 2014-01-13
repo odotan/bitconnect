@@ -2,12 +2,20 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
     function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes) {
 
         window.wscope = $scope;
-
-        $scope.give = {
-            to: $location.search().to,
-            tnx: $location.search().tnx,
-            bts: $location.search().bts,
-            message: $location.search().message
+        if ($location.search().toId) {
+            UsersService.getUserById($location.search().toId, function(user) {
+                $scope.give = {
+                    to: user
+                };
+            });
+        }
+        else {
+            $scope.give = {
+                to: $location.search().to,
+                tnx: $location.search().tnx,
+                bts: $location.search().bts,
+                message: $location.search().message
+            };
         }
 
         $scope.givemain = function() {
@@ -20,11 +28,8 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         $scope.givetnx = function() {
             if (!parseInt($scope.give.tnx)) return;
             var getter;
-            for (var key in $scope.usersById) {
-                if ($scope.usersById[key].fullname == $scope.give.to) {
-                    getter = $scope.usersById[key];
-                    break;
-                }
+            if (angular.isObject($scope.give.to)) {
+                getter = $scope.give.to;
             }
             if ($rootScope.user.id == getter.id) {
                 $rootScope.message = {
@@ -69,11 +74,8 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         $scope.givebtc = function() {
             if (!parseInt($scope.give.bts)) return;
             var getter;
-            for (var key in $scope.usersById) {
-                if ($scope.usersById[key].fullname == $scope.give.to) {
-                    getter = $scope.usersById[key];
-                    break;
-                }
+            if (angular.isObject($scope.give.to)) {
+                getter = $scope.give.to;
             }
             if (!getter) {
                 var re=/^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
@@ -115,7 +117,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         $scope.usersById = {}; // map of users filtered according to the current search
 
         $scope.$watch('give.to', function() {
-            if (!$scope.give.to || $scope.give.to.length < 2) {
+            if (angular.isUndefined($scope.give) || angular.isUndefined($scope.give.to) || angular.isObject($scope.give.to) || $scope.give.to.length < 2) {
                 return;
             }
             $scope.usersById = FriendsService.getFriendsByPartialName($scope.give.to);

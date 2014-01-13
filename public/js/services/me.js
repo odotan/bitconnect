@@ -11,13 +11,13 @@ window.app.service('me', function($rootScope, $http) {
 				$rootScope.username = $rootScope.user.fbUser.username ? $rootScope.user.fbUser.username : $rootScope.firstname + $rootScope.lastname;
 				if (!$rootScope.user.username) {
 					if (window.location.href.indexOf('newaccount') == -1)
-						window.location.href = '/newaccount'
+						$rootScope.goto('newaccount');
 				} else {
 					if (window.location.href.indexOf('newaccount') >= 0) {
 						if ($rootScope.user.firstUse)
-							window.location.href = 'http://' + u.username + '.bitconnect.me/app/invitefriends';
+							$rootScope.goto('us');
 						else
-							window.location.href = 'http://' + u.username + '.bitconnect.me/app/give';
+							window.location.href = 'http://' + u.username + '/app/give';
 					}
 				}
 			})

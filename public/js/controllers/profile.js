@@ -1,16 +1,18 @@
+window.controllers.controller('ProfileCtrl', ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', 'UsersService',
+	function ($scope, $rootScope, $http, $location, $routeParams, $timeout, UsersService) {
+		window.wscope = $scope;
+		$scope.userId = $routeParams.userId;
+		UsersService.getUserById($scope.userId, function(user) {
+			$scope.user = user;
+		});
+		//$scope.username = window.location.host.split('.').slice(0,2).join('.')+'.bitconnect.me'
+		$scope.give = function() {
+			$rootScope.goto('give', {to: $scope.user});
+		}
 
-function ProfileCtrl($scope, $rootScope, $http, $location, me) {
+		$scope.get = function() {
+			$rootScope.goto('get', {from: $scope.user});
+		}
 
-    window.wscope = $scope;
-
-    $scope.username = window.location.host.split('.').slice(0,2).join('.')+'.bitconnect.me'
-
-    $scope.gotoGive = function() {
-        window.location.href = '/give?to='+$scope.username
-    }
-
-    $scope.gotoGet = function() {
-        window.location.href = '/get?from='+$scope.username
-    }
-
-}
+	}
+]);
