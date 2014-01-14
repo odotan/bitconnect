@@ -200,13 +200,13 @@ var options = {
     ca: fs.readFileSync('ssl/bitconnectwildca.pem')
 };
 
-var dev= false;
+var dev= true;
 if(dev){
     http.createServer(app).listen(8000);
 }else{
     express()
         .get('*',function(req,res){  
-            res.redirect('https://bitconnect.me'+req.url);
+            res.redirect('https://' + req.host + req.url);
         })
         .listen(80);
     https.createServer(options,app).listen(443);
