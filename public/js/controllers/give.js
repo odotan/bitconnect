@@ -8,8 +8,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                     to: user
                 };
             });
-        }
-        else {
+        } else {
             $scope.give = {
                 to: $location.search().to,
                 tnx: $location.search().tnx,
@@ -19,13 +18,17 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         }
 
         $scope.givemain = function() {
-            if ($scope.btcmode) {
-                $scope.givebtc();
-            } else {
-                $scope.givetnx();
+            function clearValues() {
+                $scope.give = {};
             }
+            if ($scope.btcmode) {
+                $scope.givebtc(clearValues);
+            } else {
+                $scope.givetnx(clearValues);
+            }
+
         }
-        $scope.givetnx = function() {
+        $scope.givetnx = function(successCB) {
             if (!parseInt($scope.give.tnx)) return;
             var getter;
             if (angular.isObject($scope.give.to)) {
@@ -50,6 +53,9 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                             body: 'request sent!',
                             canceltext: 'cool tnx'
                         }
+                        if (successCB) {
+                            successCB();
+                        }
                     })
                     .error($rootScope.errHandle);
             } else {
@@ -65,6 +71,9 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                         reqid: req.request
                     })
                         .success(function() {
+                            if (angular.isDefined(req) && angular.isDefined(req.to) && successCB) {
+                                successCB();
+                            }
                             //  $scope.givetnx();
                         })
                 });
@@ -78,7 +87,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 getter = $scope.give.to;
             }
             if (!getter) {
-                var re=/^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
+                var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
                 if (re.test($scope.give.to)) {
                     $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.bts), 10000, $scope.give.message);
                 }
@@ -106,7 +115,11 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                         reqid: req.request
                     })
                         .success(function() {
-                            //  $scope.givetnx();
+                            if (angular.isDefined(req) && angular.isDefined(req.to)) {
+                                if (successCB) {
+                                    successCB();
+                                }
+                            }
                         })
                 });
                 //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your satoshi when they sign up.', canceltext: 'invite' }

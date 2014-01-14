@@ -17,6 +17,9 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         }
 
         $scope.getmain = function() {
+            function clearValues() {
+                $scope.get = {};
+            }
             if (angular.isObject($scope.get.from)) {
                 var giver = $scope.get.from;
                 if ($scope.get.from.username) {
@@ -28,9 +31,9 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         return;
                     }
                     if ($scope.btcmode) {
-                        $scope.getbtc();
+                        $scope.getbtc(clearValues);
                     } else {
-                        $scope.gettnx();
+                        $scope.gettnx(clearValues);
                     }
                 } else {
                     FB.ui({
@@ -48,17 +51,15 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                             reqid: req.request
                         })
                             .success(function() {
-                                if ($scope.btcmode) {
-                                    //$scope.getbtc(giver.id);
-                                } else {
-                                    //$scope.gettnx(giver.id);
+                                if (angular.isDefined(req) && angular.isDefined(req.to)) {
+                                    clearValues();
                                 }
-                            })
+                            });
                     });
                 }
             }
         }
-        $scope.getbtc = function(id) {
+        $scope.getbtc = function() {
             if (!parseInt($scope.get.bts)) return;
             if (!angular.isObject($scope.get.from)) {
                 return;
@@ -74,7 +75,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
 
             $http.post('/mkrequest', {
                 sat: parseInt($scope.get.bts),
-                getFrom: id || giver.id,
+                getFrom: giver.id,
                 message: $scope.get.message,
                 requestType: RequestTypes.GET
             })
@@ -83,10 +84,13 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         body: 'request sent!',
                         canceltext: 'cool sat'
                     }
+                    if (successCB) {
+                        successCB();
+                    }
                 })
                 .error($rootScope.errHandle);
         }
-        $scope.gettnx = function(id) {
+        $scope.gettnx = function(successCB) {
             if (!parseInt($scope.get.tnx)) return;
             if (!angular.isObject($scope.get.from)) {
                 return;
@@ -102,7 +106,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
 
             $http.post('/mkrequest', {
                 tnx: parseInt($scope.get.tnx),
-                getFrom: id || giver.id,
+                getFrom: giver.id,
                 message: $scope.get.message,
                 requestType: RequestTypes.GET
             })
@@ -111,8 +115,11 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         body: 'request sent!',
                         canceltext: 'cool tnx'
                     }
+                    if (successCB) {
+                        successCB();
+                    }
                 })
-            .error($rootScope.errHandle);
+                .error($rootScope.errHandle);
         }
 
         $scope.usersById = {}; // map of users filtered according to the current search
