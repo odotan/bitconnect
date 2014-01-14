@@ -8,8 +8,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     from: user
                 };
             });
-        }
-        else {
+        } else {
             $scope.get = {
                 from: $location.search().from,
                 tnx: $location.search().tnx,
@@ -18,56 +17,53 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         }
 
         $scope.getmain = function() {
-            $http.get('/autofill?partial=' + $scope.get.from)
-                .success(function(r) {
-                    if (r.length == 0) {
-                        var f = $rootScope.FBfriends.filter(function(x) {
-                            return x.first_name + " " + x.last_name == $scope.get.from
-                        })[0]
-                        if (!f) return;
-                        if ($rootScope.user.id == f.id) {
-                            $rootScope.message = {
-                                body: 'you can\'t get from yourself',
-                                canceltext: 'ok'
-                            }
+            if (angular.isObject($scope.get.from)) {
+                var giver = $scope.get.from;
+                if ($scope.get.from.username) {
+                    if ($rootScope.user.id == giver.id) {
+                        $rootScope.message = {
+                            body: 'you can\'t get from yourself',
+                            canceltext: 'ok'
+                        }
+                        return;
+                    }
+                    if ($scope.btcmode) {
+                        $scope.getbtc();
+                    } else {
+                        $scope.gettnx();
+                    }
+                } else {
+                    FB.ui({
+                        method: 'apprequests',
+                        to: giver.id,
+                        title: 'come bitconnect with me :)',
+                        message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
+                    }, function(req) {
+                        if (!req || angular.isUndefined(req.to)) {
                             return;
                         }
-                        FB.ui({
-                            method: 'apprequests',
-                            to: f.id,
-                            title: 'come bitconnect with me :)',
-                            message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
-                        }, function(req) {
-                            $http.post('/mkinvite', {
-                                from: $rootScope.user.id,
-                                to: [f.id],
-                                reqid: req.request
+                        $http.post('/mkinvite', {
+                            from: $rootScope.user.id,
+                            to: [giver.id],
+                            reqid: req.request
+                        })
+                            .success(function() {
+                                if ($scope.btcmode) {
+                                    //$scope.getbtc(giver.id);
+                                } else {
+                                    //$scope.gettnx(giver.id);
+                                }
                             })
-                                .success(function() {
-                                    if ($scope.btcmode) {
-                                        $scope.getbtc(f.id);
-                                    } else {
-                                        $scope.gettnx(f.id);
-                                    }
-                                })
-                        });
-                    } else {
-                        if ($scope.btcmode) {
-                            $scope.getbtc();
-                        } else {
-                            $scope.gettnx();
-                        }
-                    }
-                })
+                    });
+                }
+            }
         }
         $scope.getbtc = function(id) {
             if (!parseInt($scope.get.bts)) return;
-
-            var giver;
-            if (angular.isObject($scope.get.from)) {
-                giver = $scope.get.from;
+            if (!angular.isObject($scope.get.from)) {
+                return;
             }
-
+            var giver = $scope.get.from;
             if ($rootScope.user.id == giver.id) {
                 $rootScope.message = {
                     body: 'you can\'t get from yourself',
@@ -92,11 +88,10 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         }
         $scope.gettnx = function(id) {
             if (!parseInt($scope.get.tnx)) return;
-
-            var giver;
-            if (angular.isObject($scope.get.from)) {
-                giver = $scope.get.from;
+            if (!angular.isObject($scope.get.from)) {
+                return;
             }
+            var giver = $scope.get.from;
             if ($rootScope.user.id == giver.id) {
                 $rootScope.message = {
                     body: 'you can\'t get from yourself',
@@ -117,7 +112,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         canceltext: 'cool tnx'
                     }
                 })
-                .error($rootScope.errHandle);
+            .error($rootScope.errHandle);
         }
 
         $scope.usersById = {}; // map of users filtered according to the current search
