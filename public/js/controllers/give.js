@@ -87,6 +87,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 getter = $scope.give.to;
             }
             if (!getter) {
+                // regular expression for bitcoin address:
                 var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
                 if (re.test($scope.give.to)) {
                     $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.bts), 10000, $scope.give.message);

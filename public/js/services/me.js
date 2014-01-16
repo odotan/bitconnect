@@ -9,17 +9,6 @@ window.app.service('me', function($rootScope, $http) {
 				$rootScope.firstname = $rootScope.user.fbUser.first_name.toLowerCase();
 				$rootScope.lastname = $rootScope.user.fbUser.last_name.toLowerCase();
 				$rootScope.username = $rootScope.user.fbUser.username ? $rootScope.user.fbUser.username : $rootScope.firstname + $rootScope.lastname;
-				if (!$rootScope.user.username) {
-					if (window.location.href.indexOf('newaccount') == -1)
-						$rootScope.goto('newaccount');
-				} else {
-					if (window.location.href.indexOf('newaccount') >= 0) {
-						if ($rootScope.user.firstUse)
-							$rootScope.goto('us');
-						else
-							window.location.href = 'http://' + u.username + '/app/give';
-					}
-				}
 			})
 			.error(function(e) {
 				console.log(e);
