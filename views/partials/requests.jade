@@ -14,10 +14,10 @@ body(ng-app="thanxbits")
                         .message(ng-if="request.message") {{ request.message }}
                     div.rightButtons
                         span.accept(ng-switch="", on="request.requestType")
-                            img.rightButton(ng-switch-when="GIVE", src="/img/get.svg", ng-click="accept(request)")
-                            img.rightButton(ng-switch-when="GET", src="/img/give.svg", ng-click="accept(request )")
+                            img.actionButton(ng-switch-when="GIVE", src="/img/get.svg", ng-click="accept(request)")
+                            img.actionButton(ng-switch-when="GET", src="/img/give.svg", ng-click="accept(request )")
                         span.reject
-                            img.rightButton(src="/img/remove.svg", ng-click="reject(request.id)")
+                            img.actionButton(src="/img/remove.svg", ng-click="reject(request.id)")
             label History ({{ history.length }})
             .history(ng-repeat="hitem in history",style="margin: 5px 0px")
                 .request(ng-if="hitem.payer.id == user.id")

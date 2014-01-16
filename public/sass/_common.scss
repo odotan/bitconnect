@@ -55,10 +55,34 @@
   top: -2px;
 }
 
-.rightButton {
+.actionButton {
   display:inline;
   width: 50px;
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid #3399cc;
 }
+
+.controlBar {
+  position: relative;
+  height: 50px;
+  border: 2px solid #3399cc;
+  border-radius: 30px;
+  margin-bottom: -2px;
+  .controlBarButton {
+    display: inline;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid #3399cc;
+    position: absolute;
+  }
+  .controlBarButtonRight {
+    top: -2px;
+    right: -2px;
+  }
+  .controlBarButtonLeft {
+    top: -2px;
+    left: -2px;
+  }
+}
+

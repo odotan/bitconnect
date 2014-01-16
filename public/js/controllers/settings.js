@@ -28,4 +28,10 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
         })
     }
 
+    $scope.logout = function() {
+        $http.post('/logout').success(function() {
+            window.location.href = '/';    
+        });
+        
+    }
 }])

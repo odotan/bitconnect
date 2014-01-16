@@ -83,12 +83,39 @@
 }
 
 /* line 58, ../sass/_common.scss */
-.rightButton {
+.actionButton {
   display: inline;
   width: 50px;
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid #3399cc;
+}
+
+/* line 66, ../sass/_common.scss */
+.controlBar {
+  position: relative;
+  height: 50px;
+  border: 2px solid #3399cc;
+  border-radius: 30px;
+  margin-bottom: -2px;
+}
+/* line 72, ../sass/_common.scss */
+.controlBar .controlBarButton {
+  display: inline;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid #3399cc;
+  position: absolute;
+}
+/* line 79, ../sass/_common.scss */
+.controlBar .controlBarButtonRight {
+  top: -2px;
+  right: -2px;
+}
+/* line 83, ../sass/_common.scss */
+.controlBar .controlBarButtonLeft {
+  top: -2px;
+  left: -2px;
 }
 
 /* line 1, ../sass/_profile.scss */

@@ -1,5 +1,9 @@
 .surround(ng-controller="SettingsController")
     include navbar
+    .controlBar
+        img.controlBarButton.controlBarButtonLeft(ng-src="/pic?id={{user.id}}")
+        a(href='')
+            img.controlBarButton.controlBarButtonRight(ng-src="/img/off.svg", title="logout", ng-click="logout()")
     form
         .form-group(ng-show="user.address")
             big my bitconnect bitcoin address

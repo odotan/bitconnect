@@ -144,6 +144,11 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
     }));
 }));
 
+app.post('/logout', Facebook.loginRequired(), FBify(function(profile, req, res) {
+    res.render('welcome.jade', {});
+    req.facebook.destroySession();
+}));
+
 // Show the app
 app.get('/app/newaccount', Facebook.loadRegisteredUser(), function(req, res) {
     if (req.registeredUser) {
