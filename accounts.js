@@ -123,7 +123,7 @@ var consumeFBInvites = function(reqs, to, cb) {
 					message: "a welcome gift",
 					txType: "signupReward",
 					timestamp: new Date().getTime() / 1000
-				});
+				}, cb);
 			}));
 		}));
 	}));
