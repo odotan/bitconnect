@@ -150,7 +150,9 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             }
             var res = [];
             for (var key in $scope.usersById) {
-                if ($scope.usersById.hasOwnProperty(key) && UsersService.userFilter($scope.usersById[key], enteredText)) {
+                if ($scope.usersById.hasOwnProperty(key) &&
+                    UsersService.userFilter($scope.usersById[key], enteredText) &&
+                    key !== $scope.user.id) {
                     res.push($scope.usersById[key]);
                 }
             }
