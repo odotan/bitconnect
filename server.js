@@ -111,7 +111,9 @@ app.get('/', Facebook.loadRegisteredUser({}), function(req, res) {
         db.User.findOne({
             username: profileId
         }, mkrespcb(res, 400, function(u) {
-            if (!u) res.json(404, 'Profile Not Found');
+            if (!u) {
+                res.redirect('http://' + req.headers.host.split('.').slice(1, 3).join('.'));
+            }
             else {
                 res.redirect('http://' + req.headers.host.split('.').slice(1, 3).join('.') + req.url + 'profile/' + u.id);
             }
