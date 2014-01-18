@@ -4,7 +4,8 @@ var db = require('./db'),
 	_ = require('underscore'),
 	https = require('https'),
 	Bitcoin = require('bitcoinjs-lib'),
-	constants = require('./constants');
+	constants = require('./constants'),
+	config = require('./config');
 
 var eh = util.eh,
 	mkrespcb = util.mkrespcb,
@@ -29,7 +30,7 @@ m.register = FBify(function(profile, req, res) {
 			inviteCounter: 0,
 			inviteAcceptedCounter: 0,
 			seed: util.randomHex(40),
-            verificationSeed: util.randomHex(20),
+			verificationSeed: util.randomHex(20),
 			friends: [],
 			firstUse: true
 		}
@@ -127,70 +128,101 @@ var consumeFBInvites = function(reqs, to, cb) {
 			}));
 		}));
 	}));
-}
+};
 
+
+function getVerificationFqlQuery(profileId, invitedFriendIds) {
+	var res = 'SELECT recipient_uid FROM apprequest WHERE app_id=' + config.FBappId + ' AND sender_uid=' + profileId + ' AND (',
+		firstFriend = true;
+
+	invitedFriendIds.forEach(function(friendId) {
+		if (!firstFriend) {
+			res += ' OR ';
+		} else {
+			firstFriend = false;
+		}
+		res += ' recipient_uid = ' + friendId;
+	});
+	res += ")";
+	return res;
+}
 
 m.mkInvite = function(req, res) {
 	req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
 		var bonus = 0;
-		async.map(req.param('to'), function(to, cb) {
-			var fbinvite = {
-				from: profile.id,
-				to: to,
-				reqid: req.param('reqid')
-			}
-			db.FBInvite.findOne({
-				from: profile.id,
-				to: to
-			}, mkrespcb(res, 400, function(r) {
-				if (!r) {
-					console.log('fbinvite added', fbinvite);
-					bonus++;
-					db.FBInvite.insert(fbinvite, cb);
-				} else {
-					console.log('fbinvite already exists')
-					cb();
+		req.facebook.api({
+			method: 'fql.query',
+			query: getVerificationFqlQuery(profile.id, req.param('to'))
+		}, function(err, verifiedInvitations) {
+			var isVerified = {},
+				verifiedUnique = [];
+			verifiedInvitations.forEach(function(invitation) {
+				if  (isVerified[invitation.recipient_uid]) {
+					return;
 				}
-			}));
-		}, mkrespcb(res, 400, function() {
-			db.User.findOne({
-				id: profile.id
-			}, mkrespcb(res, 400, function(u) {
-				var newCounter = u.inviteCounter + bonus,
-					newTnx = (u.tnx || 0) + bonus * constants.Rewards.inviteReward;
+				verifiedUnique.push(invitation.recipient_uid);
+				isVerified[invitation.recipient_uid] = true;
+			});
 
-				while (newCounter >= 10) {
-					newCounter -= 10;
-					newTnx += constants.Rewards.inviteReward;
+			async.map(verifiedUnique, function(to, cb) {
+				var fbinvite = {
+					from: profile.id,
+					to: to,
+					reqid: req.param('reqid')
 				}
-				console.log('giving to', u.fbUser.first_name, 'from', u.tnx, 'to', newTnx);
-				db.User.update({
-					id: profile.id
-				}, {
-					$set: {
-						tnx: newTnx,
-						inviteCounter: newCounter,
-						firstUse: false
+				db.FBInvite.findOne({
+					from: profile.id,
+					to: to
+				}, mkrespcb(res, 400, function(r) {
+					if (!r) {
+						console.log('fbinvite added', fbinvite);
+						bonus++;
+						db.FBInvite.insert(fbinvite, cb);
+					} else {
+						console.log('fbinvite already exists')
+						cb();
 					}
-				}, mkrespcb(res, 400, function() {
-					db.Transaction.insert({
-						payer: [req.param('to').id],
-						payee: dumpUser(u),
-						id: util.randomHex(32),
-						tnx: newTnx - u.tnx,
-						txType: constants.TxTypes.inviteReward,
-						message: "for inviting your friends to bitconnect!",
-						timestamp: new Date().getTime() / 1000
+				}));
+			}, mkrespcb(res, 400, function() {
+				db.User.findOne({
+					id: profile.id
+				}, mkrespcb(res, 400, function(u) {
+					var newCounter = u.inviteCounter + bonus,
+						newTnx = (u.tnx || 0) + bonus * constants.Rewards.inviteReward;
+
+					while (newCounter >= 10) {
+						newCounter -= 10;
+						newTnx += constants.Rewards.inviteReward;
+					}
+					console.log('giving to', u.fbUser.first_name, 'from', u.tnx, 'to', newTnx);
+					db.User.update({
+						id: profile.id
+					}, {
+						$set: {
+							tnx: newTnx,
+							inviteCounter: newCounter,
+							firstUse: false
+						}
 					}, mkrespcb(res, 400, function() {
-						console.log('fbinvites registered, bonus:', bonus);
-						res.json({
-							success: true,
-							bonus: bonus
-						});
-					}))
+						db.Transaction.insert({
+							payer: [req.param('to').id],
+							payee: dumpUser(u),
+							id: util.randomHex(32),
+							tnx: newTnx - u.tnx,
+							txType: constants.TxTypes.inviteReward,
+							message: "for inviting your friends to bitconnect!",
+							timestamp: new Date().getTime() / 1000
+						}, mkrespcb(res, 400, function() {
+							console.log('fbinvites registered, bonus:', bonus);
+							res.json({
+								success: true,
+								bonus: bonus
+							});
+						}))
+					}));
 				}));
 			}));
-		}));
+		});
 	}));
 };
 
@@ -416,8 +448,7 @@ m.getPic = function(req, res) {
 			}
 			return getPicture(u.id);
 		}));
-	}
-	else if (userId) {
+	} else if (userId) {
 		return getPicture(userId);
 	}
 }
@@ -426,7 +457,7 @@ m.getPic = function(req, res) {
 
 m.printVerificationTable = function(req, res) {
 	db.User.find().toArray(mkrespcb(res, 400, function(users) {
-	    var twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
+		var twoToThe128 = new Bitcoin.BigInteger.fromByteArrayUnsigned([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
 			counter = new Bitcoin.BigInteger('0');
 
 		var usertable = users.map(function(u) {
@@ -448,8 +479,10 @@ m.printVerificationTable = function(req, res) {
 }
 
 m.printMyVerificationSeed = FBify(function(profile, req, res) {
-    db.User.findOne({ id: profile.id },mkrespcb(res,400,function(u) {
-        if (u) res.send(u.verificationSeed || '00000000000000000000');
-        else res.json("No user found",400)
-    }))
+	db.User.findOne({
+		id: profile.id
+	}, mkrespcb(res, 400, function(u) {
+		if (u) res.send(u.verificationSeed || '00000000000000000000');
+		else res.json("No user found", 400)
+	}))
 })
