@@ -20,7 +20,7 @@
 }
 
 /* line 1, ../sass/_common.scss */
-.main {
+.main, .header {
   max-width: 320px;
   margin: 0 auto;
 }
@@ -86,12 +86,13 @@
 .actionButton {
   display: inline;
   width: 50px;
+  height: 50px;
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid #3399cc;
 }
 
-/* line 66, ../sass/_common.scss */
+/* line 67, ../sass/_common.scss */
 .controlBar {
   position: relative;
   height: 50px;
@@ -99,20 +100,21 @@
   border-radius: 30px;
   margin-bottom: -2px;
 }
-/* line 72, ../sass/_common.scss */
+/* line 73, ../sass/_common.scss */
 .controlBar .controlBarButton {
   display: inline;
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 1px solid #3399cc;
   position: absolute;
 }
-/* line 79, ../sass/_common.scss */
+/* line 81, ../sass/_common.scss */
 .controlBar .controlBarButtonRight {
   top: -2px;
   right: -2px;
 }
-/* line 83, ../sass/_common.scss */
+/* line 85, ../sass/_common.scss */
 .controlBar .controlBarButtonLeft {
   top: -2px;
   left: -2px;
@@ -143,17 +145,17 @@
   padding: 10px;
 }
 
-/* line 3, ../sass/_navbar.scss */
-.main .navbar-default {
+/* line 2, ../sass/_navbar.scss */
+.header .navbar-default {
   background-color: transparent;
   border: none;
 }
-/* line 10, ../sass/_navbar.scss */
-.main nav.navbar .moneybar {
+/* line 8, ../sass/_navbar.scss */
+.header nav.navbar .moneybar {
   margin-top: 5px;
 }
-/* line 12, ../sass/_navbar.scss */
-.main nav.navbar .moneybar p {
+/* line 10, ../sass/_navbar.scss */
+.header nav.navbar .moneybar p {
   font-size: 18px;
   padding: 3px 6px;
   text-align: center;
@@ -162,47 +164,47 @@
   margin: 0px 1px;
   cursor: pointer;
 }
-/* line 20, ../sass/_navbar.scss */
-.main nav.navbar .moneybar p:last-child {
+/* line 18, ../sass/_navbar.scss */
+.header nav.navbar .moneybar p:last-child {
   margin-top: -2px;
 }
-/* line 23, ../sass/_navbar.scss */
-.main nav.navbar .moneybar p.selected, .main nav.navbar .moneybar p:hover {
+/* line 21, ../sass/_navbar.scss */
+.header nav.navbar .moneybar p.selected, .header nav.navbar .moneybar p:hover {
   background-color: #3399cc;
   color: white;
 }
-/* line 27, ../sass/_navbar.scss */
-.main nav.navbar .moneybar p small {
+/* line 25, ../sass/_navbar.scss */
+.header nav.navbar .moneybar p small {
   display: none;
   padding-left: 20px;
   color: green;
 }
-/* line 35, ../sass/_navbar.scss */
-.main nav.navbar ul.nav.iconbar {
+/* line 33, ../sass/_navbar.scss */
+.header nav.navbar ul.nav.iconbar {
   white-space: nowrap;
   display: inline-flex;
   text-align: center;
   width: 100%;
 }
-/* line 40, ../sass/_navbar.scss */
-.main nav.navbar ul.nav.iconbar li {
+/* line 38, ../sass/_navbar.scss */
+.header nav.navbar ul.nav.iconbar li {
   cursor: pointer;
 }
-/* line 42, ../sass/_navbar.scss */
-.main nav.navbar ul.nav.iconbar li td {
+/* line 40, ../sass/_navbar.scss */
+.header nav.navbar ul.nav.iconbar li td {
   padding: 0px;
 }
-/* line 47, ../sass/_navbar.scss */
-.main nav.navbar ul.nav > li:not(.bubble) {
+/* line 45, ../sass/_navbar.scss */
+.header nav.navbar ul.nav > li:not(.bubble) {
   display: inline-block;
 }
-/* line 52, ../sass/_navbar.scss */
-.main nav.navbar ul.nav > li table tr td img {
+/* line 50, ../sass/_navbar.scss */
+.header nav.navbar ul.nav > li table tr td img {
   width: 64px;
   padding: 2px;
 }
-/* line 56, ../sass/_navbar.scss */
-.main nav.navbar ul.nav > li table tr td .count {
+/* line 54, ../sass/_navbar.scss */
+.header nav.navbar ul.nav > li table tr td .count {
   position: absolute;
   center: 0px;
   border-radius: 0px;
@@ -240,10 +242,11 @@
   left: -2px;
   top: -2px;
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 2px solid #3399cc;
 }
-/* line 19, ../sass/_friendsList.scss */
+/* line 20, ../sass/_friendsList.scss */
 .friendsList .friend .body .name {
   position: absolute;
   left: 60px;
@@ -254,28 +257,28 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 29, ../sass/_friendsList.scss */
+/* line 30, ../sass/_friendsList.scss */
 .friendsList .friend .body .check4invite {
   position: absolute;
   height: 16px;
   right: 10px;
   top: 15px;
 }
-/* line 35, ../sass/_friendsList.scss */
+/* line 36, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget {
   position: absolute;
   right: 26px;
   top: 10px;
 }
-/* line 39, ../sass/_friendsList.scss */
+/* line 40, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget img {
   width: 26px;
 }
-/* line 42, ../sass/_friendsList.scss */
+/* line 43, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget.give {
   right: 53px;
 }
-/* line 47, ../sass/_friendsList.scss */
+/* line 48, ../sass/_friendsList.scss */
 .friendsList .friend .invited {
   background-color: #3399cc;
   position: absolute;
@@ -351,22 +354,23 @@
   left: -2px;
   top: -2px;
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 2px solid #3399cc;
 }
-/* line 25, ../sass/_thanx.scss */
+/* line 26, ../sass/_thanx.scss */
 .thanx .requests .request .body .fbname, .thanx .history .request .body .fbname {
   position: absolute;
   left: 60px;
   top: 0px;
 }
-/* line 30, ../sass/_thanx.scss */
+/* line 31, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx {
   position: absolute;
   right: 30px;
   top: 0px;
 }
-/* line 37, ../sass/_thanx.scss */
+/* line 38, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat {
   position: absolute;
   right: 30px;
@@ -374,11 +378,11 @@
   max-width: 100px;
   overflow: hidden;
 }
-/* line 43, ../sass/_thanx.scss */
+/* line 44, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed {
   color: red;
 }
-/* line 48, ../sass/_thanx.scss */
+/* line 49, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message {
   position: absolute;
   left: 51px;
@@ -390,7 +394,7 @@
   display: block;
   white-space: nowrap;
 }
-/* line 59, ../sass/_thanx.scss */
+/* line 60, ../sass/_thanx.scss */
 .thanx .requests .request .body .accept, .thanx .requests .request .body .reject, .thanx .history .request .body .accept, .thanx .history .request .body .reject {
   height: 10px;
   cursor: pointer;
@@ -398,11 +402,11 @@
   right: 15px;
   top: 15px;
 }
-/* line 66, ../sass/_thanx.scss */
+/* line 67, ../sass/_thanx.scss */
 .thanx .requests .request .body .reject, .thanx .history .request .body .reject {
   right: 0px;
 }
-/* line 75, ../sass/_thanx.scss */
+/* line 76, ../sass/_thanx.scss */
 .thanx .history .row {
   position: relative;
   height: 50px;

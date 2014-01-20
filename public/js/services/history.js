@@ -11,6 +11,12 @@ window.app.service('HistoryService', ['$http',
                 cb(h);
             });
         };
+        
+        this.getCachedHistory = function getCachedHistory() {
+            if (history)
+                return history;
+            return null;
+        }
 
         this.getHistoryItem = function getHistoryItem(id, cb) {
             var result,

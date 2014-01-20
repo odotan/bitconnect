@@ -7,12 +7,11 @@ window.controllers.controller('ProfileCtrl', ['$scope', '$rootScope', '$http', '
 		});
 		//$scope.username = window.location.host.split('.').slice(0,2).join('.')+'.bitconnect.me'
 		$scope.give = function() {
-			$rootScope.goto('give', {to: $scope.user});
+			location.href="/app/give?toId=" + $scope.userId;
 		}
 
 		$scope.get = function() {
-			$rootScope.goto('get', {from: $scope.user});
+			location.href="/app/get?fromId=" + $scope.userId;
 		}
-
 	}
 ]);

@@ -1,4 +1,4 @@
-.main{
+.main, .header{
 	max-width: 320px;
 	margin: 0 auto;
 }
@@ -58,6 +58,7 @@
 .actionButton {
   display:inline;
   width: 50px;
+  height: 50px;
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid #3399cc;
@@ -72,6 +73,7 @@
   .controlBarButton {
     display: inline;
     width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 1px solid #3399cc;
     position: absolute;

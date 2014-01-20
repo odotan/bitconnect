@@ -53,8 +53,8 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     $scope.kill = function() {
         $http.post('/kill')
             .success(function(r) {
-                $rootScope.user = r 
-                $location.path('/app/newaccount');
+                $rootScope.user = r;
+                location.href='/app/newaccount'
              })
             .error(errhandle);
     }

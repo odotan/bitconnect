@@ -1,6 +1,5 @@
 body(ng-app="thanxbits")
     .surround(ng-controller="RequestController")
-        include navbar
         .thanx
             label Requests ({{ requests.length || 0 }})
             .requests(ng-repeat="request in requests",style="margin: 5px 0px")

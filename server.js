@@ -154,14 +154,14 @@ app.get('/app/newaccount', Facebook.loadRegisteredUser(), function(req, res) {
     if (req.registeredUser) {
         res.redirect('/app/us');
     }
-    res.render('index.jade');
+    res.render('newaccount.jade');
 });
 app.get('/app/*', Facebook.registerRequired(), function(req, res) {
     res.render('index.jade');
 });
 
 app.get('/profile/*', function(req, res) {
-    res.render('index.jade');
+    res.render('profile-index.jade');
 })
 
 app.get('/partials/:name', function(req, res) {

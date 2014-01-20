@@ -18,7 +18,7 @@ function NewAccountController($scope, $rootScope, $http, $location, me) {
 			name: $scope.username + '.bitconnect.me'
 		})
 			.success(function(u) {
-				$rootScope.goto('us');
+				location.href = '/app/us';
 			})
 			.error(errhandle);
 	}

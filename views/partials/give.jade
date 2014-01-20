@@ -1,5 +1,4 @@
 .surround(ng-controller="GiveController")
-    include navbar
     form.giveget_form.give
         .form-group
             input.form-control(type="text",ng-model="give.to",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) | limitTo:8", placeholder="give to")

@@ -8,8 +8,14 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ti
                 requestId: requestId
             });
         }
-
-        this.gethistory = function() {
+        this.gethistory = function gethistory(tryCached) {
+            if (tryCached) {
+                var cachedHistory = HistoryService.getCachedHistory();
+                if (cachedHistory) {
+                    $scope.history = cachedHistory;
+                    return;
+                }
+            }
             HistoryService.getHistory(function(h) {
                 // Do the object equality check so that we do not refresh unless we have to
                 var newh = h.map(function(x) {
@@ -24,7 +30,8 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ti
             });
         };
         setInterval(this.gethistory, 5000);
-        this.gethistory();
+
+        this.gethistory(true)
 
         $scope.accept = function(request) {
             if (request.requestType === RequestTypes.GET) {
