@@ -1,3 +1,14 @@
+.header {
+  position: absolute;
+}
+.main {
+  position: absolute;
+  top: 192px;
+  width: 100%;
+  height: calc(100% - 192px);
+  overflow-y: auto;
+}
+
 .main, .header{
 	max-width: 320px;
 	margin: 0 auto;

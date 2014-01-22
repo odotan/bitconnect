@@ -20,12 +20,26 @@
 }
 
 /* line 1, ../sass/_common.scss */
+.header {
+  position: absolute;
+}
+
+/* line 4, ../sass/_common.scss */
+.main {
+  position: absolute;
+  top: 192px;
+  width: 100%;
+  height: calc(100% - 192px);
+  overflow-y: auto;
+}
+
+/* line 12, ../sass/_common.scss */
 .main, .header {
   max-width: 320px;
   margin: 0 auto;
 }
 
-/* line 6, ../sass/_common.scss */
+/* line 17, ../sass/_common.scss */
 .mymodal {
   position: fixed;
   top: 10%;
@@ -47,14 +61,14 @@
   -moz-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 27, ../sass/_common.scss */
+/* line 38, ../sass/_common.scss */
 .mymodal .fullwidth {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 34, ../sass/_common.scss */
+/* line 45, ../sass/_common.scss */
 .btn {
   border: 2px solid #3399cc;
   border-radius: 30px;
@@ -63,18 +77,18 @@
   background-color: transparent;
 }
 
-/* line 42, ../sass/_common.scss */
+/* line 53, ../sass/_common.scss */
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
   border-color: #dddddd;
 }
 
-/* line 46, ../sass/_common.scss */
+/* line 57, ../sass/_common.scss */
 .btn:hover, .btn:active {
   background-color: #3399cc;
   color: #f3f3f3;
 }
 
-/* line 51, ../sass/_common.scss */
+/* line 62, ../sass/_common.scss */
 .rightButtons {
   float: left;
   position: absolute;
@@ -82,7 +96,7 @@
   top: -2px;
 }
 
-/* line 58, ../sass/_common.scss */
+/* line 69, ../sass/_common.scss */
 .actionButton {
   display: inline;
   width: 50px;
@@ -92,7 +106,7 @@
   border: 1px solid #3399cc;
 }
 
-/* line 67, ../sass/_common.scss */
+/* line 78, ../sass/_common.scss */
 .controlBar {
   position: relative;
   height: 50px;
@@ -100,7 +114,7 @@
   border-radius: 30px;
   margin-bottom: -2px;
 }
-/* line 73, ../sass/_common.scss */
+/* line 84, ../sass/_common.scss */
 .controlBar .controlBarButton {
   display: inline;
   width: 50px;
@@ -109,12 +123,12 @@
   border: 1px solid #3399cc;
   position: absolute;
 }
-/* line 81, ../sass/_common.scss */
+/* line 92, ../sass/_common.scss */
 .controlBar .controlBarButtonRight {
   top: -2px;
   right: -2px;
 }
-/* line 85, ../sass/_common.scss */
+/* line 96, ../sass/_common.scss */
 .controlBar .controlBarButtonLeft {
   top: -2px;
   left: -2px;

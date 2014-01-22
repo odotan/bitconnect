@@ -1,19 +1,9 @@
 div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()")
     center(style="width:100%")
+        a.btn(ng-click="kill()") kill account (for testing)
         div
             meter(style="width:80%; text-align:left",value="{{ user.inviteCounter / 10 }}")
             span &nbsp; {{ user.inviteCounter * 10 }}%
-        div invite your friends to bitconnect with you!
-        div &nbsp;
-        div for every friend you invite, both you and your friend will get 54 thanx... just to say thanx :) every tenth friend you invite you will count double!
-        div &nbsp;
-        div when a friend that you invited signs up, both you and your friend will get up to an additional 5432 thanx. every tenth friend that signs up will also count double!
-        div &nbsp;
-        div that's a lot of thanx! :)
-        div so make sure your friends sign up!
-        div &nbsp;
-        a.btn(ng-click="kill()") kill account (for testing)
-        div &nbsp;
         div(style="width:100%; height: 40px")
             div(style="width:50%; float:left")
                 div.bubble.inline.small selected: {{ numselected }}
