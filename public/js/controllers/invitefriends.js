@@ -116,6 +116,9 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     $scope.done = function() { $rootScope.goto('thanx') }
 	
     $scope.loadMoreFriends = function () {
+        if (angular.isUndefined($scope.FBfriends)) {
+            return;
+        }
 		var nextChunk = $scope.visibleFriendsLimit + $scope.friendsChunk;
         var diff = $scope.FBfriends.length - nextChunk;
         if (diff >= 0) {
