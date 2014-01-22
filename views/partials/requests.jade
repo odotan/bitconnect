@@ -1,22 +1,16 @@
 body(ng-app="thanxbits")
     .surround(ng-controller="RequestController")
         .thanx
-            label Requests ({{ requests.length || 0 }})
-            .requests(ng-repeat="request in requests",style="margin: 5px 0px")
-                .request
-                    img.friendImg(ng-src="/pic?username={{ request.sender.username }}&size=100",width="50px",height="50px")
-                    .body
-                        .fbname(title="{{request.sender.username}}") {{ request.sender.fbUser.first_name }} {{ request.sender.fbUser.last_name }}
-                        img.check4invite(ng-src="/img/checkmark.png",ng-show="selected[friend.id] || friend.isFriend")
-                        .tnx(ng-if="request.tnx") {{ request.tnx }} thanx
-                        .sat(ng-if="request.sat") {{ request.sat }} satoshi
-                        .message(ng-if="request.message") {{ request.message }}
-                    div.rightButtons
-                        span.accept(ng-switch="", on="request.requestType")
-                            img.actionButton(ng-switch-when="GIVE", src="/img/get.svg", ng-click="accept(request)")
-                            img.actionButton(ng-switch-when="GET", src="/img/give.svg", ng-click="accept(request )")
-                        span.reject
-                            img.actionButton(src="/img/remove.svg", ng-click="reject(request.id)")
+            div(ng-if="incomingRequests.length > 0")
+                label Incoming ({{ incomingRequests.length || 0 }})
+                .requests(ng-repeat="request in incomingRequests",style="margin: 5px 0px")
+                    .request
+                        request-item(request="request", dir="incoming")
+            div(ng-if="outgoingRequests.length > 0")
+                label Pending ({{ outgoingRequests.length || 0 }})
+                .requests(ng-repeat="request in outgoingRequests",style="margin: 5px 0px")
+                    .request
+                        request-item(request="request", dir="outgoing")
             label History ({{ history.length }})
             .history(ng-repeat="hitem in history",style="margin: 5px 0px")
                 .request(ng-if="hitem.payer.id == user.id")

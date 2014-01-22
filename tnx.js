@@ -140,7 +140,7 @@ m.clearRequest = FBify(function(profile, req, res) {
 
 // Payment requests
 
-m.getRequests = FBify(function(profile, req, res) {
+m.getIncomingRequests = FBify(function(profile, req, res) {
     db.Request.find({
         'recipient.id': profile.id
     })
@@ -150,6 +150,15 @@ m.getRequests = FBify(function(profile, req, res) {
         .toArray(mkrespcb(res, 400, _.bind(res.json, res)))
 });
 
+m.getOutgoingRequests = FBify(function(profile, req, res) {
+    db.Request.find({
+        'sender.id': profile.id
+    })
+        .sort({
+            timestamp: -1
+        })
+        .toArray(mkrespcb(res, 400, _.bind(res.json, res)))
+});
 // Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
 var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {
