@@ -1,4 +1,4 @@
-div(ng-controller="InviteFriendsController")
+div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()")
     center(style="width:100%")
         a.btn(ng-click="kill()") kill account (for testing)
         div
