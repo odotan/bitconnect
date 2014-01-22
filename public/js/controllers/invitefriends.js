@@ -1,9 +1,6 @@
 window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
 
     window.wscope = $scope;
-
-    // Control the visible friend list
-    $scope.visibleFriendsLimit = 20;
     //chunk of friends to get when scrolling down
     $scope.friendsChunk = 30;
 
@@ -21,7 +18,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
         }
         if ($rootScope.user && $rootScope.user.friends && $rootScope.FBfriends) {
             $scope.filteredFriends = $rootScope.FBfriends.filter(filter);
-            var nvf = $scope.filteredFriends.slice(0,$scope.visibleFriendsLimit),
+            var nvf = $scope.filteredFriends,
                 nvflist = nvf.map(function(x) { return x.id }),
                 ovflist = ($scope.visibleFriends || []).map(function(x) { return x.id })
             if (JSON.stringify(nvflist) != JSON.stringify(ovflist)) {
@@ -38,16 +35,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     $rootScope.$watch('FBfriends',$scope.updateVisibleFriends);
     $scope.$watch('searchstring',$scope.updateVisibleFriends);
-    $scope.$watch('visibleFriendsLimit',$scope.updateVisibleFriends);
 
-    setInterval(function() {
-        if ($rootScope.path() != 'us') return;
-        if (!$scope.FBfriends || !$scope.filteredFriends) return;
-        if (window.pageYOffset > document.height - 1250 && $scope.visibleFriendsLimit < $scope.filteredFriends.length) {
-            $scope.visibleFriendsLimit += 40;
-            if (!$scope.$$phase) $scope.$apply();
-        }
-    },416);
 
     // Kill account (testing only)
     $scope.kill = function() {
@@ -114,16 +102,6 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     // Done
     $scope.done = function() { $rootScope.goto('thanx') }
-	
-    $scope.loadMoreFriends = function () {
-		var nextChunk = $scope.visibleFriendsLimit + $scope.friendsChunk;
-        var diff = $scope.FBfriends.length - nextChunk;
-        if (diff >= 0) {
-            $scope.visibleFriendsLimit = nextChunk;    
-        } else {
-            $scope.visibleFriendsLimit = $scope.FBfriends.length;
-        }
-	}
 }])
 
 
