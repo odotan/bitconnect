@@ -15,7 +15,7 @@ nav.navbar.navbar-default
                     img(ng-show="path() == 'thanx'",ng-src="/img/thanxi.svg")
                     img(ng-hide="path() == 'thanx'",ng-src="/img/thanx.svg")
                 tr: td(align="center"): span thanx
-                div.count(style="position:absolute; background-color:#f88; z-index:1000; border-radius:5px",ng-show="requests.length > 0") &nbsp;{{ requests.length }}&nbsp;
+                div.count(style="position:absolute; background-color:#f88; z-index:1000; border-radius:5px",ng-show="incomingRequests.length > 0") &nbsp;{{ incomingRequests.length }}&nbsp;
         li(ng-click="goto('get')"): table
                 tr: td
                     img(ng-show="path() == 'get'",ng-src="/img/geti.svg")

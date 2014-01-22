@@ -7,7 +7,7 @@ body(ng-app="thanxbits")
                     .request
                         request-item(request="request", dir="incoming")
             div(ng-if="outgoingRequests.length > 0")
-                label Pending ({{ outgoingRequests.length || 0 }})
+                label Outgoing ({{ outgoingRequests.length || 0 }})
                 .requests(ng-repeat="request in outgoingRequests",style="margin: 5px 0px")
                     .request
                         request-item(request="request", dir="outgoing")
