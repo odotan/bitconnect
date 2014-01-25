@@ -2,17 +2,21 @@
 	padding: 0 20px;
 	label{
 		display: block;
+		font-size: 12px;
+		text-align: center;
+		color: #f2fbff;
 	}
 
 	.requests, .history{
 		.request{
 			position: relative;
-
+			background-color: #f2fbff;
+			font-size: 12px;
 			height: 50px;
-			border: 2px solid #3399cc;
+			border: 2px solid #f2fbff;
 			border-radius: 30px;
 			margin-bottom: -2px;
-
+			color: #073651;
 			img.friendImg{
 				position: absolute;
 				left: -2px;
@@ -20,25 +24,23 @@
 				width: 50px;
 				height: 50px;
 				border-radius: 50%;
-				border: 2px solid #3399cc;
+				border: 2px solid #FFFFFF;
 			}
 			.body{
 				.fbname{
 					position: absolute;
-					left: 60px;
+					left: 70px;
 					top: 0px;
 				}
 				.tnx{
 					position: absolute;
-					right: 30px;
-					top: 0px;
-
-
+					left: 70px;
+					top: 30px;
 				}
 				.sat{
 					position: absolute;
-					right: 30px;
-					top: 0px;
+					left: 70px;
+					top: 30px;
 					max-width: 100px;
 					overflow: hidden;
 					&.unconfirmed{
@@ -48,8 +50,9 @@
 				}
 				.message{
 					position: absolute;
-					left: 51px;
-					top: 27px;
+					left: 70px;
+					top: 15px;
+					font-size: 10px;
 					width: 147px;
 					height: 17px;
 					overflow: hidden;
@@ -65,8 +68,18 @@
 					top: 15px;
 				}
 				.reject{
-					right: 0px;	
+					right: 0px;
 				}
+			}
+			.requestActionButton {
+			  width: 30px;
+			  height: 30px;
+			  top: 10px;
+			  margin-right: 5px;
+			  position: relative;
+			  cursor: pointer;
+			  border-radius: 50%;
+			  border: 1px solid #3399cc;
 			}
 		}
 
@@ -75,7 +88,6 @@
 	.history{
 		.row{
 			position: relative;
-
 			height: 50px;
 			border: 2px solid #3399cc;
 			border-radius: 30px;

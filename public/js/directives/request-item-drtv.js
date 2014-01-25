@@ -14,11 +14,11 @@ app.directive('requestItem', [function() {
 				'</div>' +
 				'<div class="rightButtons">' +
 				'<span ng-switch="" ng-if="direction == \'incoming\'" on="request.requestType" class="accept">' +
-				'<img ng-switch-when="GIVE" src="/img/get.svg" ng-click="accept()" class="actionButton"/>' +
-				'<img ng-switch-when="GET" src="/img/give.svg" ng-click="accept()" class="actionButton"/>' +
+				'<img ng-switch-when="GIVE" src="/img/get.svg" ng-click="accept()" class="requestActionButton"/>' +
+				'<img ng-switch-when="GET" src="/img/give.svg" ng-click="accept()" class="requestActionButton"/>' +
 				'</span>' +
 				'<span class="reject">' +
-				'<img src="/img/remove.svg" ng-click="reject()" class="actionButton"/></span>' +
+				'<img src="/img/remove.svg" ng-click="reject()" class="requestActionButton"/></span>' +
 				'</div>',
 			controller: ['$scope', '$attrs', '$http', '$rootScope', 'RequestTypes', 'TxTypes',
 				function RequestItemCtrl($scope, $attrs, $http, $rootScope, RequestTypes, TxTypes) {

@@ -33,19 +33,20 @@
 /* line 10, ../sass/_common.scss */
 .main {
   position: absolute;
-  top: 192px;
+  top: 146px;
   width: 100%;
-  height: calc(100% - 192px);
+  height: calc(100% - 146px);
   overflow-y: auto;
+  background-color: #00ace2;
 }
 
-/* line 18, ../sass/_common.scss */
+/* line 19, ../sass/_common.scss */
 .main, .header {
   max-width: 320px;
   margin: 0 auto;
 }
 
-/* line 23, ../sass/_common.scss */
+/* line 24, ../sass/_common.scss */
 .mymodal {
   position: fixed;
   top: 10%;
@@ -67,20 +68,19 @@
   -moz-background-clip: padding-box;
   background-clip: padding-box;
 }
-/* line 44, ../sass/_common.scss */
+/* line 45, ../sass/_common.scss */
 .mymodal .fullwidth {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 51, ../sass/_common.scss */
+/* line 52, ../sass/_common.scss */
 .btn {
-  border: 2px solid #3399cc;
+  border: 2px solid #00ace2;
   border-radius: 30px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0);
-  background-color: transparent;
+  background-color: #f2fbff;
 }
 
 /* line 59, ../sass/_common.scss */
@@ -109,7 +109,7 @@
   height: 50px;
   cursor: pointer;
   border-radius: 50%;
-  border: 1px solid #3399cc;
+  border: 1px solid #f2fbff;
 }
 
 /* line 84, ../sass/_common.scss */
@@ -173,63 +173,88 @@
 /* line 8, ../sass/_navbar.scss */
 .header nav.navbar .moneybar {
   margin-top: 5px;
+  background-color: #f2fbff;
 }
-/* line 10, ../sass/_navbar.scss */
-.header nav.navbar .moneybar p {
-  font-size: 18px;
-  padding: 3px 6px;
+/* line 11, ../sass/_navbar.scss */
+.header nav.navbar .moneybar span {
+  display: inline-block;
   text-align: center;
-  border: 2px solid #3399cc;
-  border-radius: 30px;
-  margin: 0px 1px;
+  position: absolute;
+  font-size: 12px;
+  border: 2px solid #00ace2;
   cursor: pointer;
 }
-/* line 18, ../sass/_navbar.scss */
-.header nav.navbar .moneybar p:last-child {
-  margin-top: -2px;
+/* line 12, ../sass/_navbar.scss */
+.header nav.navbar .moneybar span.sat {
+  left: 0;
+  width: 36%;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
 }
-/* line 21, ../sass/_navbar.scss */
-.header nav.navbar .moneybar p.selected, .header nav.navbar .moneybar p:hover {
-  background-color: #3399cc;
-  color: white;
+/* line 18, ../sass/_navbar.scss */
+.header nav.navbar .moneybar span.tnx {
+  left: 105px;
+  border-radius: 30px;
+  width: 36%;
+  z-index: 2;
+  background-color: #f2fbff;
 }
 /* line 25, ../sass/_navbar.scss */
-.header nav.navbar .moneybar p small {
-  display: none;
-  padding-left: 20px;
-  color: green;
+.header nav.navbar .moneybar span.dollar {
+  right: 0;
+  width: 36%;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
 }
-/* line 33, ../sass/_navbar.scss */
+/* line 37, ../sass/_navbar.scss */
+.header nav.navbar .moneybar span.selected, .header nav.navbar .moneybar span:hover {
+  background-color: #00ace2;
+  color: #f2fbff;
+}
+/* line 44, ../sass/_navbar.scss */
 .header nav.navbar ul.nav.iconbar {
+  background-color: #073651;
   white-space: nowrap;
   display: inline-flex;
   text-align: center;
+  padding-top: 15px;
+  color: #047bb2;
+  padding-bottom: 15px;
   width: 100%;
 }
-/* line 38, ../sass/_navbar.scss */
+/* line 53, ../sass/_navbar.scss */
 .header nav.navbar ul.nav.iconbar li {
   cursor: pointer;
 }
-/* line 40, ../sass/_navbar.scss */
+/* line 55, ../sass/_navbar.scss */
 .header nav.navbar ul.nav.iconbar li td {
   padding: 0px;
 }
-/* line 45, ../sass/_navbar.scss */
+/* line 56, ../sass/_navbar.scss */
+.header nav.navbar ul.nav.iconbar li td.selected {
+  color: #f2fbff;
+}
+/* line 63, ../sass/_navbar.scss */
 .header nav.navbar ul.nav > li:not(.bubble) {
   display: inline-block;
 }
-/* line 50, ../sass/_navbar.scss */
+/* line 68, ../sass/_navbar.scss */
 .header nav.navbar ul.nav > li table tr td img {
   width: 64px;
   padding: 2px;
 }
-/* line 54, ../sass/_navbar.scss */
-.header nav.navbar ul.nav > li table tr td .count {
+/* line 73, ../sass/_navbar.scss */
+.header nav.navbar ul.nav > li .count {
   position: absolute;
-  center: 0px;
-  border-radius: 0px;
-  z-index: 200;
-  background-color: #fff;
+  color: #073651;
+  width: 23px;
+  height: 23px;
+  line-height: 18px;
+  background-color: #f2fbff;
+  border: 2px solid #073651;
+  border-radius: 50%;
+  z-index: 1000;
+  font-size: 10px;
 }
 
 /* line 1, ../sass/_newaccount.scss */
@@ -249,19 +274,38 @@
 }
 
 /* line 1, ../sass/_friendsList.scss */
+.searchButton {
+  width: 30px;
+  height: 30px;
+  background-color: #f2fbff;
+  border-radius: 50%;
+  border: 4px solid #f2fbff;
+  cursor: pointer;
+}
+
+/* line 9, ../sass/_friendsList.scss */
+progress-bar {
+  background-color: #f2fbff;
+  border: 3px solid #f2fbff;
+  border-radius: 20px;
+  padding-bottom: 5px;
+}
+
+/* line 15, ../sass/_friendsList.scss */
 .friendsList {
   margin: auto 1px;
   margin-top: 10px;
 }
-/* line 4, ../sass/_friendsList.scss */
+/* line 18, ../sass/_friendsList.scss */
 .friendsList .friend {
   position: relative;
+  background-color: #f2fbff;
   height: 50px;
-  border: 2px solid #3399cc;
+  border: 2px solid #f2fbff;
   border-radius: 30px;
   margin-bottom: 2px;
 }
-/* line 10, ../sass/_friendsList.scss */
+/* line 25, ../sass/_friendsList.scss */
 .friendsList .friend img.friendImg {
   position: absolute;
   left: -2px;
@@ -269,9 +313,9 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid #3399cc;
+  border: 2px solid #f2fbff;
 }
-/* line 20, ../sass/_friendsList.scss */
+/* line 35, ../sass/_friendsList.scss */
 .friendsList .friend .body .name {
   position: absolute;
   left: 60px;
@@ -282,28 +326,28 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-/* line 30, ../sass/_friendsList.scss */
+/* line 45, ../sass/_friendsList.scss */
 .friendsList .friend .body .check4invite {
   position: absolute;
   height: 16px;
   right: 10px;
   top: 15px;
 }
-/* line 36, ../sass/_friendsList.scss */
+/* line 51, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget {
   position: absolute;
   right: 26px;
   top: 10px;
 }
-/* line 40, ../sass/_friendsList.scss */
+/* line 55, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget img {
   width: 26px;
 }
-/* line 43, ../sass/_friendsList.scss */
+/* line 58, ../sass/_friendsList.scss */
 .friendsList .friend .body .giveget.give {
   right: 53px;
 }
-/* line 48, ../sass/_friendsList.scss */
+/* line 63, ../sass/_friendsList.scss */
 .friendsList .friend .invited {
   background-color: #3399cc;
   position: absolute;
@@ -364,16 +408,22 @@
 /* line 3, ../sass/_thanx.scss */
 .thanx label {
   display: block;
+  font-size: 12px;
+  text-align: center;
+  color: #f2fbff;
 }
-/* line 8, ../sass/_thanx.scss */
+/* line 11, ../sass/_thanx.scss */
 .thanx .requests .request, .thanx .history .request {
   position: relative;
+  background-color: #f2fbff;
+  font-size: 12px;
   height: 50px;
-  border: 2px solid #3399cc;
+  border: 2px solid #f2fbff;
   border-radius: 30px;
   margin-bottom: -2px;
+  color: #073651;
 }
-/* line 16, ../sass/_thanx.scss */
+/* line 20, ../sass/_thanx.scss */
 .thanx .requests .request img.friendImg, .thanx .history .request img.friendImg {
   position: absolute;
   left: -2px;
@@ -381,37 +431,38 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid #3399cc;
+  border: 2px solid #FFFFFF;
 }
-/* line 26, ../sass/_thanx.scss */
+/* line 30, ../sass/_thanx.scss */
 .thanx .requests .request .body .fbname, .thanx .history .request .body .fbname {
   position: absolute;
-  left: 60px;
+  left: 70px;
   top: 0px;
 }
-/* line 31, ../sass/_thanx.scss */
+/* line 35, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx {
   position: absolute;
-  right: 30px;
-  top: 0px;
+  left: 70px;
+  top: 30px;
 }
-/* line 38, ../sass/_thanx.scss */
+/* line 40, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat {
   position: absolute;
-  right: 30px;
-  top: 0px;
+  left: 70px;
+  top: 30px;
   max-width: 100px;
   overflow: hidden;
 }
-/* line 44, ../sass/_thanx.scss */
+/* line 46, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed {
   color: red;
 }
-/* line 49, ../sass/_thanx.scss */
+/* line 51, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message {
   position: absolute;
-  left: 51px;
-  top: 27px;
+  left: 70px;
+  top: 15px;
+  font-size: 10px;
   width: 147px;
   height: 17px;
   overflow: hidden;
@@ -419,7 +470,7 @@
   display: block;
   white-space: nowrap;
 }
-/* line 60, ../sass/_thanx.scss */
+/* line 63, ../sass/_thanx.scss */
 .thanx .requests .request .body .accept, .thanx .requests .request .body .reject, .thanx .history .request .body .accept, .thanx .history .request .body .reject {
   height: 10px;
   cursor: pointer;
@@ -427,11 +478,22 @@
   right: 15px;
   top: 15px;
 }
-/* line 67, ../sass/_thanx.scss */
+/* line 70, ../sass/_thanx.scss */
 .thanx .requests .request .body .reject, .thanx .history .request .body .reject {
   right: 0px;
 }
-/* line 76, ../sass/_thanx.scss */
+/* line 74, ../sass/_thanx.scss */
+.thanx .requests .request .requestActionButton, .thanx .history .request .requestActionButton {
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  margin-right: 5px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid #3399cc;
+}
+/* line 89, ../sass/_thanx.scss */
 .thanx .history .row {
   position: relative;
   height: 50px;
@@ -458,13 +520,15 @@ div.topbar {
 
 /* line 11, ../sass/main.scss */
 .bubble {
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 3px 6px;
-  text-align: center;
+  border: 2px solid #f2fbff;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #f2fbff;
+  padding: 6px 12px;
+  color: #428bca;
 }
 
-/* line 17, ../sass/main.scss */
+/* line 19, ../sass/main.scss */
 xxxdiv.surround {
   width: 100%;
   height: 100px;
@@ -476,79 +540,79 @@ xxxdiv.surround {
   text-align: center;
 }
 
-/* line 30, ../sass/main.scss */
+/* line 32, ../sass/main.scss */
 .inline {
   display: inline-block;
 }
 
-/* line 33, ../sass/main.scss */
+/* line 35, ../sass/main.scss */
 .small {
   font-size: 75%;
 }
 
-/* line 37, ../sass/main.scss */
+/* line 39, ../sass/main.scss */
 .tiny {
   font-size: 70%;
 }
 
-/* line 40, ../sass/main.scss */
+/* line 42, ../sass/main.scss */
 .blue {
   background-color: #88f;
 }
 
-/* line 41, ../sass/main.scss */
+/* line 43, ../sass/main.scss */
 .green {
   background-color: #4f4;
 }
 
-/* line 42, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
 .red {
   background-color: #f77;
 }
 
-/* line 43, ../sass/main.scss */
+/* line 45, ../sass/main.scss */
 .red-outline {
   border: solid 2px #f77;
 }
 
-/* line 44, ../sass/main.scss */
+/* line 46, ../sass/main.scss */
 .semilightblue {
   background-color: #aaf;
 }
 
-/* line 45, ../sass/main.scss */
+/* line 47, ../sass/main.scss */
 .lightblue {
   background-color: #ddf;
 }
 
-/* line 46, ../sass/main.scss */
+/* line 48, ../sass/main.scss */
 .menuitem {
   padding: 5px;
   background-color: #ddf;
 }
 
-/* line 47, ../sass/main.scss */
+/* line 49, ../sass/main.scss */
 .menuitem:hover {
   background-color: #aaf;
 }
 
-/* line 48, ../sass/main.scss */
+/* line 50, ../sass/main.scss */
 .white {
   background-color: #fff;
 }
 
-/* line 49, ../sass/main.scss */
+/* line 51, ../sass/main.scss */
 .grey {
   background-color: #ddd;
 }
 
-/* line 50, ../sass/main.scss */
+/* line 52, ../sass/main.scss */
 .pill {
   border-radius: 20px;
   text-align: center;
 }
 
-/* line 54, ../sass/main.scss */
+/* line 56, ../sass/main.scss */
 .bigpill {
   border-radius: 5px;
   text-align: center;
@@ -556,7 +620,7 @@ xxxdiv.surround {
   max-width: 500px;
 }
 
-/* line 60, ../sass/main.scss */
+/* line 62, ../sass/main.scss */
 .monospace {
   font-family: monospace;
   word-wrap: break-word;
@@ -565,24 +629,24 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 67, ../sass/main.scss */
+/* line 69, ../sass/main.scss */
 .squish {
   line-height: 1.2em;
   font-size: small;
 }
 
-/* line 71, ../sass/main.scss */
+/* line 73, ../sass/main.scss */
 .largetext {
   font-size: 18px;
 }
 
-/* line 74, ../sass/main.scss */
+/* line 76, ../sass/main.scss */
 .verylargetext {
   font-size: 72px;
   height: 100px;
 }
 
-/* line 78, ../sass/main.scss */
+/* line 80, ../sass/main.scss */
 .signature {
   font-family: monospace;
   word-wrap: break-word;
@@ -592,40 +656,40 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 86, ../sass/main.scss */
+/* line 88, ../sass/main.scss */
 .cmdline {
   text-align: left;
 }
 
-/* line 89, ../sass/main.scss */
+/* line 91, ../sass/main.scss */
 .cmdline::before {
   content: "> ";
   color: #888;
 }
 
-/* line 93, ../sass/main.scss */
+/* line 95, ../sass/main.scss */
 .tabselect {
   padding: 10px;
 }
 
-/* line 96, ../sass/main.scss */
+/* line 98, ../sass/main.scss */
 .tabwindow {
   position: relative;
 }
 
-/* line 99, ../sass/main.scss */
+/* line 101, ../sass/main.scss */
 .tabwindow .tabheader {
   position: absolute;
   top: 0px;
   height: 40px;
 }
 
-/* line 104, ../sass/main.scss */
+/* line 106, ../sass/main.scss */
 .tabheader .tabselect {
   display: inline-block;
 }
 
-/* line 107, ../sass/main.scss */
+/* line 109, ../sass/main.scss */
 .tabwindow .tabbody {
   position: absolute;
   top: 50px;
@@ -634,13 +698,13 @@ xxxdiv.surround {
   width: 100%;
 }
 
-/* line 114, ../sass/main.scss */
+/* line 116, ../sass/main.scss */
 .raise4 {
   position: relative;
   top: -4px;
 }
 
-/* line 119, ../sass/main.scss */
+/* line 121, ../sass/main.scss */
 input[type='text'], input[type='password'] {
   height: 25px !important;
   word-wrap: break-word;
@@ -655,12 +719,12 @@ input[type='text'], input[type='password'] {
   border-radius: 32px;
 }
 
-/* line 132, ../sass/main.scss */
+/* line 134, ../sass/main.scss */
 .fullheight {
   height: 100%;
 }
 
-/* line 133, ../sass/main.scss */
+/* line 135, ../sass/main.scss */
 table.tb {
   width: 100%;
   height: 100%;
@@ -669,44 +733,44 @@ table.tb {
   table-layout: fixed;
 }
 
-/* line 140, ../sass/main.scss */
+/* line 142, ../sass/main.scss */
 table.tb tr td {
   word-wrap: break-word;
 }
 
-/* line 143, ../sass/main.scss */
+/* line 145, ../sass/main.scss */
 td {
   position: relative;
 }
 
-/* line 146, ../sass/main.scss */
+/* line 148, ../sass/main.scss */
 .tab {
   position: absolute;
   height: 100%;
 }
 
-/* line 150, ../sass/main.scss */
+/* line 152, ../sass/main.scss */
 .tab table.tb {
   padding: 20px;
 }
 
-/* line 153, ../sass/main.scss */
+/* line 155, ../sass/main.scss */
 td.td-label {
   width: 80px;
 }
 
-/* line 156, ../sass/main.scss */
+/* line 158, ../sass/main.scss */
 td.td-wide-label {
   width: 130px;
 }
 
-/* line 159, ../sass/main.scss */
+/* line 161, ../sass/main.scss */
 .txcheckbox {
   width: 15px;
   height: 15px;
 }
 
-/* line 163, ../sass/main.scss */
+/* line 165, ../sass/main.scss */
 .help {
   font-weight: strong;
   font-size: 105%;
@@ -718,22 +782,17 @@ td.td-wide-label {
   cursor: hand;
 }
 
-/* line 174, ../sass/main.scss */
+/* line 176, ../sass/main.scss */
 .nav > li:not(.bubble) {
   display: inline-block !important;
 }
 
-/* line 177, ../sass/main.scss */
+/* line 179, ../sass/main.scss */
 .nav-justified {
   text-align: center !important;
 }
 
-/* line 180, ../sass/main.scss */
-.navbar-default {
-  background-color: transparent !important;
-}
-
-/* line 183, ../sass/main.scss */
+/* line 182, ../sass/main.scss */
 .navbar-nav {
   margin-left: 0 !important;
 }

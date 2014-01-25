@@ -9,10 +9,11 @@
 
 .main {
   position: absolute;
-  top: 192px;
+  top: 146px;
   width: 100%;
-  height: calc(100% - 192px);
+  height: calc(100% - 146px);
   overflow-y: auto;
+  background-color: #00ace2;
 }
 
 .main, .header{
@@ -49,11 +50,10 @@
 }
 
 .btn {
-    border: 2px solid #3399cc;
+    border: 2px solid #00ace2;
     border-radius: 30px;
     cursor: pointer;
-    background-color: rgba(0,0,0,0);
-    background-color: transparent; 
+    background-color: #f2fbff;
 }
 
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
@@ -78,7 +78,7 @@
   height: 50px;
   cursor: pointer;
   border-radius: 50%;
-  border: 1px solid #3399cc;
+  border: 1px solid #f2fbff;
 }
 
 .controlBar {

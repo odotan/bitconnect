@@ -9,10 +9,12 @@ div.topbar {
     padding: 5px;
 }
 .bubble {
-    border: 1px solid black;
-    border-radius: 8px;
-    padding: 3px 6px;
-    text-align: center;
+    border: 2px solid #f2fbff;
+    border-radius: 30px;
+    cursor: pointer;
+    background-color: #f2fbff;
+    padding: 6px 12px;
+    color: #428bca;
 }
 xxxdiv.surround {
     width: 100%;
@@ -176,9 +178,6 @@ td.td-wide-label {
 }
 .nav-justified {
     text-align: center !important;;
-}
-.navbar-default {
-    background-color: transparent !important;
 }
 .navbar-nav {
     margin-left: 0 !important;

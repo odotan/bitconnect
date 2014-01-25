@@ -3,6 +3,7 @@
         img.controlBarButton.controlBarButtonLeft(ng-src="/pic?id={{user.id}}")
         a(href='')
             img.controlBarButton.controlBarButtonRight(ng-src="/img/off.svg", title="logout", ng-click="logout()")
+    a.btn(ng-click="kill()") kill account (for testing)
     form
         .form-group(ng-show="user.address")
             big my bitconnect bitcoin address

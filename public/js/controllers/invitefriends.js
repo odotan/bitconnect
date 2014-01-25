@@ -26,15 +26,9 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                 ovflist = ($scope.visibleFriends || []).map(function(x) { return x.id })
             if (JSON.stringify(nvflist) != JSON.stringify(ovflist)) {
                 $scope.visibleFriends = nvf
-                $scope.visibleFriends.map(function(f) {
-                    if (f.isUser) $scope.unaddableFriends[f.id] = true
-                    else if ($scope.unaddableFriends[f.id]) delete $scope.unaddableFriends[f.id]
-                })
             }
         }
     };
-
-    $scope.unaddableFriends = {}
 
     $rootScope.$watch('FBfriends',$scope.updateVisibleFriends);
     $scope.$watch('searchstring',$scope.updateVisibleFriends);
@@ -49,22 +43,11 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
         }
     },416);
 
-    // Kill account (testing only)
-    $scope.kill = function() {
-        $http.post('/kill')
-            .success(function(r) {
-                $rootScope.user = r;
-                location.href='/app/newaccount'
-             })
-            .error(errhandle);
-    }
-
     // Select friends
     $scope.selected = {}
     $scope.numselected = 0
 
     $scope.selectFriend = function(id) {
-        if ($scope.unaddableFriends[id]) return
         if (!$scope.selected[id]) {
             $scope.selected[id] = true;
             $scope.numselected += 1;
@@ -75,13 +58,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
         }
         if (!$scope.$$phase) { $scope.$apply() }
     }
-    $scope.selectAll = function() {
-        $scope.filteredFriends.map(function(f) {
-            if ($scope.unaddableFriends[f.id]) return
-            $scope.selected[f.id] = true;
-        });
-        $scope.numselected = $scope.filteredFriends.length;
-    }
+
     $scope.selectNone = function() {
         $scope.selected = {};
         $scope.numselected = 0;

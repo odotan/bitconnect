@@ -16,13 +16,15 @@ div.topbar {
 
 /* line 11, ../sass/main.scss */
 .bubble {
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 3px 6px;
-  text-align: center;
+  border: 2px solid #f2fbff;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #f2fbff;
+  padding: 6px 12px;
+  color: #428bca;
 }
 
-/* line 17, ../sass/main.scss */
+/* line 19, ../sass/main.scss */
 xxxdiv.surround {
   width: 100%;
   height: 100px;
@@ -34,79 +36,79 @@ xxxdiv.surround {
   text-align: center;
 }
 
-/* line 30, ../sass/main.scss */
+/* line 32, ../sass/main.scss */
 .inline {
   display: inline-block;
 }
 
-/* line 33, ../sass/main.scss */
+/* line 35, ../sass/main.scss */
 .small {
   font-size: 75%;
 }
 
-/* line 37, ../sass/main.scss */
+/* line 39, ../sass/main.scss */
 .tiny {
   font-size: 70%;
 }
 
-/* line 40, ../sass/main.scss */
+/* line 42, ../sass/main.scss */
 .blue {
   background-color: #88f;
 }
 
-/* line 41, ../sass/main.scss */
+/* line 43, ../sass/main.scss */
 .green {
   background-color: #4f4;
 }
 
-/* line 42, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
 .red {
   background-color: #f77;
 }
 
-/* line 43, ../sass/main.scss */
+/* line 45, ../sass/main.scss */
 .red-outline {
   border: solid 2px #f77;
 }
 
-/* line 44, ../sass/main.scss */
+/* line 46, ../sass/main.scss */
 .semilightblue {
   background-color: #aaf;
 }
 
-/* line 45, ../sass/main.scss */
+/* line 47, ../sass/main.scss */
 .lightblue {
   background-color: #ddf;
 }
 
-/* line 46, ../sass/main.scss */
+/* line 48, ../sass/main.scss */
 .menuitem {
   padding: 5px;
   background-color: #ddf;
 }
 
-/* line 47, ../sass/main.scss */
+/* line 49, ../sass/main.scss */
 .menuitem:hover {
   background-color: #aaf;
 }
 
-/* line 48, ../sass/main.scss */
+/* line 50, ../sass/main.scss */
 .white {
   background-color: #fff;
 }
 
-/* line 49, ../sass/main.scss */
+/* line 51, ../sass/main.scss */
 .grey {
   background-color: #ddd;
 }
 
-/* line 50, ../sass/main.scss */
+/* line 52, ../sass/main.scss */
 .pill {
   border-radius: 20px;
   text-align: center;
 }
 
-/* line 54, ../sass/main.scss */
+/* line 56, ../sass/main.scss */
 .bigpill {
   border-radius: 5px;
   text-align: center;
@@ -114,7 +116,7 @@ xxxdiv.surround {
   max-width: 500px;
 }
 
-/* line 60, ../sass/main.scss */
+/* line 62, ../sass/main.scss */
 .monospace {
   font-family: monospace;
   word-wrap: break-word;
@@ -123,24 +125,24 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 67, ../sass/main.scss */
+/* line 69, ../sass/main.scss */
 .squish {
   line-height: 1.2em;
   font-size: small;
 }
 
-/* line 71, ../sass/main.scss */
+/* line 73, ../sass/main.scss */
 .largetext {
   font-size: 18px;
 }
 
-/* line 74, ../sass/main.scss */
+/* line 76, ../sass/main.scss */
 .verylargetext {
   font-size: 72px;
   height: 100px;
 }
 
-/* line 78, ../sass/main.scss */
+/* line 80, ../sass/main.scss */
 .signature {
   font-family: monospace;
   word-wrap: break-word;
@@ -150,40 +152,40 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 86, ../sass/main.scss */
+/* line 88, ../sass/main.scss */
 .cmdline {
   text-align: left;
 }
 
-/* line 89, ../sass/main.scss */
+/* line 91, ../sass/main.scss */
 .cmdline::before {
   content: "> ";
   color: #888;
 }
 
-/* line 93, ../sass/main.scss */
+/* line 95, ../sass/main.scss */
 .tabselect {
   padding: 10px;
 }
 
-/* line 96, ../sass/main.scss */
+/* line 98, ../sass/main.scss */
 .tabwindow {
   position: relative;
 }
 
-/* line 99, ../sass/main.scss */
+/* line 101, ../sass/main.scss */
 .tabwindow .tabheader {
   position: absolute;
   top: 0px;
   height: 40px;
 }
 
-/* line 104, ../sass/main.scss */
+/* line 106, ../sass/main.scss */
 .tabheader .tabselect {
   display: inline-block;
 }
 
-/* line 107, ../sass/main.scss */
+/* line 109, ../sass/main.scss */
 .tabwindow .tabbody {
   position: absolute;
   top: 50px;
@@ -192,13 +194,13 @@ xxxdiv.surround {
   width: 100%;
 }
 
-/* line 114, ../sass/main.scss */
+/* line 116, ../sass/main.scss */
 .raise4 {
   position: relative;
   top: -4px;
 }
 
-/* line 119, ../sass/main.scss */
+/* line 121, ../sass/main.scss */
 input[type='text'], input[type='password'] {
   height: 25px !important;
   word-wrap: break-word;
@@ -213,12 +215,12 @@ input[type='text'], input[type='password'] {
   border-radius: 32px;
 }
 
-/* line 132, ../sass/main.scss */
+/* line 134, ../sass/main.scss */
 .fullheight {
   height: 100%;
 }
 
-/* line 133, ../sass/main.scss */
+/* line 135, ../sass/main.scss */
 table.tb {
   width: 100%;
   height: 100%;
@@ -227,44 +229,44 @@ table.tb {
   table-layout: fixed;
 }
 
-/* line 140, ../sass/main.scss */
+/* line 142, ../sass/main.scss */
 table.tb tr td {
   word-wrap: break-word;
 }
 
-/* line 143, ../sass/main.scss */
+/* line 145, ../sass/main.scss */
 td {
   position: relative;
 }
 
-/* line 146, ../sass/main.scss */
+/* line 148, ../sass/main.scss */
 .tab {
   position: absolute;
   height: 100%;
 }
 
-/* line 150, ../sass/main.scss */
+/* line 152, ../sass/main.scss */
 .tab table.tb {
   padding: 20px;
 }
 
-/* line 153, ../sass/main.scss */
+/* line 155, ../sass/main.scss */
 td.td-label {
   width: 80px;
 }
 
-/* line 156, ../sass/main.scss */
+/* line 158, ../sass/main.scss */
 td.td-wide-label {
   width: 130px;
 }
 
-/* line 159, ../sass/main.scss */
+/* line 161, ../sass/main.scss */
 .txcheckbox {
   width: 15px;
   height: 15px;
 }
 
-/* line 163, ../sass/main.scss */
+/* line 165, ../sass/main.scss */
 .help {
   font-weight: strong;
   font-size: 105%;
@@ -276,22 +278,17 @@ td.td-wide-label {
   cursor: hand;
 }
 
-/* line 174, ../sass/main.scss */
+/* line 176, ../sass/main.scss */
 .nav > li:not(.bubble) {
   display: inline-block !important;
 }
 
-/* line 177, ../sass/main.scss */
+/* line 179, ../sass/main.scss */
 .nav-justified {
   text-align: center !important;
 }
 
-/* line 180, ../sass/main.scss */
-.navbar-default {
-  background-color: transparent !important;
-}
-
-/* line 183, ../sass/main.scss */
+/* line 182, ../sass/main.scss */
 .navbar-nav {
   margin-left: 0 !important;
 }

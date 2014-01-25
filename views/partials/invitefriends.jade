@@ -1,18 +1,16 @@
 div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()", infinite-scroll-distance="2", infinite-scroll-parent="true")
     center(style="width:100%")
-        a.btn(ng-click="kill()") kill account (for testing)
-        div
-            meter(style="width:80%; text-align:left",value="{{ user.inviteCounter / 10 }}")
+        div(style='margin-top: 5px; margin-bottom: 15px;')
+            progress-bar(style="width:80%; text-align:left",value="user.inviteCounter")
             span &nbsp; {{ user.inviteCounter * 10 }}%
         div(style="width:100%; height: 40px")
-            div(style="width:50%; float:left")
-                div.bubble.inline.small selected: {{ numselected }}
-                div.bubble.inline.small = {{ numselected * 54 }} x
-            div(style="width:50%; float:right")
-                img.inline(ng-src="/img/lens.png", ng-click="showsearchbar = !showsearchbar")
-                a.btn.inline(style="width:20%",ng-hide="numselected == filteredFriends.length",ng-click="selectAll()") all
+            div(style="width:60%; float:left")
+                div.bubble.inline selected: {{ numselected }}
+                div.bubble.inline = {{ numselected * 54 }} x
+            div(style="width:40%; float:right")
+                img.searchButton(ng-src="/img/search.svg", ng-click="showsearchbar = !showsearchbar")
                 a.btn.inline(style="width:20%",ng-show="numselected == filteredFriends.length",ng-click="selectNone()") clear
-                a.btn.inline(style="width:20%",ng-click="invite()") invite
+                a.btn.inline(style="width:60px",ng-click="invite()") invite
         div
             input.form-control(type="text",ng-show="showsearchbar",placeholder="Search",ng-model="searchstring")
             
@@ -23,9 +21,9 @@ div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()",
                     .name {{friend.first_name}} {{friend.last_name}}
                     .rightButtons
                         a.get(href="/app/get?fromId={{friend.id}}", title="get", ng-if="friend.isUser")
-                            img.actionButton(ng-src="/img/get.svg")
+                            img.actionButton(ng-src="/img/get.png")
                         a.give(href="/app/give?toId={{friend.id}}", title="give", ng-if="friend.isUser")
-                            img.actionButton(ng-src="/img/give.svg")
+                            img.actionButton(ng-src="/img/give.png")
                         a.invite(title="invite", ng-if="!friend.isUser", ng-click="selectFriend(friend.id)")
                             img.actionButton(ng-src="/img/facebook{{{true: 'i'}[selected[friend.id]]}}.svg")
     include modal

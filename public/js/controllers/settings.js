@@ -34,4 +34,14 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
         });
         
     }
+    
+    // Kill account (testing only)
+    $scope.kill = function() {
+        $http.post('/kill')
+            .success(function(r) {
+                $rootScope.user = r;
+                location.href='/app/newaccount'
+             })
+            .error(errhandle);
+    }
 }])

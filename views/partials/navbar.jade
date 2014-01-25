@@ -2,35 +2,31 @@ nav.navbar.navbar-default
     ul.iconbar.nav
         li(ng-click="goto('me')"): table
                 tr: td
-                    img(ng-show="path() == 'me'",ng-src="/img/mei.svg")
-                    img(ng-hide="path() == 'me'",ng-src="/img/me.svg")
-                tr: td(align="center"): span me
+                    img(ng-show="path() == 'me'",ng-src="/img/me_clicked.png")
+                    img(ng-hide="path() == 'me'",ng-src="/img/me.png")
+                tr: td(align="center", ng-class="{selected: path() == 'me'}"): span me
         li(ng-click="goto('give')"): table
                 tr: td
-                    img(ng-show="path() == 'give'",ng-src="/img/givei.svg")
-                    img(ng-hide="path() == 'give'",ng-src="/img/give.svg")
-                tr: td(align="center"): span give
+                    img(ng-show="path() == 'give'",ng-src="/img/give_clicked.png")
+                    img(ng-hide="path() == 'give'",ng-src="/img/give.png")
+                tr: td(align="center", ng-class="{selected: path() == 'give'}"): span give
         li(style="position:relative",ng-click="goto('thanx')"): table
                 tr: td
-                    img(ng-show="path() == 'thanx'",ng-src="/img/thanxi.svg")
-                    img(ng-hide="path() == 'thanx'",ng-src="/img/thanx.svg")
-                tr: td(align="center"): span thanx
-                div.count(style="position:absolute; background-color:#f88; z-index:1000; border-radius:5px",ng-show="incomingRequests.length > 0") &nbsp;{{ incomingRequests.length }}&nbsp;
+                    img(ng-show="path() == 'thanx'",ng-src="/img/thanx_clicked.png")
+                    img(ng-hide="path() == 'thanx'",ng-src="/img/thanx.png")
+                tr: td(align="center", ng-class="{selected: path() == 'thanx'}"): span thanx
+                div.count(ng-show="incomingRequests.length > 0") &nbsp;{{ incomingRequests.length }}&nbsp;
         li(ng-click="goto('get')"): table
                 tr: td
-                    img(ng-show="path() == 'get'",ng-src="/img/geti.svg")
-                    img(ng-hide="path() == 'get'",ng-src="/img/get.svg")
-                tr: td(align="center"): span get
+                    img(ng-show="path() == 'get'",ng-src="/img/get_clicked.png")
+                    img(ng-hide="path() == 'get'",ng-src="/img/get.png")
+                tr: td(align="center", ng-class="{selected: path() == 'get'}"): span get
         li(ng-click="goto('us')"): table
                 tr: td
-                    img(ng-show="path() == 'us'",ng-src="/img/usi.svg")
-                    img(ng-hide="path() == 'us'",ng-src="/img/us.svg")
-                tr: td(align="center"): span us
-    
+                    img(ng-show="path() == 'us'",ng-src="/img/us_clicked.png")
+                    img(ng-hide="path() == 'us'",ng-src="/img/us.png")
+                tr: td(align="center", ng-class="{selected: path() == 'us'}"): span us
     .moneybar
-        p(ng-click="btcmode = false", ng-class="{selected: btcmode == false || btcmode == undefined}") {{ user.tnx }} thanx
-            small {{ (user.tnx / 100000000 * price || 0) | number:2 }} us$
-        p(ng-click="btcmode = true", ng-class="{selected: btcmode == true}") {{ balance || 0 }} satoshi
-            small {{ (balance / 100000000 * price || 0) | number:2 }} us$
-  
-   
+        span.tnx(ng-click="btcmode = 'tnx'", ng-class="{selected: btcmode == 'tnx' || btcmode == undefined}") {{ user.tnx }} thanx
+        span.sat(ng-click="btcmode = 'sat'", ng-class="{selected: btcmode == 'sat'}") {{ balance || 0 }} satoshi
+        span.dollar(ng-click="btcmode = 'dollar'", ng-class="{selected: btcmode == 'dollar'}") ## dollars
