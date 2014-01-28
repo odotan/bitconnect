@@ -121,19 +121,6 @@ app.get('/', Facebook.loadRegisteredUser({}), function(req, res) {
     }
 });
 
-app.get('/sendto', Facebook.loginRequired(), FBify(function(profile, req, res) {
-    var parts = req.host.split('.'),
-        profileId = parts.slice(0, 2).join('.') + '.bitconnect.me';
-    db.User.findOne({
-        id: profile.id
-    }, mkrespcb(res, 400, function(u) {
-        if (!u) res.redirect('/app/newaccount');
-        else if (u.username == profileId && u.firstUse) res.redirect('/app/us');
-        else if (u.username == profileId) res.redirect('/app/give');
-        else res.render('sendto.jade');
-    }));
-}));
-
 app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
     db.User.findOne({
         id: profile.id
