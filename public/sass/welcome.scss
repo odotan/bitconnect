@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('Comfortaa/Comfortaa-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('Comfortaa/Comfortaa-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    src: url('Comfortaa/Comfortaa-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .appContainer {
   width: 320px;
   margin: auto;

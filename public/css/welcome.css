@@ -1,10 +1,31 @@
-/* line 1, ../sass/welcome.scss */
+@font-face {
+  font-family: 'Comfortaa';
+  src: url("Comfortaa/Comfortaa-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  src: url("Comfortaa/Comfortaa-Light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  src: url("Comfortaa/Comfortaa-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 22, ../sass/welcome.scss */
 .appContainer {
   width: 320px;
   margin: auto;
 }
 
-/* line 6, ../sass/welcome.scss */
+/* line 27, ../sass/welcome.scss */
 #welcome_page {
   position: absolute;
   color: #047bb2;
@@ -14,20 +35,20 @@
   height: 100%;
   font-size: 16px;
 }
-/* line 14, ../sass/welcome.scss */
+/* line 35, ../sass/welcome.scss */
 #welcome_page .medium {
   font-size: 18px;
 }
-/* line 17, ../sass/welcome.scss */
+/* line 38, ../sass/welcome.scss */
 #welcome_page .title {
   margin-bottom: 20px;
 }
-/* line 20, ../sass/welcome.scss */
+/* line 41, ../sass/welcome.scss */
 #welcome_page .logo {
   margin: 0px 10px;
   margin-bottom: 20px;
 }
-/* line 25, ../sass/welcome.scss */
+/* line 46, ../sass/welcome.scss */
 #welcome_page .fbcon {
   border: 5px solid #00ace2;
   border-radius: 100px;
@@ -38,12 +59,12 @@
   position: relative;
   top: 60px;
 }
-/* line 34, ../sass/welcome.scss */
+/* line 55, ../sass/welcome.scss */
 #welcome_page .fbcon:hover {
   background-color: #00ace2;
   color: white;
 }
-/* line 39, ../sass/welcome.scss */
+/* line 60, ../sass/welcome.scss */
 #welcome_page .appDownload {
   background-color: #047bb2;
   position: absolute;
@@ -53,7 +74,7 @@
   color: #f2fbff;
   padding-top: 20px;
 }
-/* line 47, ../sass/welcome.scss */
+/* line 68, ../sass/welcome.scss */
 #welcome_page .appDownload .downloadButton {
   height: 40px;
   margin: 7px;
