@@ -8,15 +8,26 @@ head
     link(rel="stylesheet",type="text/css",href="css/welcome.css")
     link(rel="stylesheet",type="text/css",href="css/bootstrap.min.css")
 body
-    center#welcome_page
-        img.logo(src="/img/bitconnect social bitcoin wallet by aftp.svg")
-        a.fbcon(href="/login") bitconnect me with facebook
-    script.
-        // When ready...
-        window.addEventListener("load",function() {
-            // Set a timeout...
-            setTimeout(function(){
-                // Hide the address bar!
-                window.scrollTo(0, 1);
-            }, 0);
-        });
+    .appContainer
+        #welcome_page
+            img.logo(src="/img/logo.png")
+            .title
+                div.medium social bitcoin wallet
+                div by automatic for the people
+            div.medium bitconnect, a new way to connect
+            div.medium a place where thanx means a lot
+            a.fbcon(href="/login") bitconnect me with facebook
+            .appDownload
+                div or download our app for
+                span
+                    img.downloadButton(src="img/googleplay.png")
+                    img.downloadButton(src="img/appstore.png")
+        script.
+            // When ready...
+            window.addEventListener("load",function() {
+                // Set a timeout...
+                setTimeout(function(){
+                    // Hide the address bar!
+                    window.scrollTo(0, 1);
+                }, 0);
+            });
