@@ -491,9 +491,8 @@ progress-bar {
   position: relative;
   cursor: pointer;
   border-radius: 50%;
-  border: 1px solid #3399cc;
 }
-/* line 89, ../sass/_thanx.scss */
+/* line 88, ../sass/_thanx.scss */
 .thanx .history .row {
   position: relative;
   height: 50px;

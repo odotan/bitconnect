@@ -25,5 +25,5 @@ div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()",
                         a.give(href="/app/give?toId={{friend.id}}", title="give", ng-if="friend.isUser")
                             img.actionButton(ng-src="/img/give.png")
                         a.invite(title="invite", ng-if="!friend.isUser", ng-click="selectFriend(friend.id)")
-                            img.actionButton(ng-src="/img/facebook{{{true: 'i'}[selected[friend.id]]}}.svg")
+                            img.actionButton(ng-src="/img/fb{{{true: '_clicked_2'}[selected[friend.id]]}}.png")
     include modal
