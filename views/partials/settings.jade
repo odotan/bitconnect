@@ -19,12 +19,12 @@
         .form-group(ng-show="user.address")
             hr
             label turn satoshis into thanx (one satoshi = one thanx. bitcoin transaction costs apply)
-            input.form-control(type="txt",ng-model="amount",placeholder="number of satoshis to convert")
+            input.form-control(type="number",ng-model="amount", min="1" ,placeholder="number of satoshis to convert")
             button.btn(ng-click="buy()") satoshi -> thanx
         .form-group(ng-show="user.address")
             hr
             label turn thanx into satoshis (one thanx = one satoshi. bitcoin transaction costs apply)
-            input.form-control(type="txt",ng-model="amountthanxtosatoshis",placeholder="number of thanx to convert")
+            input.form-control(type="number",ng-model="amountthanxtosatoshis",placeholder="number of thanx to convert")
             button.btn(ng-click="buy()") thanx -> satoshis
         .form-group
             hr
