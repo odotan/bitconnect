@@ -1,73 +1,119 @@
-.searchButton {
-	width:30px;
-	height:30px;
-	background-color:#f2fbff;
-	border-radius:50%;
-	border: 4px solid #f2fbff;
-	cursor: pointer;
-}
-progress-bar {
-	background-color: #f2fbff;
-	border: 3px solid #f2fbff;
-	border-radius: 20px;
-	padding-bottom: 5px;
-}
-.friendsList{
-	margin: auto 1px;
-	margin-top: 10px;
-	.friend{
-		position: relative;
-		background-color: #f2fbff;
-		height: 50px;
-		border: 2px solid #f2fbff;
-		border-radius: 30px;
-		margin-bottom: 2px;
-		img.friendImg{
-			position: absolute;
-			left: -2px;
-			top: -2px;
-			width: 50px;
-			height: 50px;
-			border-radius: 50%;
-			border: 2px solid #f2fbff;
+.inviteContainer {
+	.progress {
+		margin: auto;
+		background: #073651;
+		border-radius: 12px;
+		width: 90%;
+		height:25px;
+	}
+	.progress-bar {
+		line-height:25px;
+		text-align: right;
+		background: #f2fbff;
+		border-radius: 12px;
+		color: #073657;
+	}
+	.controlBar {
+		font-size: 12px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top:5px;
+		border: 0;
+		height: 25px;
+		width: 90%;
+		.searchButton {
+			width:auto;
+			height:100%;
+			padding: 0;
 		}
-		.body{
-			.name{
-				position: absolute;
-				left: 60px;
-				top: 13px;
-				width: 175px;
-				text-align: left;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				overflow: hidden;
-			}
-			.check4invite{		
-				position: absolute;
-				height: 16px;
-				right: 10px;
-				top: 15px;
-			}
-			.giveget{
-				position: absolute;
-				right: 26px;
-				top: 10px;
-				img{
-					width: 26px;
-				}
-				&.give{
-					right:53px;
-				}
-			}
-		}
-		.invited{
-			background-color: #3399cc;
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			right: 0;
-			left: 0;
+		
+		div {
+			line-height: 23px;
+			height: 100%;
 			border-radius: 30px;
+		    background-color: #073651;
+		    padding: 0px 12px;
+		    color: #f2fbff;
+		    &.search {
+		    	background-color: #f2fbff;
+				cursor: pointer;
+		    }
+		    &.invite {
+		    	cursor:pointer;
+		    }
+		    &.left {
+				float: left;
+				margin-right: 4px;
+			}
+		    &.right {
+				float: right;
+		    }
+		}
+	}
+	.searchLine {
+		background-color: f2fbff;
+		border: 0;
+		height: 25px;
+		margin-top: 5px;
+		width: 90%; 
+	}
+	.friendsList{
+		margin: auto 1px;
+		margin-top: 10px;
+		.friend{
+			position: relative;
+			background-color: #f2fbff;
+			height: 50px;
+			border: 2px solid #f2fbff;
+			border-radius: 30px;
+			margin-bottom: 2px;
+			img.friendImg{
+				position: absolute;
+				left: -2px;
+				top: -2px;
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				border: 2px solid #f2fbff;
+			}
+			.body{
+				.name{
+					position: absolute;
+					left: 60px;
+					top: 13px;
+					width: 175px;
+					text-align: left;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+				.check4invite{		
+					position: absolute;
+					height: 16px;
+					right: 10px;
+					top: 15px;
+				}
+				.giveget{
+					position: absolute;
+					right: 26px;
+					top: 10px;
+					img{
+						width: 26px;
+					}
+					&.give{
+						right:53px;
+					}
+				}
+			}
+			.invited{
+				background-color: #3399cc;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				border-radius: 30px;
+			}
 		}
 	}
 }

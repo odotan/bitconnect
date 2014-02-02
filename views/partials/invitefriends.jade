@@ -1,19 +1,15 @@
 div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()", infinite-scroll-distance="2", infinite-scroll-parent="true")
-    center(style="width:100%")
-        div(style='margin-top: 5px; margin-bottom: 15px;')
-            progress-bar(style="width:80%; text-align:left",value="user.inviteCounter")
-            span &nbsp; {{ user.inviteCounter * 10 }}%
-        div(style="width:100%; height: 40px")
-            div(style="width:60%; float:left")
-                div.bubble.inline selected: {{ numselected }}
-                div.bubble.inline = {{ numselected * 54 }} x
-            div(style="width:40%; float:right")
+    div.inviteContainer(style="text-align:center; width:100%")
+        div(style='margin-top: 5px;')
+            progressbar(value="5", max="10") {{ user.inviteCounter * 10 }}% &nbsp
+        div.controlBar
+            .left selected: {{ numselected }}
+            .left = {{ numselected * 54 }} x
+            .left.search
                 img.searchButton(ng-src="/img/search.svg", ng-click="showsearchbar = !showsearchbar")
-                a.btn.inline(style="width:20%",ng-show="numselected == filteredFriends.length",ng-click="selectNone()") clear
-                a.btn.inline(style="width:60px",ng-click="invite()") invite
+            .right.invite(ng-click="invite()") invite
         div
-            input.form-control(type="text",ng-show="showsearchbar",placeholder="Search",ng-model="searchstring")
-            
+            input.searchLine(type="text",ng-show="showsearchbar",placeholder="search a friend",ng-model="searchstring")
         .friendsList
             .friend(ng-repeat="(i,friend) in visibleFriends | orderBy:'first_name'")
                 img.friendImg(ng-src="{{friend.picture.data.url}}")
