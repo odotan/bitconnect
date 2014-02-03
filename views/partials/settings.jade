@@ -1,57 +1,66 @@
-.surround(ng-controller="SettingsController")
-    .controlBar
-        img.controlBarButton.controlBarButtonLeft(ng-src="/pic?id={{user.id}}")
-        a(href='')
-            img.controlBarButton.controlBarButtonRight(ng-src="/img/off.svg", title="logout", ng-click="logout()")
+.surround.meContainer(ng-controller="SettingsController")
+    img(ng-src="/img/off.svg", title="logout", ng-click="logout()",style="height:30px;background-color:#f2fbff;border-radius:50%")
     a.btn(ng-click="kill()") kill account (for testing)
-    form
-        .form-group(ng-show="user.address")
-            big my bitconnect bitcoin address
-            div.lightblue.pill
-                a(href="http://blockchain.info/address/{{ user.address }}",style="color:black") {{ user.address }}
+    .section.odd
+        div
+            .displayField.odd bitconnect address:
+                div.readOnly(style="width:calc(100% - 125px);") {{ user.username }}
+    .section
+        div(ng-show="user.address")
+            .displayField bitcoin address:
+                div.readOnly(href="http://blockchain.info/address/{{ user.address }}",style="width:calc(100% - 100px);") {{ user.address }}
             label send bitcoins to this address to add it to your satoshi balance. one bitcoin = 100,000,000 satoshis
-        .form-group(ng-hide="user.address")
+        div(ng-hide="user.address")
             label my bitconnect bitcoin address:
             label please select a password below to generate a bitcoin address for your wallet. you will be able to send bitcoins to and from this address. we do not ever receive your password, so we will not be able to help you retrieve it, or the bitcoins if you forget your password.
-            input.form-control(type="password",ng-model="cpassword",placeholder="password")
-            input.form-control(type="password",ng-model="cconfirm",placeholder="confirm")
+            input(type="password",ng-model="cpassword",placeholder="password")
+            input(type="password",ng-model="cconfirm",placeholder="confirm")
             button.btn(ng-hide="user.address",ng-click="checkLogin(cpassword,cconfirm)") generate my bitconnect bitcoin address
-        .form-group(ng-show="user.address")
-            hr
+    .section.odd
+        .sectionTitle buy thanx or satoshi
+        div(ng-show="user.address")
             label turn satoshis into thanx (one satoshi = one thanx. bitcoin transaction costs apply)
-            input.form-control(type="number",ng-model="amount", min="1" ,placeholder="number of satoshis to convert")
-            button.btn(ng-click="buy()") satoshi -> thanx
-        .form-group(ng-show="user.address")
-            hr
+            .displayField.odd buy thanx:
+                input(type="number",ng-model="amount", min="1" ,placeholder="number of satoshis",style="width:calc(100% - 80px);")
+                button.rightButton(ng-click="buy()") buy thanx
+        div(ng-show="user.address")
             label turn thanx into satoshis (one thanx = one satoshi. bitcoin transaction costs apply)
-            input.form-control(type="number",ng-model="amountthanxtosatoshis",placeholder="number of thanx to convert")
-            button.btn(ng-click="buy()") thanx -> satoshis
-        .form-group
-            hr
-            label if you wish to withdraw your satoshis, you will need to verify your mobile phone number (you will receive an sms with a six-digit code):
-            input.form-control(type="text",ng-model="phonenum",placeholder="+(country code)(phone number)")
-            button.btn(ng-click="sendtext()") send sms
-        .form-group
-            label enter the six-digit code you received in the sms:
-            input.form-control(type="text",ng-model="smscode")
-            button.btn(ng-click="vefify()") verify mobile number
-        .form-group
-            hr
+            .displayField.odd buy satoshi
+                input(type="number",ng-model="amountthanxtosatoshis",placeholder="number of thanx",style="width:calc(100% - 80px);")
+                button.rightButton(ng-click="buy()") buy satoshi
+    .section
+        .sectionTitle withdraw satoshi to other bitcoin address
+        div
             label you can withdraw satoshis to a bitcoin address (bitcoin transaction costs apply):
-            input.form-control(type="text",ng-model="withdrawbtcaddress",placeholder="your bitcoin address to withdraw to")
-            input.form-control(type="text",ng-model="withdraw",placeholder="number of satoshis to withdraw")
-            button.btn(ng-click="withdraw()") withdraw
-        .form-group
-            hr
+            .displayField btc address:
+                input(type="text",ng-model="withdrawbtcaddress",style="width:calc(100% - 80px);",placeholder="bitcoin address to withdraw to")
+            .displayField number of satoshi:
+                input(type="text",ng-model="withdraw",style="width:calc(100% - 115px);")
+                button.rightButton(ng-click="withdraw()") withdraw
+    .section.odd
+        .sectionTitle verify mobile number
+        div
+            label if you wish to withdraw your satoshis, you will need to verify your mobile phone number (you will receive an sms with a six-digit code):
+            .displayField.odd mobile number:
+                input(type="text",ng-model="phonenum",style="width:calc(100% - 100px);")
+                button.rightButton(ng-click="sendtext()") send sms
+        div
+            label enter the six-digit code you received in the sms:
+            .displayField verification code:
+                button.rightButton(ng-click="vefify()") verify
+                input(type="text",ng-model="smscode",style="width:calc(100% - 115px);")
+    .section
+        .sectionTitle verify email address
+        div
             label by default, your satoshi balance is only accessible by you with your password. the wallet is encrypted on your side and your password is never shared with us. this means you can be sure we can’t take your satoshis. however, it also leaves you with great responsibility to remember your password. if you forget your password, we will not be able to help you retrieve it, or your satoshis. they will be gone forever. however, if you wish to be able to reset your password in case you forget it, please check "i wish to remain safe" and enter your email address. you will receive an email with a verification link. this will keep your password with us in encrypted form and allow us to help you reset it in case you forget it.
-            input(type='checkbox',ng-model='verifyemail')
             label i wish to remain safe. my email address is:
-            input.form-control(type="text",ng-model="email")
-            button.btn(ng-click="verify()") verify email
-            br
-            br
-            input(type='checkbox',ng-model='backupwallet')
-            label send me a backup of my wallet whenever there are any changes:
-            br
-            button.btn(ng-click="backup()") backup wallet
+            .displayField email address:
+                input(type="text",ng-model="email",style="width:calc(100% - 115px);")
+                button.rightButton(ng-click="verify()") verify
+        br
+        br
+        input(type='checkbox',ng-model='backupwallet')
+        label send me a backup of my wallet whenever there are any changes:
+        br
+        button.btn(ng-click="backup()") backup wallet
     include modal
