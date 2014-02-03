@@ -1,42 +1,40 @@
 .giveget_form{
-	padding: 20px;
-	input[type=text], input[type=number], textarea{
-		/*-webkit-appearance: none;
-		-moz-appearance:    none;
-		appearance:         none;*/
-
-		font-size: 20px;
-		border: 2px solid #3399cc;
+	padding: 10px;
+	.formField {
+		margin-top: 5px;
 		border-radius: 30px;
-		height: 35px !important;
-	}
-	textarea{
-		resize: none;
-		height: 70px !important;
-		border-radius: 18px;
-	}
-	label{
-		font-size: 18px;
-		font-weight: normal;
-		display: none;
-	}
-	.form-group{
-		//position: relative;
+		background: #047bb2;
+		color: #f2fbff;
+		height: 30px;
+		font-size: 12px;
+		line-height: 30px;
+		padding-left: 5px;
+		input[type=number]::-webkit-inner-spin-button,
+		input[type=number]::-webkit-outer-spin-button {
+		    -webkit-appearance: none;
+		    margin: 0;
+		}
+		input[type=text], input[type=number]{
+			padding-left: 10px;
+			font-size: 20px;
+			border: 0;
+			height: 100%;
+			border-radius: 30px;
+			font-size: 12px;
+			float:right;
+			color: #047bb2;
+		}
+		input:focus {
+			outline: 0;
+		}
 	}
 	.submit_btn{
+		margin-top: 20px;
 		text-align:center;
-		a{
-			font-size: 20px;
-			border: 2px solid #3399cc;
-			border-radius: 20px;
-		}
 		img{
 			width: 64px;
 			height: 64px;
 			cursor: pointer;
-			&:hover{
-
-			}
 		}
 	}
 }

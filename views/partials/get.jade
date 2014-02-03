@@ -1,16 +1,13 @@
 .surround(ng-controller="GetController")
     form.giveget_form
-        .form-group
-            input.form-control(type="text",ng-model="get.from",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) |  limitTo:8", placeholder="get from")
-        .form-group(ng-hide="btcmode")
-            input.form-control(type="number",ng-model="get.tnx", min="0", step="1", pattern="[0-9]", required, placeholder="number of thanx")
-        .form-group(ng-show="btcmode")
-            input.form-control(type="number",ng-model="get.bts", min="5430", step="1", pattern="[0-9]", required, placeholder="number of satoshi")
-        .form-group
-            textarea.form-control(type="text",rows="3",ng-model="get.message", placeholder="message")
-
-
+        .formField get from:
+            input(type="text",ng-model="get.from",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) |  limitTo:8", style="width:calc(100% - 60px)")
+        .formField(ng-show="!btcmode || btcmode=='tnx'") number of thanx:
+            input(type="number",ng-model="get.tnx", style="width:calc(100% - 110px)", pattern="[0-9]", required)
+        .formField(ng-show="btcmode=='sat'") number of satoshi:
+            input(type="number",ng-model="get.bts", style="width:calc(100% - 115px)", pattern="[0-9]", required)
+        .formField message:
+            input(type="text",rows="3",ng-model="get.message", style="width:calc(100% - 60px)")
         .submit_btn
             img(ng-click="getmain()", ng-src="/img/get.png")
-
     include modal

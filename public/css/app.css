@@ -409,41 +409,46 @@
 
 /* line 1, ../sass/_give.scss */
 .giveget_form {
-  padding: 20px;
+  padding: 10px;
 }
 /* line 3, ../sass/_give.scss */
-.giveget_form input[type=text], .giveget_form input[type=number], .giveget_form textarea {
-  /*-webkit-appearance: none;
-  -moz-appearance:    none;
-  appearance:         none;*/
-  font-size: 20px;
-  border: 2px solid #3399cc;
+.giveget_form .formField {
+  margin-top: 5px;
   border-radius: 30px;
-  height: 35px !important;
+  background: #047bb2;
+  color: #f2fbff;
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  padding-left: 5px;
 }
 /* line 13, ../sass/_give.scss */
-.giveget_form textarea {
-  resize: none;
-  height: 70px !important;
-  border-radius: 18px;
+.giveget_form .formField input[type=number]::-webkit-inner-spin-button,
+.giveget_form .formField input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-/* line 18, ../sass/_give.scss */
-.giveget_form label {
-  font-size: 18px;
-  font-weight: normal;
-  display: none;
+/* line 17, ../sass/_give.scss */
+.giveget_form .formField input[type=text], .giveget_form .formField input[type=number] {
+  padding-left: 10px;
+  font-size: 20px;
+  border: 0;
+  height: 100%;
+  border-radius: 30px;
+  font-size: 12px;
+  float: right;
+  color: #047bb2;
 }
-/* line 26, ../sass/_give.scss */
+/* line 27, ../sass/_give.scss */
+.giveget_form .formField input:focus {
+  outline: 0;
+}
+/* line 31, ../sass/_give.scss */
 .giveget_form .submit_btn {
+  margin-top: 20px;
   text-align: center;
 }
-/* line 28, ../sass/_give.scss */
-.giveget_form .submit_btn a {
-  font-size: 20px;
-  border: 2px solid #3399cc;
-  border-radius: 20px;
-}
-/* line 33, ../sass/_give.scss */
+/* line 34, ../sass/_give.scss */
 .giveget_form .submit_btn img {
   width: 64px;
   height: 64px;
@@ -753,23 +758,11 @@ xxxdiv.surround {
 }
 
 /* line 121, ../sass/main.scss */
-input[type='text'], input[type='password'] {
-  word-wrap: break-word;
-  padding-left: 5px;
-  border: 2px solid #3399cc;
-  border: 2px solid #3399cc;
-  *border: 2px solid #3399cc;
-  -webkit-border-radius: 32px;
-  -moz-border-radius: 32px;
-  border-radius: 32px;
-}
-
-/* line 131, ../sass/main.scss */
 .fullheight {
   height: 100%;
 }
 
-/* line 132, ../sass/main.scss */
+/* line 122, ../sass/main.scss */
 table.tb {
   width: 100%;
   height: 100%;
@@ -778,44 +771,44 @@ table.tb {
   table-layout: fixed;
 }
 
-/* line 139, ../sass/main.scss */
+/* line 129, ../sass/main.scss */
 table.tb tr td {
   word-wrap: break-word;
 }
 
-/* line 142, ../sass/main.scss */
+/* line 132, ../sass/main.scss */
 td {
   position: relative;
 }
 
-/* line 145, ../sass/main.scss */
+/* line 135, ../sass/main.scss */
 .tab {
   position: absolute;
   height: 100%;
 }
 
-/* line 149, ../sass/main.scss */
+/* line 139, ../sass/main.scss */
 .tab table.tb {
   padding: 20px;
 }
 
-/* line 152, ../sass/main.scss */
+/* line 142, ../sass/main.scss */
 td.td-label {
   width: 80px;
 }
 
-/* line 155, ../sass/main.scss */
+/* line 145, ../sass/main.scss */
 td.td-wide-label {
   width: 130px;
 }
 
-/* line 158, ../sass/main.scss */
+/* line 148, ../sass/main.scss */
 .txcheckbox {
   width: 15px;
   height: 15px;
 }
 
-/* line 162, ../sass/main.scss */
+/* line 152, ../sass/main.scss */
 .help {
   font-weight: strong;
   font-size: 105%;
@@ -827,17 +820,17 @@ td.td-wide-label {
   cursor: hand;
 }
 
-/* line 173, ../sass/main.scss */
+/* line 163, ../sass/main.scss */
 .nav > li:not(.bubble) {
   display: inline-block !important;
 }
 
-/* line 176, ../sass/main.scss */
+/* line 166, ../sass/main.scss */
 .nav-justified {
   text-align: center !important;
 }
 
-/* line 179, ../sass/main.scss */
+/* line 169, ../sass/main.scss */
 .navbar-nav {
   margin-left: 0 !important;
 }
