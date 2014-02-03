@@ -1,7 +1,7 @@
 div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()", infinite-scroll-distance="2", infinite-scroll-parent="true")
     div.inviteContainer(style="text-align:center; width:100%")
         div(style='margin-top: 5px;')
-            progressbar(value="5", max="10") {{ user.inviteCounter * 10 }}% &nbsp
+            progressbar(value="user.inviteCounter", max="10") {{ user.inviteCounter * 10 }}% &nbsp
         div.controlBar
             .left selected: {{ numselected }}
             .left = {{ numselected * 54 }} x
