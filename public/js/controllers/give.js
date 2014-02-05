@@ -21,14 +21,15 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             function clearValues() {
                 $scope.give = {};
             }
-            if ($scope.btcmode) {
+            if ($scope.btcmode == 'sat') {
                 $scope.givebtc(clearValues);
-            } else {
+            } else if (!$scope.btcmode || $scope.btcmode == 'tnx'){
                 $scope.givetnx(clearValues);
             }
 
         }
         $scope.givetnx = function(successCB) {
+
             if (!parseInt($scope.give.tnx)) return;
             var getter;
             if (angular.isObject($scope.give.to)) {
@@ -41,7 +42,8 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 }
                 return;
             }
-            if (getter.username) {
+
+            function makeRequest() {
                 $http.post('/mkrequest', {
                     tnx: parseInt($scope.give.tnx),
                     giveTo: getter.id,
@@ -58,12 +60,14 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                         }
                     })
                     .error($rootScope.errHandle);
+            }
+            if (getter.username) {
+                makeRequest();
             } else {
                 FB.ui({
                     method: 'apprequests',
                     to: getter.id,
-                    title: 'come bitconnect with me :)',
-                    message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
+                    message: 'I\'ve sent you ' + $scope.give.tnx + " thanx on bitconnect.\n" + ($scope.give.message && $scope.give.message.length > 0 ? $scope.give.message : 'It\'s a place where thanx means a lot.')
                 }, function(req) {
                     $http.post('/mkinvite', {
                         from: $rootScope.user.id,
@@ -72,10 +76,9 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                     })
                         .success(function() {
                             if (angular.isDefined(req) && angular.isDefined(req.to) && successCB) {
-                                successCB();
+                                makeRequest();
                             }
-                            //  $scope.givetnx();
-                        })
+                        });
                 });
                 //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your thanx when they sign up.', canceltext: 'invite' }
             }

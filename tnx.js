@@ -36,9 +36,9 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res) {
         },
         function(cb2) {
             if (!scope.payer) {
-                if (parseInt(payer)) {
+                if (parseInt(giver)) {
                     scope.payer = {
-                        id: payer
+                        id: giver
                     };
                 } else {
                     return res.json('payer not found', 400);
@@ -84,9 +84,9 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res) {
         },
         function(cb2) {
             if (!scope.payee) {
-                if (parseInt(payee)) {
+                if (parseInt(getter)) {
                     scope.payee = {
-                        id: payee
+                        id: getter
                     };
                 } else {
                     return res.json('payee not found', 400);

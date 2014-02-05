@@ -30,17 +30,16 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         }
                         return;
                     }
-                    if ($scope.btcmode) {
+                    if ($scope.btcmode == 'sat') {
                         $scope.getbtc(clearValues);
-                    } else {
+                    } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                         $scope.gettnx(clearValues);
                     }
                 } else {
                     FB.ui({
                         method: 'apprequests',
                         to: giver.id,
-                        title: 'come bitconnect with me :)',
-                        message: 'it’s an amazing cool new way to connect with friends. you’ll get 5432 thanx :)'
+                        message: $scope.get.message || 'bitconnect is a place where thanx means a lot.'
                     }, function(req) {
                         if (!req || angular.isUndefined(req.to)) {
                             return;
@@ -52,7 +51,11 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         })
                             .success(function() {
                                 if (angular.isDefined(req) && angular.isDefined(req.to)) {
-                                    clearValues();
+                                    if ($scope.btcmode == 'sat') {
+                                        $scope.getbtc(clearValues);
+                                    } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
+                                        $scope.gettnx(clearValues);
+                                    }
                                 }
                             });
                     });
