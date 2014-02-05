@@ -5,7 +5,7 @@
         .formField(ng-show="!btcmode || btcmode == 'tnx'") number of thanx:
             input(type="number",ng-model="give.tnx", pattern="[0-9]", required, style="width:calc(100% - 110px)")
         .formField(ng-show="btcmode == 'sat'") number of satoshi:
-            input(type="number",ng-model="give.bts",style="width:calc(100% - 115px)", pattern="[0-9]", required)
+            input(type="number",ng-model="give.sat",style="width:calc(100% - 115px)", pattern="[0-9]", required)
         .formField message:
             input(type="text", ng-model="give.message", style="width:calc(100% - 60px)")
 

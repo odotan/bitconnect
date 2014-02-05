@@ -12,7 +12,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             $scope.give = {
                 to: $location.search().to,
                 tnx: $location.search().tnx,
-                bts: $location.search().bts,
+                sat: $location.search().sat,
                 message: $location.search().message
             };
         }
@@ -84,7 +84,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             }
         }
         $scope.givebtc = function() {
-            if (!parseInt($scope.give.bts)) return;
+            if (!parseInt($scope.give.sat)) return;
             var getter;
             if (angular.isObject($scope.give.to)) {
                 getter = $scope.give.to;
@@ -93,7 +93,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 // regular expression for bitcoin address:
                 var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
                 if (re.test($scope.give.to)) {
-                    $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.bts), 10000, $scope.give.message);
+                    $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.sat), 10000, $scope.give.message);
                 }
                 return;
             }
@@ -105,7 +105,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 return;
             }
             if (getter.username) {
-                $rootScope.bitcoinSend(getter.username, parseInt($scope.give.bts), 10000, $scope.give.message);
+                $rootScope.bitcoinSend(getter.username, parseInt($scope.give.sat), 10000, $scope.give.message);
             } else {
                 FB.ui({
                     method: 'apprequests',

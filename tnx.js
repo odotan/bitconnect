@@ -14,7 +14,7 @@ var eh = util.eh,
 
 var m = module.exports = {};
 
-function makeGetRequest(getterProfile, giver, sat, tnx, msg, res) {
+function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
     console.log('making get request');
     var scope = {};
     async.series([
@@ -56,13 +56,21 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res) {
                 timestamp: new Date().getTime() / 1000
             };
             db.Request.insert(scope.request, cb2);
+        },
+        function(cb2) {
+            var token = fb.getApplicationAccessToken(),
+                amount = tnx > 0 ? tnx + "%20thanx" : sat + "%20satoshi",
+                msg = getterProfile.first_name + '%20wants%20to%20get%20' + amount + '%20from%20you.%20Click%20to%20give%20it.';
+            fb.api('/' + scope.payer.id + '/notifications?template=' + msg, 'POST', {
+                access_token: token
+            }, cb2);
         }
     ], mkrespcb(res, 400, function() {
         res.json(scope.request);
     }));
 }
 
-function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res) {
+function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
     console.log('making give request');
     var scope = {};
     async.series([
@@ -104,10 +112,18 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res) {
                 timestamp: new Date().getTime() / 1000
             };
             db.Request.insert(scope.request, cb2);
+        },
+        function(cb2) {
+            var token = fb.getApplicationAccessToken(),
+                amount = tnx > 0 ? tnx + "%20thanx" : sat + "%20satoshi",
+                msg = giverProfile.first_name + '%20wants%20to%20give%20you%20' + amount + '.%20Click%20to%20get%20it.';
+            fb.api('/' + scope.payee.id + '/notifications?template=' + msg, 'POST', {
+                access_token: token
+            }, cb2);
         }
     ], mkrespcb(res, 400, function() {
         res.json(scope.request);
-    }));
+      }));
 }
 // Make an request
 
@@ -115,13 +131,14 @@ m.mkRequest = FBify(function(profile, req, res) {
     var sat = parseInt(req.param('sat')) || Math.ceil(parseFloat(req.param('btc')) * 100000000) || 0,
         tnx = parseInt(req.param('tnx')) || 0,
         msg = req.param('message') || '',
-        requestType = req.param('requestType');
+        requestType = req.param('requestType'),
+        fb = req.facebook;
     if (requestType === constants.RequestTypes.GET) {
         var from = req.param('getFrom');
-        return makeGetRequest(profile, from, sat, tnx, msg, res);
+        return makeGetRequest(profile, from, sat, tnx, msg, res, fb);
     } else if (requestType === constants.RequestTypes.GIVE) {
         var to = req.param('giveTo');
-        return makeGiveRequest(profile, to, sat, tnx, msg, res);
+        return makeGiveRequest(profile, to, sat, tnx, msg, res, fb);
     } else {
         return res.json('unknown or non existent request type: ' + requestType, 400);
     }
