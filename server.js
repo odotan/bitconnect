@@ -98,12 +98,12 @@ app.configure(function() {
 
 
 //app.get('/', Facebook.isRegistered(), function(req,res) {                       
-app.get('/', Facebook.loadRegisteredUser({}), function(req, res) {
+app.get('/', Facebook.loadRegisteredUser({}), function(req, res, next) {
     var parts = req.host.split('.'),
         profileId = parts.slice(0, 3).join('.');
     if (parts.length <= 2) {
         if (req.registeredUser) {
-            res.redirect('/app/thanx');
+            res.render('index.jade', {});
         } else {
             res.render('welcome.jade', {});
         }

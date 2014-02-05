@@ -42,7 +42,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'ProfileCtrl'
     })
     .otherwise({
-        redirectTo: '/'
+        redirectTo: '/app/thanx'
     });
 }]).config(['$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
