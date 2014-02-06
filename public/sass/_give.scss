@@ -1,7 +1,16 @@
+.giveget_form {
+	&.showErrors {
+		.formField {
+			input[type=text].ng-invalid, input[type=number].ng-invalid {
+				border: 2px solid #BF433F;
+			}
+		}
+	}
+}
 .giveget_form{
 	padding: 10px;
 	.formField {
-		margin-top: 5px;
+		margin-top: 10px;
 		border-radius: 30px;
 		background: #047bb2;
 		color: #f2fbff;
@@ -27,6 +36,11 @@
 		input:focus {
 			outline: 0;
 		}
+	}
+	.error {
+		color: #f2fbff;
+		font-size: 12px;
+		text-align: center;
 	}
 	.submit_btn{
 		margin-top: 20px;

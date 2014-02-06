@@ -407,13 +407,18 @@
   border-radius: 30px;
 }
 
-/* line 1, ../sass/_give.scss */
+/* line 4, ../sass/_give.scss */
+.giveget_form.showErrors .formField input[type=text].ng-invalid, .giveget_form.showErrors .formField input[type=number].ng-invalid {
+  border: 2px solid #BF433F;
+}
+
+/* line 10, ../sass/_give.scss */
 .giveget_form {
   padding: 10px;
 }
-/* line 3, ../sass/_give.scss */
+/* line 12, ../sass/_give.scss */
 .giveget_form .formField {
-  margin-top: 5px;
+  margin-top: 10px;
   border-radius: 30px;
   background: #047bb2;
   color: #f2fbff;
@@ -422,13 +427,13 @@
   line-height: 30px;
   padding-left: 5px;
 }
-/* line 13, ../sass/_give.scss */
+/* line 22, ../sass/_give.scss */
 .giveget_form .formField input[type=number]::-webkit-inner-spin-button,
 .giveget_form .formField input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 17, ../sass/_give.scss */
+/* line 26, ../sass/_give.scss */
 .giveget_form .formField input[type=text], .giveget_form .formField input[type=number] {
   padding-left: 10px;
   font-size: 20px;
@@ -439,16 +444,22 @@
   float: right;
   color: #047bb2;
 }
-/* line 27, ../sass/_give.scss */
+/* line 36, ../sass/_give.scss */
 .giveget_form .formField input:focus {
   outline: 0;
 }
-/* line 31, ../sass/_give.scss */
+/* line 40, ../sass/_give.scss */
+.giveget_form .error {
+  color: #f2fbff;
+  font-size: 12px;
+  text-align: center;
+}
+/* line 45, ../sass/_give.scss */
 .giveget_form .submit_btn {
   margin-top: 20px;
   text-align: center;
 }
-/* line 34, ../sass/_give.scss */
+/* line 48, ../sass/_give.scss */
 .giveget_form .submit_btn img {
   width: 64px;
   height: 64px;

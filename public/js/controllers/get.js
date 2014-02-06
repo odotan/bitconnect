@@ -16,9 +16,22 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             }
         }
 
+        function isValidUser(value) {
+            if (angular.isUndefined(value) || value === '') {
+                return true;
+            }
+            return angular.isObject(value);
+        }
+
         $scope.getmain = function() {
             function clearValues() {
                 $scope.get = {};
+            }
+            if (!$scope.getForm.$valid) {
+                $scope.showErrors = true;
+                return;
+            } else {
+                $scope.showErrors = false;
             }
             if (angular.isObject($scope.get.from)) {
                 var giver = $scope.get.from;
@@ -127,11 +140,24 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
 
         $scope.usersById = {}; // map of users filtered according to the current search
 
+        angular.element('#getFrom').blur(function(e) {
+            angular.element('#getFrom').controller('ngModel').$setValidity('user', isValidUser($scope.get.from));
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
+        });
 
         $scope.$watch('get.from', function() {
-            if (!$scope.get.from || $scope.get.from.length < 2) {
+            if (isValidUser($scope.get.from)) {
+                angular.element('#getFrom').controller('ngModel').$setValidity('user', true);
+            }
+            if (angular.isUndefined($scope.get) ||
+                angular.isUndefined($scope.get.from) ||
+                angular.isObject($scope.get.from) ||
+                $scope.get.from.length < 2) {
                 return;
             }
+
             $scope.usersById = FriendsService.getFriendsByPartialName($scope.get.from);
             UsersService.getUsersByPartialName($scope.get.from, function(usersById) {
                 UsersService.combineMaps($scope.usersById, usersById);

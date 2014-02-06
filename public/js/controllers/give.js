@@ -1,6 +1,5 @@
 window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes',
     function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes) {
-
         window.wscope = $scope;
         if ($location.search().toId) {
             UsersService.getUserById($location.search().toId, function(user) {
@@ -17,9 +16,26 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             };
         }
 
+        function isValidUser(value) {
+            if (angular.isUndefined(value) || value === '' ) {
+                return true;
+            }
+            return angular.isObject(value) || 
+            ($scope.btcmode === 'sat' && /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/.test(value));
+        }
+
         $scope.givemain = function() {
             function clearValues() {
                 $scope.give = {};
+                $scope.showErrors = false;
+            }
+            angular.element('#giveTo').controller('ngModel').$setValidity('user', isValidUser($scope.give.to));
+            if (!$scope.giveForm.$valid) {
+                $scope.showErrors = true;
+                return;
+            }
+            else {
+                $scope.showErrors = false;
             }
             if ($scope.btcmode == 'sat') {
                 $scope.givebtc(clearValues);
@@ -83,6 +99,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
                 //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your thanx when they sign up.', canceltext: 'invite' }
             }
         }
+
         $scope.givebtc = function() {
             if (!parseInt($scope.give.sat)) return;
             var getter;
@@ -92,7 +109,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             if (!getter) {
                 // regular expression for bitcoin address:
                 var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
-                if (re.test($scope.give.to)) {
+                if (re.test($scope.give.to) && $scope.btcmode === 'sat') {
                     $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.sat), 10000, $scope.give.message);
                 }
                 return;
@@ -133,7 +150,15 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
 
         $scope.usersById = {}; // map of users filtered according to the current search
 
+        angular.element('#giveTo').blur(function(e) {
+            angular.element('#giveTo').controller('ngModel').$setValidity('user', isValidUser($scope.give.to));
+            if (!$scope.$$phase) { $scope.$apply(); } 
+        });
+
         $scope.$watch('give.to', function() {
+            if (isValidUser($scope.give.to)) {
+                angular.element('#giveTo').controller('ngModel').$setValidity('user', true);
+            }
             if (angular.isUndefined($scope.give) || angular.isUndefined($scope.give.to) || angular.isObject($scope.give.to) || $scope.give.to.length < 2) {
                 return;
             }
