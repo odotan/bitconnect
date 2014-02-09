@@ -171,10 +171,10 @@ m.clearRequest = FBify(function(profile, req, res) {
             msg;
 
         if (reqType === 'get') {
-            msg = profile.first_name + ' didn\'t give you the ' + amount + ' you requested.';
+            msg = profile.first_name + ' didn\'t give you the ' + amount + ' you asked to get.';
         }
         else {
-            msg = profile.first_name + ' didn\'t confirm getting the ' + amount + ' you sent.';
+            msg = profile.first_name + ' didn\'t get the ' + amount + ' you gave.';
         }
 
         req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
@@ -292,7 +292,7 @@ m.sendTNX = FBify(function(profile, req, res) {
             }, function(err, requestObj) {
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = tnx + " thanx",
-                    msg = profile.first_name + ' approved your request and sent you ' + amount + '. Click to see it.';
+                    msg = profile.first_name + ' gave you ' + amount + ' that you asked to get.';
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg
@@ -364,7 +364,7 @@ m.acceptGive = FBify(function(profile, req, res) {
             }, function(err, requestObj) {
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = scope.request.tnx + " thanx",
-                    msg = profile.first_name + ' approved your request and got ' + amount + ' from you. Click to see it.';
+                    msg = profile.first_name + ' got the ' + amount + ' you gave.';
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg
