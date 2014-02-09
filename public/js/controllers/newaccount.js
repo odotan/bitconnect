@@ -1,4 +1,4 @@
-function NewAccountController($scope, $rootScope, $http, $location, me) {
+window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '$http', '$window', function($scope, $rootScope, $http, $window) {
 
 	window.wscope = $scope;
 
@@ -18,10 +18,10 @@ function NewAccountController($scope, $rootScope, $http, $location, me) {
 			name: $scope.username + '.bitconnect.me'
 		})
 			.success(function(u) {
-				location.href = '/app/us';
+				$window.location.href = '/app/us';
 			})
 			.error(errhandle);
 	}
 
 	$scope.$watch('username', $scope.checkname)
-}
+}]);

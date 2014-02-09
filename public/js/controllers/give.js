@@ -1,6 +1,6 @@
-window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes',
-    function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes) {
-        window.wscope = $scope;
+window.controllers.controller('GiveController', ['$scope', '$rootScope', '$window', '$http', '$location', 'friends', 'UsersService', 'RequestTypes',
+    function($scope, $rootScope, $window, $http, $location, FriendsService, UsersService, RequestTypes) {
+        $window.wscope = $scope;
         if ($location.search().toId) {
             UsersService.getUserById($location.search().toId, function(user) {
                 $scope.give = {
@@ -17,11 +17,11 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
         }
 
         function isValidUser(value) {
-            if (angular.isUndefined(value) || value === '' ) {
+            if (angular.isUndefined(value) || value === '') {
                 return true;
             }
-            return angular.isObject(value) || 
-            ($scope.btcmode === 'sat' && /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/.test(value));
+            return angular.isObject(value) ||
+                ($scope.btcmode === 'sat' && /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/.test(value));
         }
 
         $scope.givemain = function() {
@@ -33,13 +33,12 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             if (!$scope.giveForm.$valid) {
                 $scope.showErrors = true;
                 return;
-            }
-            else {
+            } else {
                 $scope.showErrors = false;
             }
             if ($scope.btcmode == 'sat') {
                 $scope.givebtc(clearValues);
-            } else if (!$scope.btcmode || $scope.btcmode == 'tnx'){
+            } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                 $scope.givetnx(clearValues);
             }
 
@@ -80,27 +79,27 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             if (getter.username) {
                 makeRequest();
             } else {
-                FB.ui({
+                $window.FB.ui({
                     method: 'apprequests',
                     to: getter.id,
                     message: 'I\'ve sent you ' + $scope.give.tnx + " thanx on bitconnect.\n" + ($scope.give.message && $scope.give.message.length > 0 ? $scope.give.message : 'It\'s a place where thanx means a lot.')
                 }, function(req) {
-                    $http.post('/mkinvite', {
-                        from: $rootScope.user.id,
-                        to: [getter.id],
-                        reqid: req.request
-                    })
-                        .success(function() {
-                            if (angular.isDefined(req) && angular.isDefined(req.to) && successCB) {
+                    if (angular.isDefined(req) && angular.isDefined(req.to)) {
+                        $http.post('/mkinvite', {
+                            from: $rootScope.user.id,
+                            to: [getter.id],
+                            reqid: req.request
+                        })
+                            .success(function() {
                                 makeRequest();
-                            }
-                        });
+                            });
+                    }
                 });
                 //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your thanx when they sign up.', canceltext: 'invite' }
             }
         }
 
-        $scope.givebtc = function() {
+        $scope.givebtc = function(successCB) {
             if (!parseInt($scope.give.sat)) return;
             var getter;
             if (angular.isObject($scope.give.to)) {
@@ -124,7 +123,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
             if (getter.username) {
                 $rootScope.bitcoinSend(getter.username, parseInt($scope.give.sat), 10000, $scope.give.message);
             } else {
-                FB.ui({
+                $window.FB.ui({
                     method: 'apprequests',
                     to: getter.id,
                     title: 'come bitconnect with me :)',
@@ -152,7 +151,9 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$http'
 
         angular.element('#giveTo').blur(function(e) {
             angular.element('#giveTo').controller('ngModel').$setValidity('user', isValidUser($scope.give.to));
-            if (!$scope.$$phase) { $scope.$apply(); } 
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
         });
 
         $scope.$watch('give.to', function() {

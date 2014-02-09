@@ -1,4 +1,3 @@
-
 function ThanxCtrl($scope, $http, $location) {
 
     window.wscope = $scope;
@@ -103,8 +102,8 @@ function ThanxCtrl($scope, $http, $location) {
     $scope.invite = function() {
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
-             title: 'come bitconnect with me :), 
-             message: 'it’s an amazing cool new way to connect with friends . you’ll get a lot of thanx :)
+             title: 'come bitconnect with me :)', 
+             message: 'it’s an amazing cool new way to connect with friends . you’ll get a lot of thanx :)'
         }, function(req) { 
             console.log(req);
             $http.post('/mkinvite',{
@@ -116,7 +115,7 @@ function ThanxCtrl($scope, $http, $location) {
                 $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanx. don\'t forget to remind your friends to sign up. you will both get a lot more thanx when they do :)',
                     canceltext: 'cool thanx',
-                    actiontext:  ‘i’d like to invite more friends,
+                    actiontext:  'i’d like to invite more friends',
                     action: function(){ $rootScope.message = null }
                 }
             });
