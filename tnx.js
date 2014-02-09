@@ -150,7 +150,6 @@ m.clearRequest = FBify(function(profile, req, res) {
     var cb = mkrespcb(res, 400, function() {
         res.json('gone');
     });
-    console.log(profile.id);
     db.Request.findAndModify({
         id: req.param('request_id'),
         $or: [{
