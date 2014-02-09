@@ -123,7 +123,7 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
         }
     ], mkrespcb(res, 400, function() {
         res.json(scope.request);
-      }));
+    }));
 }
 // Make an request
 
@@ -147,12 +147,42 @@ m.mkRequest = FBify(function(profile, req, res) {
 // Refuse an request
 
 m.clearRequest = FBify(function(profile, req, res) {
-    db.Request.remove({
-            id: req.param('request_id')
-        },
-        mkrespcb(res, 400, function() {
-            res.json('gone')
-        }))
+    var cb = mkrespcb(res, 400, function() {
+        res.json('gone');
+    });
+    console.log(profile.id);
+    db.Request.findAndModify({
+        id: req.param('request_id'),
+        $or: [{
+            'sender.id': profile.id
+        }, {
+            'recipient.id': profile.id
+        }]
+    }, {}, {}, {
+        remove: true
+    },
+    function(err, requestObj) {
+        if (requestObj.sender.id === profile.id) {
+            cb();
+            return;
+        }
+        var token = req.facebook.getApplicationAccessToken(),
+            amount = requestObj.sat > 0 ? requestObj.sat + " satoshi" : requestObj.tnx + " thanx",
+            reqType = requestObj.requestType === constants.RequestTypes.GET ? 'get' : 'give',
+            msg;
+
+        if (reqType === 'get') {
+            msg = profile.first_name + ' didn\'t give you the ' + amount + ' you requested.';
+        }
+        else {
+            msg = profile.first_name + ' didn\'t confirm getting the ' + amount + ' you sent.';
+        }
+
+        req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
+            access_token: token,
+            template: msg
+        }, cb);
+    });
 });
 
 // Payment requests
@@ -256,9 +286,20 @@ m.sendTNX = FBify(function(profile, req, res) {
                 message)
         },
         function(cb2) {
-            db.Request.remove({
+            db.Request.findAndModify({
                 id: request
-            }, cb2)
+            }, {}, {}, {
+                remove: true
+            }, function(err, requestObj) {
+                var token = req.facebook.getApplicationAccessToken(),
+                    amount = tnx + " thanx",
+                    msg = profile.first_name + ' approved your request and sent you ' + amount + '. Click to see it.';
+                req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
+                    access_token: token,
+                    template: msg
+                }, cb2);
+            });
+
         }
     ], mkrespcb(res, 400, function(x) {
         res.json('success')
@@ -317,9 +358,19 @@ m.acceptGive = FBify(function(profile, req, res) {
             }, cb)
         },
         function(cb) {
-            db.Request.remove({
+            db.Request.findAndModify({
                 id: scope.request.id
-            }, cb);
+            }, {}, {}, {
+                remove: true
+            }, function(err, requestObj) {
+                var token = req.facebook.getApplicationAccessToken(),
+                    amount = scope.request.tnx + " thanx",
+                    msg = profile.first_name + ' approved your request and got ' + amount + ' from you. Click to see it.';
+                req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
+                    access_token: token,
+                    template: msg
+                }, cb);
+            });
         }
     ], mkrespcb(res, 200, function() {
         res.json('success');
