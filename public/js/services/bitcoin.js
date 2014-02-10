@@ -56,13 +56,13 @@ window.app.service('bitcoin',function($rootScope, $http) {
         }
     }
 
-    $rootScope.bitcoinSend = function(userWalletAddr, satoshis, fee, message, callback) {
-        console.log('bitcoinSend', userWalletAddr, satoshis, fee, message, callback);
+    $rootScope.bitcoinSend = function(userWalletAddr, satoshis, fee, message, requestId) {
+        console.log('bitcoinSend', userWalletAddr, satoshis, fee, message, requestId);
         if (!fee) fee = 10000;
         satoshis = Math.ceil(satoshis);
         if (!$rootScope.key) {
             $rootScope.checkBitcoinLoggedIn(function() {
-                $rootScope.bitcoinSend(userWalletAddr, satoshis, fee);
+                $rootScope.bitcoinSend(userWalletAddr, satoshis, fee, message, requestId);
             })
         }
         else if (!userWalletAddr) {
@@ -77,16 +77,16 @@ window.app.service('bitcoin',function($rootScope, $http) {
         else if (userWalletAddr.indexOf('.') >= 0) {
             $http.get('/userdata?username='+encodeURIComponent(userWalletAddr))
                  .success(function(r) {
-                    if (!r[0]) return $rootScope.errHandle('user not found')
-                    if (!r[0].address) return $rootScope.errHandle('getter has no address')
+                    if (!r[0]) return $rootScope.errHandle('user not found');
+                    if (!r[0].address) return $rootScope.errHandle('getter has no address');
                     try {
                         $rootScope.rawSend(r[0].address, satoshis, fee, '/sendbtc', {
                             to: userWalletAddr,
-                            message: message 
+                            message: message,
+                            requestId: requestId
                         },function() {
-                            $rootScope.showMessage('success')
-                            if (callback) callback();
-                        })
+                            $rootScope.showMessage('success');
+                        });
                     }
                     catch(e) { $rootScope.body = e }
                  })
@@ -94,11 +94,11 @@ window.app.service('bitcoin',function($rootScope, $http) {
         }
         else try {
             $rootScope.rawSend(userWalletAddr, satoshis, fee, '/sendbtc', {
-                message: message, 
-                to: userWalletAddr
+                message: message,
+                to: userWalletAddr,
+                requestId: requestId
             }, function() {
-                $rootScope.showMessage('success')
-                if (callback) callback();
+                $rootScope.showMessage('success');
             })
         }
         catch(e) { $rootScope.body = e }

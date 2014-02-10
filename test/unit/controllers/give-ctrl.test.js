@@ -65,6 +65,9 @@ describe('controllers', function() {
 						'$scope': $scope,
 						'$window': $window,
 						'friends': FriendsService,
+						'requests': undefined,
+						'bitcoin': undefined,
+						'me': undefined,
 						'UsersService': UsersService,
 						'RequestTypes': RequestTypes
 					});

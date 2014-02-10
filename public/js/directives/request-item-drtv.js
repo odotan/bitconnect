@@ -32,7 +32,7 @@ app.directive('requestItem', [function() {
 							if (request.tnx > 0) {
 								$rootScope.thanxSend(request.sender.username, request.tnx, request, request.message, TxTypes.getRequest);
 							} else {
-								$rootScope.bitcoinSend(request.sender.username, request.sat, null, request);
+								$rootScope.bitcoinSend(request.sender.username, request.sat, null, request.message, request.id);
 							}
 						} else if (request.requestType === RequestTypes.GIVE) {
 							$http.post('/acceptgive', {
