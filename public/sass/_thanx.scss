@@ -1,89 +1,5 @@
 .thanx{
 	padding: 0 20px;
-	label{
-		display: block;
-		font-size: 12px;
-		text-align: center;
-		color: #f2fbff;
-	}
-
-	.requests, .history{
-		.request{
-			position: relative;
-			background-color: #f2fbff;
-			font-size: 12px;
-			height: 50px;
-			border: 2px solid #f2fbff;
-			border-radius: 30px;
-			margin-bottom: -2px;
-			color: #073651;
-			img.friendImg{
-				position: absolute;
-				left: -2px;
-				top: -2px;
-				width: 50px;
-				height: 50px;
-				border-radius: 50%;
-				border: 2px solid #FFFFFF;
-			}
-			.body{
-				.fbname{
-					position: absolute;
-					left: 70px;
-					top: 0px;
-				}
-				.tnx{
-					position: absolute;
-					left: 70px;
-					top: 30px;
-				}
-				.sat{
-					position: absolute;
-					left: 70px;
-					top: 30px;
-					max-width: 100px;
-					overflow: hidden;
-					&.unconfirmed{
-						color: red;
-					}
-
-				}
-				.message{
-					position: absolute;
-					left: 70px;
-					top: 15px;
-					font-size: 10px;
-					width: 147px;
-					height: 17px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					display: block;
-					white-space: nowrap;
-				}
-				.accept, .reject{		
-					height:10px;
-					cursor: pointer;
-					position: absolute;
-					right: 15px;
-					top: 15px;
-				}
-				.reject{
-					right: 0px;
-				}
-			}
-			.requestActionButton {
-			  width: 30px;
-			  height: 30px;
-			  top: 10px;
-			  margin-right: 5px;
-			  position: relative;
-			  cursor: pointer;
-			  border-radius: 50%;
-			}
-		}
-
-	}
-
 	.history{
 		.row{
 			position: relative;
@@ -93,5 +9,69 @@
 			margin-bottom: -2px;
 		}
 	}
+}
 
+.thanx,.giveGetPage {
+  label{
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: #f2fbff;
+  }
+  .requests, .history{
+    .request{
+      position: relative;
+      background-color: #f2fbff;
+      font-size: 12px;
+      height: 50px;
+      border: 2px solid #f2fbff;
+      border-radius: 30px;
+      margin-bottom: -2px;
+      color: #073651;
+      img.friendImg{
+        position: absolute;
+        left: -2px;
+        top: -2px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid #FFFFFF;
+      }
+      .body{
+        .fbname{
+          position: absolute;
+          left: 70px;
+          top: 0px;
+        }
+        .tnx{
+          position: absolute;
+          left: 70px;
+          top: 30px;
+        }
+        .sat{
+          position: absolute;
+          left: 70px;
+          top: 30px;
+          max-width: 100px;
+          overflow: hidden;
+          &.unconfirmed{
+            color: red;
+          }
+
+        }
+        .message{
+          position: absolute;
+          left: 70px;
+          top: 15px;
+          font-size: 10px;
+          width: 147px;
+          height: 17px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
 }

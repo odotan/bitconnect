@@ -151,60 +151,84 @@ m.clearRequest = FBify(function(profile, req, res) {
         res.json('gone');
     });
     db.Request.findAndModify({
-        id: req.param('request_id'),
-        $or: [{
-            'sender.id': profile.id
-        }, {
-            'recipient.id': profile.id
-        }]
-    }, {}, {}, {
-        remove: true
-    },
-    function(err, requestObj) {
-        if (requestObj.sender.id === profile.id) {
-            cb();
-            return;
-        }
-        var token = req.facebook.getApplicationAccessToken(),
-            amount = requestObj.sat > 0 ? requestObj.sat + " satoshi" : requestObj.tnx + " thanx",
-            reqType = requestObj.requestType === constants.RequestTypes.GET ? 'get' : 'give',
-            msg;
+            id: req.param('request_id'),
+            $or: [{
+                'sender.id': profile.id
+            }, {
+                'recipient.id': profile.id
+            }]
+        }, {}, {}, {
+            remove: true
+        },
+        function(err, requestObj) {
+            if (requestObj.sender.id === profile.id) {
+                cb();
+                return;
+            }
+            var token = req.facebook.getApplicationAccessToken(),
+                amount = requestObj.sat > 0 ? requestObj.sat + " satoshi" : requestObj.tnx + " thanx",
+                reqType = requestObj.requestType === constants.RequestTypes.GET ? 'get' : 'give',
+                msg;
 
-        if (reqType === 'get') {
-            msg = profile.first_name + ' didn\'t give you the ' + amount + ' you asked to get.';
-        }
-        else {
-            msg = profile.first_name + ' didn\'t get the ' + amount + ' you gave.';
-        }
+            if (reqType === 'get') {
+                msg = profile.first_name + ' didn\'t give you the ' + amount + ' you asked to get.';
+            } else {
+                msg = profile.first_name + ' didn\'t get the ' + amount + ' you gave.';
+            }
 
-        req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
-            access_token: token,
-            template: msg
-        }, cb);
-    });
+            req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
+                access_token: token,
+                template: msg
+            }, cb);
+        });
 });
 
 // Payment requests
 
-m.getIncomingRequests = FBify(function(profile, req, res) {
+m.getPendingRequests = FBify(function(profile, req, res) {
     db.Request.find({
-        'recipient.id': profile.id
+        $or: [{
+            'recipient.id': profile.id
+        }, {
+            'sender.id': profile.id
+        }]
     })
         .sort({
             timestamp: -1
         })
-        .toArray(mkrespcb(res, 400, _.bind(res.json, res)))
+        .toArray(mkrespcb(res, 400, function(result) {
+            var finalResult = {
+                incoming: {
+                    get: [],
+                    give: []
+                },
+                outgoing: {
+                    get: [],
+                    give: []
+                }
+            };
+            result.forEach(function(request) {
+                var direction, type;
+                if (request.sender.id === profile.id )  {
+                    direction = 'outgoing';
+                }
+                else if (request.recipient.id === profile.id) {
+                    direction = 'incoming';                 
+                }
+                if(request.requestType === constants.RequestTypes.GET) {
+                    type = 'get';
+                }
+                else if(request.requestType === constants.RequestTypes.GIVE) {
+                    type = 'give'
+                }
+                if (direction && type) {
+                    finalResult[direction][type].push(request);
+                }
+            });
+            res.json(finalResult, 200);
+        }));
 });
 
-m.getOutgoingRequests = FBify(function(profile, req, res) {
-    db.Request.find({
-        'sender.id': profile.id
-    })
-        .sort({
-            timestamp: -1
-        })
-        .toArray(mkrespcb(res, 400, _.bind(res.json, res)))
-});
 // Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
 var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {

@@ -200,8 +200,7 @@ app.get('/fetchheight', btc.fetchHeight);
 
 app.post('/mkrequest', Facebook.loginRequired(), tnx.mkRequest);
 app.post('/clearrequest', Facebook.loginRequired(), tnx.clearRequest);
-app.get('/incomingrequests', Facebook.loginRequired(), tnx.getIncomingRequests);
-app.get('/outgoingrequests', Facebook.loginRequired(), tnx.getOutgoingRequests);
+app.get('/pendingrequests', Facebook.loginRequired(), tnx.getPendingRequests);
 app.post('/sendtnx', Facebook.loginRequired(), tnx.sendTNX);
 app.post('/acceptgive', Facebook.loginRequired(), tnx.acceptGive);
 app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory);

@@ -1,5 +1,5 @@
-window.controllers.controller('GiveController', ['$scope', '$rootScope', '$window', '$http', '$location', 'friends', 'UsersService', 'RequestTypes',
-    function($scope, $rootScope, $window, $http, $location, FriendsService, UsersService, RequestTypes) {
+window.controllers.controller('GiveController', ['$scope', '$rootScope', '$window', '$http', '$location', 'friends', 'requests', 'bitcoin', 'UsersService', 'RequestTypes', 'me',
+    function($scope, $rootScope, $window, $http, $location, FriendsService, requests, bitcoin, UsersService, RequestTypes, me) {
         $window.wscope = $scope;
         if ($location.search().toId) {
             UsersService.getUserById($location.search().toId, function(user) {

@@ -407,17 +407,16 @@
   border-radius: 30px;
 }
 
-/* line 4, ../sass/_give.scss */
-.giveget_form.showErrors .formField input[type=text].ng-invalid, .giveget_form.showErrors .formField input[type=number].ng-invalid {
+/* line 5, ../sass/_give.scss */
+.giveGetPage .giveget_form.showErrors .formField input[type=text].ng-invalid, .giveGetPage .giveget_form.showErrors .formField input[type=number].ng-invalid {
   border: 2px solid #BF433F;
 }
-
-/* line 10, ../sass/_give.scss */
-.giveget_form {
+/* line 11, ../sass/_give.scss */
+.giveGetPage .giveget_form {
   padding: 10px;
 }
-/* line 12, ../sass/_give.scss */
-.giveget_form .formField {
+/* line 13, ../sass/_give.scss */
+.giveGetPage .giveget_form .formField {
   margin-top: 10px;
   border-radius: 30px;
   background: #047bb2;
@@ -427,14 +426,14 @@
   line-height: 30px;
   padding-left: 5px;
 }
-/* line 22, ../sass/_give.scss */
-.giveget_form .formField input[type=number]::-webkit-inner-spin-button,
-.giveget_form .formField input[type=number]::-webkit-outer-spin-button {
+/* line 23, ../sass/_give.scss */
+.giveGetPage .giveget_form .formField input[type=number]::-webkit-inner-spin-button,
+.giveGetPage .giveget_form .formField input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 26, ../sass/_give.scss */
-.giveget_form .formField input[type=text], .giveget_form .formField input[type=number] {
+/* line 27, ../sass/_give.scss */
+.giveGetPage .giveget_form .formField input[type=text], .giveGetPage .giveget_form .formField input[type=number] {
   padding-left: 10px;
   font-size: 20px;
   border: 0;
@@ -444,41 +443,76 @@
   float: right;
   color: #047bb2;
 }
-/* line 36, ../sass/_give.scss */
-.giveget_form .formField input:focus {
+/* line 37, ../sass/_give.scss */
+.giveGetPage .giveget_form .formField input:focus {
   outline: 0;
 }
-/* line 40, ../sass/_give.scss */
-.giveget_form .error {
+/* line 41, ../sass/_give.scss */
+.giveGetPage .giveget_form .error {
   color: #f2fbff;
   font-size: 12px;
   text-align: center;
 }
-/* line 45, ../sass/_give.scss */
-.giveget_form .submit_btn {
+/* line 46, ../sass/_give.scss */
+.giveGetPage .giveget_form .submit_btn {
   margin-top: 20px;
   text-align: center;
 }
-/* line 48, ../sass/_give.scss */
-.giveget_form .submit_btn img {
+/* line 49, ../sass/_give.scss */
+.giveGetPage .giveget_form .submit_btn img {
   width: 64px;
   height: 64px;
   cursor: pointer;
+}
+/* line 56, ../sass/_give.scss */
+.giveGetPage .requests {
+  padding: 0 20px;
+}
+/* line 60, ../sass/_give.scss */
+.giveGetPage .requests .request .body .accept, .giveGetPage .requests .request .body .reject {
+  height: 10px;
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+/* line 67, ../sass/_give.scss */
+.giveGetPage .requests .request .body .reject {
+  right: 0px;
+}
+/* line 71, ../sass/_give.scss */
+.giveGetPage .requests .request .requestActionButton {
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  margin-right: 5px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 /* line 1, ../sass/_thanx.scss */
 .thanx {
   padding: 0 20px;
 }
-/* line 3, ../sass/_thanx.scss */
-.thanx label {
+/* line 4, ../sass/_thanx.scss */
+.thanx .history .row {
+  position: relative;
+  height: 50px;
+  border: 2px solid #3399cc;
+  border-radius: 30px;
+  margin-bottom: -2px;
+}
+
+/* line 14, ../sass/_thanx.scss */
+.thanx label, .giveGetPage label {
   display: block;
   font-size: 12px;
   text-align: center;
   color: #f2fbff;
 }
-/* line 11, ../sass/_thanx.scss */
-.thanx .requests .request, .thanx .history .request {
+/* line 21, ../sass/_thanx.scss */
+.thanx .requests .request, .thanx .history .request, .giveGetPage .requests .request, .giveGetPage .history .request {
   position: relative;
   background-color: #f2fbff;
   font-size: 12px;
@@ -488,8 +522,8 @@
   margin-bottom: -2px;
   color: #073651;
 }
-/* line 20, ../sass/_thanx.scss */
-.thanx .requests .request img.friendImg, .thanx .history .request img.friendImg {
+/* line 30, ../sass/_thanx.scss */
+.thanx .requests .request img.friendImg, .thanx .history .request img.friendImg, .giveGetPage .requests .request img.friendImg, .giveGetPage .history .request img.friendImg {
   position: absolute;
   left: -2px;
   top: -2px;
@@ -498,32 +532,32 @@
   border-radius: 50%;
   border: 2px solid #FFFFFF;
 }
-/* line 30, ../sass/_thanx.scss */
-.thanx .requests .request .body .fbname, .thanx .history .request .body .fbname {
+/* line 40, ../sass/_thanx.scss */
+.thanx .requests .request .body .fbname, .thanx .history .request .body .fbname, .giveGetPage .requests .request .body .fbname, .giveGetPage .history .request .body .fbname {
   position: absolute;
   left: 70px;
   top: 0px;
 }
-/* line 35, ../sass/_thanx.scss */
-.thanx .requests .request .body .tnx, .thanx .history .request .body .tnx {
+/* line 45, ../sass/_thanx.scss */
+.thanx .requests .request .body .tnx, .thanx .history .request .body .tnx, .giveGetPage .requests .request .body .tnx, .giveGetPage .history .request .body .tnx {
   position: absolute;
   left: 70px;
   top: 30px;
 }
-/* line 40, ../sass/_thanx.scss */
-.thanx .requests .request .body .sat, .thanx .history .request .body .sat {
+/* line 50, ../sass/_thanx.scss */
+.thanx .requests .request .body .sat, .thanx .history .request .body .sat, .giveGetPage .requests .request .body .sat, .giveGetPage .history .request .body .sat {
   position: absolute;
   left: 70px;
   top: 30px;
   max-width: 100px;
   overflow: hidden;
 }
-/* line 46, ../sass/_thanx.scss */
-.thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed {
+/* line 56, ../sass/_thanx.scss */
+.thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed, .giveGetPage .requests .request .body .sat.unconfirmed, .giveGetPage .history .request .body .sat.unconfirmed {
   color: red;
 }
-/* line 51, ../sass/_thanx.scss */
-.thanx .requests .request .body .message, .thanx .history .request .body .message {
+/* line 61, ../sass/_thanx.scss */
+.thanx .requests .request .body .message, .thanx .history .request .body .message, .giveGetPage .requests .request .body .message, .giveGetPage .history .request .body .message {
   position: absolute;
   left: 70px;
   top: 15px;
@@ -534,36 +568,6 @@
   text-overflow: ellipsis;
   display: block;
   white-space: nowrap;
-}
-/* line 63, ../sass/_thanx.scss */
-.thanx .requests .request .body .accept, .thanx .requests .request .body .reject, .thanx .history .request .body .accept, .thanx .history .request .body .reject {
-  height: 10px;
-  cursor: pointer;
-  position: absolute;
-  right: 15px;
-  top: 15px;
-}
-/* line 70, ../sass/_thanx.scss */
-.thanx .requests .request .body .reject, .thanx .history .request .body .reject {
-  right: 0px;
-}
-/* line 74, ../sass/_thanx.scss */
-.thanx .requests .request .requestActionButton, .thanx .history .request .requestActionButton {
-  width: 30px;
-  height: 30px;
-  top: 10px;
-  margin-right: 5px;
-  position: relative;
-  cursor: pointer;
-  border-radius: 50%;
-}
-/* line 88, ../sass/_thanx.scss */
-.thanx .history .row {
-  position: relative;
-  height: 50px;
-  border: 2px solid #3399cc;
-  border-radius: 30px;
-  margin-bottom: -2px;
 }
 
 /* line 2, ../sass/_me.scss */

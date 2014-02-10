@@ -10,17 +10,18 @@ nav.navbar.navbar-default
                     img(ng-show="path() == 'get'",ng-src="/img/get_clicked.png")
                     img(ng-hide="path() == 'get'",ng-src="/img/get.png")
                 tr: td(align="center", ng-class="{selected: path() == 'get'}"): span get
+                div.count(ng-show="pendingRequests.incoming.give.length > 0") &nbsp;{{ pendingRequests.incoming.give.length }}&nbsp;
         li(style="position:relative",ng-click="goto('thanx')"): table
                 tr: td
                     img(ng-show="path() == 'thanx'",ng-src="/img/thanx_clicked.png")
                     img(ng-hide="path() == 'thanx'",ng-src="/img/thanx.png")
                 tr: td(align="center", ng-class="{selected: path() == 'thanx'}"): span thanx
-                div.count(ng-show="incomingRequests.length > 0") &nbsp;{{ incomingRequests.length }}&nbsp;
         li(ng-click="goto('give')"): table
                 tr: td
                     img(ng-show="path() == 'give'",ng-src="/img/give_clicked.png")
                     img(ng-hide="path() == 'give'",ng-src="/img/give.png")
                 tr: td(align="center", ng-class="{selected: path() == 'give'}"): span give
+                div.count(ng-show="pendingRequests.incoming.get.length > 0") &nbsp;{{ pendingRequests.incoming.get.length }}&nbsp;
         li(ng-click="goto('us')"): table
                 tr: td
                     img(ng-show="path() == 'us'",ng-src="/img/us_clicked.png")
