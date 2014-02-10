@@ -37,7 +37,7 @@ window.app.service('requests', function($rootScope, $http) {
         angular.forEach(value.incoming.give, pushNewReq);
         angular.forEach(value.outgoing.give, pushNewReq);
 
-        if (JSON.stringify(newIds) != JSON.stringify(oldIds)) {
+        if (angular.toJson(newIds) != angular.toJson(oldIds)) {
             $rootScope.pendingRequests = value;
             if (!$rootScope.$$phase) $rootScope.$apply();
         };
