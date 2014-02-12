@@ -19,8 +19,7 @@ Facebook.registerRequired = function(config) {
         Facebook.loadRegisteredUser(config)(req, res, function() {
             if (!req.registeredUser) {
                 res.redirect('/app/newaccount');
-            }
-            else {
+            } else {
                 next();
             }
         });
@@ -113,8 +112,7 @@ app.get('/', Facebook.loadRegisteredUser({}), function(req, res, next) {
         }, mkrespcb(res, 400, function(u) {
             if (!u) {
                 res.redirect('http://' + req.headers.host.split('.').slice(1, 3).join('.'));
-            }
-            else {
+            } else {
                 res.redirect('http://' + req.headers.host.split('.').slice(1, 3).join('.') + req.url + 'profile/' + u.id);
             }
         }));
@@ -153,6 +151,58 @@ app.get('/profile/*', function(req, res) {
 
 app.get('/partials/:name', function(req, res) {
     res.render('partials/' + req.params.name);
+});
+
+app.post('/canvas', function(req, res) {
+    var params = req.url.split("?")[1],
+        newUrl = '/acceptinvite?' + params;
+
+    if (req.param('fb_source') === 'notification' && req.param('src')) {
+        var src = req.param('src');
+        switch (src) {
+            case 'giveRequest':
+                newUrl = '/app/get';
+                break;
+            case 'getRequest':
+                newUrl = '/app/give';
+                break;
+            default:
+                newUrl = '/app/thanx';
+                break;
+        }
+    } else {
+        redirectFromFacebook(newUrl);
+        return;
+    }
+    if (!req.facebook) {
+        Facebook.middleware(config)(req, res, verifyFBLogin);
+    } else {
+        verifyFBLogin();
+    }
+
+    function verifyFBLogin() {
+        try {
+            var loginUrl = req.facebook.getLoginUrl({
+                redirect_uri: req.protocol + '://' + req.get('host') + newUrl
+            });
+        } catch (err) {
+            redirectFromFacebook(newUrl);
+            return;
+        }
+        redirectFromFacebook(loginUrl);
+    }
+
+
+
+    function redirectFromFacebook(url) {
+        res.send('<!DOCTYPE html>' +
+            '<body>' +
+            '<script type="text/javascript">' +
+            'top.location.href = "' + url + '"' +
+            '</script>' +
+            '</body>' +
+            '</html>');
+    }
 });
 
 // Show a specific page
@@ -207,10 +257,8 @@ app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory);
 
 app.post('/register', Facebook.loginRequired(), accounts.register);
 app.post('/mkinvite', Facebook.loginRequired(), accounts.mkInvite);
-app.post('/acceptinvite', accounts.acceptInvite);
-app.get('/acceptinvite', accounts.acceptInvite);
-app.post('/acceptinvite2', Facebook.loginRequired(), accounts.acceptInvite2);
-app.get('/acceptinvite2', Facebook.loginRequired(), accounts.acceptInvite2);
+app.post('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite);
+app.get('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite);
 app.get('/kill', Facebook.loginRequired(), accounts.kill);
 app.post('/kill', Facebook.loginRequired(), accounts.kill);
 app.get('/me', accounts.getMe);

@@ -6,7 +6,6 @@ var db = require('./db'),
 	Bitcoin = require('bitcoinjs-lib'),
 	constants = require('./constants'),
 	config = require('./config');
-
 var eh = util.eh,
 	mkrespcb = util.mkrespcb,
 	setter = util.cbsetter,
@@ -157,7 +156,7 @@ m.mkInvite = function(req, res) {
 			var isVerified = {},
 				verifiedUnique = [];
 			verifiedInvitations.forEach(function(invitation) {
-				if  (isVerified[invitation.recipient_uid]) {
+				if (isVerified[invitation.recipient_uid]) {
 					return;
 				}
 				verifiedUnique.push(invitation.recipient_uid);
@@ -227,17 +226,6 @@ m.mkInvite = function(req, res) {
 };
 
 m.acceptInvite = function(req, res) {
-	var params = req.url.split("?")[1];
-	res.send('<!DOCTYPE html>' +
-		'<body>' +
-		'<script type="text/javascript">' +
-		'top.location.href = "/acceptinvite2?' + params + '"' +
-		'</script>' +
-		'</body>' +
-		'</html>');
-}
-
-m.acceptInvite2 = function(req, res) {
 	console.log('accessing from facebook');
 	req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
 		var reqidStr = req.param('request_ids')

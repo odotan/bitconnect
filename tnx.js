@@ -59,10 +59,12 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
         },
         function(cb2) {
             var token = fb.getApplicationAccessToken(),
-                amount = tnx > 0 ? tnx + "%20thanx" : sat + "%20satoshi",
-                msg = getterProfile.first_name + '%20wants%20to%20get%20' + amount + '%20from%20you.%20Click%20to%20give%20it.';
-            fb.api('/' + scope.payer.id + '/notifications?template=' + msg, 'POST', {
-                access_token: token
+                amount = tnx > 0 ? tnx + " thanx" : sat + " satoshi",
+                msg = getterProfile.first_name + ' wants to get ' + amount + ' from you. Click to give it.';
+            fb.api('/' + scope.payer.id + '/notifications', 'POST', {
+                access_token: token,
+                template: msg,
+                href: '?src=getRequest'
             }, cb2);
         }
     ], mkrespcb(res, 400, function() {
@@ -115,10 +117,12 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
         },
         function(cb2) {
             var token = fb.getApplicationAccessToken(),
-                amount = tnx > 0 ? tnx + "%20thanx" : sat + "%20satoshi",
-                msg = giverProfile.first_name + '%20wants%20to%20give%20you%20' + amount + '.%20Click%20to%20get%20it.';
-            fb.api('/' + scope.payee.id + '/notifications?template=' + msg, 'POST', {
-                access_token: token
+                amount = tnx > 0 ? tnx + " thanx" : sat + " satoshi",
+                msg = giverProfile.first_name + ' wants to give you ' + amount + '. Click to get it.';
+            fb.api('/' + scope.payee.id + '/notifications', 'POST', {
+                access_token: token,
+                template: msg,
+                href: '?src=giveRequest'
             }, cb2);
         }
     ], mkrespcb(res, 400, function() {
@@ -178,7 +182,8 @@ m.clearRequest = FBify(function(profile, req, res) {
 
             req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                 access_token: token,
-                template: msg
+                template: msg,
+                href: '?src=rejectRequest'
             }, cb);
         });
 });
@@ -319,7 +324,8 @@ m.sendTNX = FBify(function(profile, req, res) {
                     msg = profile.first_name + ' gave you ' + amount + ' that you asked to get.';
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
-                    template: msg
+                    template: msg,
+                    href: '?src=confirmGet'
                 }, cb2);
             });
 
@@ -391,7 +397,8 @@ m.acceptGive = FBify(function(profile, req, res) {
                     msg = profile.first_name + ' got the ' + amount + ' you gave.';
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
-                    template: msg
+                    template: msg,
+                    href: '?src=confirmGive'
                 }, cb);
             });
         }
