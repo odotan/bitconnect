@@ -213,7 +213,7 @@ window.app.service('bitcoin',function($rootScope, $http) {
 
     $rootScope.thanxSend = function(userWalletAddr, tnx, request, message, txType) {
         if ($rootScope.user.tnx >= tnx) {
-            var body = 'are you sure you want to send '+userWalletAddr+' '+tnx+' thanx?';
+            var body = 'send '+tnx+' thanx to ' + userWalletAddr + '?';
             $rootScope.confirmDialog(body,function() {
                 $http.post('/sendtnx',{
                     tnx: tnx,

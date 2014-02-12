@@ -1,12 +1,11 @@
+.modalbackground(ng-show="message.body")
 .mymodal(ng-show="message.body")
-    .modal-body
-        span(style="float:right",ng-click="message = null") x
-        div(style="text-align:justify"){{message.body}}
+    .body
+        div {{message.body}}
         input.form-input(type="{{ field.type || 'text' }}",ng-repeat="field in message.fields",ng-model="field.value")
-    .modal-footer
-        center(style="width:90%; margin-left: 5%; margin-right:5%")
+    .footer
         div.fullwidth
             span: button.btn(ng-show="message.actiontext",ng-click="message.action()") {{ message.actiontext }}
-            span(style="margin:10px")
+            span(style="margin:10px",ng-show="message.actiontext")
             span: button.btn(ng-click="message.body = null") {{ message.canceltext || "Done" }}
           

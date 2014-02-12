@@ -20,28 +20,42 @@
 	max-width: 320px;
 	margin: 0 auto;
 }
-
+.modalbackground {
+  left: 0;
+  top: 0;
+  background-color: #000000;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  opacity: 0.6;
+  z-index: 1049;
+}
 .mymodal {
     position:fixed;
     top:10%;
     z-index:1050;
-    width:300px;
-    margin: auto 10px;
-    background-color:#fff;
-    border:1px solid #999;
-    border:1px solid rgba(0,0,0,0.3);
-    *border:1px solid #999;
-    -webkit-border-radius:6px;
-    -moz-border-radius:6px;
-    border-radius:6px;
-    outline:0;
+    width:250px;
+    height: 250px;
+    margin: auto 35px;
+    background-color:#f2fbff;
+    border:2px solid #047bb2;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
     -webkit-box-shadow:0 3px 7px rgba(0,0,0,0.3);
     -moz-box-shadow:0 3px 7px rgba(0,0,0,0.3);
     box-shadow:0 3px 7px rgba(0,0,0,0.3);
-    -webkit-background-clip:padding-box;
-    -moz-background-clip:padding-box;
-    background-clip:padding-box;
-
+    .body {
+      top: 75px;
+      position: relative;
+      text-align:center;
+      padding:0px 25px;
+    }
+    .footer {
+      position: relative;
+      top: 100px;
+      text-align: center;
+    }
     .fullwidth { 
         width: 100%; 
         white-space: nowrap;

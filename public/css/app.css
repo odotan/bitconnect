@@ -46,36 +46,56 @@
   margin: 0 auto;
 }
 
-/* line 24, ../sass/_common.scss */
+/* line 23, ../sass/_common.scss */
+.modalbackground {
+  left: 0;
+  top: 0;
+  background-color: #000000;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  opacity: 0.6;
+  z-index: 1049;
+}
+
+/* line 33, ../sass/_common.scss */
 .mymodal {
   position: fixed;
   top: 10%;
   z-index: 1050;
-  width: 300px;
-  margin: auto 10px;
-  background-color: #fff;
-  border: 1px solid #999;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  outline: 0;
+  width: 250px;
+  height: 250px;
+  margin: auto 35px;
+  background-color: #f2fbff;
+  border: 2px solid #047bb2;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
   -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding-box;
-  background-clip: padding-box;
 }
-/* line 45, ../sass/_common.scss */
+/* line 48, ../sass/_common.scss */
+.mymodal .body {
+  top: 75px;
+  position: relative;
+  text-align: center;
+  padding: 0px 25px;
+}
+/* line 54, ../sass/_common.scss */
+.mymodal .footer {
+  position: relative;
+  top: 100px;
+  text-align: center;
+}
+/* line 59, ../sass/_common.scss */
 .mymodal .fullwidth {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 52, ../sass/_common.scss */
+/* line 66, ../sass/_common.scss */
 .btn {
   border: 2px solid #00ace2;
   border-radius: 30px;
@@ -83,18 +103,18 @@
   background-color: #f2fbff;
 }
 
-/* line 59, ../sass/_common.scss */
+/* line 73, ../sass/_common.scss */
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
   border-color: #dddddd;
 }
 
-/* line 63, ../sass/_common.scss */
+/* line 77, ../sass/_common.scss */
 .btn:hover, .btn:active {
   background-color: #3399cc;
   color: #f3f3f3;
 }
 
-/* line 68, ../sass/_common.scss */
+/* line 82, ../sass/_common.scss */
 .rightButtons {
   float: left;
   position: absolute;
@@ -102,7 +122,7 @@
   top: -2px;
 }
 
-/* line 75, ../sass/_common.scss */
+/* line 89, ../sass/_common.scss */
 .actionButton {
   display: inline;
   width: 50px;
@@ -112,7 +132,7 @@
   border: 1px solid #f2fbff;
 }
 
-/* line 84, ../sass/_common.scss */
+/* line 98, ../sass/_common.scss */
 .controlBar {
   position: relative;
   height: 50px;
@@ -120,7 +140,7 @@
   border-radius: 30px;
   margin-bottom: -2px;
 }
-/* line 90, ../sass/_common.scss */
+/* line 104, ../sass/_common.scss */
 .controlBar .controlBarButton {
   display: inline;
   width: 50px;
@@ -129,12 +149,12 @@
   border: 1px solid #3399cc;
   position: absolute;
 }
-/* line 98, ../sass/_common.scss */
+/* line 112, ../sass/_common.scss */
 .controlBar .controlBarButtonRight {
   top: -2px;
   right: -2px;
 }
-/* line 102, ../sass/_common.scss */
+/* line 116, ../sass/_common.scss */
 .controlBar .controlBarButtonLeft {
   top: -2px;
   left: -2px;
