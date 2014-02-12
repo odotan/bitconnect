@@ -1,7 +1,6 @@
 body(ng-app="thanxbits")
     .surround(ng-controller="RequestController")
         .thanx
-            label history ({{ history.length }})
             .history(ng-repeat="hitem in history",style="margin: 5px 0px")
                 .request(ng-if="hitem.payer.id == user.id")
                     history-item(item="hitem", other-user="hitem.payee")
