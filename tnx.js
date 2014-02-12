@@ -165,10 +165,20 @@ m.clearRequest = FBify(function(profile, req, res) {
             remove: true
         },
         function(err, requestObj) {
+            function archiveRequest() {
+                requestObj.timestamp = new Date().getTime() / 1000;
+                db.RequestArchive.insert(requestObj);
+            }
+
             if (requestObj.sender.id === profile.id) {
+                requestObj.cancelled = true;
+                archiveRequest();
                 cb();
                 return;
             }
+            requestObj.rejected = true;
+            archiveRequest();
+            // notify request sender:
             var token = req.facebook.getApplicationAccessToken(),
                 amount = requestObj.sat > 0 ? requestObj.sat + " satoshi" : requestObj.tnx + " thanx",
                 reqType = requestObj.requestType === constants.RequestTypes.GET ? 'get' : 'give',
@@ -214,16 +224,14 @@ m.getPendingRequests = FBify(function(profile, req, res) {
             };
             result.forEach(function(request) {
                 var direction, type;
-                if (request.sender.id === profile.id )  {
+                if (request.sender.id === profile.id) {
                     direction = 'outgoing';
+                } else if (request.recipient.id === profile.id) {
+                    direction = 'incoming';
                 }
-                else if (request.recipient.id === profile.id) {
-                    direction = 'incoming';                 
-                }
-                if(request.requestType === constants.RequestTypes.GET) {
+                if (request.requestType === constants.RequestTypes.GET) {
                     type = 'get';
-                }
-                else if(request.requestType === constants.RequestTypes.GIVE) {
+                } else if (request.requestType === constants.RequestTypes.GIVE) {
                     type = 'give'
                 }
                 if (direction && type) {
@@ -319,6 +327,8 @@ m.sendTNX = FBify(function(profile, req, res) {
             }, {}, {}, {
                 remove: true
             }, function(err, requestObj) {
+                requestObj.timestamp = new Date().getTime() / 1000;
+                db.RequestArchive.insert(requestObj);
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = tnx + " thanx",
                     msg = profile.first_name + ' gave you ' + amount + ' that you asked to get.';
@@ -392,6 +402,8 @@ m.acceptGive = FBify(function(profile, req, res) {
             }, {}, {}, {
                 remove: true
             }, function(err, requestObj) {
+                requestObj.timestamp = new Date().getTime() / 1000;
+                db.RequestArchive.insert(requestObj);
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = scope.request.tnx + " thanx",
                     msg = profile.first_name + ' got the ' + amount + ' you gave.';
@@ -414,10 +426,41 @@ m.getHistory = FBify(function(profile, req, res) {
             'payer.id': profile.id
         }, {
             'payee.id': profile.id
-        }, ]
+        }]
     })
         .sort({
             timestamp: -1
         })
-        .toArray(mkrespcb(res, 400, _.bind(res.json, res)))
+        .toArray(mkrespcb(res, 400, function(results) {
+            db.RequestArchive.find({
+                $and: [{
+                    $or: [{
+                        rejected: true
+                    }, {
+                        cancelled: true
+                    }]
+                }, {
+                    $or: [{
+                        'sender.id': profile.id
+                    }, {
+                        'recipient.id': profile.id
+                    }]
+                }]
+            }).toArray(mkrespcb(res, 400, function(results2) {
+                results2.forEach(function(request) {
+                    var senderKey, recipientKey;
+                    senderKey = request.requestType === constants.RequestTypes.GET ? 'payee' : 'payer';
+                    recipientKey = request.requestType === constants.RequestTypes.GET ? 'payer' : 'payee';
+                    request[senderKey] = request.sender;
+                    request[recipientKey] = request.recipient;
+                    request.sender = undefined;
+                    request.recipient = undefined;
+                });
+                var history = results.concat(results2);
+                history.sort(function compare(item1, item2) {
+                    return -(item1.timestamp - item2.timestamp);
+                });
+                res.json(history);
+            }));
+        }));
 });

@@ -553,18 +553,26 @@
   border: 2px solid #FFFFFF;
 }
 /* line 41, ../sass/_thanx.scss */
+.thanx .requests .request .body.cancelled, .thanx .history .request .body.cancelled, .giveGetPage .requests .request .body.cancelled, .giveGetPage .history .request .body.cancelled {
+  color: #047bb2;
+}
+/* line 43, ../sass/_thanx.scss */
+.thanx .requests .request .body.cancelled .sat, .thanx .requests .request .body.cancelled .tnx, .thanx .history .request .body.cancelled .sat, .thanx .history .request .body.cancelled .tnx, .giveGetPage .requests .request .body.cancelled .sat, .giveGetPage .requests .request .body.cancelled .tnx, .giveGetPage .history .request .body.cancelled .sat, .giveGetPage .history .request .body.cancelled .tnx {
+  text-decoration: line-through;
+}
+/* line 47, ../sass/_thanx.scss */
 .thanx .requests .request .body .fbname, .thanx .history .request .body .fbname, .giveGetPage .requests .request .body .fbname, .giveGetPage .history .request .body .fbname {
   position: absolute;
   left: 70px;
   top: 0px;
 }
-/* line 46, ../sass/_thanx.scss */
+/* line 52, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx, .giveGetPage .requests .request .body .tnx, .giveGetPage .history .request .body .tnx {
   position: absolute;
   left: 70px;
   top: 30px;
 }
-/* line 51, ../sass/_thanx.scss */
+/* line 57, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat, .giveGetPage .requests .request .body .sat, .giveGetPage .history .request .body .sat {
   position: absolute;
   left: 70px;
@@ -572,11 +580,11 @@
   max-width: 100px;
   overflow: hidden;
 }
-/* line 57, ../sass/_thanx.scss */
+/* line 63, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed, .giveGetPage .requests .request .body .sat.unconfirmed, .giveGetPage .history .request .body .sat.unconfirmed {
   color: red;
 }
-/* line 62, ../sass/_thanx.scss */
+/* line 68, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message, .giveGetPage .requests .request .body .message, .giveGetPage .history .request .body .message {
   position: absolute;
   left: 70px;

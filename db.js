@@ -22,6 +22,7 @@ db.open(function(err,dbb) {
         'users': 'User',
         'fbinvite': 'FBInvite',
         'requests': 'Request',
+        'request-archive': 'RequestArchive',
         'transactions': 'Transaction'
     }
     for (var v in databases) {

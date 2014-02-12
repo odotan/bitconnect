@@ -108,7 +108,11 @@ m.sendBTC = FBify(function(profile, req, res) {
                 }]
             }, {}, {}, {
                 remove: true
-            }, cb2);
+            }, setter(scope, 'deletedRequest', cb2));
+        },
+        function(cb2) {
+            scope.deletedRequest.timestamp = new Date().getTime() / 1000;
+            db.RequestArchive.insert(scope.deletedRequest);
         }
     ], mkrespcb(res, 400, function() {
         res.json('success');

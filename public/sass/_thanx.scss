@@ -38,6 +38,12 @@
         border: 2px solid #FFFFFF;
       }
       .body{
+        &.cancelled {
+          color: #047bb2;
+          .sat, .tnx {
+            text-decoration: line-through;
+          }
+        }
         .fbname{
           position: absolute;
           left: 70px;
