@@ -504,14 +504,14 @@
   margin-bottom: -2px;
 }
 
-/* line 14, ../sass/_thanx.scss */
+/* line 15, ../sass/_thanx.scss */
 .thanx label, .giveGetPage label {
   display: block;
   font-size: 12px;
   text-align: center;
   color: #f2fbff;
 }
-/* line 21, ../sass/_thanx.scss */
+/* line 22, ../sass/_thanx.scss */
 .thanx .requests .request, .thanx .history .request, .giveGetPage .requests .request, .giveGetPage .history .request {
   position: relative;
   background-color: #f2fbff;
@@ -522,7 +522,7 @@
   margin-bottom: -2px;
   color: #073651;
 }
-/* line 30, ../sass/_thanx.scss */
+/* line 31, ../sass/_thanx.scss */
 .thanx .requests .request img.friendImg, .thanx .history .request img.friendImg, .giveGetPage .requests .request img.friendImg, .giveGetPage .history .request img.friendImg {
   position: absolute;
   left: -2px;
@@ -532,19 +532,19 @@
   border-radius: 50%;
   border: 2px solid #FFFFFF;
 }
-/* line 40, ../sass/_thanx.scss */
+/* line 41, ../sass/_thanx.scss */
 .thanx .requests .request .body .fbname, .thanx .history .request .body .fbname, .giveGetPage .requests .request .body .fbname, .giveGetPage .history .request .body .fbname {
   position: absolute;
   left: 70px;
   top: 0px;
 }
-/* line 45, ../sass/_thanx.scss */
+/* line 46, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx, .giveGetPage .requests .request .body .tnx, .giveGetPage .history .request .body .tnx {
   position: absolute;
   left: 70px;
   top: 30px;
 }
-/* line 50, ../sass/_thanx.scss */
+/* line 51, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat, .giveGetPage .requests .request .body .sat, .giveGetPage .history .request .body .sat {
   position: absolute;
   left: 70px;
@@ -552,11 +552,11 @@
   max-width: 100px;
   overflow: hidden;
 }
-/* line 56, ../sass/_thanx.scss */
+/* line 57, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed, .giveGetPage .requests .request .body .sat.unconfirmed, .giveGetPage .history .request .body .sat.unconfirmed {
   color: red;
 }
-/* line 61, ../sass/_thanx.scss */
+/* line 62, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message, .giveGetPage .requests .request .body .message, .giveGetPage .history .request .body .message {
   position: absolute;
   left: 70px;
