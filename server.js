@@ -124,6 +124,9 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
         id: profile.id
     }, mkrespcb(res, 400, function(u) {
         if (!u) res.redirect('/app/newaccount')
+        else if(req.param('goto')) {
+            res.redirect(req.param('goto'));
+        }
         else if (u.firstUse) res.redirect('/app/us')
         else res.redirect('/app/give')
     }));
@@ -161,39 +164,20 @@ app.post('/canvas', function(req, res) {
         var src = req.param('src');
         switch (src) {
             case 'giveRequest':
-                newUrl = '/app/get';
+                redirectFromFacebook('/login?goto=/app/get');
                 break;
             case 'getRequest':
-                newUrl = '/app/give';
+                redirectFromFacebook('/login?goto=/app/give');
                 break;
             default:
-                newUrl = '/app/thanx';
+                redirectFromFacebook('/login?goto=/app/thanx');
                 break;
         }
     } else {
         redirectFromFacebook(newUrl);
         return;
     }
-    if (!req.facebook) {
-        Facebook.middleware(config)(req, res, verifyFBLogin);
-    } else {
-        verifyFBLogin();
-    }
-
-    function verifyFBLogin() {
-        try {
-            var loginUrl = req.facebook.getLoginUrl({
-                redirect_uri: req.protocol + '://' + req.get('host') + newUrl
-            });
-        } catch (err) {
-            redirectFromFacebook(newUrl);
-            return;
-        }
-        redirectFromFacebook(loginUrl);
-    }
-
-
-
+    
     function redirectFromFacebook(url) {
         res.send('<!DOCTYPE html>' +
             '<body>' +
