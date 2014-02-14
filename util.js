@@ -87,6 +87,23 @@ var pybtctool = function(command, argz) {
     cp.exec('pybtctool ' + command + ' ' + args.join(' '), cb);
 }
 
+// Commands:
+// trie('insert',old_state_id,key,val) -> new state_id updated with the (key,val) pair
+// trie('insert','',key,val) -> new state_id with just the (key,val) pair
+// trie('get',state_id,key) -> gets the value at that key at that state id
+// Idea:
+// To make atomic transactions, first run through the sequence of state changes using
+// the trie insert function, and then change the reference to the state root in your
+// other database
+var trie = function(command, argz) {
+    var cb = arguments[arguments.length - 1]
+    args = Array.prototype.slice.call(arguments, 1, arguments.length - 1)
+        .map(function(x) {
+            return ('' + x).replace('\\', '\\\\').replace(' ', '\\ ')
+        })
+    cp.exec('./trie.py ' + command + ' /tmp/trie_database ' + args.join(' '), cb);
+}
+
 var dumpUser = function(u) {
     return {
         id: u.id,
