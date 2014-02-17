@@ -16,7 +16,8 @@ describe('controllers', function() {
 				createController = function() {
 					return $controller('NewAccountController', {
 						'$scope': $scope,
-						'$window': $window
+						'$window': $window,
+						'me': undefined
 					});
 				};
 			});

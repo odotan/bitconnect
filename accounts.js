@@ -5,6 +5,7 @@ var db = require('./db'),
 	https = require('https'),
 	Bitcoin = require('bitcoinjs-lib'),
 	constants = require('./constants'),
+	invitations = require('./invitations'),
 	config = require('./config');
 var eh = util.eh,
 	mkrespcb = util.mkrespcb,
@@ -148,79 +149,67 @@ function getVerificationFqlQuery(profileId, invitedFriendIds) {
 
 m.mkInvite = function(req, res) {
 	req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
-		var bonus = 0;
 		req.facebook.api({
 			method: 'fql.query',
 			query: getVerificationFqlQuery(profile.id, req.param('to'))
 		}, function(err, verifiedInvitations) {
-			var isVerified = {},
-				verifiedUnique = [];
-			verifiedInvitations.forEach(function(invitation) {
-				if (isVerified[invitation.recipient_uid]) {
-					return;
-				}
-				verifiedUnique.push(invitation.recipient_uid);
-				isVerified[invitation.recipient_uid] = true;
+			var verifiedUnique = [],
+				orCondition = [],
+				alreadyExists = {};
+			// find if some of the invitations already exist:
+			verifiedInvitations.forEach(function(verifiedInvitations) {
+				orCondition.push({
+					from: profile.id,
+					to: verifiedInvitations.recipient_uid
+				});
 			});
-
-			async.map(verifiedUnique, function(to, cb) {
-				var fbinvite = {
-					from: profile.id,
-					to: to,
-					reqid: req.param('reqid')
-				}
-				db.FBInvite.findOne({
-					from: profile.id,
-					to: to
-				}, mkrespcb(res, 400, function(r) {
-					if (!r) {
-						console.log('fbinvite added', fbinvite);
-						bonus++;
-						db.FBInvite.insert(fbinvite, cb);
-					} else {
-						console.log('fbinvite already exists')
-						cb();
+			db.FBInvite.find({
+				$or: orCondition
+			}).toArray(mkrespcb(res, 400, function(existingInvitations) {
+				existingInvitations.forEach(function(existingInvitation) {
+					alreadyExists[existingInvitation.to] = true;
+				});
+				// add only invitations that do not exist, and remove duplicates:
+				verifiedInvitations.forEach(function(invitation) {
+					if (alreadyExists[invitation.recipient_uid]) {
+						return;
 					}
-				}));
-			}, mkrespcb(res, 400, function() {
-				db.User.findOne({
-					id: profile.id
-				}, mkrespcb(res, 400, function(u) {
-					var newCounter = u.inviteCounter + bonus,
-						newTnx = (u.tnx || 0) + bonus * constants.Rewards.inviteReward;
-
-					while (newCounter >= 10) {
-						newCounter -= 10;
-						newTnx += constants.Rewards.inviteReward;
-					}
-					console.log('giving to', u.fbUser.first_name, 'from', u.tnx, 'to', newTnx);
-					db.User.update({
-						id: profile.id
-					}, {
-						$set: {
-							tnx: newTnx,
-							inviteCounter: newCounter,
-							firstUse: false
+					verifiedUnique.push(invitation.recipient_uid);
+					alreadyExists[invitation.recipient_uid] = true;
+				});
+				if (invitations.isLimitActive()) {
+					// this means we are currently limiting the amount of allowed invitations,
+					// verify it and decrement accordingly
+					invitations.verifyAndDecrement(verifiedUnique.length, function(success) {
+						if (success) {
+							addInvitiations();
+						} else {
+							res.json('not enough global invitations, invitations not registered', 400);
 						}
-					}, mkrespcb(res, 400, function() {
-						db.Transaction.insert({
-							payer: [req.param('to').id],
-							payee: dumpUser(u),
-							id: util.randomHex(32),
-							tnx: newTnx - u.tnx,
-							txType: constants.TxTypes.inviteReward,
-							message: "for inviting your friends to bitconnect!",
-							timestamp: new Date().getTime() / 1000
-						}, mkrespcb(res, 400, function() {
-							console.log('fbinvites registered, bonus:', bonus);
-							res.json({
-								success: true,
-								bonus: bonus
-							});
-						}))
-					}));
-				}));
+					});
+					return;
+				} else {
+					// not limiting invitations:
+					addInvitiations();
+				}
 			}));
+
+
+			function addInvitiations() {
+				var invitationsToAdd = [];
+				verifiedUnique.forEach(function(recipientId) {
+					invitationsToAdd.push({
+						from: profile.id,
+						to: recipientId,
+						reqid: req.param('reqid')
+					});
+				});
+				db.FBInvite.insert(invitationsToAdd, mkrespcb(res, 400, function() {
+					res.json({
+						success: true
+					});
+				}));
+			}
 		});
 	}));
 };

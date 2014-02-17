@@ -13,7 +13,8 @@ var db = require('./db'),
     accounts = require('./accounts'),
     btc = require('./btc'),
     tnx = require('./tnx'),
-    config = require('./config');
+    config = require('./config'),
+    invitations = require('./invitations');
 Facebook.registerRequired = function(config) {
     return function(req, res, next) {
         Facebook.loadRegisteredUser(config)(req, res, function() {
@@ -124,10 +125,9 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
         id: profile.id
     }, mkrespcb(res, 400, function(u) {
         if (!u) res.redirect('/app/newaccount')
-        else if(req.param('goto')) {
+        else if (req.param('goto')) {
             res.redirect(req.param('goto'));
-        }
-        else if (u.firstUse) res.redirect('/app/us')
+        } else if (u.firstUse) res.redirect('/app/us')
         else res.redirect('/app/give')
     }));
 }));
@@ -177,7 +177,7 @@ app.post('/canvas', function(req, res) {
         redirectFromFacebook(newUrl);
         return;
     }
-    
+
     function redirectFromFacebook(url) {
         res.send('<!DOCTYPE html>' +
             '<body>' +
@@ -253,6 +253,8 @@ app.post('/checkname', accounts.checkName);
 app.get('/pic', accounts.getPic);
 app.get('/auditdata', accounts.printVerificationTable);
 app.get('/verificationseed', Facebook.loginRequired(), accounts.printMyVerificationSeed);
+
+app.get('/globalinvitations', invitations.getInvitationStatusResource);
 
 setInterval(btc.updateBTCTxs, 60000);
 setTimeout(btc.updateBTCTxs, 1000);

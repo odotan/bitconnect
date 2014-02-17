@@ -1,10 +1,9 @@
 div(ng-controller="InviteFriendsController",infinite-scroll="loadMoreFriends()", infinite-scroll-distance="2", infinite-scroll-parent="true")
     div.inviteContainer(style="text-align:center; width:100%")
         div(style='margin-top: 5px;')
-            progressbar(value="user.inviteCounter", max="10") {{ user.inviteCounter * 10 }}% &nbsp
+            progressbar(value="( usedInvitations * 100 ) / invitationLimit", max="100") {{ usedInvitations }} &nbsp
         div.controlBar
             .left selected: {{ numselected }}
-            .left = {{ numselected * 54 }} x
             .left.search
                 img.searchButton(ng-src="/img/search.svg", ng-click="showsearchbar = !showsearchbar")
             .right.invite(ng-click="invite()") invite

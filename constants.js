@@ -18,3 +18,6 @@ define("Rewards", {
 	"signupReward": 5432,
 	"inviteReward": 543
 });
+define("SystemParamKeys", {
+	"globalInvitations": "GLOBAL_INVITATIONS"
+});

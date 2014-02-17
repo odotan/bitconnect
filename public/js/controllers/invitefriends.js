@@ -1,4 +1,4 @@
-window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
+window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'GlobalInvitationsService', function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends, GlobalInvitationsService) {
 
     window.wscope = $scope;
 
@@ -49,8 +49,10 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     $scope.selectFriend = function(id) {
         if (!$scope.selected[id]) {
-            $scope.selected[id] = true;
-            $scope.numselected += 1;
+            if ($scope.numselected < $rootScope.invitationLimit - $rootScope.usedInvitations) {
+                $scope.selected[id] = true;
+                $scope.numselected += 1;
+            }
         }
         else {
             delete $scope.selected[id];
@@ -66,6 +68,13 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     // Invite friends
     $scope.invite = function() {
+        if ( Object.keys($scope.selected).length === 0 ) {
+            $rootScope.message = {
+                body: 'please select friends to invite',
+                canceltext: 'cool thanx'
+            };
+            return;
+        }
         FB.ui({method: 'apprequests',
              to: Object.keys($scope.selected),
              title: 'come bitconnect with me :)', 
