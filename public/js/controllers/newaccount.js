@@ -1,4 +1,4 @@
-window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '$http', '$window', function($scope, $rootScope, $http, $window) {
+window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '$http', '$window', 'me', function($scope, $rootScope, $http, $window, me) {
 
 	window.wscope = $scope;
 
