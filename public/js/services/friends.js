@@ -32,7 +32,8 @@ window.app.service('friends', ['$rootScope', '$http', 'UsersService',
             friends.forEach(function(friend) {
                 friendsById[friend.id] = {
                     fullname: friend.first_name + ' ' + friend.last_name,
-                    id: friend.id
+                    id: friend.id,
+                    username: friend.username
                 };
             });
             return friendsById;
