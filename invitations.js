@@ -52,7 +52,7 @@ m.verifyAndDecrement = function verifyAndDecrement(valueToDecrement, callback) {
 		'value.remaining': {
 			$gte: valueToDecrement
 		}
-	}, {}, {
+	}, null, {
 		$inc: {
 			'value.remaining': -valueToDecrement
 		}
@@ -60,3 +60,22 @@ m.verifyAndDecrement = function verifyAndDecrement(valueToDecrement, callback) {
 		callback((!err || err === '') && invitationStatus);
 	});
 };
+
+m.updateInvitationLimit = function updateInvitationLimit(req, res) {
+	var newLimit = parseInt(req.param('limit'));
+	db.SystemParam.update({
+		key: constants.SystemParamKeys.globalInvitations
+	}, {
+		key: constants.SystemParamKeys.globalInvitations,
+		value: {
+			limit: newLimit,
+			remaining: newLimit,
+			active: true
+		}
+	}, {
+		upsert: true
+	}, mkrespcb(res, 400, function() {
+		isActive = true;
+		res.json('success');
+	}));
+}

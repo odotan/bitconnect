@@ -1,27 +1,26 @@
 body
     .surround(ng-controller="NewAccountController")
         center(style="width:100%")
+            img.logo(src="/img/logo.png", style='margin: 15px 0px')
             div hi {{ user.fbUser.first_name }}, nice to have you here :)
-            div please accept or modify the usernames below
-            div you have to select two parts - one before and one after the dot
-            div this is to allow more people to have great names
-            div thanx :)
-            div &nbsp;
-            div
-                input.username(type='text',ng-model='username', ng-class='{\'red-outline\': !available }')
-                //- span  .
-                //- input(type='text',ng-model='lastname',style='width:40%')
-            div(ng-show="available")
-            div &nbsp;
-                div your bitconnect address will be:
-            div &nbsp;
-                div.pill {{ username }}.bitconnect.me
-            div(ng-show="!available")
-                div.red-outline.pill the username is not available
-            div &nbsp;
-            div
-                input#acceptTerms(type='checkbox',ng-model='acceptedterms')
-                label(for="acceptTerms")  i have read and agreed to the&nbsp;
-                a(href="/terms")
-                    small terms and conditions
-            button.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
+            if allow
+                div please choose your username
+                    input.username(type='text',ng-model='username', ng-class='{\'red-outline\': !available }')
+                    //- span  .
+                    //- input(type='text',ng-model='lastname',style='width:40%')
+                div(ng-show="available")
+                div &nbsp;
+                    div your bitconnect address will be:
+                div &nbsp;
+                    div.pill {{ username }}.bitconnect.me
+                div(ng-show="!available")
+                    div.red-outline.pill the username is not available
+                div &nbsp;
+                div
+                    input#acceptTerms(type='checkbox',ng-model='acceptedterms')
+                    label(for="acceptTerms")  i have read and agreed to the&nbsp;
+                    a(href="/terms")
+                        small terms and conditions
+                button.btn(ng-click="register()",ng-disabled="!available || !acceptedterms") bitconnect me
+            else
+                div sorry, we currently allow only invited users to register. please try another time.

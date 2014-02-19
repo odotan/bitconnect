@@ -64,11 +64,11 @@ var cbsetter = function(obj, prop, callback) {
 }
 
 var FBify = function(c) {
-    return function(req, res) {
+    return function(req, res, next) {
         req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
             if (profile && profile.error)
                 return res.json(profile.error, 404);
-            c(profile, req, res);
+            c(profile, req, res, next);
         }));
     }
 }

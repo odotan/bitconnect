@@ -151,6 +151,18 @@ app.get('/app/*', Facebook.registerRequired(), function(req, res) {
 app.get('/profile/*', function(req, res) {
     res.render('profile-index.jade');
 })
+app.get('/partials/newaccount', Facebook.loginRequired(), FBify(function(profile, req, res, next) {
+    if (invitations.isLimitActive()) {
+        db.FBInvite.findOne({
+            to:profile.id
+        }, mkrespcb(res, 400, function(invite) {
+            res.render('partials/newaccount', {allow: invite ? true : false});
+        }));
+    }
+    else {
+        next();
+    }
+}));
 
 app.get('/partials/:name', function(req, res) {
     res.render('partials/' + req.params.name);
@@ -188,6 +200,19 @@ app.post('/canvas', function(req, res) {
             '</html>');
     }
 });
+
+var adminAuthentication = FBify(function(profile, req, res, next) {
+    if (profile.id !== '1111507553' && profile.id !== '720023205') {
+        return res.json('unauthorized', 403);
+    } else {
+        next();
+    }
+});
+
+app.get('/admin*', Facebook.loginRequired(), adminAuthentication);
+app.post('/admin*', Facebook.loginRequired(), adminAuthentication);
+
+app.post('/admin/invitationlimit', invitations.updateInvitationLimit);
 
 // Show a specific page
 

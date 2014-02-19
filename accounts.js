@@ -18,36 +18,54 @@ var m = module.exports = {}
 
 // Register a new account
 m.register = FBify(function(profile, req, res) {
-	db.User.findOne({
-		username: req.param('name')
-	}, mkrespcb(res, 400, function(u) {
-		if (u) return res.json('Account already exists', 400);
-		console.log('registering');
-		var newuser = {
-			username: req.param('name'),
-			fbUser: profile,
-			id: profile.id,
-			inviteCounter: 0,
-			inviteAcceptedCounter: 0,
-			seed: util.randomHex(40),
-			verificationSeed: util.randomHex(20),
-			friends: [],
-			firstUse: true
-		}
-		db.User.insert(newuser, mkrespcb(res, 400, function() {
-			db.FBInvite.find({
-				to: profile.id,
-			}).toArray(mkrespcb(res, 400, function(reqs) {
-				console.log('requests found', reqs);
-				consumeFBInvites(reqs, newuser, mkrespcb(res, 400, function() {
-					console.log('registered');
-					res.json(newuser);
-				}));
-			}));
-		}));
-	}));
-});
 
+	var scope = {},
+		newuser;
+	async.series([
+
+			function(cb) {
+				db.FBInvite.find({
+					to: profile.id,
+				}).toArray(setter(scope, 'reqs', cb));
+			},
+			function(cb) {
+				if (invitations.isLimitActive() && (!scope.reqs || scope.reqs.length === 0)) {
+					res.json('currently only invited users can register', 400);
+					cb('currently only invited users can register');
+				} else {
+					cb();
+				}
+			},
+			function(cb) {
+				db.User.findOne({
+					username: req.param('name')
+				}, setter(scope, 'user', cb));
+			},
+			function(cb) {
+				if (scope.user) return res.json('Account already exists', 400);
+				console.log('registering');
+				newuser = {
+					username: req.param('name'),
+					fbUser: profile,
+					id: profile.id,
+					inviteCounter: 0,
+					inviteAcceptedCounter: 0,
+					seed: util.randomHex(40),
+					verificationSeed: util.randomHex(20),
+					friends: [],
+					firstUse: true
+				}
+				db.User.insert(newuser, mkrespcb(res, 400, function() {
+					console.log('requests found', scope.reqs);
+					consumeFBInvites(scope.reqs, newuser, cb);
+				}));
+			}
+		],
+		mkrespcb(res, 400, function() {
+			console.log('registered');
+			res.json(newuser);
+		}));
+});
 // Consume outstanting Facebook requests when creating an account
 
 var consumeFBInvites = function(reqs, to, cb) {
