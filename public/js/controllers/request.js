@@ -1,5 +1,5 @@
-window.controllers.controller('RequestController', ['$scope', '$rootScope', '$timeout', '$http', '$location', 'me', 'bitcoin', 'friends', 'HistoryService', 'TxTypes', 'RequestTypes',
-    function($scope, $rootScope, $timeout, $http, $location, me, bitcoin, friends, HistoryService, TxTypes, RequestTypes) {
+window.controllers.controller('RequestController', ['$scope', '$rootScope', '$timeout', '$http', '$location', 'me', 'bitcoin', 'friends', 'HistoryService',
+    function($scope, $rootScope, $timeout, $http, $location, me, bitcoin, friends, HistoryService) {
 
         window.wscope = $scope;
 

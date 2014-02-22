@@ -1,7 +1,7 @@
-window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes', 'me',
-    function($scope, $rootScope, $http, $location, me, requests, bitcoin, FriendsService, UsersService, RequestTypes, me) {
+window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', '$window', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes', 'me',
+    function($scope, $rootScope, $http, $location, $window, me, requests, bitcoin, FriendsService, UsersService, RequestTypes, me) {
 
-        window.wscope = $scope;
+        $window.wscope = $scope;
         if ($location.search().fromId) {
             UsersService.getUserById($location.search().fromId, function(user) {
                 $scope.get = {
@@ -49,7 +49,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         $scope.gettnx(clearValues);
                     }
                 } else {
-                    FB.ui({
+                    $window.FB.ui({
                         method: 'apprequests',
                         to: giver.id,
                         message: $scope.get.message || 'bitconnect is a place where thanx means a lot.'
@@ -76,7 +76,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             }
         }
         $scope.getbtc = function() {
-            if (!parseInt($scope.get.bts)) return;
+            if (!parseInt($scope.get.sat)) return;
             if (!angular.isObject($scope.get.from)) {
                 return;
             }
@@ -90,7 +90,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             }
 
             $http.post('/mkrequest', {
-                sat: parseInt($scope.get.bts),
+                sat: parseInt($scope.get.sat),
                 getFrom: giver.id,
                 message: $scope.get.message,
                 requestType: RequestTypes.GET
@@ -99,9 +99,6 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     $rootScope.message = {
                         body: 'request sent!',
                         canceltext: 'cool sat'
-                    }
-                    if (successCB) {
-                        successCB();
                     }
                 })
                 .error($rootScope.errHandle);
