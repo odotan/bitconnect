@@ -1,4 +1,6 @@
-app.directive('requestItem', [function() {
+app.directive('requestItem', [
+
+	function() {
 		return {
 			restrict: 'E',
 			scope: {
@@ -24,7 +26,7 @@ app.directive('requestItem', [function() {
 				function RequestItemCtrl($scope, $attrs, $http, $rootScope, RequestTypes, TxTypes) {
 					// TODO change incoming to constant
 					$scope.other = $scope.direction == 'outgoing' ? $scope.request.recipient : $scope.request.sender;
-				
+
 					$scope.accept = function() {
 						var request = $scope.request;
 						if (request.requestType === RequestTypes.GET) {
@@ -35,9 +37,19 @@ app.directive('requestItem', [function() {
 								$rootScope.bitcoinSend(request.sender.username, request.sat, null, request.message, request.id);
 							}
 						} else if (request.requestType === RequestTypes.GIVE) {
-							$http.post('/acceptgive', {
-								requestId: request.id
-							});
+							$rootScope.message = {
+								body: 'get ' + request.tnx + ' thanx from ' + request.sender.username + '?',
+								action: function() {
+									$http.post('/acceptgive', {
+										requestId: request.id
+									}).success(function() {
+										$rootScope.message = {};
+										$rootScope.goto('thanx');
+									});
+								},
+								actiontext: 'yep',
+								canceltext: 'nope'
+							}
 						}
 						//TODO: clear handled requests
 					};
@@ -46,8 +58,7 @@ app.directive('requestItem', [function() {
 						var request = $scope.request;
 						$rootScope.message = {
 							body: $scope.direction == 'incoming' ?
-							'are you sure you want to reject?' :
-							'are you sure you want to cancel your request?',
+								'are you sure you want to reject?' : 'are you sure you want to cancel your request?',
 							action: function() {
 								$http.post('/clearrequest', {
 									request_id: request.id
