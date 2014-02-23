@@ -16,6 +16,17 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             }
         }
 
+        function setSubmitDisabled(disabled) {
+            $scope.submitDisabled = disabled;
+        }
+
+        var errHandler = function errHandler(err) {
+            setSubmitDisabled(false);
+            if (err) {
+                $rootScope.errHandle(err);
+            }
+        };
+
         function isValidUser(value) {
             if (angular.isUndefined(value) || value === '') {
                 return true;
@@ -26,13 +37,16 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
         $scope.getmain = function() {
             function clearValues() {
                 $scope.get = {};
+                setSubmitDisabled(false);
             }
             if (!$scope.getForm.$valid) {
                 $scope.showErrors = true;
+                setSubmitDisabled(false);
                 return;
             } else {
                 $scope.showErrors = false;
             }
+            setSubmitDisabled(true);
             if (angular.isObject($scope.get.from)) {
                 var giver = $scope.get.from;
                 if ($scope.get.from.username) {
@@ -41,6 +55,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                             body: 'you can\'t get from yourself',
                             canceltext: 'ok'
                         }
+                        setSubmitDisabled(false);
                         return;
                     }
                     if ($scope.btcmode == 'sat') {
@@ -55,6 +70,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         message: $scope.get.message || 'bitconnect is a place where thanx means a lot.'
                     }, function(req) {
                         if (!req || angular.isUndefined(req.to)) {
+                            setSubmitDisabled(false);
                             return;
                         }
                         $http.post('/mkinvite', {
@@ -70,14 +86,22 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                                         $scope.gettnx(clearValues);
                                     }
                                 }
-                            });
+                                else {
+                                    setSubmitDisabled(false);
+                                }
+                            })
+                            .error(errHandler);
                     });
                 }
             }
         }
-        $scope.getbtc = function() {
-            if (!parseInt($scope.get.sat)) return;
+        $scope.getbtc = function(successCB) {
+            if (!parseInt($scope.get.sat)) {
+                setSubmitDisabled(false);
+                return;
+            }
             if (!angular.isObject($scope.get.from)) {
+                setSubmitDisabled(false);
                 return;
             }
             var giver = $scope.get.from;
@@ -86,6 +110,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     body: 'you can\'t get from yourself',
                     canceltext: 'ok'
                 }
+                setSubmitDisabled(false);
                 return;
             }
 
@@ -100,12 +125,20 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         body: 'request sent!',
                         canceltext: 'cool sat'
                     }
+                    if (successCB) {
+                        successCB();
+                    }
                 })
-                .error($rootScope.errHandle);
+                .error(errHandler);
         }
         $scope.gettnx = function(successCB) {
-            if (!parseInt($scope.get.tnx)) return;
+            if (!parseInt($scope.get.tnx)) {
+                setSubmitDisabled(false);
+                return;
+            }
+                
             if (!angular.isObject($scope.get.from)) {
+                setSubmitDisabled(false);
                 return;
             }
             var giver = $scope.get.from;
@@ -114,6 +147,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     body: 'you can\'t get from yourself',
                     canceltext: 'ok'
                 }
+                setSubmitDisabled(false);
                 return;
             }
 
@@ -132,7 +166,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         successCB();
                     }
                 })
-                .error($rootScope.errHandle);
+                .error(errHandler);
         }
 
         $scope.usersById = {}; // map of users filtered according to the current search

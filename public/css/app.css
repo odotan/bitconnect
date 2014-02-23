@@ -436,6 +436,36 @@
   padding: 10px;
 }
 /* line 13, ../sass/_give.scss */
+.giveGetPage .giveget_form.give .submit_btn input {
+  background: url("../img/give.png");
+  background-size: cover;
+}
+/* line 16, ../sass/_give.scss */
+.giveGetPage .giveget_form.give .submit_btn input:hover:enabled {
+  background: url("../img/give_hover.png");
+  background-size: cover;
+}
+/* line 20, ../sass/_give.scss */
+.giveGetPage .giveget_form.give .submit_btn input:active:enabled {
+  background: url("../img/give_clicked.png");
+  background-size: cover;
+}
+/* line 27, ../sass/_give.scss */
+.giveGetPage .giveget_form.get .submit_btn input {
+  background: url("../img/get.png");
+  background-size: cover;
+}
+/* line 30, ../sass/_give.scss */
+.giveGetPage .giveget_form.get .submit_btn input:hover:enabled {
+  background: url("../img/get_hover.png");
+  background-size: cover;
+}
+/* line 34, ../sass/_give.scss */
+.giveGetPage .giveget_form.get .submit_btn input:active:enabled {
+  background: url("../img/get_clicked.png");
+  background-size: cover;
+}
+/* line 41, ../sass/_give.scss */
 .giveGetPage .giveget_form .formField {
   margin-top: 10px;
   border-radius: 30px;
@@ -446,13 +476,13 @@
   line-height: 30px;
   padding-left: 5px;
 }
-/* line 23, ../sass/_give.scss */
+/* line 51, ../sass/_give.scss */
 .giveGetPage .giveget_form .formField input[type=number]::-webkit-inner-spin-button,
 .giveGetPage .giveget_form .formField input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 27, ../sass/_give.scss */
+/* line 55, ../sass/_give.scss */
 .giveGetPage .giveget_form .formField input[type=text], .giveGetPage .giveget_form .formField input[type=number] {
   padding-left: 10px;
   font-size: 20px;
@@ -463,32 +493,34 @@
   float: right;
   color: #047bb2;
 }
-/* line 37, ../sass/_give.scss */
+/* line 65, ../sass/_give.scss */
 .giveGetPage .giveget_form .formField input:focus {
   outline: 0;
 }
-/* line 41, ../sass/_give.scss */
+/* line 69, ../sass/_give.scss */
 .giveGetPage .giveget_form .error {
   color: #f2fbff;
   font-size: 12px;
   text-align: center;
 }
-/* line 46, ../sass/_give.scss */
+/* line 74, ../sass/_give.scss */
 .giveGetPage .giveget_form .submit_btn {
   margin-top: 20px;
   text-align: center;
 }
-/* line 49, ../sass/_give.scss */
-.giveGetPage .giveget_form .submit_btn img {
+/* line 78, ../sass/_give.scss */
+.giveGetPage .giveget_form .submit_btn input {
+  outline: 0;
   width: 64px;
   height: 64px;
+  border: 0;
   cursor: pointer;
 }
-/* line 56, ../sass/_give.scss */
+/* line 87, ../sass/_give.scss */
 .giveGetPage .requests {
   padding: 0 20px;
 }
-/* line 60, ../sass/_give.scss */
+/* line 91, ../sass/_give.scss */
 .giveGetPage .requests .request .body .accept, .giveGetPage .requests .request .body .reject {
   height: 10px;
   cursor: pointer;
@@ -496,11 +528,11 @@
   right: 15px;
   top: 15px;
 }
-/* line 67, ../sass/_give.scss */
+/* line 98, ../sass/_give.scss */
 .giveGetPage .requests .request .body .reject {
   right: 0px;
 }
-/* line 71, ../sass/_give.scss */
+/* line 102, ../sass/_give.scss */
 .giveGetPage .requests .request .requestActionButton {
   width: 30px;
   height: 30px;

@@ -14,7 +14,7 @@
             .formField message:
                 input(type="text", ng-model="give.message", style="width:calc(100% - 60px)")
             .submit_btn
-                img(ng-click="givemain()", ng-src="/img/give.png")
+                input(type="button", ng-click="givemain()", ng-disabled="submitDisabled")
         div(ng-if="pendingRequests.incoming.get.length > 0")
             label incoming ({{ pendingRequests.incoming.get.length || 0 }})
             .requests(ng-repeat="request in pendingRequests.incoming.get",style="margin: 5px 0px")

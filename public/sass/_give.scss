@@ -9,6 +9,34 @@
 		}
 	}
 	.giveget_form{
+		&.give {
+			.submit_btn input {
+				background: url('../img/give.png');
+				background-size: cover;
+				&:hover:enabled {
+					background: url('../img/give_hover.png');
+					background-size: cover;
+				}			
+				&:active:enabled {
+					background: url('../img/give_clicked.png');
+					background-size: cover;				
+				}
+			}
+		}
+		&.get {
+			.submit_btn input {
+				background: url('../img/get.png');
+				background-size: cover;				
+				&:hover:enabled {
+					background: url('../img/get_hover.png');
+					background-size: cover;
+				}			
+				&:active:enabled {
+					background: url('../img/get_clicked.png');
+					background-size: cover;				
+				}
+			}
+		}
 		padding: 10px;
 		.formField {
 			margin-top: 10px;
@@ -46,9 +74,12 @@
 		.submit_btn{
 			margin-top: 20px;
 			text-align:center;
-			img{
+
+			input {
+				outline: 0;
 				width: 64px;
 				height: 64px;
+				border: 0;
 				cursor: pointer;
 			}
 		}

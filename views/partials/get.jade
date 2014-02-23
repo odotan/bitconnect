@@ -1,6 +1,6 @@
 .surround(ng-controller="GetController")
     .giveGetPage
-        form.giveget_form(name="getForm", ng-class="{showErrors: showErrors}", novalidate)
+        form.giveget_form.get(name="getForm", ng-class="{showErrors: showErrors}", novalidate)
             .formField get from:
                 input(type="text",ng-model="get.from",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) |  limitTo:8", style="width:calc(100% - 60px)", ng-required="true", id="getFrom", name="getFrom")
             div.error(ng-show="showErrors && getForm.getFrom.$error.required") must specify giver
@@ -8,12 +8,12 @@
             .formField(ng-if="!btcmode || btcmode=='tnx'") number of thanx:
                 input(type="number",ng-model="get.tnx", style="width:calc(100% - 110px)", min="1", ng-required="true", name="amount")
             .formField(ng-if="btcmode=='sat'") number of satoshi:
-                input(type="number",ng-model="get.bts", style="width:calc(100% - 115px)", min="1", ng-required="true", name="amount")
+                input(type="number",ng-model="get.sat", style="width:calc(100% - 115px)", min="1", ng-required="true", name="amount")
             div.error(ng-show="showErrors && (getForm.amount.$error.required || getForm.amount.$error.badInput || getForm.amount.$error.min)") amount must be positive integer
             .formField message:
                 input(type="text",rows="3",ng-model="get.message", style="width:calc(100% - 60px)")
             .submit_btn
-                img(ng-click="getmain()", ng-src="/img/get.png")
+                input(type="button", ng-click="getmain()", ng-disabled="submitDisabled")
         div(ng-if="pendingRequests.incoming.give.length > 0")
             label incoming ({{ pendingRequests.incoming.give.length || 0 }})
             .requests(ng-repeat="request in pendingRequests.incoming.give",style="margin: 5px 0px")

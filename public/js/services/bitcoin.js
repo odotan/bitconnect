@@ -1,6 +1,5 @@
 window.app.service('bitcoin', function($rootScope, $http) {
     $rootScope.bitcoinLogin = function(pw, callback, errback) {
-        console.log('bl', pw, callback, errback);
         var key = new Bitcoin.Key(Bitcoin.Crypto.SHA256($rootScope.user.seed + pw)),
             address = key.getBitcoinAddress().toString();
 
@@ -24,7 +23,6 @@ window.app.service('bitcoin', function($rootScope, $http) {
     }
 
     $rootScope.checkBitcoinLoggedIn = function(callback) {
-        console.log('checking if logged in', $rootScope.user, $rootScope.key);
         if (!$rootScope.user)
             return
         if ($rootScope.key)
@@ -58,26 +56,24 @@ window.app.service('bitcoin', function($rootScope, $http) {
         }
     }
 
-    $rootScope.bitcoinSend = function(userWalletAddr, satoshis, fee, message, requestId) {
-        console.log('bitcoinSend', userWalletAddr, satoshis, fee, message, requestId);
+    $rootScope.bitcoinSend = function(userWalletAddr, satoshis, fee, message, requestId, cb) {
         if (!fee) fee = 10000;
         satoshis = Math.ceil(satoshis);
         if (!$rootScope.key) {
             $rootScope.checkBitcoinLoggedIn(function() {
-                $rootScope.bitcoinSend(userWalletAddr, satoshis, fee, message, requestId);
+                $rootScope.bitcoinSend(userWalletAddr, satoshis, fee, message, requestId, cb);
             })
         } else if (!userWalletAddr) {
-            $rootScope.errHandle('giving satoshi to whom?');
-        }
-        else if (satoshis < 5430) {
-            $rootScope.errHandle('must send at least 5430 satoshis');
+            cb('giving satoshi to whom?');
+        } else if (satoshis < 5430) {
+            cb('must send at least 5430 satoshis');
         } else if ($rootScope.balance < satoshis + fee) {
-            $rootScope.errHandle('not enough balance!');
+            cb('not enough balance!');
         } else if (userWalletAddr.indexOf('.') >= 0) {
             $http.get('/userdata?username=' + encodeURIComponent(userWalletAddr))
                 .success(function(r) {
-                    if (!r[0]) return $rootScope.errHandle('user not found');
-                    if (!r[0].address) return $rootScope.errHandle('getter has no address');
+                    if (!r[0]) return cb('user not found');
+                    if (!r[0].address) return cb('getter has no address');
                     $rootScope.message = {
                         body: 'send ' + satoshis + ' satoshi to ' + userWalletAddr + '?',
                         action: function() {
@@ -86,26 +82,32 @@ window.app.service('bitcoin', function($rootScope, $http) {
                                     to: userWalletAddr,
                                     message: message,
                                     requestId: requestId
-                                }, function() {
+                                }, function(err) {
                                     $rootScope.message = {};
-                                    $rootScope.goto('thanx');
+                                    if(!err) {
+                                        $rootScope.goto('thanx');
+                                    }
+                                    cb(err);
                                 });
                             } catch (e) {
-                                $rootScope.message.body = e.toString();
+                                cb(e.toString());
                             }
                         },
                         actiontext: 'yep',
                         canceltext: 'nope'
                     };
                 })
-                .error($rootScope.errHandle);
+                .error(cb);
         } else try {
             $rootScope.rawSend(userWalletAddr, satoshis, fee, '/sendbtc', {
                 message: message,
                 to: userWalletAddr,
                 requestId: requestId
-            }, function() {
-                $rootScope.showMessage('success');
+            }, function(err) {
+                if(!err) {
+                    $rootScope.showMessage('success');
+                }
+                cb(err);
             })
         } catch (e) {
             $rootScope.message.body = e.toString();
@@ -113,7 +115,6 @@ window.app.service('bitcoin', function($rootScope, $http) {
     }
 
     var gentx = function(address, satoshis, fee) {
-        console.log(address, satoshis, fee);
         var utxo = get_enough_utxo_from_history($rootScope.txouts, satoshis + fee),
             needsplit = Object.keys($rootScope.txouts).length < 5 ? 1 : 2,
             change = _.range(needsplit).map(function(x) {
@@ -154,9 +155,7 @@ window.app.service('bitcoin', function($rootScope, $http) {
     }
 
     $rootScope.rawSend = function(address, satoshis, fee, url, aux, callback) {
-        console.log('rawSend', address, satoshis, fee, url, aux);
         var tx = gentx(address, satoshis, fee);
-        console.log(Bitcoin.Script.createOutputScript(tx.outs[0].address));
         $http.post(url, _.extend(aux, {
             tx: tx.serializeHex()
         }))
@@ -164,7 +163,7 @@ window.app.service('bitcoin', function($rootScope, $http) {
                 processtx(tx)
                 callback();
             })
-            .error($rootScope.errHandle);
+            .error(callback);
     }
 
     $rootScope.txouts = {};

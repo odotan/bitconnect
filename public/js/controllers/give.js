@@ -24,13 +24,27 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 ($scope.btcmode === 'sat' && /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/.test(value));
         }
 
+        function setSubmitDisabled(disabled) {
+            $scope.submitDisabled = disabled;
+        }
+
+        var errHandler = function errHandler(err) {
+            setSubmitDisabled(false);
+            if (err) {
+                $rootScope.errHandle(err);
+            }
+        };
+
         $scope.givemain = function() {
             function clearValues() {
                 $scope.give = {};
                 $scope.showErrors = false;
+                setSubmitDisabled(false);
             }
+            $scope.submitDisabled = true;
             angular.element('#giveTo').controller('ngModel').$setValidity('user', isValidUser($scope.give.to));
             if (!$scope.giveForm.$valid) {
+                setSubmitDisabled(false);
                 $scope.showErrors = true;
                 return;
             } else {
@@ -41,7 +55,6 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                 $scope.givetnx(clearValues);
             }
-
         }
         $scope.givetnx = function(successCB) {
 
@@ -55,7 +68,6 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                     body: 'you can\'t give to yourself',
                     canceltext: 'ok'
                 }
-                return;
             }
 
             function makeRequest() {
@@ -74,7 +86,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                             successCB();
                         }
                     })
-                    .error($rootScope.errHandle);
+                    .error(errHandler);
             }
             if (getter.username) {
                 makeRequest();
@@ -92,10 +104,12 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                         })
                             .success(function() {
                                 makeRequest();
-                            });
+                            }).error(errHandler);
+                    }
+                    else {
+                        setSubmitDisabled(false);
                     }
                 });
-                //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your thanx when they sign up.', canceltext: 'invite' }
             }
         }
 
@@ -109,19 +123,18 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 // regular expression for bitcoin address:
                 var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
                 if (re.test($scope.give.to) && $scope.btcmode === 'sat') {
-                    $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.sat), 10000, $scope.give.message);
+                    $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.sat), 10000, $scope.give.message, undefined, errHandler);
                 }
-                return;
             }
             if ($rootScope.user.id == getter.id) {
                 $rootScope.message = {
                     body: 'you can\'t give to yourself',
                     canceltext: 'ok'
                 }
-                return;
+                $scope.submitDisabled = false;
             }
             if (getter.username) {
-                $rootScope.bitcoinSend(getter.username, parseInt($scope.give.sat), 10000, $scope.give.message);
+                $rootScope.bitcoinSend(getter.username, parseInt($scope.give.sat), 10000, $scope.give.message, undefined, errHandler);
             } else {
                 $window.FB.ui({
                     method: 'apprequests',
@@ -141,6 +154,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                                 }
                             }
                         })
+                        .error(errHandler);
                 });
                 //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your satoshi when they sign up.', canceltext: 'invite' }
             }
