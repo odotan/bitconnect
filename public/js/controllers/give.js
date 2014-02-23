@@ -41,7 +41,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 $scope.showErrors = false;
                 setSubmitDisabled(false);
             }
-            $scope.submitDisabled = true;
+            setSubmitDisabled(true);
             angular.element('#giveTo').controller('ngModel').$setValidity('user', isValidUser($scope.give.to));
             if (!$scope.giveForm.$valid) {
                 setSubmitDisabled(false);
@@ -68,6 +68,8 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                     body: 'you can\'t give to yourself',
                     canceltext: 'ok'
                 }
+                setSubmitDisabled(false);
+                return;
             }
 
             function makeRequest() {
@@ -125,13 +127,15 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 if (re.test($scope.give.to) && $scope.btcmode === 'sat') {
                     $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.sat), 10000, $scope.give.message, undefined, errHandler);
                 }
+                return;
             }
             if ($rootScope.user.id == getter.id) {
                 $rootScope.message = {
                     body: 'you can\'t give to yourself',
                     canceltext: 'ok'
                 }
-                $scope.submitDisabled = false;
+                setSubmitDisabled(false);
+                return;
             }
             if (getter.username) {
                 $rootScope.bitcoinSend(getter.username, parseInt($scope.give.sat), 10000, $scope.give.message, undefined, errHandler);

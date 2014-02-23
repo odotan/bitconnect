@@ -279,7 +279,7 @@ describe('controllers', function() {
 			};
 			$scope.givebtc();
 
-			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('bruce.bitconnect.me', 15000, 10000, 'hello and goodbye');
+			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('bruce.bitconnect.me', 15000, 10000, 'hello and goodbye', undefined, jasmine.any(Function));
 			expect($rootScope.bitcoinSend.callCount).toBe(1);
 		});
 
@@ -321,7 +321,7 @@ describe('controllers', function() {
 			};
 			$scope.givemain();
 
-			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('maya.bitconnect.me', 20000, 10000, 'hello');
+			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('maya.bitconnect.me', 20000, 10000, 'hello', undefined, jasmine.any(Function));
 			expect($rootScope.bitcoinSend.callCount).toBe(1);
 
 		});
@@ -334,7 +334,7 @@ describe('controllers', function() {
 				sat: 10000
 			}
 			$scope.givemain();
-			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('1B4HzATYyL5SYdhQt9TGQPHoY5qE2rRMP', 10000, 10000, undefined);
+			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('1B4HzATYyL5SYdhQt9TGQPHoY5qE2rRMP', 10000, 10000, undefined, undefined, jasmine.any(Function));
 			expect($rootScope.bitcoinSend.callCount).toBe(1);
 		});
 	});
