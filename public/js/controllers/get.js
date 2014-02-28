@@ -60,6 +60,9 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     }
                     if ($scope.btcmode == 'sat') {
                         $scope.getbtc(clearValues);
+                    } else if ($scope.btcmode == 'dollar') {
+                        $scope.get.tnx = ((parseFloat($scope.get.dollar) * 100000000) / $rootScope.price).toFixed();
+                        $scope.gettnx(clearValues);
                     } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                         $scope.gettnx(clearValues);
                     }
@@ -82,11 +85,13 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                                 if (angular.isDefined(req) && angular.isDefined(req.to)) {
                                     if ($scope.btcmode == 'sat') {
                                         $scope.getbtc(clearValues);
+                                    } else if ($scope.btcmode == 'dollar') {
+                                        $scope.get.tnx = ((parseFloat($scope.get.dollar) * 100000000) / $rootScope.price).toFixed();
+                                        $scope.gettnx(clearValues);
                                     } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                                         $scope.gettnx(clearValues);
                                     }
-                                }
-                                else {
+                                } else {
                                     setSubmitDisabled(false);
                                 }
                             })
@@ -136,7 +141,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 setSubmitDisabled(false);
                 return;
             }
-                
+
             if (!angular.isObject($scope.get.from)) {
                 setSubmitDisabled(false);
                 return;

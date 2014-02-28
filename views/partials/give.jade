@@ -10,7 +10,12 @@
                 input(type="number",ng-model="give.tnx", min="1", ng-required="true", style="width:calc(100% - 110px)", name="amount")
             .formField(ng-if="btcmode == 'sat'") number of satoshi:
                 input(type="number",ng-model="give.sat",style="width:calc(100% - 115px)", min="1",ng-required="true", name="amount")
-            div.error(ng-show="showErrors && (giveForm.amount.$error.required || giveForm.amount.$error.badInput || giveForm.amount.$error.min)") amount must be positive integer
+            .formField(ng-if="btcmode == 'dollar'") number of dollars:
+                input(type="number",ng-model="give.dollar",style="width:calc(100% - 120px)",min="0.01", ng-required="true", name="amount")
+                span.dollarsInThanx(ng-show="give.dollar") {{ ( give.dollar / price ) * 100000000 | number: 0}} thanx
+            div.error(ng-show="showErrors && (giveForm.amount.$error.required || giveForm.amount.$error.badInput || giveForm.amount.$error.min)") amount must be
+                span(ng-show="btcmode != 'dollar'") &nbsp;positive integer
+                span(ng-show="btcmode == 'dollar'") &nbsp;at least 0.01 dollars
             .formField message:
                 input(type="text", ng-model="give.message", style="width:calc(100% - 60px)")
             .submit_btn

@@ -10,8 +10,8 @@ app.directive('requestItem', [
 			template: '<img ng-src="/pic?username={{ other.username }}&amp;size=100" width="50px" height="50px" class="friendImg"/>' +
 				'<div class="body">' +
 				'<div title="{{other.username}}" class="fbname">{{ other.fbUser.first_name }} {{ other.fbUser.last_name }}</div>' +
-				'<div ng-if="request.tnx" class="tnx">{{ request.tnx }} thanx</div>' +
-				'<div ng-if="request.sat" class="sat">{{ request.sat }} satoshi</div>' +
+				'<div ng-if="request.tnx" class="tnx">{{ request.tnx | number:0 }} thanx</div>' +
+				'<div ng-if="request.sat" class="sat">{{ request.sat | number:0 }} satoshi</div>' +
 				'<div ng-if="request.message" class="message">{{ request.message }}</div>' +
 				'</div>' +
 				'<div class="rightButtons">' +

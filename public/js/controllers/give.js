@@ -52,13 +52,20 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             }
             if ($scope.btcmode == 'sat') {
                 $scope.givebtc(clearValues);
+            }
+            else if ($scope.btcmode =='dollar') {
+                $scope.give.tnx = ((parseFloat($scope.give.dollar) * 100000000) / $rootScope.price).toFixed();
+                $scope.givetnx(clearValues);
             } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                 $scope.givetnx(clearValues);
             }
         }
         $scope.givetnx = function(successCB) {
 
-            if (!parseInt($scope.give.tnx)) return;
+            if (!parseInt($scope.give.tnx)) {
+                setSubmitDisabled(false);
+                return;
+            }
             var getter;
             if (angular.isObject($scope.give.to)) {
                 getter = $scope.give.to;

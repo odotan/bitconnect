@@ -212,16 +212,16 @@ var price = 0,
 
 m.price = function(req, res) {
     var now = new Date().getTime() / 1000;
-    if (now < lastChecked + 60000)
+    if (now < lastChecked + 60)
         return res.json(price)
-    https.get('https://blockchain.info/ticker', function(r) {
+    https.get('https://coinbase.com/api/v1/prices/buy', function(r) {
         var d = ''
         r.on('data', function(chunk) {
             d += chunk
         })
         r.on('end', function() {
             try {
-                price = parseFloat(JSON.parse(d)['USD']['15m'])
+                price = parseFloat(JSON.parse(d)['amount'])
                 lastChecked = new Date().getTime() / 1000;
                 return res.json(price);
             } catch (e) {

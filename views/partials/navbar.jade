@@ -30,4 +30,4 @@ nav.navbar.navbar-default
     .moneybar
         span.tnx(ng-click="btcmode = 'tnx'", ng-class="{selected: btcmode == 'tnx' || btcmode == undefined}") {{ user.tnx }} thanx
         span.sat(ng-click="btcmode = 'sat'", ng-class="{selected: btcmode == 'sat'}") {{ balance || 0 }} satoshi
-        span.dollar(ng-click="btcmode = 'dollar'", ng-class="{selected: btcmode == 'dollar'}") ## dollars
+        span.dollar(ng-click="btcmode = 'dollar'", ng-class="{selected: btcmode == 'dollar'}") = {{ ( user.tnx / 100000000 ) * price | number:2 }} dollars
