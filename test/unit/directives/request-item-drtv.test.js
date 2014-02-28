@@ -50,7 +50,7 @@ describe('directives', function() {
 			expect(elm.find('img.friendImg').attr('ng-src')).toContain('/pic?username=jack.bitconnect.me');
 			expect(elm.find('div.fbname').text()).toBe('Jack Last');
 			expect(elm.find('div.tnx').length).toBe(1);
-			expect(elm.find('div.tnx').text()).toBe('10000 thanx');
+			expect(elm.find('div.tnx').text()).toBe('10,000 thanx');
 			expect(elm.find('div.sat').length).toBe(0);
 			expect(elm.find('div.message').length).toBe(1);
 			expect(elm.find('div.message').text()).toBe('please');
@@ -69,7 +69,7 @@ describe('directives', function() {
 			expect(elm.find('img.friendImg').attr('ng-src')).toContain('/pic?username=jack.bitconnect.me');
 			expect(elm.find('div.fbname').text()).toBe('Jack Last');
 			expect(elm.find('div.tnx').length).toBe(1);
-			expect(elm.find('div.tnx').text()).toBe('11000 thanx');
+			expect(elm.find('div.tnx').text()).toBe('11,000 thanx');
 			expect(elm.find('div.sat').length).toBe(0);
 			expect(elm.find('div.message').length).toBe(1);
 			expect(elm.find('div.message').text()).toBe('my pleasure');
@@ -86,7 +86,7 @@ describe('directives', function() {
 			expect(elm.find('img.friendImg').attr('ng-src')).toContain('/pic?username=dee.bitconnect.me');
 			expect(elm.find('div.fbname').text()).toBe('Donald Bleer');
 			expect(elm.find('div.tnx').length).toBe(1);
-			expect(elm.find('div.tnx').text()).toBe('12000 thanx');
+			expect(elm.find('div.tnx').text()).toBe('12,000 thanx');
 			expect(elm.find('div.sat').length).toBe(0);
 			expect(elm.find('div.message').length).toBe(1);
 			expect(elm.find('div.message').text()).toBe('money');
@@ -103,7 +103,7 @@ describe('directives', function() {
 			expect(elm.find('img.friendImg').attr('ng-src')).toContain('/pic?username=dee.bitconnect.me');
 			expect(elm.find('div.fbname').text()).toBe('Donald Bleer');
 			expect(elm.find('div.tnx').length).toBe(1);
-			expect(elm.find('div.tnx').text()).toBe('9000 thanx');
+			expect(elm.find('div.tnx').text()).toBe('9,000 thanx');
 			expect(elm.find('div.sat').length).toBe(0);
 			expect(elm.find('div.message').length).toBe(1);
 			expect(elm.find('div.message').text()).toBe('my message');
@@ -120,7 +120,7 @@ describe('directives', function() {
 			expect(elm.find('img.friendImg').attr('ng-src')).toContain('/pic?username=jack.bitconnect.me');
 			expect(elm.find('div.fbname').text()).toBe('Jack Last');
 			expect(elm.find('div.sat').length).toBe(1);
-			expect(elm.find('div.sat').text()).toBe('10000 satoshi');
+			expect(elm.find('div.sat').text()).toBe('10,000 satoshi');
 			expect(elm.find('div.tnx').length).toBe(0);
 			expect(elm.find('div.message').length).toBe(1);
 			expect(elm.find('div.message').text()).toBe('please');
@@ -138,7 +138,7 @@ describe('directives', function() {
 			expect(elm.find('img.friendImg').attr('ng-src')).toContain('/pic?username=dee.bitconnect.me');
 			expect(elm.find('div.fbname').text()).toBe('Donald Bleer');
 			expect(elm.find('div.sat').length).toBe(1);
-			expect(elm.find('div.sat').text()).toBe('9000 satoshi');
+			expect(elm.find('div.sat').text()).toBe('9,000 satoshi');
 			expect(elm.find('div.tnx').length).toBe(0);
 			expect(elm.find('div.message').length).toBe(1);
 			expect(elm.find('div.message').text()).toBe('my message');
