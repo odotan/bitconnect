@@ -166,7 +166,7 @@ describe('directives', function() {
 			spyOn(rootScope, 'bitcoinSend').andReturn();
 			compileDirective();
 			elm.isolateScope().accept();
-			expect(rootScope.bitcoinSend).toHaveBeenCalledWith('jack.bitconnect.me', 10000, null, 'please', $scope.request.id);
+			expect(rootScope.bitcoinSend).toHaveBeenCalledWith('jack.bitconnect.me', 10000, null, 'please', $scope.request.id, jasmine.any(Function));
 			expect(rootScope.thanxSend).not.toHaveBeenCalled();
 		});
 
