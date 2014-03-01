@@ -34,7 +34,11 @@ app.directive('requestItem', [
 							if (request.tnx > 0) {
 								$rootScope.thanxSend(request.sender.username, request.tnx, request, request.message, TxTypes.getRequest);
 							} else {
-								$rootScope.bitcoinSend(request.sender.username, request.sat, null, request.message, request.id);
+								$rootScope.bitcoinSend(request.sender.username, request.sat, null, request.message, request.id, function(err) {
+									if (err) {
+										$rootScope.errHandle(err);
+									}
+								});
 							}
 						} else if (request.requestType === RequestTypes.GIVE) {
 							$rootScope.message = {

@@ -112,11 +112,11 @@ m.sendBTC = FBify(function(profile, req, res) {
         },
         function(cb2) {
             scope.deletedRequest.timestamp = new Date().getTime() / 1000;
-            db.RequestArchive.insert(scope.deletedRequest);
+            db.RequestArchive.insert(scope.deletedRequest, cb2);
         }
     ], mkrespcb(res, 400, function() {
         res.json('success');
-    }))
+    }));
 });
 
 
