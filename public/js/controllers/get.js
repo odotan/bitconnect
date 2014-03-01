@@ -128,7 +128,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 .success(function(r) {
                     $rootScope.message = {
                         body: 'request sent!',
-                        canceltext: 'cool sat'
+                        canceltext: 'cool tnx'
                     }
                     if (successCB) {
                         successCB();
