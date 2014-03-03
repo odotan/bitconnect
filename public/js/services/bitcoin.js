@@ -75,7 +75,7 @@ window.app.service('bitcoin', function($rootScope, $http) {
                     if (!r[0]) return cb('user not found');
                     if (!r[0].address) return cb('getter has no address');
                     $rootScope.message = {
-                        body: 'send ' + satoshis + ' satoshi to ' + userWalletAddr + '?',
+                        body: 'send ' + satoshis + ' satoshi to ' + userWalletAddr + '? a transaction fee of ' + fee + ' satoshi will be added',
                         action: function() {
                             try {
                                 $rootScope.rawSend(r[0].address, satoshis, fee, '/sendbtc', {
