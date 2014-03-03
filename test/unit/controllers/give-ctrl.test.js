@@ -18,7 +18,8 @@ describe('controllers', function() {
 			}
 		};
 		$rootScope.user = {
-			id: '1'
+			id: '1',
+			tnx: 25000
 		};
 		$rootScope.bitcoinSend = function() {};
 		$scope.giveForm = {
@@ -156,6 +157,44 @@ describe('controllers', function() {
 				},
 				sat: 12000,
 				message: 'hi there'
+			};
+			$scope.givemain();
+			expect($rootScope.bitcoinSend).not.toHaveBeenCalled();
+			expect($rootScope.bitcoinSend.callCount).toBe(0);
+		});
+
+		it('should not send if the user has insufficient balance', function() {
+			var controller = createController();
+			spyOn($rootScope, 'bitcoinSend').andReturn();
+			$scope.btcmode = 'tnx';
+			$scope.give = {
+				to: {
+					id: '90210',
+					fullname: 'Bruce Satoshi',
+					username: 'bruce.bitconnect.me'
+				},
+				tnx: 35000,
+				message: 'hello and goodbye'
+			};
+			expect($rootScope.message).toBeUndefined();
+			$scope.givemain();
+			expect($rootScope.bitcoinSend).not.toHaveBeenCalled();
+			expect($rootScope.bitcoinSend.callCount).toBe(0);
+			expect($rootScope.message.body).toEqual('not enough thanx to give');
+		});
+		
+		it('should not send when trying to send less than 5430 satoshi', function() {
+			var controller = createController();
+			spyOn($rootScope, 'bitcoinSend').andReturn();
+			$scope.btcmode = 'sat';
+			$scope.give = {
+				to: {
+					id: '432432',
+					fullname: 'Maya User',
+					username: 'maya.bitconnect.me'
+				},
+				sat: 5000,
+				message: 'hello'
 			};
 			$scope.givemain();
 			expect($rootScope.bitcoinSend).not.toHaveBeenCalled();
@@ -325,6 +364,7 @@ describe('controllers', function() {
 			expect($rootScope.bitcoinSend.callCount).toBe(1);
 
 		});
+
 		it('should send correct requests when sending to bitcoin address', function() {
 			var controller = createController();
 			spyOn($rootScope, 'bitcoinSend').andReturn();
@@ -336,6 +376,48 @@ describe('controllers', function() {
 			$scope.givemain();
 			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('1B4HzATYyL5SYdhQt9TGQPHoY5qE2rRMP', 10000, 10000, undefined, undefined, jasmine.any(Function));
 			expect($rootScope.bitcoinSend.callCount).toBe(1);
+		});
+
+		it('should be able to send 0 thanx', function() {
+			var controller = createController();
+			$scope.btcmode = 'tnx';
+			$scope.give = {
+				to: {
+					id: '432432',
+					fullname: 'Maya User',
+					username: 'maya.bitconnect.me'
+				},
+				tnx: 0,
+				message: 'message'
+			};
+			$httpBackend.expect('POST', '/mkrequest', {
+				tnx: 0,
+				giveTo: '432432',
+				message: 'message',
+				requestType: 'GIVE'
+			})
+				.respond('');
+			$scope.givemain();
+			$httpBackend.flush();
+		});
+
+		it('should not be able to send 0 satoshi', function() {
+			var controller = createController();
+			spyOn($rootScope, 'bitcoinSend').andReturn();
+			$scope.btcmode = 'sat';
+			$scope.give = {
+				to: {
+					id: '432432',
+					fullname: 'Maya User',
+					username: 'maya.bitconnect.me'
+				},
+				sat: 0,
+				message: 'message'
+			};
+
+			$scope.givemain();
+			expect($rootScope.bitcoinSend).not.toHaveBeenCalled();
+			expect($rootScope.bitcoinSend.callCount).toBe(0);
 		});
 	});
 });

@@ -164,12 +164,15 @@ m.clearRequest = FBify(function(profile, req, res) {
         }, {}, {}, {
             remove: true
         },
-        function(err, requestObj) {
+        mkrespcb(res, 400, function(requestObj) {
             function archiveRequest() {
                 requestObj.timestamp = new Date().getTime() / 1000;
                 db.RequestArchive.insert(requestObj);
             }
-
+            if (!requestObj) {
+                res.json('request not found', 404);
+                return;
+            }
             if (requestObj.sender.id === profile.id) {
                 requestObj.cancelled = true;
                 archiveRequest();
@@ -195,7 +198,7 @@ m.clearRequest = FBify(function(profile, req, res) {
                 template: msg,
                 href: '?src=rejectRequest'
             }, cb);
-        });
+        }));
 });
 
 // Payment requests

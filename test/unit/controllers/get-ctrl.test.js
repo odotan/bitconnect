@@ -331,5 +331,35 @@ describe('controllers', function() {
 			$scope.getmain();
 			$httpBackend.flush();
 		});
+
+		it('should not be able to request less than 5430 satoshi', function() {
+			var controller = createController();
+			$scope.btcmode = 'sat';
+			$scope.get = {
+				from: {
+					id: '432432',
+					fullname: 'Maya User',
+					username: 'maya.bitconnect.me'
+				},
+				sat: 5429,
+				message: 'hello'
+			};
+			$scope.getmain();
+		});
+
+		it('should not be able to request 0 thanx', function() {
+			var controller = createController();
+			$scope.btcmode = 'tnx';
+			$scope.get = {
+				from: {
+					id: '432432',
+					fullname: 'Maya User',
+					username: 'maya.bitconnect.me'
+				},
+				tnx: 0,
+				message: 'hello'
+			};
+			$scope.getmain();
+		});
 	});
 });

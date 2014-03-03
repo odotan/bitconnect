@@ -52,8 +52,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             }
             if ($scope.btcmode == 'sat') {
                 $scope.givebtc(clearValues);
-            }
-            else if ($scope.btcmode =='dollar') {
+            } else if ($scope.btcmode == 'dollar') {
                 $scope.give.tnx = ((parseFloat($scope.give.dollar) * 100000000) / $rootScope.price).toFixed();
                 $scope.givetnx(clearValues);
             } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
@@ -62,7 +61,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
         }
         $scope.givetnx = function(successCB) {
 
-            if (!parseInt($scope.give.tnx)) {
+            if (!angular.isDefined(parseInt($scope.give.tnx))) {
                 setSubmitDisabled(false);
                 return;
             }
@@ -77,6 +76,14 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 }
                 setSubmitDisabled(false);
                 return;
+            }
+            if ($rootScope.user.tnx < parseInt($scope.give.tnx)) {
+                    $rootScope.message = {
+                        body: 'not enough thanx to give',
+                        canceltext: 'ok'
+                    }
+                    setSubmitDisabled(false);
+                    return;
             }
 
             function makeRequest() {
@@ -114,8 +121,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                             .success(function() {
                                 makeRequest();
                             }).error(errHandler);
-                    }
-                    else {
+                    } else {
                         setSubmitDisabled(false);
                     }
                 });
@@ -123,7 +129,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
         }
 
         $scope.givebtc = function(successCB) {
-            if (!parseInt($scope.give.sat)) return;
+            if (!parseInt($scope.give.sat) || parseInt($scope.give.sat) < 5430) return;
             var getter;
             if (angular.isObject($scope.give.to)) {
                 getter = $scope.give.to;

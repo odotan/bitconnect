@@ -101,7 +101,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             }
         }
         $scope.getbtc = function(successCB) {
-            if (!parseInt($scope.get.sat)) {
+            if (!parseInt($scope.get.sat) || parseInt($scope.get.sat)<5430) {
                 setSubmitDisabled(false);
                 return;
             }
