@@ -603,14 +603,18 @@
   position: absolute;
   left: 70px;
   top: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 185px;
 }
-/* line 52, ../sass/_thanx.scss */
+/* line 56, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx, .giveGetPage .requests .request .body .tnx, .giveGetPage .history .request .body .tnx {
   position: absolute;
   left: 70px;
   top: 30px;
 }
-/* line 57, ../sass/_thanx.scss */
+/* line 61, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat, .giveGetPage .requests .request .body .sat, .giveGetPage .history .request .body .sat {
   position: absolute;
   left: 70px;
@@ -618,17 +622,17 @@
   max-width: 100px;
   overflow: hidden;
 }
-/* line 63, ../sass/_thanx.scss */
+/* line 67, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed, .giveGetPage .requests .request .body .sat.unconfirmed, .giveGetPage .history .request .body .sat.unconfirmed {
   color: red;
 }
-/* line 68, ../sass/_thanx.scss */
+/* line 72, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message, .giveGetPage .requests .request .body .message, .giveGetPage .history .request .body .message {
   position: absolute;
   left: 70px;
   top: 15px;
   font-size: 10px;
-  width: 147px;
+  width: 185px;
   height: 17px;
   overflow: hidden;
   text-overflow: ellipsis;

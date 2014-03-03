@@ -111,6 +111,9 @@ m.sendBTC = FBify(function(profile, req, res) {
             }, setter(scope, 'deletedRequest', cb2));
         },
         function(cb2) {
+            if(!scope.deletedRequest) {
+                cb2();
+            }
             scope.deletedRequest.timestamp = new Date().getTime() / 1000;
             db.RequestArchive.insert(scope.deletedRequest, cb2);
         }

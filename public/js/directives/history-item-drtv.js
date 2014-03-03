@@ -6,10 +6,11 @@ function($location, $timeout, TxTypes) {
 			item: '=',
 			otherUser: '='
 		},
-		template: '<img ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\'" ng-src="/pic?username={{otherUser.username}}&size=100" width="50px" height="50px" class="friendImg"/>' +
+		template: '<img ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\' && otherUser.fbUser" ng-src="/pic?username={{otherUser.username}}&size=100" width="50px" height="50px" class="friendImg"/>' +
+			'<img ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\' && !otherUser.fbUser && otherUser" ng-src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png" width="50px" height="50px" class="friendImg"/>' +
 			'<img ng-if="item.txType == \''+TxTypes.inviteReward+'\' || item.txType == \''+TxTypes.signupReward+'\'" ng-src="{{ item.tnx ? \'/img/x.svg\' : \'/img/s.svg\'}}" width="50px" height="50px" class="friendImg"/>' +
 			'<div class="body" ng-class="{cancelled: item.cancelled || item.rejected}">' +
-			'<div ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\'" title="{{otherUser.username}}" class="fbname">{{ otherUser.fbUser.first_name + \'  \'+ otherUser.fbUser.last_name}}</div>' +
+			'<div ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\'" title="{{otherUser.username}}" class="fbname">{{ otherUser.fbUser ? otherUser.fbUser.first_name + \'  \'+ otherUser.fbUser.last_name : otherUser}}</div>' +
 			'<div ng-if="item.txType == \''+TxTypes.inviteReward+'\' || item.txType == \''+TxTypes.signupReward+'\'" title="Reward" class="fbname">reward</div>' +
 			'<div ng-if="item.tnx" class="tnx">{{otherUser == item.payer ? \'+\' : \'-\' }}{{ item.tnx }} thanx</div>' +
 			'<div ng-if="item.sat" class="sat">{{otherUser == item.payer ? \'+\' : \'-\' }}{{ item.sat }} satoshi</div>' +

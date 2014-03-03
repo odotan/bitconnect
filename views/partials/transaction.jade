@@ -4,7 +4,9 @@
     div(ng-if="historyItem.rejected") This request was rejected
     div(ng-if="historyItem.cancelled") This request was cancelled
     div From: {{historyItem.payer.fbUser.first_name}} {{historyItem.payer.fbUser.last_name}}
-    div To: {{historyItem.payee.fbUser.first_name}} {{historyItem.payee.fbUser.last_name}}
+    div To:
+        span(ng-if="historyItem.payee.fbUser")  {{historyItem.payee.fbUser.first_name}} {{historyItem.payee.fbUser.last_name}}
+        span(ng-if="!historyItem.payee.fbUser && historyItem.payee")  {{historyItem.payee}}
     div Amount:
         span(ng-if="historyItem.tnx")  {{historyItem.tnx}} thanx
         span(ng-if="historyItem.sat")  {{historyItem.sat}} satoshi
