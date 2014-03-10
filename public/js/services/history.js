@@ -52,5 +52,12 @@ window.app.service('HistoryService', ['$http',
                 cb(result);
             });
         };
+
+        this.getCachedInteractionWithUser = function getCachedInteractionWithUser(otherUserId, cb) {
+            if (interactions[otherUserId]) {
+                return interactions[otherUserId];
+            }
+            return null;
+        }
     }
 ]);
