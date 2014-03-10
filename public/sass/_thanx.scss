@@ -28,6 +28,9 @@
       border-radius: 30px;
       margin-bottom: -2px;
       color: #073651;
+      &.unconfirmed {
+        background-color: #E47E70;
+      }
       img.friendImg{
         position: absolute;
         left: -2px;
@@ -64,10 +67,6 @@
           top: 30px;
           max-width: 100px;
           overflow: hidden;
-          &.unconfirmed{
-            color: red;
-          }
-
         }
         .message{
           position: absolute;

@@ -3,6 +3,7 @@
     div Transaction Details
     div(ng-if="historyItem.rejected") This request was rejected
     div(ng-if="historyItem.cancelled") This request was cancelled
+    div(ng-if="historyItem.confirmed == false") This transaction is unconfirmed
     div From: {{historyItem.payer.fbUser.first_name}} {{historyItem.payer.fbUser.last_name}}
     div To:
         span(ng-if="historyItem.payee.fbUser")  {{historyItem.payee.fbUser.first_name}} {{historyItem.payee.fbUser.last_name}}

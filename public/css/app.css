@@ -581,6 +581,10 @@
   color: #073651;
 }
 /* line 31, ../sass/_thanx.scss */
+.thanx .requests .request.unconfirmed, .thanx .history .request.unconfirmed, .giveGetPage .requests .request.unconfirmed, .giveGetPage .history .request.unconfirmed {
+  background-color: #E47E70;
+}
+/* line 34, ../sass/_thanx.scss */
 .thanx .requests .request img.friendImg, .thanx .history .request img.friendImg, .giveGetPage .requests .request img.friendImg, .giveGetPage .history .request img.friendImg {
   position: absolute;
   left: -2px;
@@ -590,15 +594,15 @@
   border-radius: 50%;
   border: 2px solid #FFFFFF;
 }
-/* line 41, ../sass/_thanx.scss */
+/* line 44, ../sass/_thanx.scss */
 .thanx .requests .request .body.cancelled, .thanx .history .request .body.cancelled, .giveGetPage .requests .request .body.cancelled, .giveGetPage .history .request .body.cancelled {
   color: #047bb2;
 }
-/* line 43, ../sass/_thanx.scss */
+/* line 46, ../sass/_thanx.scss */
 .thanx .requests .request .body.cancelled .sat, .thanx .requests .request .body.cancelled .tnx, .thanx .history .request .body.cancelled .sat, .thanx .history .request .body.cancelled .tnx, .giveGetPage .requests .request .body.cancelled .sat, .giveGetPage .requests .request .body.cancelled .tnx, .giveGetPage .history .request .body.cancelled .sat, .giveGetPage .history .request .body.cancelled .tnx {
   text-decoration: line-through;
 }
-/* line 47, ../sass/_thanx.scss */
+/* line 50, ../sass/_thanx.scss */
 .thanx .requests .request .body .fbname, .thanx .history .request .body .fbname, .giveGetPage .requests .request .body .fbname, .giveGetPage .history .request .body .fbname {
   position: absolute;
   left: 70px;
@@ -608,13 +612,13 @@
   white-space: nowrap;
   width: 185px;
 }
-/* line 56, ../sass/_thanx.scss */
+/* line 59, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx, .giveGetPage .requests .request .body .tnx, .giveGetPage .history .request .body .tnx {
   position: absolute;
   left: 70px;
   top: 30px;
 }
-/* line 61, ../sass/_thanx.scss */
+/* line 64, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat, .giveGetPage .requests .request .body .sat, .giveGetPage .history .request .body .sat {
   position: absolute;
   left: 70px;
@@ -622,11 +626,7 @@
   max-width: 100px;
   overflow: hidden;
 }
-/* line 67, ../sass/_thanx.scss */
-.thanx .requests .request .body .sat.unconfirmed, .thanx .history .request .body .sat.unconfirmed, .giveGetPage .requests .request .body .sat.unconfirmed, .giveGetPage .history .request .body .sat.unconfirmed {
-  color: red;
-}
-/* line 72, ../sass/_thanx.scss */
+/* line 71, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message, .giveGetPage .requests .request .body .message, .giveGetPage .history .request .body .message {
   position: absolute;
   left: 70px;
