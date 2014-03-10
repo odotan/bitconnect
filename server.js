@@ -168,6 +168,10 @@ app.get('/partials/:name', function(req, res) {
     res.render('partials/' + req.params.name);
 });
 
+app.get('/templates/:name', function(req, res) {
+    res.render('templates/' + req.params.name);
+});
+
 app.post('/canvas', function(req, res) {
     var params = req.url.split("?")[1],
         newUrl = '/acceptinvite?' + params;
@@ -263,6 +267,7 @@ app.get('/pendingrequests', Facebook.loginRequired(), tnx.getPendingRequests);
 app.post('/sendtnx', Facebook.loginRequired(), tnx.sendTNX);
 app.post('/acceptgive', Facebook.loginRequired(), tnx.acceptGive);
 app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory);
+app.get('/interaction', Facebook.loginRequired(), tnx.getInteractionWithUser);
 
 app.post('/register', Facebook.loginRequired(), accounts.register);
 app.post('/mkinvite', Facebook.loginRequired(), accounts.mkInvite);

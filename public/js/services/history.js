@@ -1,6 +1,7 @@
 window.app.service('HistoryService', ['$http',
     function($http) {
-        var history;
+        var history,
+        interactions = {};
         /*
          *   Fetches the history from the server.
          *   Calls the given callback with the results.
@@ -16,7 +17,7 @@ window.app.service('HistoryService', ['$http',
             if (history)
                 return history;
             return null;
-        }
+        };
 
         this.getHistoryItem = function getHistoryItem(id, cb) {
             var result,
@@ -43,6 +44,13 @@ window.app.service('HistoryService', ['$http',
                 // history is cached but specific item not found
                 this.getHistory(findHistoryItem);
             }
-        }
+        };
+
+        this.getInteractionWithUser = function getInteractionWithUser(otherUserId, cb) {
+            $http.get('/interaction?otherUserId=' + otherUserId).success(function(result) {
+                interactions[otherUserId] = result;
+                cb(result);
+            });
+        };
     }
 ]);

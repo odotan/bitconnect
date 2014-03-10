@@ -1,0 +1,15 @@
+.surround(ng-controller="ChatController")
+	.chat
+		.items(ng-repeat="item in interaction",style="margin: 5px 0px")
+			chat-item.item(item="item")
+		.placeHolderItem
+		.amountInput(ng-if="!btcmode || btcmode == 'tnx'")
+			input(type="number",ng-model="give.tnx", min="0", ng-required="true", name="amount")
+		.amountInput(ng-if="btcmode == 'sat'")
+			input(type="number",ng-model="give.sat", min="5430",ng-required="true", name="amount")
+		.amountInput(ng-if="btcmode == 'dollar'")
+			input(type="number",ng-model="give.dollar",min="0.01", ng-required="true", name="amount")
+			span.dollarsInThanx(ng-show="give.dollar") {{ ( give.dollar / price ) * 100000000 | number: 0}} thanx
+		.messageInput
+			input(type="text", ng-model="give.message")
+	include modal

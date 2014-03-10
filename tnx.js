@@ -467,3 +467,66 @@ m.getHistory = FBify(function(profile, req, res) {
             }));
         }));
 });
+
+m.getInteractionWithUser = FBify(function(profile, req, res) {
+    var otherUserId = req.param('otherUserId'),
+        scope = {};
+    if(!otherUserId) {
+        return res.json('missing user id', 400);
+    }
+    async.series([
+
+            function(cb) {
+                db.Transaction.find({
+                    $or: [{
+                        'payer.id': profile.id,
+                        'payee.id': otherUserId
+                    }, {
+                        'payee.id': profile.id,
+                        'payer.id': otherUserId
+                    }]
+                })
+                    .sort({
+                        timestamp: -1
+                    })
+                    .toArray(setter(scope, 'transactions', cb));
+            },
+            function(cb) {
+                db.RequestArchive.find({
+                    $and: [{
+                        $or: [{
+                            rejected: true
+                        }, {
+                            cancelled: true
+                        }]
+                    }, {
+                        $or: [{
+                            'sender.id': profile.id,
+                            'recipient.id': otherUserId
+                        }, {
+                            'recipient.id': profile.id,
+                            'sender.id': otherUserId
+                        }]
+                    }]
+                }).toArray(setter(scope, 'archive', cb));
+            },
+            function(cb) {
+                db.Request.find({
+                    $or: [{
+                        'sender.id': profile.id,
+                        'recipient.id': otherUserId
+                    }, {
+                        'recipient.id': profile.id,
+                        'sender.id': otherUserId
+                    }]
+                }).toArray(setter(scope, 'requests', cb));
+            }
+        ],
+        mkrespcb(res, 400, function() {
+            var results = scope.archive.concat(scope.requests).concat(scope.transactions);
+            results.sort(function compare(item1, item2) {
+                return (item1.timestamp - item2.timestamp);
+            });
+            res.json(results);
+        }));
+});

@@ -640,6 +640,100 @@
   white-space: nowrap;
 }
 
+/* line 1, ../sass/_chat.scss */
+.chat {
+  height: calc(100% - 250px);
+}
+/* line 3, ../sass/_chat.scss */
+.chat .messageInput input {
+  position: fixed;
+  width: 305px;
+  bottom: 15px;
+  height: 50px;
+  border: 2px #00ace2 solid;
+  border-radius: 15px;
+}
+/* line 13, ../sass/_chat.scss */
+.chat .amountInput input[type=number]::-webkit-inner-spin-button,
+.chat .amountInput input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* line 17, ../sass/_chat.scss */
+.chat .amountInput input {
+  width: 305px;
+  position: fixed;
+  bottom: 65px;
+  border: 2px #00ace2 solid;
+  border-radius: 15px;
+}
+/* line 25, ../sass/_chat.scss */
+.chat .placeHolderItem {
+  height: 55px;
+}
+/* line 28, ../sass/_chat.scss */
+.chat .items {
+  height: 65px;
+  width: 320px;
+}
+/* line 31, ../sass/_chat.scss */
+.chat .items .item {
+  padding-top: 3px;
+  padding-left: 10px;
+  height: 65px;
+  background-color: #f2fbff;
+  width: 250px;
+  position: absolute;
+  font-size: 12px;
+  border: 2px solid #f2fbff;
+  border-radius: 15px;
+  margin-bottom: -2px;
+  color: #073651;
+}
+/* line 33, ../sass/_chat.scss */
+.chat .items .item.cancelled .tnx, .chat .items .item.cancelled .sat {
+  text-decoration: line-through;
+}
+/* line 37, ../sass/_chat.scss */
+.chat .items .item.outgoing {
+  border-color: #047bb2;
+  left: 0;
+}
+/* line 41, ../sass/_chat.scss */
+.chat .items .item.incoming {
+  border-color: #073651;
+  right: 0;
+}
+/* line 45, ../sass/_chat.scss */
+.chat .items .item .time {
+  font-size: 10px;
+}
+/* line 48, ../sass/_chat.scss */
+.chat .items .item .message {
+  height: 25px;
+}
+/* line 63, ../sass/_chat.scss */
+.chat .items .item.unconfirmed {
+  background-color: #E47E70;
+}
+/* line 66, ../sass/_chat.scss */
+.chat .items .item .reject, .chat .items .item .accept {
+  height: 10px;
+  cursor: pointer;
+  position: absolute;
+  right: 47px;
+  top: 10px;
+}
+/* line 73, ../sass/_chat.scss */
+.chat .items .item .reject {
+  right: 7px;
+}
+/* line 76, ../sass/_chat.scss */
+.chat .items .item .requestActionButton {
+  height: 40px;
+  width: 40px;
+}
+
 /* line 2, ../sass/_me.scss */
 .meContainer label {
   display: none;

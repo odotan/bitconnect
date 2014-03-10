@@ -1,0 +1,82 @@
+.chat {
+  height: calc(100% - 250px);
+  .messageInput input {
+    position: fixed;
+    width: 305px;
+    bottom: 15px;
+    height: 50px;
+    border: 2px #00ace2 solid;
+    border-radius: 15px;
+  }
+  .amountInput {
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input {
+      width: 305px;
+      position: fixed;
+      bottom: 65px;
+      border: 2px #00ace2 solid;
+      border-radius: 15px;
+    }
+  }
+  .placeHolderItem {
+    height: 55px;
+  }
+  .items{
+    height: 65px;
+    width: 320px;
+    .item{
+      &.cancelled {
+        .tnx,.sat {
+          text-decoration:line-through;
+        }
+      }
+      &.outgoing {
+        border-color: #047bb2;
+        left: 0;
+      }
+      &.incoming {
+        border-color: #073651;
+        right: 0;
+      }
+      .time {
+        font-size: 10px;
+      }
+      .message {
+        height: 25px;
+      }
+      padding-top: 3px;
+      padding-left: 10px;
+      height: 65px;
+      background-color: #f2fbff;
+      width: 250px;
+      position: absolute;
+      font-size: 12px;
+
+      border: 2px solid #f2fbff;
+      border-radius: 15px;
+      margin-bottom: -2px;
+      color: #073651;
+      &.unconfirmed {
+        background-color: #E47E70;
+      }
+      .reject, .accept {
+        height:10px;
+        cursor: pointer;
+        position: absolute;
+        right: 47px;
+        top: 10px;
+      }
+      .reject {
+        right: 7px;
+      }
+      .requestActionButton {
+        height: 40px;
+        width: 40px;
+      }
+    }
+  }
+}
