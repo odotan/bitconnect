@@ -474,9 +474,19 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
     if(!otherUserId) {
         return res.json('missing user id', 400);
     }
+    if (otherUserId === profile.id) {
+        return res.json('cannot chat with yourself', 400);
+    }
     async.series([
-
             function(cb) {
+                db.User.findOne({
+                    id: otherUserId
+                }, setter(scope, 'user', cb));
+            },
+            function(cb) {
+                if (!scope.user) {
+                    return res.json('user not found', 400);
+                }
                 db.Transaction.find({
                     $or: [{
                         'payer.id': profile.id,

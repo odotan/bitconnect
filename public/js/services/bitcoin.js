@@ -57,6 +57,32 @@ window.app.service('bitcoin', function($rootScope, $http) {
     }
 
     $rootScope.bitcoinSend = function(userWalletAddr, satoshis, fee, message, requestId, cb) {
+        function sendToUser(user) {
+            if (!user[0]) return cb('user not found');
+            if (!user[0].address) return cb('getter has no address');
+            $rootScope.message = {
+                body: 'send ' + satoshis + ' satoshi to ' + user[0].username + '? a transaction fee of ' + fee + ' satoshi will be added',
+                action: function() {
+                    try {
+                        $rootScope.rawSend(user[0].address, satoshis, fee, '/sendbtc', {
+                            to: user[0].username,
+                            message: message,
+                            requestId: requestId
+                        }, function(err) {
+                            $rootScope.message = {};
+                            if (!err) {
+                                $rootScope.goto('thanx');
+                            }
+                            cb(err);
+                        });
+                    } catch (e) {
+                        cb(e.toString());
+                    }
+                },
+                actiontext: 'yep',
+                canceltext: 'nope'
+            };
+        }
         if (!fee) fee = 10000;
         satoshis = Math.ceil(satoshis);
         if (!$rootScope.key) {
@@ -71,32 +97,11 @@ window.app.service('bitcoin', function($rootScope, $http) {
             cb('not enough balance!');
         } else if (userWalletAddr.indexOf('.') >= 0) {
             $http.get('/userdata?username=' + encodeURIComponent(userWalletAddr))
-                .success(function(r) {
-                    if (!r[0]) return cb('user not found');
-                    if (!r[0].address) return cb('getter has no address');
-                    $rootScope.message = {
-                        body: 'send ' + satoshis + ' satoshi to ' + userWalletAddr + '? a transaction fee of ' + fee + ' satoshi will be added',
-                        action: function() {
-                            try {
-                                $rootScope.rawSend(r[0].address, satoshis, fee, '/sendbtc', {
-                                    to: userWalletAddr,
-                                    message: message,
-                                    requestId: requestId
-                                }, function(err) {
-                                    $rootScope.message = {};
-                                    if(!err) {
-                                        $rootScope.goto('thanx');
-                                    }
-                                    cb(err);
-                                });
-                            } catch (e) {
-                                cb(e.toString());
-                            }
-                        },
-                        actiontext: 'yep',
-                        canceltext: 'nope'
-                    };
-                })
+                .success(sendToUser)
+                .error(cb);
+        } else if (/^[0-9]+$/.test(userWalletAddr)) {
+            $http.get('/userdata?id=' + encodeURIComponent(userWalletAddr))
+                .success(sendToUser)
                 .error(cb);
         } else try {
             $rootScope.rawSend(userWalletAddr, satoshis, fee, '/sendbtc', {
@@ -104,7 +109,7 @@ window.app.service('bitcoin', function($rootScope, $http) {
                 to: userWalletAddr,
                 requestId: requestId
             }, function(err) {
-                if(!err) {
+                if (!err) {
                     $rootScope.showMessage('success');
                 }
                 cb(err);

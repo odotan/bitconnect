@@ -1,8 +1,8 @@
 .chat {
   height: calc(100% - 250px);
-  .messageInput input {
+  .messageInput textarea {
     position: fixed;
-    width: 305px;
+    width: 240px;
     bottom: 15px;
     height: 50px;
     border: 2px #00ace2 solid;
@@ -20,6 +20,14 @@
       bottom: 65px;
       border: 2px #00ace2 solid;
       border-radius: 15px;
+    }
+    .dollarsInThanx {
+      position: relative;
+      color: #00ace2;
+      float: right;
+      right: 10px;
+      bottom: 55px;
+      z-index: 1000;
     }
   }
   .placeHolderItem {
@@ -78,5 +86,30 @@
         width: 40px;
       }
     }
+  }
+  .chatActionButtons {
+    .chatActionButton {
+      height: 30px;
+      width: 30px;
+      float: right;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .sendButton {
+      width: 60px;
+      border-radius: 15px;
+      top: -9px;
+      position: relative;
+      height: 48px;
+      border: 0;
+    }
+    bottom: 15px;
+    margin-left: 240px;
+    position: fixed;
+    background-color: #f2fbff;
+    border-radius: 15px;
+    padding: 9px 0px;
+    height: 50px;
+    border: 2px #00ace2 solid;
   }
 }

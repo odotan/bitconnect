@@ -49,7 +49,9 @@ window.app.service('HistoryService', ['$http',
         this.getInteractionWithUser = function getInteractionWithUser(otherUserId, cb) {
             $http.get('/interaction?otherUserId=' + otherUserId).success(function(result) {
                 interactions[otherUserId] = result;
-                cb(result);
+                cb(null, result);
+            }).error(function(err) {
+                cb(err);
             });
         };
 

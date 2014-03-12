@@ -55,6 +55,9 @@
           text-overflow: ellipsis;
           white-space: nowrap;
           width: 185px;
+          &.realUser {
+            cursor: pointer;
+          }
         }
         .tnx{
           position: absolute;

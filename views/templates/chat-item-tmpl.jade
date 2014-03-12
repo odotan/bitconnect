@@ -5,7 +5,7 @@ div(ng-class="{incoming: direction == 'incoming', outgoing: direction == 'outgoi
 		span.tnx(ng-if='item.tnx') {{ item.tnx }} thanx
 		span.sat(ng-if='item.sat') {{ item.sat }} satoshi
 	span.accept(ng-switch="", on="item.requestType", ng-if="direction == \'incoming\' && !item.cancelled && !item.rejected")
-		img.requestActionButton(ng-switch-when="GIVE", src="/img/get.png", ng-click="")
-		img.requestActionButton(ng-switch-when="GET", src="/img/get.png", ng-click="")
+		img.requestActionButton(ng-switch-when="GIVE", src="/img/get.png", ng-click="accept()")
+		img.requestActionButton(ng-switch-when="GET", src="/img/give.png", ng-click="accept()")
 	span.reject(ng-if="item.requestType && !item.cancelled && !item.rejected")
-		img.requestActionButton(src="/img/reject_blue.png")
+		img.requestActionButton(src="/img/reject_blue.png", ng-click="reject()")

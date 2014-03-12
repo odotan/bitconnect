@@ -612,13 +612,17 @@
   white-space: nowrap;
   width: 185px;
 }
-/* line 59, ../sass/_thanx.scss */
+/* line 58, ../sass/_thanx.scss */
+.thanx .requests .request .body .fbname.realUser, .thanx .history .request .body .fbname.realUser, .giveGetPage .requests .request .body .fbname.realUser, .giveGetPage .history .request .body .fbname.realUser {
+  cursor: pointer;
+}
+/* line 62, ../sass/_thanx.scss */
 .thanx .requests .request .body .tnx, .thanx .history .request .body .tnx, .giveGetPage .requests .request .body .tnx, .giveGetPage .history .request .body .tnx {
   position: absolute;
   left: 70px;
   top: 30px;
 }
-/* line 64, ../sass/_thanx.scss */
+/* line 67, ../sass/_thanx.scss */
 .thanx .requests .request .body .sat, .thanx .history .request .body .sat, .giveGetPage .requests .request .body .sat, .giveGetPage .history .request .body .sat {
   position: absolute;
   left: 70px;
@@ -626,7 +630,7 @@
   max-width: 100px;
   overflow: hidden;
 }
-/* line 71, ../sass/_thanx.scss */
+/* line 74, ../sass/_thanx.scss */
 .thanx .requests .request .body .message, .thanx .history .request .body .message, .giveGetPage .requests .request .body .message, .giveGetPage .history .request .body .message {
   position: absolute;
   left: 70px;
@@ -645,9 +649,9 @@
   height: calc(100% - 250px);
 }
 /* line 3, ../sass/_chat.scss */
-.chat .messageInput input {
+.chat .messageInput textarea {
   position: fixed;
-  width: 305px;
+  width: 240px;
   bottom: 15px;
   height: 50px;
   border: 2px #00ace2 solid;
@@ -667,16 +671,25 @@
   border: 2px #00ace2 solid;
   border-radius: 15px;
 }
-/* line 25, ../sass/_chat.scss */
+/* line 24, ../sass/_chat.scss */
+.chat .amountInput .dollarsInThanx {
+  position: relative;
+  color: #00ace2;
+  float: right;
+  right: 10px;
+  bottom: 55px;
+  z-index: 1000;
+}
+/* line 33, ../sass/_chat.scss */
 .chat .placeHolderItem {
   height: 55px;
 }
-/* line 28, ../sass/_chat.scss */
+/* line 36, ../sass/_chat.scss */
 .chat .items {
   height: 65px;
   width: 320px;
 }
-/* line 31, ../sass/_chat.scss */
+/* line 39, ../sass/_chat.scss */
 .chat .items .item {
   padding-top: 3px;
   padding-left: 10px;
@@ -690,33 +703,33 @@
   margin-bottom: -2px;
   color: #073651;
 }
-/* line 33, ../sass/_chat.scss */
+/* line 41, ../sass/_chat.scss */
 .chat .items .item.cancelled .tnx, .chat .items .item.cancelled .sat {
   text-decoration: line-through;
 }
-/* line 37, ../sass/_chat.scss */
+/* line 45, ../sass/_chat.scss */
 .chat .items .item.outgoing {
   border-color: #047bb2;
   left: 0;
 }
-/* line 41, ../sass/_chat.scss */
+/* line 49, ../sass/_chat.scss */
 .chat .items .item.incoming {
   border-color: #073651;
   right: 0;
 }
-/* line 45, ../sass/_chat.scss */
+/* line 53, ../sass/_chat.scss */
 .chat .items .item .time {
   font-size: 10px;
 }
-/* line 48, ../sass/_chat.scss */
+/* line 56, ../sass/_chat.scss */
 .chat .items .item .message {
   height: 25px;
 }
-/* line 63, ../sass/_chat.scss */
+/* line 71, ../sass/_chat.scss */
 .chat .items .item.unconfirmed {
   background-color: #E47E70;
 }
-/* line 66, ../sass/_chat.scss */
+/* line 74, ../sass/_chat.scss */
 .chat .items .item .reject, .chat .items .item .accept {
   height: 10px;
   cursor: pointer;
@@ -724,14 +737,42 @@
   right: 47px;
   top: 10px;
 }
-/* line 73, ../sass/_chat.scss */
+/* line 81, ../sass/_chat.scss */
 .chat .items .item .reject {
   right: 7px;
 }
-/* line 76, ../sass/_chat.scss */
+/* line 84, ../sass/_chat.scss */
 .chat .items .item .requestActionButton {
   height: 40px;
   width: 40px;
+}
+/* line 90, ../sass/_chat.scss */
+.chat .chatActionButtons {
+  bottom: 15px;
+  margin-left: 240px;
+  position: fixed;
+  background-color: #f2fbff;
+  border-radius: 15px;
+  padding: 9px 0px;
+  height: 50px;
+  border: 2px #00ace2 solid;
+}
+/* line 91, ../sass/_chat.scss */
+.chat .chatActionButtons .chatActionButton {
+  height: 30px;
+  width: 30px;
+  float: right;
+  cursor: pointer;
+  border-radius: 50%;
+}
+/* line 98, ../sass/_chat.scss */
+.chat .chatActionButtons .sendButton {
+  width: 60px;
+  border-radius: 15px;
+  top: -9px;
+  position: relative;
+  height: 48px;
+  border: 0;
 }
 
 /* line 2, ../sass/_me.scss */
