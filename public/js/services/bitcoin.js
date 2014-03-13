@@ -1,4 +1,4 @@
-window.app.service('bitcoin', function($rootScope, $http) {
+angular.module('thanxbits').service('bitcoin', function($rootScope, $http) {
     $rootScope.bitcoinLogin = function(pw, callback, errback) {
         var key = new Bitcoin.Key(Bitcoin.Crypto.SHA256($rootScope.user.seed + pw)),
             address = key.getBitcoinAddress().toString();
@@ -229,7 +229,7 @@ window.app.service('bitcoin', function($rootScope, $http) {
         })
     }
 
-    $rootScope.thanxSend = function(userWalletAddr, tnx, request, message, txType) {
+    $rootScope.thanxSend = function(userWalletAddr, tnx, request, message, txType, successCB) {
         if ($rootScope.user.tnx >= tnx) {
             var body = 'send ' + tnx + ' thanx to ' + userWalletAddr + '?';
             $rootScope.confirmDialog(body, function() {
@@ -246,6 +246,9 @@ window.app.service('bitcoin', function($rootScope, $http) {
                             canceltext: 'cool, thanx'
                         }
                         $rootScope.user.tnx -= tnx;
+                        if (successCB) {
+                            successCB();
+                        }
                     })
                     .error(function(e) {
                         $rootScope.message = {
@@ -255,14 +258,14 @@ window.app.service('bitcoin', function($rootScope, $http) {
                     })
 
             })
-            return
+            return;
         }
         var shortfall = Math.max(10000, tnx - $rootScope.user.tnx)
         if ($rootScope.balance >= shortfall + 10000) {
             var body = 'you don\'t have enough thanx to give this many, but you certainly can convert some satoshi. do it now?'
             $rootScope.confirmDialog(body, function() {
                 $rootScope.buyTnx(shortfall, function() {
-                    $rootScope.thanxSend(userWalletAddr, tnx, request, message);
+                    $rootScope.thanxSend(userWalletAddr, tnx, request, message, txType, successCB);
                 })
             })
         } else {

@@ -1,8 +1,16 @@
 'use strict';
 describe('directives', function() {
-	var $scope, httpBackend, rootScope, elm;
+	var $scope, httpBackend, rootScope, elm, requestsService;
+	requestsService = {
+		acceptRequest: function() {},
+		rejectRequest: function() {}
+	};
 	describe('requestItem', function() {
 		beforeEach(module('thanxbits'));
+		beforeEach(module('thanxbits.controllers'));
+		beforeEach(module(function($provide) {
+			$provide.value('requests', requestsService);
+		}));
 		beforeEach(inject(function($rootScope, $compile, $httpBackend) {
 			rootScope = $rootScope;
 			rootScope.thanxSend = function() {};
@@ -145,79 +153,36 @@ describe('directives', function() {
 			expect(elm.find('span.accept img').length).toBe(0);
 			expect(elm.find('span.reject img').length).toBe(1);
 		});
-
-		it('accept method should perform incoming get request', function() {
+		it('accept method should call request service method', function() {
 			$scope.request.tnx = 10000;
 			$scope.request.requestType = 'GET';
 			$scope.request.message = 'please';
-			spyOn(rootScope, 'thanxSend').andReturn();
+			spyOn(requestsService, 'acceptRequest').andReturn();
 			spyOn(rootScope, 'bitcoinSend').andReturn();
+			spyOn(rootScope, 'thanxSend').andReturn();
 			compileDirective();
 			elm.isolateScope().accept();
-			expect(rootScope.thanxSend).toHaveBeenCalledWith('jack.bitconnect.me', 10000, $scope.request, 'please', 'getRequest');
+			expect(requestsService.acceptRequest).toHaveBeenCalledWith($scope.request, jasmine.any(Function));
+			expect(rootScope.thanxSend).not.toHaveBeenCalled();
 			expect(rootScope.bitcoinSend).not.toHaveBeenCalled();
 		});
 
-		it('accept method should perform incoming satoshi get request', function() {
-			$scope.request.sat = 10000;
-			$scope.request.requestType = 'GET';
-			$scope.request.message = 'please';
-			spyOn(rootScope, 'thanxSend').andReturn();
-			spyOn(rootScope, 'bitcoinSend').andReturn();
-			compileDirective();
-			elm.isolateScope().accept();
-			expect(rootScope.bitcoinSend).toHaveBeenCalledWith('jack.bitconnect.me', 10000, null, 'please', $scope.request.id, jasmine.any(Function));
-			expect(rootScope.thanxSend).not.toHaveBeenCalled();
-		});
-
-		it('accept method should perform incoming give request', function() {
-			$scope.request.sat = 11000;
-			$scope.request.requestType = 'GIVE';
-			$scope.request.message = 'money';
-			spyOn(rootScope, 'thanxSend').andReturn();
-			spyOn(rootScope, 'bitcoinSend').andReturn();
-			compileDirective();
-			elm.isolateScope().accept();
-			expect(rootScope.message).not.toEqual({});
-			rootScope.message.action();
-			httpBackend.expect('POST', '/acceptgive', {
-				requestId: 1
-			}).respond('');
-			httpBackend.flush();
-			expect(rootScope.message).toEqual({});
-			expect(rootScope.bitcoinSend).not.toHaveBeenCalled();
-			expect(rootScope.thanxSend).not.toHaveBeenCalled();
-		});
-
-		it('reject method should clear should clear incoming request after user confirms', function() {
+		it('reject incoming request should call request service method', function() {
 			$scope.request.sat = 12000;
 			$scope.request.requestType = 'GET';
 			compileDirective();
+			spyOn(requestsService, 'rejectRequest').andReturn();
 			elm.isolateScope().reject();
-			expect(rootScope.message.body).toEqual('are you sure you want to reject?');
-
-			rootScope.message.action();
-			httpBackend.expect('POST', '/clearrequest', {
-				request_id: 1
-			}).respond('');
-			httpBackend.flush();
-			expect(rootScope.message.body).toEqual('rejected');
+			expect(requestsService.rejectRequest).toHaveBeenCalledWith($scope.request, 'incoming');
 		});
 
-		it('reject method should clear should clear outgoing request after user confirms', function() {
+		it('reject outgoing request should call request service method', function() {
 			$scope.request.sat = 12000;
 			$scope.request.requestType = 'GET';
 			compileDirective('<request-item dir=\'outgoing\' request=\'request\' />');
-
+			spyOn(requestsService, 'rejectRequest').andReturn();
 			elm.isolateScope().reject();
-			expect(rootScope.message.body).toEqual('are you sure you want to cancel your request?');
-
-			rootScope.message.action();
-			httpBackend.expect('POST', '/clearrequest', {
-				request_id: 1
-			}).respond('');
-			httpBackend.flush();
-			expect(rootScope.message.body).toEqual('cancelled');
+			expect(requestsService.rejectRequest).toHaveBeenCalledWith($scope.request, 'outgoing');
 		});
 	});
 });

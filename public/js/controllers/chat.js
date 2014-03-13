@@ -42,16 +42,27 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 		function setSubmitDisabled(disabled) {
 			$scope.submitDisabled = disabled;
 		}
-		var errHandler = function errHandler(err) {
+
+		function clearValues() {
+			$scope.tx = {};
+		}
+				
+		function errHandler(err) {
 			setSubmitDisabled(false);
 			if (err) {
 				$rootScope.errHandle(err);
 			}
 		};
 
-		function clearValues() {
-			$scope.tx = {};
+		function onRequestSend() {
+			$rootScope.message = {
+				body: 'request sent!',
+				canceltext: 'cool tnx'
+			}
+			setSubmitDisabled(false);
+			clearValues();
 		}
+
 		$scope.sendMessage = function sendMessage() {
 			setSubmitDisabled(true);
 			$http.post('/mkrequest', {
@@ -99,14 +110,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 				message: $scope.tx.message,
 				requestType: RequestTypes.GET
 			})
-				.success(function(r) {
-					$rootScope.message = {
-						body: 'request sent!',
-						canceltext: 'cool tnx'
-					}
-					setSubmitDisabled(false);
-					clearValues();
-				})
+				.success(onRequestSend)
 				.error(errHandler);
 		};
 
@@ -117,14 +121,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 				message: $scope.tx.message,
 				requestType: RequestTypes.GET
 			})
-				.success(function(r) {
-					$rootScope.message = {
-						body: 'request sent!',
-						canceltext: 'cool tnx'
-					}
-					setSubmitDisabled(false);
-					clearValues();
-				})
+				.success(onRequestSend)
 				.error(errHandler);
 		}
 
@@ -143,14 +140,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 				message: $scope.tx.message,
 				requestType: RequestTypes.GIVE
 			})
-				.success(function(r) {
-					$rootScope.message = {
-						body: 'request sent!',
-						canceltext: 'cool tnx'
-					}
-					setSubmitDisabled(false);
-					clearValues();
-				})
+				.success(onRequestSend)
 				.error(errHandler);
 		}
 
