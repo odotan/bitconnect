@@ -15,7 +15,7 @@ var make_sending_transaction = function(utxo, to, value, change, fee) {
         }]
     if (value < 5430) { throw new Error("Amount below dust threshold!"); }
     if (sum < value) { throw new Error("Not enough money!"); }
-    if (sum-value < fee) { throw new Error("Not enough to pay" + (fee / 100000000) + "BTC fee!"); }
+    if (sum-value < fee) { throw new Error("Not enough to pay " + (fee / 100000000) + "BTC fee!"); }
 
     // Split change in half by default so that the wallet has multiple UTXO at all times
     if (typeof change == "string") change = [change, change];
@@ -37,7 +37,7 @@ var make_sending_transaction = function(utxo, to, value, change, fee) {
 // Get sufficient unspent transaction outputs from a history set to
 // spend a given amount of money
 
-var get_enough_utxo_from_history = function(h,amount,cb) {
+var get_enough_utxo_from_history = function(h,amount) {
     if (h.constructor != [].constructor) {
         var o = []
         for (var v in h) o.push(h[v])
