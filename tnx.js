@@ -16,7 +16,7 @@ var m = module.exports = {};
 
 function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
     console.log('making get request');
-    var scope = {};
+    var scope = {}, isUser = false;
     async.series([
 
         function(cb2) {
@@ -43,8 +43,9 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
                 } else {
                     return res.json('payer not found', 400);
                 }
+            } else {
+                isUser = true;
             }
-
             scope.request = {
                 requestType: constants.RequestTypes.GET,
                 recipient: dumpUser(scope.payer),
@@ -58,6 +59,9 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
             db.Request.insert(scope.request, cb2);
         },
         function(cb2) {
+            if (!isUser) {
+                return cb2();
+            }
             var token = fb.getApplicationAccessToken(),
                 amount = tnx > 0 ? tnx + " thanx" : sat + " satoshi",
                 msg = getterProfile.first_name + ' wants to get ' + amount + ' from you. Click to give it.';
@@ -74,7 +78,7 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
 
 function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
     console.log('making give request');
-    var scope = {};
+    var scope = {}, isUser = false;
     async.series([
 
         function(cb2) {
@@ -101,8 +105,9 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
                 } else {
                     return res.json('payee not found', 400);
                 }
+            } else {
+                isUser = true;
             }
-
             scope.request = {
                 requestType: constants.RequestTypes.GIVE,
                 sender: dumpUser(scope.payer),
@@ -116,6 +121,9 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
             db.Request.insert(scope.request, cb2);
         },
         function(cb2) {
+            if (!isUser) {
+                return cb2();
+            }
             var token = fb.getApplicationAccessToken(),
                 amount = tnx > 0 ? tnx + " thanx" : sat + " satoshi",
                 msg = giverProfile.first_name + ' wants to give you ' + amount + '. Click to get it.';
@@ -471,13 +479,14 @@ m.getHistory = FBify(function(profile, req, res) {
 m.getInteractionWithUser = FBify(function(profile, req, res) {
     var otherUserId = req.param('otherUserId'),
         scope = {};
-    if(!otherUserId) {
+    if (!otherUserId) {
         return res.json('missing user id', 400);
     }
     if (otherUserId === profile.id) {
         return res.json('cannot chat with yourself', 400);
     }
     async.series([
+
             function(cb) {
                 db.User.findOne({
                     id: otherUserId
