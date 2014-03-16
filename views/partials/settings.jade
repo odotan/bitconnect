@@ -7,8 +7,9 @@
                 div.readOnly(style="width:calc(100% - 125px);") {{ user.username }}
     .section
         div(ng-show="user.address")
-            .displayField bitcoin address:
-                div.readOnly(href="http://blockchain.info/address/{{ user.address }}",style="width:calc(100% - 100px);") {{ user.address }}
+            .displayField
+                span.addressLabel bitcoin address:
+                div.readOnly(href="http://blockchain.info/address/{{ user.address }}",style="width:calc(100% - 60px);font-size: 10px;text-align:center") {{ user.address }}
             label send bitcoins to this address to add it to your satoshi balance. one bitcoin = 100,000,000 satoshis
         div(ng-hide="user.address")
             label my bitconnect bitcoin address:

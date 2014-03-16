@@ -17,6 +17,12 @@
 			margin-top: 5px;
 			border-radius: 30px;
 			background-color: #047bb2;
+			.addressLabel {
+				width: 50px;
+				line-height: 15px;
+				margin-left: 5px;
+				float: left;
+			}
 			&.odd {
 				background-color: #00ace2;
 			}
