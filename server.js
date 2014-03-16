@@ -37,7 +37,7 @@ Facebook.loadRegisteredUser = function(config) {
 
         function afterNew() {
             req.facebook.getUser(function(err, user) {
-                if (err === undefined && user !== 0) {
+                if (!err && user) {
                     db.User.findOne({
                         id: user
                     }, function(err, u) {
