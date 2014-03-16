@@ -19,7 +19,7 @@ setTimeout(function() {
  */
 m.isLimitActive = function isLimitActive() {
 	return isActive;
-}
+};
 /**
  *	Calls the given callback(err, res) with an object containing the global invitation limit,
  *	and the remaining number of invitations.
@@ -78,4 +78,4 @@ m.updateInvitationLimit = function updateInvitationLimit(req, res) {
 		isActive = true;
 		res.json('success');
 	}));
-}
+};

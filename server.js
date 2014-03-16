@@ -24,8 +24,9 @@ Facebook.registerRequired = function(config) {
                 next();
             }
         });
-    }
-}
+    };
+};
+
 Facebook.loadRegisteredUser = function(config) {
     return function(req, res, next) {
         if (!req.facebook) {
@@ -36,7 +37,7 @@ Facebook.loadRegisteredUser = function(config) {
 
         function afterNew() {
             req.facebook.getUser(function(err, user) {
-                if (err == undefined && user !== 0) {
+                if (err === undefined && user !== 0) {
                     db.User.findOne({
                         id: user
                     }, function(err, u) {
@@ -124,11 +125,11 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
     db.User.findOne({
         id: profile.id
     }, mkrespcb(res, 400, function(u) {
-        if (!u) res.redirect('/app/newaccount')
+        if (!u) res.redirect('/app/newaccount');
         else if (req.param('goto')) {
             res.redirect(req.param('goto'));
-        } else if (u.firstUse) res.redirect('/app/us')
-        else res.redirect('/app/give')
+        } else if (u.firstUse) res.redirect('/app/us');
+        else res.redirect('/app/give');
     }));
 }));
 
@@ -150,7 +151,7 @@ app.get('/app/*', Facebook.registerRequired(), function(req, res) {
 
 app.get('/profile/*', function(req, res) {
     res.render('profile-index.jade');
-})
+});
 app.get('/partials/newaccount', Facebook.loginRequired(), FBify(function(profile, req, res, next) {
     if (invitations.isLimitActive()) {
         db.FBInvite.findOne({
@@ -222,7 +223,7 @@ app.post('/admin/invitationlimit', invitations.updateInvitationLimit);
 
 function showpage(path, template) {
     app.get(path, function(req, res) {
-        res.render(template, {})
+        res.render(template, {});
     });
 }
 

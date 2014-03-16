@@ -5,8 +5,8 @@ var Db = require('mongodb').Db,
     ObjectID = require('mongodb').ObjectID,
     constants = require('./constants');
 
-var host = process.env['MONGO_NODE_DRIVER_HOST'] != null ? process.env['MONGO_NODE_DRIVER_HOST'] : 'localhost';
-var port = process.env['MONGO_NODE_DRIVER_PORT'] != null ? process.env['MONGO_NODE_DRIVER_PORT'] : Connection.DEFAULT_PORT;
+var host = process.env.MONGO_NODE_DRIVER_HOST != null ? process.env.MONGO_NODE_DRIVER_HOST : 'localhost';
+var port = process.env.MONGO_NODE_DRIVER_PORT != null ? process.env.MONGO_NODE_DRIVER_PORT : Connection.DEFAULT_PORT;
 
 var db = new Db('bitconnect', new Server(host, port), {
     safe: false
@@ -28,15 +28,16 @@ db.open(function(err, dbb) {
         'request-archive': 'RequestArchive',
         'transactions': 'Transaction',
         'system-params': 'SystemParam'
-    }
-    for (var v in databases) {
-        db.collection(v, function(err, collection) {
-            if (err) {
-                throw err;
-            }
-            module.exports[databases[v]] = collection;
-        });
     };
+    var callback = function(err, collection) {
+        if (err) {
+            throw err;
+        }
+        module.exports[databases[v]] = collection;
+    };
+    for (var v in databases) {
+        db.collection(v, callback);
+    }
 
     db.collection('system-params').findOne({
         key: constants.SystemParamKeys.globalInvitations

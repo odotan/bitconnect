@@ -14,58 +14,7 @@ var eh = util.eh,
 	FBify = util.FBify,
 	dumpUser = util.dumpUser;
 
-var m = module.exports = {}
-
-// Register a new account
-m.register = FBify(function(profile, req, res) {
-
-	var scope = {},
-		newuser;
-	async.series([
-
-			function(cb) {
-				db.FBInvite.find({
-					to: profile.id,
-				}).toArray(setter(scope, 'reqs', cb));
-			},
-			function(cb) {
-				if (invitations.isLimitActive() && (!scope.reqs || scope.reqs.length === 0)) {
-					res.json('currently only invited users can register', 400);
-					cb('currently only invited users can register');
-				} else {
-					cb();
-				}
-			},
-			function(cb) {
-				db.User.findOne({
-					username: req.param('name')
-				}, setter(scope, 'user', cb));
-			},
-			function(cb) {
-				if (scope.user) return res.json('Account already exists', 400);
-				console.log('registering');
-				newuser = {
-					username: req.param('name'),
-					fbUser: profile,
-					id: profile.id,
-					inviteCounter: 0,
-					inviteAcceptedCounter: 0,
-					seed: util.randomHex(40),
-					verificationSeed: util.randomHex(20),
-					friends: [],
-					firstUse: true
-				}
-				db.User.insert(newuser, mkrespcb(res, 400, function() {
-					console.log('requests found', scope.reqs);
-					consumeFBInvites(scope.reqs, newuser, cb);
-				}));
-			}
-		],
-		mkrespcb(res, 400, function() {
-			console.log('registered');
-			res.json(newuser);
-		}));
-});
+var m = module.exports = {};
 // Consume outstanting Facebook requests when creating an account
 
 var consumeFBInvites = function(reqs, to, cb) {
@@ -82,10 +31,14 @@ var consumeFBInvites = function(reqs, to, cb) {
 		// Uniquefy users
 		var umap = {};
 		users.map(function(u) {
-			if (u) umap[u.id] = u
+			if (u) {
+				umap[u.id] = u;
+			}
 		});
 		users = [];
-		for (var uid in umap) users.push(umap[uid]);
+		for (var uid in umap) {
+			users.push(umap[uid]);
+		}
 		// Distribute thanx
 		var reward = Math.floor(constants.Rewards.signupReward / users.length);
 		async.map(users, function(user, cb2) {
@@ -117,13 +70,13 @@ var consumeFBInvites = function(reqs, to, cb) {
 					txType: "signupReward",
 					timestamp: new Date().getTime() / 1000,
 					message: to.fbUser.first_name + ' ' + to.fbUser.last_name + " signed up!"
-				}, cb2)
-			}))
+				}, cb2);
+			}));
 		}, eh(cb, function() {
 			// Clear all users with more than 10 in their counter score
 			// Give to receiving user
 			var userIds = users.map(function(u) {
-				return u.id
+				return u.id;
 			}),
 				initialTnx = constants.Rewards.signupReward + reqs.length * constants.Rewards.inviteReward;
 			db.User.update({
@@ -148,6 +101,58 @@ var consumeFBInvites = function(reqs, to, cb) {
 	}));
 };
 
+// Register a new account
+m.register = FBify(function(profile, req, res) {
+
+	var scope = {},
+		newuser;
+	async.series([
+
+			function(cb) {
+				db.FBInvite.find({
+					to: profile.id,
+				}).toArray(setter(scope, 'reqs', cb));
+			},
+			function(cb) {
+				if (invitations.isLimitActive() && (!scope.reqs || scope.reqs.length === 0)) {
+					res.json('currently only invited users can register', 400);
+					cb('currently only invited users can register');
+				} else {
+					cb();
+				}
+			},
+			function(cb) {
+				db.User.findOne({
+					username: req.param('name')
+				}, setter(scope, 'user', cb));
+			},
+			function(cb) {
+				if (scope.user) {
+					return res.json('Account already exists', 400);
+				}
+				console.log('registering');
+				newuser = {
+					username: req.param('name'),
+					fbUser: profile,
+					id: profile.id,
+					inviteCounter: 0,
+					inviteAcceptedCounter: 0,
+					seed: util.randomHex(40),
+					verificationSeed: util.randomHex(20),
+					friends: [],
+					firstUse: true
+				};
+				db.User.insert(newuser, mkrespcb(res, 400, function() {
+					console.log('requests found', scope.reqs);
+					consumeFBInvites(scope.reqs, newuser, cb);
+				}));
+			}
+		],
+		mkrespcb(res, 400, function() {
+			console.log('registered');
+			res.json(newuser);
+		}));
+});
 
 function getVerificationFqlQuery(profileId, invitedFriendIds) {
 	var res = 'SELECT recipient_uid FROM apprequest WHERE app_id=' + config.FBappId + ' AND sender_uid=' + profileId + ' AND (',
@@ -235,15 +240,14 @@ m.mkInvite = function(req, res) {
 m.acceptInvite = function(req, res) {
 	console.log('accessing from facebook');
 	req.facebook.api('/me', mkrespcb(res, 400, function(profile) {
-		var reqidStr = req.param('request_ids')
-		var reqids = reqidStr ? reqidStr.split(',') : []
-		console.log('reqids', reqids)
+		var reqidStr = req.param('request_ids');
+		var reqids = reqidStr ? reqidStr.split(',') : [];
 		var query = {
 			reqid: {
 				$in: reqids
 			},
 			to: profile.id
-		}
+		};
 		db.FBInvite.update(query, {
 			$set: {
 				accepted: true
@@ -256,7 +260,7 @@ m.acceptInvite = function(req, res) {
 				});
 			}, mkrespcb(res, 400, function(results) {
 				console.log('updated requests', results);
-				res.render('welcome.jade', {})
+				res.render('welcome.jade', {});
 			}));
 		}));
 	}));
@@ -318,51 +322,51 @@ m.getMe = FBify(function(profile, req, res) {
 // Get friendlist
 
 m.getFriends = FBify(function(profile, req, res) {
-	var scope = {}
+	var scope = {};
 	async.series([
 
 		function(cb2) {
 			req.facebook.api('/me/friends', {
 				fields: 'id, first_name, last_name, picture'
-			}, setter(scope, 'response', cb2))
+			}, setter(scope, 'response', cb2));
 		},
 		function(cb2) {
-			db.User.find({}).toArray(setter(scope, 'users', cb2))
+			db.User.find({}).toArray(setter(scope, 'users', cb2));
 		},
 		function(cb2) {
 			db.User.findOne({
 				id: profile.id
-			}, setter(scope, 'me', cb2))
+			}, setter(scope, 'me', cb2));
 		},
 		function(cb2) {
 			if (!scope.me) return res.json('me not found', 400);
 			var friends = scope.response.data;
-			var usermap = {}
+			var usermap = {};
 			scope.users.map(function(u) {
-				usermap[u.id] = u
-			})
-			var friendmap = {}
+				usermap[u.id] = u;
+			});
+			var friendmap = {};
 			friends.map(function(f) {
-				friendmap[f.id] = f
-			})
+				friendmap[f.id] = f;
+			});
 			friends.map(function(f) {
 				if (usermap[f.id]) {
 					f.isUser = true;
 					f.username = usermap[f.id].username;
 				}
-				if (friendmap[f.id]) f.isFriend = true
-			})
+				if (friendmap[f.id]) f.isFriend = true;
+			});
 			setter(scope, 'friends', cb2)(null, friends);
 		}
 	], mkrespcb(res, 400, function() {
-		res.json(scope.friends)
-	}))
+		res.json(scope.friends);
+	}));
 });
 
 // Autocomplete usernames
 
 m.autoFill = function(req, res) {
-	var partial = req.param('partial') || ''
+	var partial = req.param('partial') || '';
 	var names = partial.split(' ');
 	var nameConditions = [{
 		'fbUser.first_name': {
@@ -394,9 +398,9 @@ m.autoFill = function(req, res) {
 					username: x.username,
 					id: x.id,
 					fullname: x.fbUser.first_name + " " + x.fbUser.last_name
-				}
+				};
 			}));
-		}))
+		}));
 };
 
 m.getUserById = function getUserById(req, res) {
@@ -409,7 +413,7 @@ m.getUserById = function getUserById(req, res) {
 			fullname: u.fbUser.first_name + " " + u.fbUser.last_name
 		});
 	}));
-}
+};
 
 // Is a username available?
 
@@ -425,13 +429,13 @@ m.checkName = function(req, res) {
 m.getPic = function(req, res) {
 	function getPicture(userId) {
 		req.facebook.api('/' + userId + '/picture?width=' + sz + '&height=' + sz + '&redirect=false', mkrespcb(res, 400, function(pic) {
-			var extension = pic.data.url.slice(pic.data.url.length - 3)
+			var extension = pic.data.url.slice(pic.data.url.length - 3);
 			https.get(pic.data.url, function(r) {
 				res.writeHead(200, {
 					'Content-Type': 'image/' + extension
 				});
 				r.pipe(res);
-			})
+			});
 		}));
 	}
 	var username = req.param('username'),
@@ -442,14 +446,14 @@ m.getPic = function(req, res) {
 			username: username
 		}, mkrespcb(res, 400, function(u) {
 			if (!u) {
-				return res.json("user not found", 404)
+				return res.json("user not found", 404);
 			}
 			return getPicture(u.id);
 		}));
 	} else if (userId) {
 		return getPicture(userId);
 	}
-}
+};
 
 // Return verification table
 
@@ -467,20 +471,20 @@ m.printVerificationTable = function(req, res) {
 			return {
 				vsHash: Bitcoin.Crypto.SHA256(u.verificationSeed),
 				pubkey: pub
-			}
-		})
+			};
+		});
 		res.json({
 			total: counter.toString(),
 			users: usertable
-		})
-	}))
-}
+		});
+	}));
+};
 
 m.printMyVerificationSeed = FBify(function(profile, req, res) {
 	db.User.findOne({
 		id: profile.id
 	}, mkrespcb(res, 400, function(u) {
 		if (u) res.send(u.verificationSeed || '00000000000000000000');
-		else res.json("No user found", 400)
-	}))
-})
+		else res.json("No user found", 400);
+	}));
+});

@@ -235,7 +235,7 @@ m.getPendingRequests = FBify(function(profile, req, res) {
                 if (request.requestType === constants.RequestTypes.GET) {
                     type = 'get';
                 } else if (request.requestType === constants.RequestTypes.GIVE) {
-                    type = 'give'
+                    type = 'give';
                 }
                 if (direction && type) {
                     finalResult[direction][type].push(request);
@@ -248,29 +248,29 @@ m.getPendingRequests = FBify(function(profile, req, res) {
 // Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
 var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {
-    if (!parseInt(tnx)) return cb('invalid tnx count')
-    if (tnx < 0) return cb('you can\'t send a negative amount, you clever thief!')
-    var scope = {}
+    if (!parseInt(tnx)) return cb('invalid tnx count');
+    if (tnx < 0) return cb('you can\'t send a negative amount');
+    var scope = {};
     async.series([
 
         function(cb2) {
-            db.User.findOne(fromquery, setter(scope, 'from', cb2))
+            db.User.findOne(fromquery, setter(scope, 'from', cb2));
         },
         function(cb2) {
-            if (!scope.from) return cb('user not found')
-            scope.from.tnx = parseInt(scope.from.tnx)
-            if (scope.from.tnx < tnx) return cb('sender too poor')
-            db.User.findOne(toquery, setter(scope, 'to', cb2))
+            if (!scope.from) return cb('user not found');
+            scope.from.tnx = parseInt(scope.from.tnx);
+            if (scope.from.tnx < tnx) return cb('sender too poor');
+            db.User.findOne(toquery, setter(scope, 'to', cb2));
         },
         function(cb2) {
-            if (!scope.to) return cb('user not found')
+            if (!scope.to) return cb('user not found');
             db.User.update({
                 id: scope.from.id
             }, {
                 $set: {
                     tnx: scope.from.tnx - tnx
                 }
-            }, cb2)
+            }, cb2);
         },
         function(cb2) {
             db.User.update({
@@ -279,7 +279,7 @@ var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {
                 $set: {
                     tnx: (scope.to.tnx || 0) + tnx
                 }
-            }, cb2)
+            }, cb2);
         },
         function(cb2) {
             db.Transaction.insert({
@@ -290,12 +290,12 @@ var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {
                 txType: txType,
                 message: message,
                 timestamp: new Date().getTime() / 1000
-            }, cb2)
+            }, cb2);
         }
     ], eh(cb, function() {
-        cb(null, 'success')
-    }))
-}
+        cb(null, 'success');
+    }));
+};
 
 // Send thanx
 
@@ -322,7 +322,7 @@ m.sendTNX = FBify(function(profile, req, res) {
                 tnx,
                 txType,
                 cb2,
-                message)
+                message);
         },
         function(cb2) {
             db.Request.findAndModify({
@@ -344,9 +344,9 @@ m.sendTNX = FBify(function(profile, req, res) {
 
         }
     ], mkrespcb(res, 400, function(x) {
-        res.json('success')
-    }))
-})
+        res.json('success');
+    }));
+});
 
 m.acceptGive = FBify(function(profile, req, res) {
     var scope = {};
@@ -397,7 +397,7 @@ m.acceptGive = FBify(function(profile, req, res) {
                 txType: constants.TxTypes.giveRequest,
                 message: scope.request.message,
                 timestamp: new Date().getTime() / 1000
-            }, cb)
+            }, cb);
         },
         function(cb) {
             db.Request.findAndModify({

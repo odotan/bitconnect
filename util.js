@@ -3,7 +3,7 @@ var crypto = require('crypto'),
     Facebook = require('facebook-node-sdk'),
     config = require('./config'),
     sha256 = function(x) {
-        return crypto.createHash('sha256').update(x).digest('hex')
+        return crypto.createHash('sha256').update(x).digest('hex');
     };
 /*
  * Returns a callback function(err, res) that in case of error runs given fail function,
@@ -30,7 +30,7 @@ var mkrespcb = function(res, code, success) {
     return eh(function(msg) {
         res.json(msg, code);
     }, success);
-}
+};
 
 var entropy = '' + new Date().getTime() + Math.random();
 
@@ -47,11 +47,11 @@ var random = function(modulus) {
         .reduce(function(tot, x) {
             return (tot * 16 + alphabet.indexOf(x)) % modulus;
         }, 0);
-}
+};
 
 var randomHex = function(b) {
-    return sha256(entropy + new Date().getTime() + Math.random()).substring(0, b)
-}
+    return sha256(entropy + new Date().getTime() + Math.random()).substring(0, b);
+};
 
 var cbsetter = function(obj, prop, callback) {
     return function(err, val) {
@@ -60,8 +60,8 @@ var cbsetter = function(obj, prop, callback) {
             obj[prop] = val;
             callback(null, val);
         }
-    }
-}
+    };
+};
 
 var FBify = function(c) {
     return function(req, res, next) {
@@ -70,8 +70,8 @@ var FBify = function(c) {
                 return res.json(profile.error, 404);
             c(profile, req, res, next);
         }));
-    }
-}
+    };
+};
 
 var facebook = new Facebook({
     appID: config.FBappId,
@@ -79,13 +79,13 @@ var facebook = new Facebook({
 });
 
 var pybtctool = function(command, argz) {
-    var cb = arguments[arguments.length - 1]
+    var cb = arguments[arguments.length - 1],
     args = Array.prototype.slice.call(arguments, 1, arguments.length - 1)
         .map(function(x) {
-            return ('' + x).replace('\\', '\\\\').replace(' ', '\\ ')
-        })
+            return ('' + x).replace('\\', '\\\\').replace(' ', '\\ ');
+        });
     cp.exec('pybtctool ' + command + ' ' + args.join(' '), cb);
-}
+};
 
 // Commands:
 // trie('insert',old_state_id,key,val) -> new state_id updated with the (key,val) pair
@@ -96,13 +96,13 @@ var pybtctool = function(command, argz) {
 // the trie insert function, and then change the reference to the state root in your
 // other database
 var trie = function(command, argz) {
-    var cb = arguments[arguments.length - 1]
+    var cb = arguments[arguments.length - 1],
     args = Array.prototype.slice.call(arguments, 1, arguments.length - 1)
         .map(function(x) {
-            return ('' + x).replace('\\', '\\\\').replace(' ', '\\ ')
-        })
+            return ('' + x).replace('\\', '\\\\').replace(' ', '\\ ');
+        });
     cp.exec('./trie.py ' + command + ' /tmp/trie_database ' + args.join(' '), cb);
-}
+};
 
 var dumpUser = function(u) {
     return {
@@ -112,8 +112,8 @@ var dumpUser = function(u) {
             first_name: u.fbUser.first_name,
             last_name: u.fbUser.last_name,
         } : {}
-    }
-}
+    };
+};
 
 
 module.exports = {
@@ -126,4 +126,4 @@ module.exports = {
     facebook: facebook,
     pybtctool: pybtctool,
     dumpUser: dumpUser
-}
+};

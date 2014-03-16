@@ -8,4 +8,4 @@ module.exports = {
     keyfile: 'ssl/bitconnectwildkey.pem',
     // SSL public key/certificate
     certfile: 'ssl/bitconnectwildcert.pem'
-}
+};
