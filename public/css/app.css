@@ -548,6 +548,22 @@
   cursor: pointer;
   border-radius: 50%;
 }
+/* line 118, ../sass/_give.scss */
+.giveGetPage .typeaheadTmpl {
+  color: black;
+}
+/* line 120, ../sass/_give.scss */
+.giveGetPage .typeaheadTmpl .img {
+  margin-right: 5px;
+}
+/* line 122, ../sass/_give.scss */
+.giveGetPage .typeaheadTmpl .img img {
+  position: relative;
+  left: -7px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
 
 /* line 1, ../sass/_thanx.scss */
 .thanx {

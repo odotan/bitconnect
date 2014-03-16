@@ -1,0 +1,4 @@
+a.typeaheadTmpl
+	span.img
+		img(ng-src="/pic?id={{match.model.id}}")
+	span.name(bind-html-unsafe="match.label | typeaheadHighlight:query")

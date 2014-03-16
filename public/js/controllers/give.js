@@ -191,7 +191,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             if (isValidUser($scope.give.to)) {
                 angular.element('#giveTo').controller('ngModel').$setValidity('user', true);
             }
-            if (angular.isUndefined($scope.give) || angular.isUndefined($scope.give.to) || angular.isObject($scope.give.to) || $scope.give.to.length < 2) {
+            if (angular.isUndefined($scope.give) || angular.isUndefined($scope.give.to) || angular.isObject($scope.give.to) || $scope.give.to.length < 1) {
                 return;
             }
             $scope.usersById = FriendsService.getFriendsByPartialName($scope.give.to);

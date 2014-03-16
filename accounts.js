@@ -430,12 +430,7 @@ m.getPic = function(req, res) {
 	function getPicture(userId) {
 		req.facebook.api('/' + userId + '/picture?width=' + sz + '&height=' + sz + '&redirect=false', mkrespcb(res, 400, function(pic) {
 			var extension = pic.data.url.slice(pic.data.url.length - 3);
-			https.get(pic.data.url, function(r) {
-				res.writeHead(200, {
-					'Content-Type': 'image/' + extension
-				});
-				r.pipe(res);
-			});
+			return res.redirect(pic.data.url);
 		}));
 	}
 	var username = req.param('username'),
