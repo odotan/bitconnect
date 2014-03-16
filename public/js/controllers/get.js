@@ -190,7 +190,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             if (angular.isUndefined($scope.get) ||
                 angular.isUndefined($scope.get.from) ||
                 angular.isObject($scope.get.from) ||
-                $scope.get.from.length < 2) {
+                $scope.get.from.length < 1) {
                 return;
             }
 

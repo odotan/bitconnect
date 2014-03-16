@@ -2,7 +2,7 @@
     .giveGetPage
         form.giveget_form.get(name="getForm", ng-class="{showErrors: showErrors}", novalidate)
             .formField get from:
-                input(type="text",ng-model="get.from",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) |  limitTo:8", style="width:calc(100% - 60px)", ng-required="true", id="getFrom", name="getFrom")
+                input(type="text",ng-model="get.from",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) |  limitTo:8", typeahead-template-url="/templates/typeahead-tmpl",style="width:calc(100% - 60px)", ng-required="true", id="getFrom", name="getFrom")
             div.error(ng-show="showErrors && getForm.getFrom.$error.required") must specify giver
             div.error(ng-show="showErrors && getForm.getFrom.$error.user") giver must be a person
             .formField(ng-if="!btcmode || btcmode=='tnx'") number of thanx:
