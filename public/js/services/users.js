@@ -27,7 +27,7 @@ window.app.service('UsersService', function($rootScope, $http) {
                 cachedUsers = usersById;
                 callback(usersById);
             });
-    }
+    };
 
     this.getUserById = function getUserById(userId, cb) {
         $http.get('/user?userId=' + userId).success(function(res) {
@@ -66,7 +66,7 @@ window.app.service('UsersService', function($rootScope, $http) {
             }
         }
         return false;
-    }
+    };
 
     /*
      * Combines the source user map into the destination user map.

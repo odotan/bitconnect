@@ -40,7 +40,7 @@ angular.module('thanxbits').service('requests', function($rootScope, $http, Requ
         if (angular.toJson(newIds) != angular.toJson(oldIds)) {
             $rootScope.pendingRequests = value;
             if (!$rootScope.$$phase) $rootScope.$apply();
-        };
+        }
     }
 
     this.getrequests = function() {
@@ -48,7 +48,7 @@ angular.module('thanxbits').service('requests', function($rootScope, $http, Requ
             .success(function(i) {
                 updateIfChanged(i);
             });
-    }
+    };
 
     $rootScope.pendingRequests = {
         incoming: {
@@ -59,7 +59,7 @@ angular.module('thanxbits').service('requests', function($rootScope, $http, Requ
             get: [],
             give: []
         }
-    }
+    };
     setInterval(this.getrequests, 5000);
     this.getrequests();
     this.acceptRequest = function acceptRequest(request, successCB) {
@@ -91,7 +91,7 @@ angular.module('thanxbits').service('requests', function($rootScope, $http, Requ
                 },
                 actiontext: 'yep',
                 canceltext: 'nope'
-            }
+            };
         }
     };
 
@@ -107,17 +107,17 @@ angular.module('thanxbits').service('requests', function($rootScope, $http, Requ
                         $rootScope.message = {
                             body: direction == 'incoming' ? 'rejected' : 'cancelled',
                             canceltext: 'cool thanx'
-                        }
+                        };
                     })
                     .error(function(e) {
                         $rootScope.message = {
                             body: e,
                             canceltext: 'cool thanx'
-                        }
-                    })
+                        };
+                    });
             },
             actiontext: 'yep',
             canceltext: 'nope'
-        }
+        };
     };
 });

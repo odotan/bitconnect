@@ -9,7 +9,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
 
     $rootScope.$watch('user.fbUser',$scope.getfriends);
 
-    $scope.giveget = function() { window.location.href = '/giveget' }
+    $scope.giveget = function() { window.location.href = '/giveget'; };
 
     $scope.updateVisibleFriends = function() {
         var filter = function(f) {
@@ -18,14 +18,14 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
             var friendString = (f.first_name + ' ' + f.last_name).toLowerCase(),
                 searchString = $scope.searchstring.toLowerCase();
             return friendString.indexOf(searchString) >= 0;
-        }
+        };
         if ($rootScope.user && $rootScope.user.friends && $rootScope.FBfriends) {
             $scope.filteredFriends = $rootScope.FBfriends.filter(filter);
             var nvf = $scope.filteredFriends.slice(0,$scope.visibleFriendsLimit),
-                nvflist = nvf.map(function(x) { return x.id }),
-                ovflist = ($scope.visibleFriends || []).map(function(x) { return x.id })
+                nvflist = nvf.map(function(x) { return x.id; }),
+                ovflist = ($scope.visibleFriends || []).map(function(x) { return x.id; });
             if (JSON.stringify(nvflist) != JSON.stringify(ovflist)) {
-                $scope.visibleFriends = nvf
+                $scope.visibleFriends = nvf;
             }
         }
     };
@@ -44,8 +44,8 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     },416);
 
     // Select friends
-    $scope.selected = {}
-    $scope.numselected = 0
+    $scope.selected = {};
+    $scope.numselected = 0;
 
     $scope.selectFriend = function(id) {
         if (!$scope.selected[id]) {
@@ -58,13 +58,13 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
             delete $scope.selected[id];
             $scope.numselected -= 1;
         }
-        if (!$scope.$$phase) { $scope.$apply() }
-    }
+        if (!$scope.$$phase) { $scope.$apply(); }
+    };
 
     $scope.selectNone = function() {
         $scope.selected = {};
         $scope.numselected = 0;
-    }
+    };
 
     // Invite friends
     $scope.invite = function() {
@@ -93,13 +93,13 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                     actiontext: 'cool thanx',
                     action: function(){ $rootScope.message.body = null; $rootScope.goto('thanx'); },
                     canceltext:  'i wanna invite more friends'
-                }
+                };
             });
         });
-    }
+    };
 
     // Done
-    $scope.done = function() { $rootScope.goto('thanx') }
+    $scope.done = function() { $rootScope.goto('thanx'); };
 	
     $scope.loadMoreFriends = function () {
         if (angular.isUndefined($scope.FBfriends)) {
@@ -112,7 +112,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
         } else {
             $scope.visibleFriendsLimit = $scope.FBfriends.length;
         }
-	}
-}])
+	};
+}]);
 
 

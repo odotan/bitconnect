@@ -40,7 +40,7 @@ app.directive('requestItem', [
 						if($scope.other.fbUser) {
 							$rootScope.goto('chat/' + $scope.other.id);
 						}
-					}
+					};
 				}
 			]
 		};

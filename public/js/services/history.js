@@ -60,6 +60,6 @@ window.app.service('HistoryService', ['$http',
                 return interactions[otherUserId];
             }
             return null;
-        }
+        };
     }
 ]);

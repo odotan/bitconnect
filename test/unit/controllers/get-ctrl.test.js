@@ -1,5 +1,5 @@
-'use strict';
 describe('controllers', function() {
+	'use strict';
 	var $scope, $rootScope, $timeout, $httpBackend, $window, $rootElement, $location, createController, UsersService, FriendsService, RequestTypes;
 
 	function putInitialDataOnScope() {
@@ -23,7 +23,7 @@ describe('controllers', function() {
 
 		$scope.getForm = {
 			$valid: true
-		}
+		};
 	}
 	UsersService = {
 		userFilter: function(user, text) {
@@ -37,11 +37,11 @@ describe('controllers', function() {
 	};
 	FriendsService = {
 		getFriendsByPartialName: function(name) {}
-	}
+	};
 	RequestTypes = {
 		'GET': 'GET',
 		'GIVE': 'GIVE'
-	}
+	};
 	describe('GetController', function() {
 		beforeEach(function() {
 			module('thanxbits.controllers');
@@ -137,7 +137,7 @@ describe('controllers', function() {
 			var controller = createController();
 			$scope.get = {
 				from: 'Maya'
-			}
+			};
 			$scope.$apply();
 			expect($scope.usersById['432432']).toBeDefined();
 			expect($scope.usersById['123123']).toBeDefined();
@@ -187,7 +187,7 @@ describe('controllers', function() {
 			});
 			var controller = createController();
 			expect(UsersService.getUserById).toHaveBeenCalledWith(777555, jasmine.any(Function));
-			expect($scope.get.from.id).toBe('777555')
+			expect($scope.get.from.id).toBe('777555');
 		});
 
 		it('should send correct requests when using gettnx method', function() {

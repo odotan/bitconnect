@@ -1,5 +1,5 @@
-'use strict';
 describe('services', function() {
+	'use strict';
 	describe('requests service', function() {
 		var service, request, httpBackend, rootScope;
 		beforeEach(module('thanxbits'));

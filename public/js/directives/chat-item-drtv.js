@@ -26,6 +26,6 @@ app.directive('chatItem', [
 					};
 				}
 			]
-		}
+		};
 	}
 ]);

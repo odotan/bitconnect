@@ -8,10 +8,10 @@ window.controllers.controller('ProfileCtrl', ['$scope', '$rootScope', '$http', '
 		//$scope.username = window.location.host.split('.').slice(0,2).join('.')+'.bitconnect.me'
 		$scope.give = function() {
 			location.href="/app/give?toId=" + $scope.userId;
-		}
+		};
 
 		$scope.get = function() {
 			location.href="/app/get?fromId=" + $scope.userId;
-		}
+		};
 	}
 ]);

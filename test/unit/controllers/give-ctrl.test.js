@@ -1,5 +1,5 @@
-'use strict';
 describe('controllers', function() {
+	'use strict';
 	var $scope, $rootScope, $timeout, $httpBackend, $window, $rootElement, $location, createController, UsersService, FriendsService, RequestTypes;
 
 	function putInitialDataOnScope() {
@@ -24,7 +24,7 @@ describe('controllers', function() {
 		$rootScope.bitcoinSend = function() {};
 		$scope.giveForm = {
 			$valid: true
-		}
+		};
 	}
 	UsersService = {
 		userFilter: function(user, text) {
@@ -38,11 +38,11 @@ describe('controllers', function() {
 	};
 	FriendsService = {
 		getFriendsByPartialName: function(name) {}
-	}
+	};
 	RequestTypes = {
 		'GET': 'GET',
 		'GIVE': 'GIVE'
-	}
+	};
 	describe('GiveController', function() {
 		beforeEach(function() {
 			module('thanxbits.controllers');
@@ -137,7 +137,7 @@ describe('controllers', function() {
 			var controller = createController();
 			$scope.give = {
 				to: 'Maya'
-			}
+			};
 			$scope.$apply();
 			expect($scope.usersById['432432']).toBeDefined();
 			expect($scope.usersById['123123']).toBeDefined();
@@ -228,7 +228,7 @@ describe('controllers', function() {
 			});
 			var controller = createController();
 			expect(UsersService.getUserById).toHaveBeenCalledWith(777555, jasmine.any(Function));
-			expect($scope.give.to.id).toBe('777555')
+			expect($scope.give.to.id).toBe('777555');
 		});
 
 		it('should send correct requests when using givetnx method', function() {
@@ -372,7 +372,7 @@ describe('controllers', function() {
 			$scope.give = {
 				to: '1B4HzATYyL5SYdhQt9TGQPHoY5qE2rRMP',
 				sat: 10000
-			}
+			};
 			$scope.givemain();
 			expect($rootScope.bitcoinSend).toHaveBeenCalledWith('1B4HzATYyL5SYdhQt9TGQPHoY5qE2rRMP', 10000, 10000, undefined, undefined, jasmine.any(Function));
 			expect($rootScope.bitcoinSend.callCount).toBe(1);

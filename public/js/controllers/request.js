@@ -21,11 +21,10 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ti
                     });
                 if (JSON.stringify(newh) != JSON.stringify(oldh)) {
                     $scope.history = h;
-                };
+                }
             });
         };
         setInterval(this.gethistory, 5000);
-
-        this.gethistory(true)
+        this.gethistory(true);
     }
-])
+]);

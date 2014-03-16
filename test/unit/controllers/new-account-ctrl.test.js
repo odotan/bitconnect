@@ -1,5 +1,5 @@
-'use strict';
 describe('controllers', function() {
+	'use strict';
 	describe('NewAccountController', function() {
 		var $scope, $rootScope, $httpBackend, $window, createController;
 		beforeEach(function() {

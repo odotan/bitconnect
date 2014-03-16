@@ -1,5 +1,5 @@
-'use strict';
 describe('directives', function() {
+	'use strict';
 	var $scope, httpBackend, rootScope, elm, requestsService;
 	requestsService = {
 		acceptRequest: function() {},

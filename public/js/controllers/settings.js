@@ -6,42 +6,41 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
         $rootScope.message = {
             body: 'feature not implemented yet',
             canceltext: 'cool thanx'
-        }
-    }
-    $scope.verify = $scope.sendtext
+        };
+    };
+    $scope.verify = $scope.sendtext;
 
     $scope.checkLogin = function(pw,check,callback) {
-        if (pw != check) $rootScope.errHandle('passwords don\'t match')
-        else $rootScope.bitcoinLogin(pw,callback)
-    }
+        if (pw != check) $rootScope.errHandle('passwords don\'t match');
+        else $rootScope.bitcoinLogin(pw,callback);
+    };
 
     $scope.buy = function() {
         if ($scope.amount < 10000)
-            return $rootScope.errHandle("minimum buy 10000")
+            return $rootScope.errHandle("minimum buy 10000");
         if ($scope.amount > $scope.balance - 10000)
-            return $rootScope.errHandle("not enough bts")
+            return $rootScope.errHandle("not enough bts");
 
-        var msg = "are you sure you want to buy "+$scope.amount+" satoshis"
+        var msg = "are you sure you want to buy "+$scope.amount+" satoshis";
 
         $rootScope.confirmDialog(msg,function() {
-            $rootScope.buyTnx($scope.amount)
-        })
-    }
+            $rootScope.buyTnx($scope.amount);
+        });
+    };
 
     $scope.logout = function() {
         $http.post('/logout').success(function() {
             window.location.href = '/';    
-        });
-        
-    }
+        });  
+    };
     
     // Kill account (testing only)
     $scope.kill = function() {
         $http.post('/kill')
             .success(function(r) {
                 $rootScope.user = r;
-                location.href='/app/newaccount'
+                location.href='/app/newaccount';
              })
             .error(errhandle);
-    }
-}])
+    };
+}]);

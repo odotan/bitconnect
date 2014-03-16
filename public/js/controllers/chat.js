@@ -2,7 +2,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 	function($scope, $rootScope, $timeout, $http, $routeParams, HistoryService, me, bitcoin, RequestTypes) {
 		this.getInteraction = function getInteraction(firstTime) {
 			if (firstTime) {
-				var cachedInteraction = HistoryService.getCachedInteractionWithUser($routeParams.otherUserId)
+				var cachedInteraction = HistoryService.getCachedInteractionWithUser($routeParams.otherUserId);
 				if (cachedInteraction) {
 					$scope.interaction = cachedInteraction;
 					$timeout(function() {
@@ -52,13 +52,13 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 			if (err) {
 				$rootScope.errHandle(err);
 			}
-		};
+		}
 
 		function onRequestSend() {
 			$rootScope.message = {
 				body: 'request sent!',
 				canceltext: 'cool tnx'
-			}
+			};
 			setSubmitDisabled(false);
 			clearValues();
 		}
@@ -112,7 +112,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 			})
 				.success(onRequestSend)
 				.error(errHandler);
-		};
+		}
 
 		function getSatNotSafe() {
 			$http.post('/mkrequest', {
@@ -130,7 +130,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 				$rootScope.message = {
 					body: 'not enough thanx to give',
 					canceltext: 'ok'
-				}
+				};
 				setSubmitDisabled(false);
 				return;
 			}

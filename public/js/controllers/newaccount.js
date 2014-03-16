@@ -11,7 +11,7 @@ window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '
 				else $scope.available = false;
 			})
 			.error(errhandle);
-	}
+	};
 
 	$scope.register = function() {
 		$http.post('/register', {
@@ -21,7 +21,7 @@ window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '
 				$window.location.href = '/app/us';
 			})
 			.error(errhandle);
-	}
+	};
 
-	$scope.$watch('username', $scope.checkname)
+	$scope.$watch('username', $scope.checkname);
 }]);

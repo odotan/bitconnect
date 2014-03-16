@@ -23,7 +23,7 @@ function($location, $timeout, TxTypes) {
 				if ($scope.otherUser.fbUser) {
 					$rootScope.goto('chat/' + $scope.otherUser.id);
 				}
-			}
+			};
 		}],
 		link: function linkFn(scope, element) {
 			$timeout(function() {

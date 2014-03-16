@@ -58,7 +58,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             } else if (!$scope.btcmode || $scope.btcmode == 'tnx') {
                 $scope.givetnx(clearValues);
             }
-        }
+        };
         $scope.givetnx = function(successCB) {
 
             if (!angular.isDefined(parseInt($scope.give.tnx))) {
@@ -73,7 +73,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 $rootScope.message = {
                     body: 'you can\'t give to yourself',
                     canceltext: 'ok'
-                }
+                };
                 setSubmitDisabled(false);
                 return;
             }
@@ -81,7 +81,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                     $rootScope.message = {
                         body: 'not enough thanx to give',
                         canceltext: 'ok'
-                    }
+                    };
                     setSubmitDisabled(false);
                     return;
             }
@@ -97,7 +97,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                         $rootScope.message = {
                             body: 'request sent!',
                             canceltext: 'cool tnx'
-                        }
+                        };
                         if (successCB) {
                             successCB();
                         }
@@ -126,7 +126,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                     }
                 });
             }
-        }
+        };
 
         $scope.givebtc = function(successCB) {
             if (!parseInt($scope.give.sat) || parseInt($scope.give.sat) < 5430) return;
@@ -146,7 +146,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 $rootScope.message = {
                     body: 'you can\'t give to yourself',
                     canceltext: 'ok'
-                }
+                };
                 setSubmitDisabled(false);
                 return;
             }
@@ -175,7 +175,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 });
                 //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your satoshi when they sign up.', canceltext: 'invite' }
             }
-        }
+        };
 
 
         $scope.usersById = {}; // map of users filtered according to the current search
@@ -219,4 +219,4 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             return res;
         };
     }
-])
+]);

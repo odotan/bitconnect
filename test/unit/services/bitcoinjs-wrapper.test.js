@@ -1,5 +1,5 @@
-'use strict';
 describe('services', function() {
+	'use strict';
 	var history = [{
 		"output": "A:1",
 		"spend": "B:1",

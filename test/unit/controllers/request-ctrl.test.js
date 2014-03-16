@@ -1,5 +1,5 @@
-'use strict';
 describe('controllers', function() {
+	'use strict';
 	var $scope, $rootScope, $timeout, createController, HistoryService;
 	HistoryService = {
 		getHistory: function() {},
@@ -55,7 +55,7 @@ describe('controllers', function() {
 			spyOn(HistoryService, 'getHistory').andCallFake(function(callback) {
 				callback([{
 					name: 'item3'
-				}])
+				}]);
 			});
 			var controller = createController();
 			expect(HistoryService.getCachedHistory).toHaveBeenCalled();
@@ -95,7 +95,7 @@ describe('controllers', function() {
 			spyOn(HistoryService, 'getHistory').andCallFake(function(callback) {
 				callback([{
 					name: 'item6'
-				}])
+				}]);
 			});
 
 			controller.gethistory(true);
@@ -116,7 +116,7 @@ describe('controllers', function() {
 			spyOn(HistoryService, 'getHistory').andCallFake(function(callback) {
 				callback([{
 					name: 'item7'
-				}])
+				}]);
 			});
 
 			controller.gethistory(false);

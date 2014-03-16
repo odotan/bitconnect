@@ -1,5 +1,5 @@
-window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', '$window', 'me', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes', 'me',
-    function($scope, $rootScope, $http, $location, $window, me, requests, bitcoin, FriendsService, UsersService, RequestTypes, me) {
+window.controllers.controller('GetController', ['$scope', '$rootScope', '$http', '$location', '$window', 'requests', 'bitcoin', 'friends', 'UsersService', 'RequestTypes', 'me',
+    function($scope, $rootScope, $http, $location, $window, requests, bitcoin, FriendsService, UsersService, RequestTypes, me) {
 
         $window.wscope = $scope;
         if ($location.search().fromId) {
@@ -13,7 +13,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 from: $location.search().from,
                 tnx: $location.search().tnx,
                 message: $location.search().message
-            }
+            };
         }
 
         function setSubmitDisabled(disabled) {
@@ -54,7 +54,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                         $rootScope.message = {
                             body: 'you can\'t get from yourself',
                             canceltext: 'ok'
-                        }
+                        };
                         setSubmitDisabled(false);
                         return;
                     }
@@ -99,7 +99,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     });
                 }
             }
-        }
+        };
         $scope.getbtc = function(successCB) {
             if (!parseInt($scope.get.sat) || parseInt($scope.get.sat)<5430) {
                 setSubmitDisabled(false);
@@ -114,7 +114,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 $rootScope.message = {
                     body: 'you can\'t get from yourself',
                     canceltext: 'ok'
-                }
+                };
                 setSubmitDisabled(false);
                 return;
             }
@@ -129,13 +129,13 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     $rootScope.message = {
                         body: 'request sent!',
                         canceltext: 'cool tnx'
-                    }
+                    };
                     if (successCB) {
                         successCB();
                     }
                 })
                 .error(errHandler);
-        }
+        };
         $scope.gettnx = function(successCB) {
             if (!parseInt($scope.get.tnx)) {
                 setSubmitDisabled(false);
@@ -151,7 +151,7 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                 $rootScope.message = {
                     body: 'you can\'t get from yourself',
                     canceltext: 'ok'
-                }
+                };
                 setSubmitDisabled(false);
                 return;
             }
@@ -166,13 +166,13 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
                     $rootScope.message = {
                         body: 'request sent!',
                         canceltext: 'cool tnx'
-                    }
+                    };
                     if (successCB) {
                         successCB();
                     }
                 })
                 .error(errHandler);
-        }
+        };
 
         $scope.usersById = {}; // map of users filtered according to the current search
 
@@ -219,4 +219,4 @@ window.controllers.controller('GetController', ['$scope', '$rootScope', '$http',
             return res;
         };
     }
-])
+]);
