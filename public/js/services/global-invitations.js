@@ -6,5 +6,5 @@ window.app.service('GlobalInvitationsService', ['$rootScope', '$http', function(
         });
     }
     updateLimit();
-    setInterval(updateLimit, 6667);
+    setInterval(updateLimit, 10000);
 }]);

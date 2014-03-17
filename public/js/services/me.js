@@ -20,6 +20,6 @@ window.app.service('me', function($rootScope, $http) {
 				}
 			});
 	};
-	setInterval(this.getme, 5000);
+	setInterval(this.getme, 60000);
 	this.getme();
 });
