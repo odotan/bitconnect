@@ -839,7 +839,7 @@
   margin: 0;
 }
 /* line 39, ../sass/_me.scss */
-.meContainer .section .displayField div, .meContainer .section .displayField input {
+.meContainer .section .displayField div, .meContainer .section .displayField input, .meContainer .section .displayField a {
   border: 0;
   height: 100%;
   border-radius: 30px;
@@ -853,7 +853,7 @@
   background-color: #f2fbff;
 }
 /* line 51, ../sass/_me.scss */
-.meContainer .section .displayField div.readOnly, .meContainer .section .displayField input.readOnly {
+.meContainer .section .displayField div.readOnly, .meContainer .section .displayField input.readOnly, .meContainer .section .displayField a.readOnly {
   color: #f2fbff;
   background-color: #073651;
 }
@@ -869,6 +869,52 @@
 /* line 64, ../sass/_me.scss */
 .meContainer .section .displayField input:focus {
   outline: 0;
+}
+
+/* line 2, ../sass/_transaction.scss */
+.transaction .address {
+  font-size: 11px;
+}
+/* line 5, ../sass/_transaction.scss */
+.transaction .from, .transaction .to {
+  background: #f2fbff;
+  border-radius: 30px;
+  margin: 10px 10px;
+  height: 50px;
+}
+/* line 10, ../sass/_transaction.scss */
+.transaction .from img, .transaction .to img {
+  position: absolute;
+  border-radius: 50%;
+}
+/* line 14, ../sass/_transaction.scss */
+.transaction .from .name, .transaction .to .name {
+  position: relative;
+  left: 60px;
+}
+/* line 18, ../sass/_transaction.scss */
+.transaction .from .address, .transaction .to .address {
+  position: relative;
+  left: 60px;
+}
+/* line 23, ../sass/_transaction.scss */
+.transaction .arrow-down {
+  margin: auto;
+  width: 100px;
+  height: 0;
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  border-top: 100px solid #f2fbff;
+}
+/* line 30, ../sass/_transaction.scss */
+.transaction .arrow-down.unconfirmed {
+  border-top: 100px solid #E47E70;
+}
+/* line 34, ../sass/_transaction.scss */
+.transaction .inArrow {
+  position: relative;
+  top: -90px;
+  left: 119px;
 }
 
 /* line 1, ../sass/main.scss */

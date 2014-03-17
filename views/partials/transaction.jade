@@ -1,16 +1,22 @@
 .surround
-
-    div Transaction Details
-    div(ng-if="historyItem.rejected") This request was rejected
-    div(ng-if="historyItem.cancelled") This request was cancelled
-    div(ng-if="historyItem.confirmed == false") This transaction is unconfirmed
-    div From: {{historyItem.payer.fbUser.first_name}} {{historyItem.payer.fbUser.last_name}}
-    div To:
-        span(ng-if="historyItem.payee.fbUser")  {{historyItem.payee.fbUser.first_name}} {{historyItem.payee.fbUser.last_name}}
-        span(ng-if="!historyItem.payee.fbUser && historyItem.payee")  {{historyItem.payee}}
-    div Amount:
-        span(ng-if="historyItem.tnx")  {{historyItem.tnx}} thanx
-        span(ng-if="historyItem.sat")  {{historyItem.sat}} satoshi
-    div {{historyItem.message}}
-    div {{timestamp.toLocaleDateString()}} {{timestamp.toLocaleTimeString()}}
-    include modal
+    .transaction
+        div {{timestamp.toLocaleDateString()}} {{timestamp.toLocaleTimeString()}}
+        div(ng-if="historyItem.rejected") This request was rejected
+        div(ng-if="historyItem.cancelled") This request was cancelled
+        div(ng-if="historyItem.confirmed == false") This transaction is unconfirmed
+        div {{historyItem.message}}
+        div.from
+            img(ng-src="/pic?username={{historyItem.payer.username}}")
+            div.name {{historyItem.payer.fbUser.first_name}} {{historyItem.payer.fbUser.last_name}}
+            div.address(ng-if="historyItem.sat")
+                a(href="http://blockchain.info/address/{{historyItem.payer.address}}", target="_blank") {{historyItem.payer.address}}
+        div.arrow-down(ng-class="{unconfirmed: !historyItem.confirmed && historyItem.sat}")
+        span.inArrow(ng-if="historyItem.tnx")  {{historyItem.tnx}} thanx
+        span.inArrow(ng-if="historyItem.sat")  {{historyItem.sat}} satoshi
+        div.to
+            img(ng-src="/pic?username={{historyItem.payee.username}}")
+            div.name(ng-if="historyItem.payee.fbUser")  {{historyItem.payee.fbUser.first_name}} {{historyItem.payee.fbUser.last_name}}
+            div.address(ng-if="historyItem.sat")
+                a(href="http://blockchain.info/address/{{historyItem.payee.address}}", target="_blank") {{historyItem.payee.address}}
+            a(ng-if="!historyItem.payee.fbUser && historyItem.payee", href="http://blockchain.info/address/{{historyItem.payee}}")  {{historyItem.payee}}
+        include modal

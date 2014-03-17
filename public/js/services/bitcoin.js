@@ -279,11 +279,7 @@ angular.module('thanxbits').service('bitcoin', function($rootScope, $http) {
             .success(function(p) {
                 $rootScope.price = parseFloat(p);
             });
-        $http.get('/fetchheight')
-            .success(function(h) {
-                $rootScope.lastheight = parseInt(h);
-            });
     };
-    setInterval($rootScope.checkBitcoinData, 6667);
+    setInterval($rootScope.checkBitcoinData, 60000);
     $rootScope.checkBitcoinData();
 });

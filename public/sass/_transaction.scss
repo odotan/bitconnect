@@ -1,0 +1,39 @@
+.transaction {
+	.address {
+		font-size: 11px;
+	}
+	.from, .to {
+		background: #f2fbff;
+		border-radius: 30px;
+		margin: 10px 10px;
+		height: 50px;
+		img {
+			position: absolute;
+			border-radius: 50%;
+		}
+		.name {
+			position: relative;
+			left: 60px;
+		}
+		.address {
+			position: relative;
+			left: 60px;
+		}
+	}
+	.arrow-down {
+		margin: auto;
+		width: 100px; 
+		height: 0; 
+		border-left: 75px solid transparent;
+		border-right: 75px solid transparent;
+		border-top: 100px solid #f2fbff;
+		&.unconfirmed {
+			border-top: 100px solid #E47E70;
+		}
+	}
+	.inArrow {
+		position: relative;
+		top: -90px;
+		left: 119px;
+	}
+}

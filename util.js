@@ -111,7 +111,8 @@ var dumpUser = function(u) {
         fbUser: u.fbUser ? {
             first_name: u.fbUser.first_name,
             last_name: u.fbUser.last_name,
-        } : {}
+        } : {},
+        address: u.address
     };
 };
 
