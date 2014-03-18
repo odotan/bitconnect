@@ -76,7 +76,14 @@ m.sendBTC = FBify(function(profile, req, res) {
         },
         function(cb2) {
             console.log('pushing', tx);
-            pybtctool('pushtx', tx, setter(scope, 'result', cb2));
+            pybtctool('pushtx', tx, setter(scope, 'result', function(err, res) {
+                if(!err) {
+                    cb2(null, res);
+                }
+                else {
+                    cb2(err.stack);
+                }
+            }));
         },
         function(cb2) {
             scope.satsent = 0;
