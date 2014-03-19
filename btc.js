@@ -77,10 +77,9 @@ m.sendBTC = FBify(function(profile, req, res) {
         function(cb2) {
             console.log('pushing', tx);
             pybtctool('pushtx', tx, setter(scope, 'result', function(err, res) {
-                if(!err) {
+                if (!err) {
                     cb2(null, res);
-                }
-                else {
+                } else {
                     cb2(err.stack);
                 }
             }));
@@ -117,12 +116,19 @@ m.sendBTC = FBify(function(profile, req, res) {
             }, setter(scope, 'deletedRequest', cb2));
         },
         function(cb2) {
-            if(!scope.deletedRequest) {
-                cb2();
-            }
-            else {
+            if (scope.deletedRequest) {
                 scope.deletedRequest.timestamp = new Date().getTime() / 1000;
-                db.RequestArchive.insert(scope.deletedRequest, cb2);
+                db.RequestArchive.insert(scope.deletedRequest);
+            }
+            if (scope.to.id) {
+                var token = req.facebook.getApplicationAccessToken(),
+                    amount = scope.satsent + " satoshi",
+                    msg = profile.first_name + ' sent you ' + amount + '.';
+                req.facebook.api('/' + scope.to.id + '/notifications', 'POST', {
+                    access_token: token,
+                    template: msg,
+                    href: '?src=confirmGive'
+                }, cb2);
             }
         }
     ], mkrespcb(res, 400, function() {
