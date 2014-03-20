@@ -13,6 +13,10 @@ var eh = util.eh,
 	pybtctool = util.pybtctool,
 	FBify = util.FBify,
 	dumpUser = util.dumpUser;
+var twilioAccountSid = 'AC30c73160e3db54a9b64ae8f797019812',
+	twilioAuthToken = 'f53a8da18397bd7419c2713cb7095919',
+	twilioNumber = '+13212340543',
+	twilio = require('twilio')(twilioAccountSid, twilioAuthToken);
 
 var m = module.exports = {};
 // Consume outstanting Facebook requests when creating an account
@@ -311,6 +315,9 @@ m.getMe = FBify(function(profile, req, res) {
 	db.User.findOne({
 		id: profile.id
 	}, mkrespcb(res, 400, function(u) {
+		u.verification = undefined;
+		u.phoneNumber = undefined;
+
 		if (u) res.json(u);
 		else res.json({
 			username: null,
@@ -481,5 +488,109 @@ m.printMyVerificationSeed = FBify(function(profile, req, res) {
 	}, mkrespcb(res, 400, function(u) {
 		if (u) res.send(u.verificationSeed || '00000000000000000000');
 		else res.json("No user found", 400);
+	}));
+});
+
+m.sendVerificationSMS = FBify(function(profile, req, res) {
+
+	var phoneNumber = req.param('phone'),
+		code = Math.floor((Math.random() * 9999) + 1),
+		scope = {};
+	async.series([
+
+			function(cb) {
+				db.User.find({
+					phoneNumber: phoneNumber,
+					id: {
+						$nin: [profile.id]
+					}
+				}).count(setter(scope, 'existingPhoneNumber', cb));
+			},
+			function(cb) {
+				if (scope.existingUsers > 0) {
+					return cb('phone number already exists');
+				}
+				db.User.findAndModify({
+					id: profile.id,
+					verified: {
+						$nin: [true]
+					}
+				}, null, {
+					$set: {
+						'verification': {
+							'code': code,
+							'attempts': 0
+						},
+						'phoneNumber': phoneNumber
+					}
+				}, setter(scope, 'user', cb));
+			},
+			function(cb) {
+				if (!scope.user) {
+					return cb('user not found');
+				}
+				twilio.messages.create({
+					to: phoneNumber,
+					from: twilioNumber,
+					body: 'Your bitconnect verification code: ' + code
+				}, cb);
+			}
+		],
+		mkrespcb(res, 400, function(result) {
+			res.json('success', 201);
+		}));
+});
+
+m.verifyAccount = FBify(function(profile, req, res) {
+	var code = req.param('code'),
+		scope = {};
+	async.series([
+
+		function(cb) {
+			db.User.findOne({
+				id: profile.id
+			}, setter(scope, 'user', cb));
+		},
+		function(cb) {
+			if (scope.user.verified) {
+				return cb('user already verified');
+			} else if (!scope.user.verification) {
+				return cb('user didn\'t request verification code yet');
+			} else if (code != scope.user.verification.code) {
+
+				if (scope.user.verification.attempts >= 3) {
+					db.User.update({
+						id: profile.id
+					}, {
+						$set: {
+							'verification': undefined
+						}
+					}, function() {
+						cb('too many failing attempts, please request another code');
+					});
+				} else {
+					db.User.update({
+						id: profile.id
+					}, {
+						$inc: {
+							'verification.attempts': 1
+						}
+					}, function() {
+						cb('incorrect verification code');
+					});
+				}
+			} else {
+				db.User.update({
+					id: profile.id
+				}, {
+					$set: {
+						'verification': undefined,
+						'verified': true
+					}
+				}, cb);
+			}
+		}
+	], mkrespcb(res, 400, function(result) {
+		res.json({verified:true});
 	}));
 });

@@ -38,18 +38,24 @@
             .displayField number of satoshi:
                 input(type="text",ng-model="withdraw",style="width:calc(100% - 115px);")
                 button.rightButton(ng-click="withdraw()") withdraw
-    .section.odd
+    .section.odd(ng-if="!user.verified")
         .sectionTitle verify mobile number
-        div
+        div.phoneNumber
             label if you wish to withdraw your satoshis, you will need to verify your mobile phone number (you will receive an sms with a six-digit code):
             .displayField.odd mobile number:
-                input(type="text",ng-model="phonenum",style="width:calc(100% - 100px);")
+                input(type="text",ng-model="$parent.phonenum",style="width:calc(100% - 100px);")
                 button.rightButton(ng-click="sendtext()") send sms
+        div.belowSection(ng-show="smsInfo") {{ smsInfo }}
         div
             label enter the six-digit code you received in the sms:
             .displayField.odd verification code:
-                button.rightButton(ng-click="vefify()") verify
-                input(type="text",ng-model="smscode",style="width:calc(100% - 115px);")
+                button.rightButton(ng-click="verify()") verify
+                input(type="text",ng-model="$parent.smscode",style="width:calc(100% - 115px);")
+        div.belowSection(ng-show='verificationError') {{ verificationError }}
+    .section.odd(ng-if="user.verified")
+        .sectionTitle
+            img(ng-src="/img/checki.svg",style="height:30px;margin-right:10px;")
+            |  mobile number verified
     .section
         .sectionTitle verify email address
         div

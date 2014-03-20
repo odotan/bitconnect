@@ -284,7 +284,8 @@ app.post('/checkname', accounts.checkName);
 app.get('/pic', accounts.getPic);
 app.get('/auditdata', accounts.printVerificationTable);
 app.get('/verificationseed', Facebook.loginRequired(), accounts.printMyVerificationSeed);
-
+app.post('/sendsms', Facebook.loginRequired(), accounts.sendVerificationSMS);
+app.post('/verifyaccount', Facebook.loginRequired(), accounts.verifyAccount);
 app.get('/globalinvitations', invitations.getInvitationStatusResource);
 
 setInterval(btc.updateBTCTxs, 60000);

@@ -870,6 +870,13 @@
 .meContainer .section .displayField input:focus {
   outline: 0;
 }
+/* line 68, ../sass/_me.scss */
+.meContainer .section .belowSection {
+  font-size: 11px;
+  color: #f2fbff;
+  margin-top: 3px;
+  margin-left: 3px;
+}
 
 /* line 2, ../sass/_transaction.scss */
 .transaction .address {
