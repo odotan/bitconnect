@@ -13,7 +13,8 @@
         "passport": "*",
         "mongodb": ">= 0.9.6-7",
         "bitcoinjs-lib": "https://github.com/vbuterin/bitcoinjs-lib/tarball/master",
-        "facebook-node-sdk": "*"
+        "facebook-node-sdk": "*",
+        "twilio": "1.6.0"
     },
     "main": "server.js",
     "author": "vbuterin",
