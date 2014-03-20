@@ -43,7 +43,8 @@
         div.phoneNumber
             label if you wish to withdraw your satoshis, you will need to verify your mobile phone number (you will receive an sms with a six-digit code):
             .displayField.odd mobile number:
-                input(type="text",ng-model="$parent.phonenum",style="width:calc(100% - 100px);")
+                input(type="text",ng-model="$parent.phonenum",style="width:calc(100% - 100px);", ng-pattern="/^([0-9]-?)*[0-9]$/", ng-blur="showErrors=true",ng-focus="showErrors=false",ng-class="{showErrors: showErrors}")
+                span.phonePrefix +
                 button.rightButton(ng-click="sendtext()") send sms
         div.belowSection(ng-show="smsInfo") {{ smsInfo }}
         div

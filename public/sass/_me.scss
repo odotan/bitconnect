@@ -65,8 +65,22 @@
 				outline: 0;
 			}
 		}
+		.phoneNumber {
+			input {
+				padding-left: 10px;
+				&.ng-invalid-pattern.showErrors {
+					border: 2px solid #BF433F;
+				}
+				border: 2px solid #f2fbff;
+			}
+			.phonePrefix {
+				position: relative;
+				left: 12px;
+				color: #047bb2;
+			}
+		}
 		.belowSection {
-			font-size:11px;
+			font-size:12px;
 			color: #f2fbff;
 			margin-top: 3px;
 			margin-left: 3px;

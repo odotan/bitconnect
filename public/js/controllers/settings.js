@@ -11,13 +11,17 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
                     $scope.$apply();
                 }
             }
+            if (angular.element('.phoneNumber input').hasClass('ng-invalid-pattern')) {
+                $scope.smsInfo = 'invalid phone number';
+                return;
+            };
             if (!$scope.phonenum) {
                 $scope.smsInfo = 'no mobile number entered';
                 return;
             }
 
             $http.post('/sendsms', {
-                phone: $scope.phonenum
+                phone: '+' + $scope.phonenum
             }).success(function() {
                 $scope.smsInfo = 'SMS sent, enter verification code:';
             }).error(function() {
