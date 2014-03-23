@@ -47,7 +47,7 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
         };
 
         $scope.buy = function() {
-            if ($scope.amount < 10000)
+            if (angular.isUndefined($scope.amount) || $scope.amount < 10000)
                 return $rootScope.errHandle("minimum buy 10000");
             if ($scope.amount > $scope.balance - 10000)
                 return $rootScope.errHandle("not enough bts");

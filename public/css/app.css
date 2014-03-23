@@ -281,16 +281,23 @@
 .newAccountMain {
   max-width: 320px;
 }
-
-/* line 5, ../sass/_newaccount.scss */
-.newaccount {
-  color: red;
-}
-
-/* line 9, ../sass/_newaccount.scss */
-.username {
+/* line 3, ../sass/_newaccount.scss */
+.newAccountMain .username {
   width: 80%;
   text-align: center;
+}
+/* line 6, ../sass/_newaccount.scss */
+.newAccountMain .username.ng-invalid-pattern {
+  border: red 2px solid;
+}
+/* line 10, ../sass/_newaccount.scss */
+.newAccountMain .red-outline {
+  margin-top: 15px;
+}
+
+/* line 15, ../sass/_newaccount.scss */
+.newaccount {
+  color: red;
 }
 
 /* line 2, ../sass/_friendsList.scss */

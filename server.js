@@ -19,7 +19,7 @@ Facebook.registerRequired = function(config) {
     return function(req, res, next) {
         Facebook.loadRegisteredUser(config)(req, res, function() {
             if (!req.registeredUser) {
-                res.redirect('/app/newaccount');
+                res.redirect('/');
             } else {
                 next();
             }
@@ -125,8 +125,28 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
     db.User.findOne({
         id: profile.id
     }, mkrespcb(res, 400, function(u) {
-        if (!u) res.redirect('/app/newaccount');
-        else if (req.param('goto')) {
+        if (!u) {
+            if (!username || !/^[a-zA-Z][0-9a-zA-Z_-]{3,15}$/.test(username)) {
+                var username = profile.username ? profile.username.split('.').join('') : undefined,
+                    altUsername = (profile.first_name + '_' + profile.last_name).split('.').join('').toLowerCase();
+
+                if (!username || !/^[a-zA-Z][0-9a-zA-Z_-]{3,15}$/.test(username)) {
+                    username = altUsername;
+                    if (!username || !/^[a-zA-Z][0-9a-zA-Z_-]{3,15}$/.test(username)) {
+                        res.redirect('/app/newaccount');
+                        return;
+                    }
+                }
+                req.params.name = username + '.bitconnect.me';
+                accounts.innerRegister(profile, req, res, function(err) {
+                    if (err) {
+                        res.redirect('/app/newaccount');
+                    } else {
+                        res.redirect('/app/us');
+                    }
+                });
+            }
+        } else if (req.param('goto')) {
             res.redirect(req.param('goto'));
         } else if (u.firstUse) res.redirect('/app/us');
         else res.redirect('/app/give');
@@ -155,13 +175,16 @@ app.get('/profile/*', function(req, res) {
 app.get('/partials/newaccount', Facebook.loginRequired(), FBify(function(profile, req, res, next) {
     if (invitations.isLimitActive()) {
         db.FBInvite.findOne({
-            to:profile.id
+            to: profile.id
         }, mkrespcb(res, 400, function(invite) {
-            res.render('partials/newaccount', {allow: invite ? true : false});
+            res.render('partials/newaccount', {
+                allow: invite ? true : false
+            });
         }));
-    }
-    else {
-        next();
+    } else {
+        res.render('partials/newaccount', {
+            allow: true
+        });
     }
 }));
 

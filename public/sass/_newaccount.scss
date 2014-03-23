@@ -1,12 +1,18 @@
 .newAccountMain {
 	max-width: 320px;
+	.username {
+		width: 80%;
+		text-align: center;
+		&.ng-invalid-pattern {
+			border: red 2px solid;
+		}
+	}
+	.red-outline {
+		margin-top: 15px;
+	}
 }
 
 .newaccount{
 	color: red;
 }
 
-.username {
-	width: 80%;
-	text-align: center;
-}

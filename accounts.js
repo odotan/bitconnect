@@ -104,58 +104,62 @@ var consumeFBInvites = function(reqs, to, cb) {
 		}));
 	}));
 };
-
-// Register a new account
-m.register = FBify(function(profile, req, res) {
-
+m.innerRegister = function innerRegister(profile, req, res, finalCB) {
 	var scope = {},
-		newuser;
+		newuser,
+		newUsername = req.param('name');
 	async.series([
 
-			function(cb) {
-				db.FBInvite.find({
-					to: profile.id,
-				}).toArray(setter(scope, 'reqs', cb));
-			},
-			function(cb) {
-				if (invitations.isLimitActive() && (!scope.reqs || scope.reqs.length === 0)) {
-					res.json('currently only invited users can register', 400);
-					cb('currently only invited users can register');
-				} else {
-					cb();
-				}
-			},
-			function(cb) {
-				db.User.findOne({
-					username: req.param('name')
-				}, setter(scope, 'user', cb));
-			},
-			function(cb) {
-				if (scope.user) {
-					return res.json('Account already exists', 400);
-				}
-				console.log('registering');
-				newuser = {
-					username: req.param('name'),
-					fbUser: profile,
-					id: profile.id,
-					inviteCounter: 0,
-					inviteAcceptedCounter: 0,
-					seed: util.randomHex(40),
-					verificationSeed: util.randomHex(20),
-					friends: [],
-					firstUse: true
-				};
-				db.User.insert(newuser, mkrespcb(res, 400, function() {
-					console.log('requests found', scope.reqs);
-					consumeFBInvites(scope.reqs, newuser, cb);
-				}));
+		function(cb) {
+			db.FBInvite.find({
+				to: profile.id,
+			}).toArray(setter(scope, 'reqs', cb));
+		},
+		function(cb) {
+			if (invitations.isLimitActive() && (!scope.reqs || scope.reqs.length === 0)) {
+				cb('currently only invited users can register');
+			} else {
+				cb();
 			}
-		],
-		mkrespcb(res, 400, function() {
-			console.log('registered');
-			res.json(newuser);
-		}));
+		},
+		function(cb) {
+			db.User.findOne({
+				username: newUsername
+			}, setter(scope, 'user', cb));
+		},
+		function(cb) {
+
+			if (scope.user) {
+				return cb('Account already exists', 400);
+			}
+			if(!/^[a-zA-Z][0-9a-zA-Z_-]{3,15}.bitconnect.me$/.test(newUsername)) {
+				return cb('illegal username');
+			}
+			console.log('registering');
+			newuser = {
+				username: newUsername,
+				fbUser: profile,
+				id: profile.id,
+				inviteCounter: 0,
+				inviteAcceptedCounter: 0,
+				seed: util.randomHex(40),
+				verificationSeed: util.randomHex(20),
+				friends: [],
+				firstUse: true
+			};
+			db.User.insert(newuser, mkrespcb(res, 400, function() {
+				console.log('requests found', scope.reqs);
+				consumeFBInvites(scope.reqs, newuser, cb);
+			}));
+		}
+	], finalCB);
+}
+// Register a new account
+m.register = FBify(function(profile, req, res) {
+	m.innerRegister(profile, req, res, mkrespcb(res, 400, function() {
+		console.log('registered');
+		res.json('success');
+	}));
 });
 
 function getVerificationFqlQuery(profileId, invitedFriendIds) {
@@ -315,11 +319,11 @@ m.getMe = FBify(function(profile, req, res) {
 	db.User.findOne({
 		id: profile.id
 	}, mkrespcb(res, 400, function(u) {
-		u.verification = undefined;
-		u.phoneNumber = undefined;
-
-		if (u) res.json(u);
-		else res.json({
+		if (u) {
+			u.verification = undefined;
+			u.phoneNumber = undefined;
+			res.json(u);
+		} else res.json({
 			username: null,
 			fbUser: profile
 		});
@@ -591,6 +595,8 @@ m.verifyAccount = FBify(function(profile, req, res) {
 			}
 		}
 	], mkrespcb(res, 400, function(result) {
-		res.json({verified:true});
+		res.json({
+			verified: true
+		});
 	}));
 });
