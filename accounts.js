@@ -145,7 +145,8 @@ m.innerRegister = function innerRegister(profile, req, res, finalCB) {
 				seed: util.randomHex(40),
 				verificationSeed: util.randomHex(20),
 				friends: [],
-				firstUse: true
+				firstUse: true,
+				changeable: true
 			};
 			db.User.insert(newuser, mkrespcb(res, 400, function() {
 				console.log('requests found', scope.reqs);
