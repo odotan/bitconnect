@@ -42,7 +42,11 @@
 		margin: 10px 10px;
 		margin-bottom: 20px;
 	}
-
+	.terms {
+		margin-top: 80px;
+		font-size: 12px;
+		color: #073651;
+	}
 	.fbcon{
 		border: 5px solid #00ace2;
 		border-radius: 100px;
@@ -51,7 +55,7 @@
 		text-decoration:none;
 		padding: 20px;
 		position: relative;
-		top: 60px;
+		top: 50px;
 		&:hover{
 			background-color: #00ace2;
 			color: white;

@@ -48,7 +48,13 @@
   margin: 10px 10px;
   margin-bottom: 20px;
 }
-/* line 46, ../sass/welcome.scss */
+/* line 45, ../sass/welcome.scss */
+#welcome_page .terms {
+  margin-top: 80px;
+  font-size: 12px;
+  color: #073651;
+}
+/* line 50, ../sass/welcome.scss */
 #welcome_page .fbcon {
   border: 5px solid #00ace2;
   border-radius: 100px;
@@ -57,14 +63,14 @@
   text-decoration: none;
   padding: 20px;
   position: relative;
-  top: 60px;
+  top: 50px;
 }
-/* line 55, ../sass/welcome.scss */
+/* line 59, ../sass/welcome.scss */
 #welcome_page .fbcon:hover {
   background-color: #00ace2;
   color: white;
 }
-/* line 60, ../sass/welcome.scss */
+/* line 64, ../sass/welcome.scss */
 #welcome_page .appDownload {
   background-color: #047bb2;
   position: absolute;
@@ -74,7 +80,7 @@
   color: #f2fbff;
   padding-top: 20px;
 }
-/* line 68, ../sass/welcome.scss */
+/* line 72, ../sass/welcome.scss */
 #welcome_page .appDownload .downloadButton {
   height: 40px;
   margin: 7px;
