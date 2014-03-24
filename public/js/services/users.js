@@ -2,17 +2,22 @@ window.app.service('UsersService', function($rootScope, $http) {
     var cachedUsers,
         cachedPartialName;
     this.getUsersByPartialName = function getUsersByPartialName(partialName, callback) {
-        var usersById = {};
-        if (partialName.indexOf(cachedPartialName) === 0) {
+        var usersById = {},
+            found = false;
+        if (partialName.indexOf(cachedPartialName) === 0 ) {
             for (var key in cachedUsers) {
                 if (cachedUsers.hasOwnProperty(key) && this.userFilter(cachedUsers[key], partialName)) {
                     usersById[key] = cachedUsers[key];
+                    found = true;
                 }
             }
-            callback(usersById);
-            return;
+            if (found) {
+                console.log(found);
+                callback(usersById);
+                return;
+            }
         }
-
+        console.log('request');
         $http.get('/autofill?partial=' + partialName)
             .success(function(res) {
                 for (var i = 0; i < res.length; i++) {
@@ -43,11 +48,15 @@ window.app.service('UsersService', function($rootScope, $http) {
             names,
             enteredNames,
             i = 0;
+        if (user.username && user.username.indexOf(partialName) !== -1) {
+            return true;
+        }
         if (!user.fullname && user.first_name && user.last_name) {
             fullname = user.first_name + ' ' + user.last_name;
         } else {
             fullname = user.fullname;
         }
+
 
         names = fullname.toLowerCase().split(' ');
         enteredNames = partialName.toLowerCase().split(' ');

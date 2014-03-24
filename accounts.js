@@ -132,7 +132,7 @@ m.innerRegister = function innerRegister(profile, req, res, finalCB) {
 			if (scope.user) {
 				return cb('Account already exists', 400);
 			}
-			if(!/^[a-zA-Z][0-9a-zA-Z_-]{3,15}.bitconnect.me$/.test(newUsername)) {
+			if (!/^[a-zA-Z][0-9a-zA-Z_-]{3,15}.bitconnect.me$/.test(newUsername)) {
 				return cb('illegal username');
 			}
 			console.log('registering');
