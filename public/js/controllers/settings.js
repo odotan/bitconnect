@@ -74,5 +74,35 @@ window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$h
                 })
                 .error(errhandle);
         };
+
+        $scope.toggleChangeUsername = function toggleChangeUsername() {
+            $scope.changingUsername = !$scope.changingUsername;
+        }
+
+        $scope.checkname = function() {
+            $scope.newUsernameLegal = /^[a-zA-Z][0-9a-zA-Z_-]{3,15}$/.test($scope.newUsername);
+            $http.post('/checkname', {
+                name: $scope.newUsername + '.bitconnect.me'
+            })
+                .success(function(r) {
+                    if (r == '"available"') $scope.newUsernameAvailable = true;
+                    else $scope.newUsernameAvailable = false;
+                })
+                .error(errhandle);
+        };
+
+        $scope.changeUsername = function changeUsername() {
+            $http.post('/changeusername', {
+                username: $scope.newUsername + '.bitconnect.me'
+            }).success(function(r) {
+                $scope.changingUsername = false;
+                me.getme();
+            });
+        }
+        $scope.$watch('newUsername', function(value) {
+            if(value) {
+                $scope.checkname(value);
+            }
+        });
     }
 ]);

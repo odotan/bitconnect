@@ -2,9 +2,22 @@
     img(ng-src="/img/off.svg", title="logout", ng-click="logout()",style="height:30px;background-color:#f2fbff;border-radius:50%")
     a.btn(ng-click="kill()") kill account (for testing)
     .section.odd
-        div
+        div(ng-hide="changingUsername")
             .displayField.odd bitconnect address:
                 div.readOnly(style="width:calc(100% - 125px);") {{ user.username }}
+            .changeUsername(ng-if="user.changeable")
+                a(ng-click="toggleChangeUsername()") change
+        div(ng-show="changingUsername",style="color:#f2fbff;font-size:11px;")
+            | choose a new username. you may only do this once.
+            .displayField.odd new username:
+                input(type="text",ng-model="newUsername", style="width:calc(100% - 95px);", ng-class="{'red-outline': !newUsernameLegal}")
+            .displayField.odd new address:
+                div.readOnly(style="width:calc(100% - 95px);")
+                    span(ng-show="newUsernameLegal") {{ newUsername }}.bitconnect.me
+                    span(ng-show="!newUsernameLegal") illegal username
+            .changeUsername(ng-show="newUsernameLegal")
+                a(ng-click="changeUsername()") ok
+
     .section
         div(ng-show="user.address")
             .displayField

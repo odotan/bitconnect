@@ -600,3 +600,40 @@ m.verifyAccount = FBify(function(profile, req, res) {
 		});
 	}));
 });
+m.changeUsername = FBify(function changeUsername(profile, req, res) {
+	var newUsername = req.param('username'),
+		scope = {};
+	if (!/^[a-zA-Z][0-9a-zA-Z_-]{3,15}.bitconnect.me$/.test(newUsername)) {
+		return res.json(400, 'illegal username');
+	}
+	async.series([
+		function(cb) {
+			db.User.findOne({
+				username: newUsername
+			}, setter(scope, 'user', cb));
+		},
+		function(cb) {
+			if (scope.user) {
+				return cb('username already exists');
+			}
+			db.User.findAndModify({
+				'id': profile.id,
+				'changeable': true
+			}, null, {
+				$set: {
+					'username': newUsername,
+					'changeable': false
+				}
+			}, function(err, user) {
+				if(!user) {
+					cb('user not found');
+				}
+				else {
+					cb();
+				}
+			});
+		}
+	], mkrespcb(res, 400, function() {
+		res.json('success');
+	}));
+});

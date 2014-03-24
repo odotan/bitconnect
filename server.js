@@ -294,6 +294,7 @@ app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory);
 app.get('/interaction', Facebook.loginRequired(), tnx.getInteractionWithUser);
 
 app.post('/register', Facebook.loginRequired(), accounts.register);
+app.post('/changeusername', Facebook.loginRequired(), accounts.changeUsername);
 app.post('/mkinvite', Facebook.loginRequired(), accounts.mkInvite);
 app.post('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite);
 app.get('/acceptinvite', Facebook.loginRequired(), accounts.acceptInvite);
