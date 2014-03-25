@@ -3,6 +3,7 @@
         form.giveget_form.give(name="giveForm", ng-class="{showErrors: showErrors}", novalidate)
             .formField give to:
                 input(type="text",ng-model="give.to",typeahead="u as u.fullname for u in getFilteredUsers($viewValue) | limitTo:8", style="width:calc(100% - 60px)",typeahead-template-url="/templates/typeahead-tmpl", ng-required="true", id="giveTo", name="giveTo")
+            input(type='file', id='qrcode', name='qrcode', accept='image/*', capture='camera', ng-model="qrImage")
             div.error(ng-show="showErrors && giveForm.giveTo.$error.required") must specify recipient
             div.error(ng-show="showErrors && giveForm.giveTo.$error.user") recipient must be a person
                 span(ng-show="btcmode == 'sat'") &nbsp;or bitcoin address

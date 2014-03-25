@@ -1,6 +1,7 @@
 window.controllers.controller('GiveController', ['$scope', '$rootScope', '$window', '$http', '$location', 'friends', 'requests', 'bitcoin', 'UsersService', 'RequestTypes', 'me',
     function($scope, $rootScope, $window, $http, $location, FriendsService, requests, bitcoin, UsersService, RequestTypes, me) {
         $window.wscope = $scope;
+        var btcAddressRegex = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
         if ($location.search().toId) {
             UsersService.getUserById($location.search().toId, function(user) {
                 $scope.give = {
@@ -21,7 +22,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 return true;
             }
             return angular.isObject(value) ||
-                ($scope.btcmode === 'sat' && /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/.test(value));
+                ($scope.btcmode === 'sat' && btcAddressRegex.test(value));
         }
 
         function setSubmitDisabled(disabled) {
@@ -78,12 +79,12 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 return;
             }
             if ($rootScope.user.tnx < parseInt($scope.give.tnx)) {
-                    $rootScope.message = {
-                        body: 'not enough thanx to give',
-                        canceltext: 'ok'
-                    };
-                    setSubmitDisabled(false);
-                    return;
+                $rootScope.message = {
+                    body: 'not enough thanx to give',
+                    canceltext: 'ok'
+                };
+                setSubmitDisabled(false);
+                return;
             }
 
             function makeRequest() {
@@ -135,9 +136,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                 getter = $scope.give.to;
             }
             if (!getter) {
-                // regular expression for bitcoin address:
-                var re = /^[13][1-9A-HJ-NP-Za-km-z]{26,33}/;
-                if (re.test($scope.give.to) && $scope.btcmode === 'sat') {
+                if (btcAddressRegex.test($scope.give.to) && $scope.btcmode === 'sat') {
                     $rootScope.bitcoinSend($scope.give.to, parseInt($scope.give.sat), 10000, $scope.give.message, undefined, errHandler);
                 }
                 return;
@@ -218,5 +217,48 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
             }
             return res;
         };
+
+        $scope.analyzeQR = function analyzeQR(event) {
+            qrcode.callback = function(result) {
+                if (result === 'error decoding QR Code')
+                    return $rootScope.errHandle('Could not read the QR code. Please try again.');
+                if (btcAddressRegex.test(result)) {
+                    $rootScope.btcmode = 'sat';
+                    $scope.give.to = result;
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                    return;
+                }
+
+                var uri = new URI(result);
+
+                if (uri.protocol() != 'bitcoin')
+                    return $rootScope.errHandle('Not a valid Bitcoin QR code.');
+                $rootScope.btcmode = 'sat';
+
+                var address = uri.path();
+                if (address && btcAddressRegex.test(address)) {
+                    $scope.give.to = address;
+                }
+
+                var query = uri.search(true);
+
+                if (query.amount) {
+                    $scope.give.sat = query.amount * 100000000;
+                }
+                if (query.message) {
+                    $scope.give.message = query.message;
+                }
+            }
+
+            var img = new Image();
+            img.onload = function() {
+                qrcode.decode(img.src);
+            }
+
+            img.src = $window.URL.createObjectURL(event.target.files[0]);
+        };
+        angular.element('#qrcode').bind('change', $scope.analyzeQR);
     }
 ]);
