@@ -3,7 +3,7 @@ module.exports = {
     FBappId: '761433597207088',
     FBsecret: '483c2bafec24598467c82270bbde6dbc',
     // The address to which one sends money to buy thanx
-    thanxAddress: '33tnxKbQFKVQF9ibpoHTkNi77Stsc4tr6h',
+    thanxAddress: '34thanx7WzFR33Efzb9zbyLxLQHFVKn1HS',
     // SSL private key
     keyfile: 'ssl/bitconnectwildkey.pem',
     // SSL public key/certificate
