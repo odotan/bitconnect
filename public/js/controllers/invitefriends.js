@@ -91,7 +91,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
                 $rootScope.message = {   
                     body: 'thanx a lot for inviting your friends. '+$scope.numselected+' invitations sent. you have gotten '+r.bonus+' thanxbits. don\'t forget to remind your friends to sign up. you will both get a lot more thanxbits when they do :)',
                     actiontext: 'cool thanx',
-                    action: function(){ $rootScope.message.body = null; $rootScope.goto('thanx'); },
+                    action: function(){ $rootScope.message.body = null; $rootScope.goTo('thanx'); },
                     canceltext:  'i wanna invite more friends'
                 };
             });
@@ -99,7 +99,7 @@ window.controllers.controller('InviteFriendsController', ['$scope', '$rootScope'
     };
 
     // Done
-    $scope.done = function() { $rootScope.goto('thanx'); };
+    $scope.done = function() { $rootScope.goTo('thanx'); };
 	
     $scope.loadMoreFriends = function () {
         if (angular.isUndefined($scope.FBfriends)) {

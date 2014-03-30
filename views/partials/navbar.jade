@@ -1,28 +1,28 @@
 nav.navbar.navbar-default
     ul.iconbar.nav
-        li(ng-click="goto('me')"): table
+        li(ng-click="goTo('me')"): table
                 tr: td
                     img(ng-show="path() == 'me'",ng-src="/img/me_clicked.png")
                     img(ng-hide="path() == 'me'",ng-src="/img/me.png")
                 tr: td(align="center", ng-class="{selected: path() == 'me'}"): span me
-        li(ng-click="goto('get')"): table
+        li(ng-click="goTo('get')"): table
                 tr: td
                     img(ng-show="path() == 'get'",ng-src="/img/get_clicked.png")
                     img(ng-hide="path() == 'get'",ng-src="/img/get.png")
                 tr: td(align="center", ng-class="{selected: path() == 'get'}"): span get
                 div.count(ng-show="pendingRequests.incoming.give.length > 0") &nbsp;{{ pendingRequests.incoming.give.length }}&nbsp;
-        li(style="position:relative",ng-click="goto('thanx')"): table
+        li(style="position:relative",ng-click="goTo('thanx')"): table
                 tr: td
                     img(ng-show="path() == 'thanx'",ng-src="/img/thanx_clicked.png")
                     img(ng-hide="path() == 'thanx'",ng-src="/img/thanx.png")
                 tr: td(align="center", ng-class="{selected: path() == 'thanx'}"): span thanx
-        li(ng-click="goto('give')"): table
+        li(ng-click="goTo('give')"): table
                 tr: td
                     img(ng-show="path() == 'give'",ng-src="/img/give_clicked.png")
                     img(ng-hide="path() == 'give'",ng-src="/img/give.png")
                 tr: td(align="center", ng-class="{selected: path() == 'give'}"): span give
                 div.count(ng-show="pendingRequests.incoming.get.length > 0") &nbsp;{{ pendingRequests.incoming.get.length }}&nbsp;
-        li(ng-click="goto('us')"): table
+        li(ng-click="goTo('us')"): table
                 tr: td
                     img(ng-show="path() == 'us'",ng-src="/img/us_clicked.png")
                     img(ng-hide="path() == 'us'",ng-src="/img/us.png")

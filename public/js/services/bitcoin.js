@@ -1,4 +1,4 @@
-angular.module('thanxbits').service('bitcoin', function($rootScope, $http) {
+window.app.service('bitcoin', ['$rootScope', '$http', function($rootScope, $http) {
     $rootScope.bitcoinLogin = function(pw, callback, errback) {
         var key = new Bitcoin.Key(Bitcoin.Crypto.SHA256($rootScope.user.seed + pw)),
             address = key.getBitcoinAddress().toString();
@@ -71,7 +71,7 @@ angular.module('thanxbits').service('bitcoin', function($rootScope, $http) {
                         }, function(err) {
                             $rootScope.message = {};
                             if (!err) {
-                                $rootScope.goto('thanx');
+                                $rootScope.goTo('thanx');
                             }
                             cb(err);
                         });
@@ -282,4 +282,4 @@ angular.module('thanxbits').service('bitcoin', function($rootScope, $http) {
     };
     setInterval($rootScope.checkBitcoinData, 60000);
     $rootScope.checkBitcoinData();
-});
+}]);

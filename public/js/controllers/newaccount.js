@@ -1,7 +1,7 @@
 window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '$http', '$window', '$timeout', 'me',
 	function($scope, $rootScope, $http, $window, $timeout, me) {
 
-		window.wscope = $scope;
+		$window.wscope = $scope;
 
 		$scope.checkname = function() {
 			$scope.legal = /^[a-zA-Z][0-9a-zA-Z_-]*$/.test($scope.username);
@@ -30,7 +30,7 @@ window.controllers.controller('NewAccountController', ['$scope', '$rootScope', '
 
 		$scope.checkShort = function() {
 			console.log($scope.username);
-			$scope.short = $scope.username && $scope.username.length < 4;
+			$scope.isShort = ($scope.username && $scope.username.length < 4);
 		};
 
 		$scope.$watch('username', function(value) {

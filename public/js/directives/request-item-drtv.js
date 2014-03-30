@@ -1,4 +1,4 @@
-app.directive('requestItem', [
+window.app.directive('requestItem', [
 
 	function() {
 		return {
@@ -28,7 +28,7 @@ app.directive('requestItem', [
 
 					$scope.accept = function() {
 						requests.acceptRequest($scope.request, function() {
-							$rootScope.goto('thanx');
+							$rootScope.goTo('thanx');
 						});
 					};
 
@@ -38,7 +38,7 @@ app.directive('requestItem', [
 
 					$scope.goToUserPage = function goToUserPage() {
 						if($scope.other.fbUser) {
-							$rootScope.goto('chat/' + $scope.other.id);
+							$rootScope.goTo('chat/' + $scope.other.id);
 						}
 					};
 				}

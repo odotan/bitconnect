@@ -1,4 +1,4 @@
-window.app.service('UsersService', function($rootScope, $http) {
+window.app.service('UsersService', ['$rootScope', '$http', function($rootScope, $http) {
     var cachedUsers,
         cachedPartialName;
     this.getUsersByPartialName = function getUsersByPartialName(partialName, callback) {
@@ -97,4 +97,4 @@ window.app.service('UsersService', function($rootScope, $http) {
             }
         }
     };
-});
+}]);

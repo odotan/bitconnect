@@ -13,7 +13,7 @@ var errhandle = function(r) {
     console.log("Error", r);
 };
 
-app.config(['$routeProvider',
+window.app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
             .when('/app/give', {
@@ -62,8 +62,8 @@ app.config(['$routeProvider',
     }
 ]);
 
-app.run(function($rootScope, $location) {
-    $rootScope.goto = function(path, searchValues) {
+window.app.run(['$rootScope', '$location', function($rootScope, $location) {
+    $rootScope.goTo = function(path, searchValues) {
         if (window.location.pathname.indexOf(path) == -1) {
             $location.path('/app/' + path);
             if (searchValues) {
@@ -97,4 +97,4 @@ app.run(function($rootScope, $location) {
             canceltext: 'cool, thanx'
         };
     };
-});
+}]);

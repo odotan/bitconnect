@@ -12,7 +12,7 @@
  *            give: []
  *        }
  */
-angular.module('thanxbits').service('requests', function($rootScope, $http, RequestTypes, TxTypes) {
+angular.module('thanxbits').service('requests', ['$rootScope', '$http', 'RequestTypes', 'TxTypes', function($rootScope, $http, RequestTypes, TxTypes) {
 
     window.rscope = $rootScope;
 
@@ -120,4 +120,4 @@ angular.module('thanxbits').service('requests', function($rootScope, $http, Requ
             canceltext: 'nope'
         };
     };
-});
+}]);

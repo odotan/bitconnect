@@ -74,6 +74,7 @@ app.configure("development", function(){
 });
 */
 
+
 app.configure(function() {
     app.set('views', __dirname + '/views');
     app.set('view engine', 'jade');
@@ -85,10 +86,12 @@ app.configure(function() {
     app.use(express.session({
         secret: '314159265358979'
     }));
+
     app.use(Facebook.middleware({
         appId: config.FBappId,
         secret: config.FBsecret
-    }));
+    })); 
+    app.use(express.static(__dirname + '/build'));
     app.use(express.static(__dirname + '/public'));
     app.use(app.router);
     app.use(function(req, res, next) {
@@ -120,6 +123,7 @@ app.get('/', Facebook.loadRegisteredUser({}), function(req, res, next) {
         }));
     }
 });
+
 
 app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
     db.User.findOne({
@@ -321,16 +325,16 @@ var options = {
     ca: fs.readFileSync('ssl/bitconnectwildca.pem')
 };
 
-var dev= false;
+var dev = true;
 if (dev) {
     http.createServer(app).listen(8000);
 } else {
     express()
         .get('*', function(req, res) {
-            res.redirect('https://' + req.host + req.url);
+            res.redirect('https://' + req.host + ':8000' + req.url);
         })
-        .listen(80);
-    https.createServer(options, app).listen(443);
+        .listen(8000);
+    https.createServer(options, app).listen(1443);
 }
 
 return app;

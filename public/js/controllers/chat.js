@@ -14,7 +14,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 			}
 			HistoryService.getInteractionWithUser($routeParams.otherUserId, function(err, interaction) {
 				if (!interaction) {
-					$rootScope.goto('app/thanx');
+					$rootScope.goTo('app/thanx');
 				}
 				$scope.interaction = $scope.interaction || [];
 				var oldIds = $scope.interaction.map(function(i) {

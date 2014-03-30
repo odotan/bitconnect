@@ -1,4 +1,4 @@
-app.directive('historyItem', ['$location', '$timeout', 'TxTypes',
+window.app.directive('historyItem', ['$location', '$timeout', 'TxTypes',
 function($location, $timeout, TxTypes) {
 	return {
 		restrict: 'E',
@@ -21,7 +21,7 @@ function($location, $timeout, TxTypes) {
 		controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 			$scope.goToUserPage = function goToUserPage() {
 				if ($scope.otherUser.fbUser) {
-					$rootScope.goto('chat/' + $scope.otherUser.id);
+					$rootScope.goTo('chat/' + $scope.otherUser.id);
 				}
 			};
 		}],

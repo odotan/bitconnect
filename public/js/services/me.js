@@ -1,4 +1,4 @@
-window.app.service('me', function($rootScope, $http) {
+window.app.service('me', ['$rootScope', '$http', function($rootScope, $http) {
 
 	window.rscope = $rootScope;
 
@@ -22,4 +22,4 @@ window.app.service('me', function($rootScope, $http) {
 	};
 	setInterval(this.getme, 60000);
 	this.getme();
-});
+}]);

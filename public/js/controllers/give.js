@@ -259,6 +259,6 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
 
             img.src = $window.URL.createObjectURL(event.target.files[0]);
         };
-        angular.element('#qrcode').bind('change', $scope.analyzeQR);
+        jQuery('#qrcode').bind('change', $scope.analyzeQR);
     }
 ]);

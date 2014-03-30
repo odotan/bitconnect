@@ -1,4 +1,4 @@
-app.directive('chatItem', [
+window.app.directive('chatItem', [
 
 	function() {
 		return {
