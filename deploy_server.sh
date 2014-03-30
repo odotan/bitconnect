@@ -16,7 +16,7 @@ var host = "bitconnect.me",
  * identify the site and a git branch.
  */
 var siteMap = {
-    bitconnect_refs_heads_master: { updateCmd : "cd /root/bitconnect; git pull; forever stop server.js; forever start server.js;" },
+    bitconnect_refs_heads_master: { updateCmd : "cd /root/bitconnect; git pull; ./scripts/build.sh; forever stop server.js; forever start server.js;" },
   }
 
 process.on('uncaughtException', function (err) {
