@@ -325,16 +325,16 @@ var options = {
     ca: fs.readFileSync('ssl/bitconnectwildca.pem')
 };
 
-var dev = true;
+var dev = false;
 if (dev) {
     http.createServer(app).listen(8000);
 } else {
     express()
         .get('*', function(req, res) {
-            res.redirect('https://' + req.host + ':8000' + req.url);
+            res.redirect('https://' + req.host + req.url);
         })
-        .listen(8000);
-    https.createServer(options, app).listen(1443);
+        .listen(80);
+    https.createServer(options, app).listen(443);
 }
 
 return app;
