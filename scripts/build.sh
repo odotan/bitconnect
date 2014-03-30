@@ -22,7 +22,7 @@ do
         echo -n -e "\nMinifying $infile to $outfile: "
         if [ ! -f "$outfile" ] || [ "$infile" -nt "$outfile" ]
         then
-            yuicompressor "$infile" > "$outfile"
+            yui-compressor "$infile" > "$outfile"
             if [ `echo $?` != 0 ]
             then
                 exit_code=1
