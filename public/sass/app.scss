@@ -1,24 +1,14 @@
 @font-face {
-    font-family: 'Comfortaa';
-    src: url('Comfortaa/Comfortaa-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Comfortaa';
-    src: url('Comfortaa/Comfortaa-Light.ttf') format('truetype');
+    font-family: 'museo_sans500';
+    src: url('./font/MuseoSans_500-webfont.eot');
+    src: url('./font/MuseoSans_500-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./font/MuseoSans_500-webfont.woff') format('woff'),
+         url('./font/MuseoSans_500-webfont.ttf') format('truetype'),
+         url('./font/MuseoSans_500-webfont.svg#museo_sans500') format('svg');
     font-weight: normal;
     font-style: normal;
-}
 
-@font-face {
-    font-family: 'Comfortaa';
-    src: url('Comfortaa/Comfortaa-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
-
 
 @import "compass";
 @import "_common";

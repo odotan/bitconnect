@@ -1,20 +1,7 @@
 @font-face {
-  font-family: 'Comfortaa';
-  src: url("Comfortaa/Comfortaa-Bold.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Comfortaa';
-  src: url("Comfortaa/Comfortaa-Light.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Comfortaa';
-  src: url("Comfortaa/Comfortaa-Regular.ttf") format("truetype");
+  font-family: 'museo_sans500';
+  src: url("./font/MuseoSans_500-webfont.eot");
+  src: url("./font/MuseoSans_500-webfont.eot?#iefix") format("embedded-opentype"), url("./font/MuseoSans_500-webfont.woff") format("woff"), url("./font/MuseoSans_500-webfont.ttf") format("truetype"), url("./font/MuseoSans_500-webfont.svg#museo_sans500") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -160,6 +147,627 @@
   left: -2px;
 }
 
+/* line 122, ../sass/_common.scss */
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* line 123, ../sass/_common.scss */
+body, input {
+  font-family: 'museo_sans500', Arial, Helvetica;
+}
+
+/* line 124, ../sass/_common.scss */
+html {
+  font-size: 100%;
+}
+
+/* line 125, ../sass/_common.scss */
+.clear {
+  clear: both;
+}
+
+/* line 126, ../sass/_common.scss */
+.wrapper {
+  padding-top: 13rem;
+}
+
+/* line 127, ../sass/_common.scss */
+.header {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 999;
+}
+
+/* line 128, ../sass/_common.scss */
+.header .top {
+  background-color: #328080;
+  padding: 1.5rem 1.3rem 1.5rem 1.3rem;
+  height: 5.4rem;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+}
+
+/* line 129, ../sass/_common.scss */
+.header .top .l {
+  position: absolute;
+  left: 1.3rem;
+  top: 1.3rem;
+}
+
+/* line 130, ../sass/_common.scss */
+.header .top .l img, .header .top .r img {
+  height: 6.2rem;
+}
+
+/* line 131, ../sass/_common.scss */
+.header .top .c {
+  text-align: center;
+  padding-bottom: 1.2rem;
+  font-size: 4.4rem;
+  color: #fff;
+}
+
+/* line 132, ../sass/_common.scss */
+.header .top .c img {
+  width: 20.1rem;
+}
+
+/* line 133, ../sass/_common.scss */
+.header .top .r {
+  position: absolute;
+  right: 1.3rem;
+  top: 1.3rem;
+}
+
+/* line 134, ../sass/_common.scss */
+.header .bottom {
+  background-color: #003333;
+  padding: 1.0rem 1.3rem 0.6rem 1.3rem;
+}
+
+/* line 135, ../sass/_common.scss */
+.header .bottom .l {
+  float: left;
+  width: 80%;
+  text-align: left;
+  color: #fff;
+  font-size: 2.5rem;
+}
+
+/* line 136, ../sass/_common.scss */
+.header .bottom .r {
+  float: right;
+  width: 20%;
+  text-align: right;
+}
+
+/* line 137, ../sass/_common.scss */
+.header .bottom .r img {
+  height: 2.7rem;
+}
+
+/* line 138, ../sass/_common.scss */
+.notifications .title {
+  padding: 1.0rem 1.3rem 1.0rem 1.3rem;
+  font-size: 2.5rem;
+}
+
+/* line 139, ../sass/_common.scss */
+.notifications .row {
+  background-color: #eaeaea;
+  padding: 1.5rem 1.3rem 1.5rem 1.3rem;
+  position: relative;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* line 140, ../sass/_common.scss */
+.notifications .row .l {
+  width: 8.0rem;
+  float: left;
+  text-align: left;
+}
+
+/* line 141, ../sass/_common.scss */
+.notifications .row .l img {
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+  border-radius: 80px;
+  width: 8.0rem;
+  height: 8.0rem;
+}
+
+/* line 142, ../sass/_common.scss */
+.notifications .row .c {
+  float: left;
+  text-align: left;
+}
+
+/* line 143, ../sass/_common.scss */
+.notifications .row .c .name {
+  font-size: 3.4rem;
+  padding: 1.3rem 0rem 0rem 0.8rem;
+  color: #000000;
+}
+
+/* line 144, ../sass/_common.scss */
+.notifications .row .c .mes {
+  font-size: 2.0rem;
+  color: #7c7c7c;
+  padding: 0rem 0rem 0rem 0.8rem;
+}
+
+/* line 145, ../sass/_common.scss */
+.notifications .row .r {
+  position: absolute;
+  right: 2.0rem;
+  top: 1.5rem;
+  color: #7c7c7c;
+  padding: 1.7rem 0rem 0rem 1.3rem;
+  font-size: 2.0rem;
+}
+
+/* line 146, ../sass/_common.scss */
+.notifications .row .r .alert {
+  background-color: #db7932;
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+  border-radius: 80px;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem 1.0rem 0.5rem 1.0rem;
+  float: right;
+  margin-top: 1.0rem;
+}
+
+/* line 147, ../sass/_common.scss */
+.connect .row .c .name {
+  padding-top: 2.3rem;
+}
+
+/* line 148, ../sass/_common.scss */
+.connect .row .r {
+  top: 2.2rem;
+}
+
+/* line 150, ../sass/_common.scss */
+.messages {
+  padding: 1.5rem 1.3rem 1.5rem 1.3rem;
+  position: relative;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* line 151, ../sass/_common.scss */
+.messages .chatRow {
+  margin-bottom: 1.5rem;
+  white-space: nowrap;
+}
+
+/* line 152, ../sass/_common.scss */
+.messages .chatRow .l, .messages .chatRow .c {
+  vertical-align: bottom;
+  display: inline-block;
+  zoom: 1;
+}
+
+/* line 153, ../sass/_common.scss */
+.messages .chatRow .l {
+  text-align: left;
+  display: inline-block;
+}
+
+/* line 154, ../sass/_common.scss */
+.messages .chatRow .l img {
+  -webkit-border-radius: 80px;
+  -moz-border-radius: 80px;
+  border-radius: 80px;
+  width: 8.0rem;
+  height: 8.0rem;
+}
+
+/* line 155, ../sass/_common.scss */
+.messages .chatRow .c {
+  white-space: normal;
+  display: inline-block;
+  text-align: left;
+  background-color: #eaeaea;
+  font-size: 2.4rem;
+  color: #7c7c7c;
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+  -webkit-border-radius: 8px 8px 8px 0px;
+  -moz-border-radius: 8px 8px 8px 0px;
+  border-radius: 8px 8px 8px 0px;
+  position: relative;
+}
+
+/* line 156, ../sass/_common.scss */
+.messages .leftmsg .c .bub {
+  background: url(../img/bubblel.png) 100% 100% no-repeat;
+  background-size: 100% 100%;
+  width: 2.5rem;
+  height: 3.4rem;
+  position: absolute;
+  bottom: 0px;
+  left: -2.5rem;
+}
+
+/* line 157, ../sass/_common.scss */
+.messages .rightmsg .c .bub {
+  background: url(../img/bubbler.png) 100% 100% no-repeat;
+  background-size: 100% 100%;
+  width: 2.5rem;
+  height: 3.4rem;
+  position: absolute;
+  bottom: 0px;
+  right: -2.5rem;
+}
+
+/* line 158, ../sass/_common.scss */
+.messages .rightmsg .c {
+  -webkit-border-radius: 8px 8px 0px 8px;
+  -moz-border-radius: 8px 8px 0px 8px;
+  border-radius: 8px 8px 0px 8px;
+  margin-right: 0.4rem;
+}
+
+/* line 159, ../sass/_common.scss */
+.messages .leftmsg .c {
+  margin-left: 0.4rem;
+}
+
+/* line 160, ../sass/_common.scss */
+.messages .rightmsg {
+  text-align: right;
+}
+
+/* line 161, ../sass/_common.scss */
+.messages .buts {
+  margin-top: 1.5rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid #c3c3c3;
+}
+
+/* line 162, ../sass/_common.scss */
+.messages .buts .circ {
+  float: left;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  font-size: 2.4rem;
+  padding: .5rem 1rem;
+}
+/* line 169, ../sass/_common.scss */
+.messages .buts .circ.pendingLoss {
+  background-color: #8637a0;
+  color: #fff;
+}
+/* line 173, ../sass/_common.scss */
+.messages .buts .circ.pendingGain {
+  background-color: #377D7D;
+  color: #fff;
+}
+/* line 177, ../sass/_common.scss */
+.messages .buts .circ.gain {
+  background-color: transparent;
+  color: #377D7D;
+  border: .3rem solid #377D7D;
+}
+/* line 182, ../sass/_common.scss */
+.messages .buts .circ.loss {
+  background-color: transparent;
+  color: #8637a0;
+  border: .3rem solid #8637a0;
+}
+/* line 187, ../sass/_common.scss */
+.messages .buts .circ.cancelled {
+  background-color: transparent;
+  color: #7c7c7c;
+  border: .3rem solid #7c7c7c;
+}
+
+/* line 193, ../sass/_common.scss */
+.messages .buts .circ span.amount {
+  font-size: 3.6rem;
+}
+
+/* line 194, ../sass/_common.scss */
+.messages .buts .but {
+  float: left;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #db7932;
+  color: #fff;
+  padding: 0.5rem 1.0rem 0.5rem 1.0rem;
+  font-size: 3.6rem;
+  display: block;
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+/* line 195, ../sass/_common.scss */
+.messages .buts .xico {
+  padding-right: 1.4rem;
+  padding-left: 1.4rem;
+  background-color: #979797;
+}
+
+/* line 196, ../sass/_common.scss */
+.messages .buts .xico img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* line 198, ../sass/_common.scss */
+.meico {
+  display: block;
+  background: url(../img/meico.png) 100% 100%;
+  background-size: 100% 100%;
+  width: 4.5rem;
+  height: 6.2rem;
+}
+
+/* line 199, ../sass/_common.scss */
+.connectico {
+  display: block;
+  background: url(../img/connectico.png) 100% 100%;
+  background-size: 100% 100%;
+  width: 6.9rem;
+  height: 6.2rem;
+}
+
+/* line 200, ../sass/_common.scss */
+.leftarrowico {
+  display: block;
+  background: url(../img/leftarrow.png) 100% 100%;
+  background-size: 100% 100%;
+  width: 2.3rem;
+  height: 3.6rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+/* line 201, ../sass/_common.scss */
+.bitconnectlogo {
+  display: block;
+  background: url(../img/bitconnectlogo.png) 100% 100%;
+  background-size: 100% 100%;
+  width: 20.1rem;
+  height: 3.0rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+/* line 202, ../sass/_common.scss */
+.but1 {
+  background-color: #328080;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  padding: 1.0rem 1.3rem 1.0rem 1.3rem;
+  color: #fff;
+  text-decoration: none;
+  font-size: 3.4rem;
+}
+
+/* line 204, ../sass/_common.scss */
+.sendform {
+  background-color: #eaeaea;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+/* line 205, ../sass/_common.scss */
+.sendform .pad {
+  padding: 1.5rem 1.3rem 1.5rem 1.3rem;
+}
+
+/* line 206, ../sass/_common.scss */
+.mesgtxt::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #bbbbbb;
+}
+
+/* line 209, ../sass/_common.scss */
+.mesgtxt:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #bbbbbb;
+}
+
+/* line 212, ../sass/_common.scss */
+.mesgtxt::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #bbbbbb;
+}
+
+/* line 215, ../sass/_common.scss */
+.mesgtxt:-ms-input-placeholder {
+  color: #bbbbbb;
+}
+
+/* line 218, ../sass/_common.scss */
+.mesgtxt {
+  font-size: 3.0rem;
+  color: #bbbbbb;
+  background-color: #eaeaea;
+  border: 0px;
+}
+
+/* line 221, ../sass/_common.scss */
+.sendform .chatRow {
+  padding-top: 1.5rem;
+}
+
+/* line 222, ../sass/_common.scss */
+.sendform .chatRow .action {
+  float: left;
+  -webkit-border-radius: 8px 0px 0px 8px;
+  -moz-border-radius: 8px 0px 0px 8px;
+  border-radius: 8px 0px 0px 8px;
+  background-color: #8637a0;
+  color: #fff;
+  padding: 0.5rem 1.0rem 0.5rem 1.0rem;
+  font-size: 3.6rem;
+  display: block;
+  text-decoration: none;
+}
+
+/* line 223, ../sass/_common.scss */
+.sendform .chatRow img {
+  width: 2.9rem;
+  vertical-align: middle;
+}
+
+/* line 224, ../sass/_common.scss */
+.sendform .chatRow .amount {
+  margin-left: 14rem;
+  margin-right: 14rem;
+  -webkit-border-radius: 0px 8px 8px 0px;
+  -moz-border-radius: 0px 8px 8px 0px;
+  border-radius: 0px 8px 8px 0px;
+  background-color: #fff;
+  padding: 0.5rem 1.0rem 0.5rem 1.0rem;
+  font-size: 3.6rem;
+  display: block;
+  text-decoration: none;
+  color: #666666;
+}
+/* line 237, ../sass/_common.scss */
+.sendform .chatRow .amount input {
+  background: transparent;
+  border: none;
+  color: #666666;
+  float: left;
+  margin-left: 1rem;
+}
+
+/* line 245, ../sass/_common.scss */
+.sendform .chatRow .amount .cur {
+  float: right;
+}
+
+/* line 246, ../sass/_common.scss */
+.sendform .chatRow .sendbut {
+  float: right;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 8px 8px;
+  background-color: #db7932;
+  color: #fff;
+  padding: 0.5rem 3.0rem 0.5rem 3.0rem;
+  font-size: 3.6rem;
+  display: block;
+  text-decoration: none;
+  margin-left: 2rem;
+  position: absolute;
+  right: 1.0rem;
+  bottom: 1.0rem;
+}
+
+/* line 248, ../sass/_common.scss */
+.indexpage {
+  padding-top: 0rem;
+}
+
+/* line 249, ../sass/_common.scss */
+.indexpage .mainpic {
+  position: absolute;
+  right: 0px;
+  top: 50px;
+}
+
+/* line 250, ../sass/_common.scss */
+.indexpage .inner {
+  margin: 0 auto;
+  width: 1000px;
+  color: #fff;
+  font-size: 16px;
+  position: relative;
+}
+
+/* line 251, ../sass/_common.scss */
+.indexpage .inner a {
+  color: #fff;
+}
+
+/* line 252, ../sass/_common.scss */
+.indexpage .top {
+  height: 549px;
+  background-color: #328080;
+}
+
+/* line 253, ../sass/_common.scss */
+.indexpage .top .logo {
+  padding-top: 100px;
+}
+
+/* line 254, ../sass/_common.scss */
+.indexpage .top .desc {
+  padding-top: 50px;
+  color: #a3dede;
+  font-size: 24px;
+  width: 450px;
+}
+
+/* line 255, ../sass/_common.scss */
+.indexpage .bottom {
+  background-color: #003333;
+  height: 400px;
+}
+
+/* line 256, ../sass/_common.scss */
+.indexpage .bottom .connectbut {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  padding: 10px;
+  background-color: #db7932;
+  float: left;
+  display: block;
+  font-size: 30px;
+  color: #fff;
+  text-decoration: none;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -moz-border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 8px 8px;
+}
+
+/* line 257, ../sass/_common.scss */
+.indexpage .nav a {
+  font-size: 18px;
+  padding-right: 20px;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 1200px) {
+  /* line 260, ../sass/_common.scss */
+  html {
+    font-size: 70%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  /* line 263, ../sass/_common.scss */
+  html {
+    font-size: 40%;
+  }
+}
+@media screen and (max-width: 600px) {
+  /* line 266, ../sass/_common.scss */
+  html {
+    font-size: 6px;
+  }
+}
+@media screen and (max-width: 500px) {
+  /* line 269, ../sass/_common.scss */
+  html {
+    font-size: 5.5px;
+  }
+}
 /* line 1, ../sass/_profile.scss */
 .profileButton {
   width: 150px;
@@ -964,11 +1572,6 @@
 }
 
 /* line 1, ../sass/main.scss */
-* {
-  font-family: "Comfortaa";
-}
-
-/* line 2, ../sass/main.scss */
 div.topbar {
   border-bottom: 1px solid black;
   position: absolute;
@@ -979,7 +1582,7 @@ div.topbar {
   padding: 5px;
 }
 
-/* line 11, ../sass/main.scss */
+/* line 10, ../sass/main.scss */
 .bubble {
   border: 2px solid #f2fbff;
   border-radius: 30px;
@@ -989,7 +1592,7 @@ div.topbar {
   color: #428bca;
 }
 
-/* line 19, ../sass/main.scss */
+/* line 18, ../sass/main.scss */
 xxxdiv.surround {
   width: 100%;
   height: 100px;
@@ -1001,79 +1604,79 @@ xxxdiv.surround {
   text-align: center;
 }
 
-/* line 32, ../sass/main.scss */
+/* line 31, ../sass/main.scss */
 .inline {
   display: inline-block;
 }
 
-/* line 35, ../sass/main.scss */
+/* line 34, ../sass/main.scss */
 .small {
   font-size: 75%;
 }
 
-/* line 39, ../sass/main.scss */
+/* line 38, ../sass/main.scss */
 .tiny {
   font-size: 70%;
 }
 
-/* line 42, ../sass/main.scss */
+/* line 41, ../sass/main.scss */
 .blue {
   background-color: #88f;
 }
 
-/* line 43, ../sass/main.scss */
+/* line 42, ../sass/main.scss */
 .green {
   background-color: #4f4;
 }
 
-/* line 44, ../sass/main.scss */
+/* line 43, ../sass/main.scss */
 .red {
   background-color: #f77;
 }
 
-/* line 45, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
 .red-outline {
   border: solid 2px #f77;
 }
 
-/* line 46, ../sass/main.scss */
+/* line 45, ../sass/main.scss */
 .semilightblue {
   background-color: #aaf;
 }
 
-/* line 47, ../sass/main.scss */
+/* line 46, ../sass/main.scss */
 .lightblue {
   background-color: #ddf;
 }
 
-/* line 48, ../sass/main.scss */
+/* line 47, ../sass/main.scss */
 .menuitem {
   padding: 5px;
   background-color: #ddf;
 }
 
-/* line 49, ../sass/main.scss */
+/* line 48, ../sass/main.scss */
 .menuitem:hover {
   background-color: #aaf;
 }
 
-/* line 50, ../sass/main.scss */
+/* line 49, ../sass/main.scss */
 .white {
   background-color: #fff;
 }
 
-/* line 51, ../sass/main.scss */
+/* line 50, ../sass/main.scss */
 .grey {
   background-color: #ddd;
 }
 
-/* line 52, ../sass/main.scss */
+/* line 51, ../sass/main.scss */
 .pill {
   border-radius: 20px;
   text-align: center;
 }
 
-/* line 56, ../sass/main.scss */
+/* line 55, ../sass/main.scss */
 .bigpill {
   border-radius: 5px;
   text-align: center;
@@ -1081,7 +1684,7 @@ xxxdiv.surround {
   max-width: 500px;
 }
 
-/* line 62, ../sass/main.scss */
+/* line 61, ../sass/main.scss */
 .monospace {
   font-family: monospace;
   word-wrap: break-word;
@@ -1090,24 +1693,24 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 69, ../sass/main.scss */
+/* line 68, ../sass/main.scss */
 .squish {
   line-height: 1.2em;
   font-size: small;
 }
 
-/* line 73, ../sass/main.scss */
+/* line 72, ../sass/main.scss */
 .largetext {
   font-size: 18px;
 }
 
-/* line 76, ../sass/main.scss */
+/* line 75, ../sass/main.scss */
 .verylargetext {
   font-size: 72px;
   height: 100px;
 }
 
-/* line 80, ../sass/main.scss */
+/* line 79, ../sass/main.scss */
 .signature {
   font-family: monospace;
   word-wrap: break-word;
@@ -1117,40 +1720,40 @@ xxxdiv.surround {
   font-size: small;
 }
 
-/* line 88, ../sass/main.scss */
+/* line 87, ../sass/main.scss */
 .cmdline {
   text-align: left;
 }
 
-/* line 91, ../sass/main.scss */
+/* line 90, ../sass/main.scss */
 .cmdline::before {
   content: "> ";
   color: #888;
 }
 
-/* line 95, ../sass/main.scss */
+/* line 94, ../sass/main.scss */
 .tabselect {
   padding: 10px;
 }
 
-/* line 98, ../sass/main.scss */
+/* line 97, ../sass/main.scss */
 .tabwindow {
   position: relative;
 }
 
-/* line 101, ../sass/main.scss */
+/* line 100, ../sass/main.scss */
 .tabwindow .tabheader {
   position: absolute;
   top: 0px;
   height: 40px;
 }
 
-/* line 106, ../sass/main.scss */
+/* line 105, ../sass/main.scss */
 .tabheader .tabselect {
   display: inline-block;
 }
 
-/* line 109, ../sass/main.scss */
+/* line 108, ../sass/main.scss */
 .tabwindow .tabbody {
   position: absolute;
   top: 50px;
@@ -1159,18 +1762,18 @@ xxxdiv.surround {
   width: 100%;
 }
 
-/* line 116, ../sass/main.scss */
+/* line 115, ../sass/main.scss */
 .raise4 {
   position: relative;
   top: -4px;
 }
 
-/* line 121, ../sass/main.scss */
+/* line 120, ../sass/main.scss */
 .fullheight {
   height: 100%;
 }
 
-/* line 122, ../sass/main.scss */
+/* line 121, ../sass/main.scss */
 table.tb {
   width: 100%;
   height: 100%;
@@ -1179,44 +1782,44 @@ table.tb {
   table-layout: fixed;
 }
 
-/* line 129, ../sass/main.scss */
+/* line 128, ../sass/main.scss */
 table.tb tr td {
   word-wrap: break-word;
 }
 
-/* line 132, ../sass/main.scss */
+/* line 131, ../sass/main.scss */
 td {
   position: relative;
 }
 
-/* line 135, ../sass/main.scss */
+/* line 134, ../sass/main.scss */
 .tab {
   position: absolute;
   height: 100%;
 }
 
-/* line 139, ../sass/main.scss */
+/* line 138, ../sass/main.scss */
 .tab table.tb {
   padding: 20px;
 }
 
-/* line 142, ../sass/main.scss */
+/* line 141, ../sass/main.scss */
 td.td-label {
   width: 80px;
 }
 
-/* line 145, ../sass/main.scss */
+/* line 144, ../sass/main.scss */
 td.td-wide-label {
   width: 130px;
 }
 
-/* line 148, ../sass/main.scss */
+/* line 147, ../sass/main.scss */
 .txcheckbox {
   width: 15px;
   height: 15px;
 }
 
-/* line 152, ../sass/main.scss */
+/* line 151, ../sass/main.scss */
 .help {
   font-weight: strong;
   font-size: 105%;
@@ -1228,17 +1831,17 @@ td.td-wide-label {
   cursor: hand;
 }
 
-/* line 163, ../sass/main.scss */
+/* line 162, ../sass/main.scss */
 .nav > li:not(.bubble) {
   display: inline-block !important;
 }
 
-/* line 166, ../sass/main.scss */
+/* line 165, ../sass/main.scss */
 .nav-justified {
   text-align: center !important;
 }
 
-/* line 169, ../sass/main.scss */
+/* line 168, ../sass/main.scss */
 .navbar-nav {
   margin-left: 0 !important;
 }

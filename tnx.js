@@ -174,7 +174,7 @@ m.clearRequest = FBify(function(profile, req, res) {
         },
         mkrespcb(res, 400, function(requestObj) {
             function archiveRequest() {
-                requestObj.timestamp = new Date().getTime() / 1000;
+                requestObj.deleteTimestamp = new Date().getTime() / 1000;
                 db.RequestArchive.insert(requestObj);
             }
             if (!requestObj) {
@@ -255,7 +255,7 @@ m.getPendingRequests = FBify(function(profile, req, res) {
 
 // Send thanx (raw function) - accepts mongodb queries for from and to arguments
 
-var rawsend = function(fromquery, toquery, tnx, txType, cb, message) {
+var rawsend = function(fromquery, toquery, tnx, txType, cb, message, request) {
     if (!parseInt(tnx)) return cb('invalid tnx count');
     if (tnx < 0) return cb('you can\'t send a negative amount');
     var scope = {};
@@ -330,7 +330,8 @@ m.sendTNX = FBify(function(profile, req, res) {
                 tnx,
                 txType,
                 cb2,
-                message);
+                message,
+                request);
         },
         function(cb2) {
             db.Request.findAndModify({
@@ -404,6 +405,7 @@ m.acceptGive = FBify(function(profile, req, res) {
                 tnx: scope.request.tnx,
                 txType: constants.TxTypes.giveRequest,
                 message: scope.request.message,
+                requestTimestamp: scope.request.timestamp,
                 timestamp: new Date().getTime() / 1000
             }, cb);
         },
@@ -413,7 +415,7 @@ m.acceptGive = FBify(function(profile, req, res) {
             }, {}, {}, {
                 remove: true
             }, function(err, requestObj) {
-                requestObj.timestamp = new Date().getTime() / 1000;
+                requestObj.archiveTimestamp = new Date().getTime() / 1000;
                 db.RequestArchive.insert(requestObj);
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = scope.request.tnx + " thanx",
@@ -496,6 +498,7 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
                 if (!scope.user) {
                     return res.json('user not found', 400);
                 }
+                // get transactions:
                 db.Transaction.find({
                     $or: [{
                         'payer.id': profile.id,
@@ -511,6 +514,7 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
                     .toArray(setter(scope, 'transactions', cb));
             },
             function(cb) {
+                // get archived requests:
                 db.RequestArchive.find({
                     $and: [{
                         $or: [{
@@ -530,6 +534,7 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
                 }).toArray(setter(scope, 'archive', cb));
             },
             function(cb) {
+                // get pending requests:
                 db.Request.find({
                     $or: [{
                         'sender.id': profile.id,
@@ -542,6 +547,17 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
             }
         ],
         mkrespcb(res, 400, function() {
+            scope.transactions.forEach(function(tx) {
+                if (tx.txType === constants.TxTypes.getRequest) {
+                    tx.sender = {
+                        id: tx.payee.id
+                    };
+                } else if (tx.txType === constants.TxTypes.giveRequest) {
+                    tx.sender = {
+                        id: tx.payer.id
+                    };
+                }
+            });
             var results = scope.archive.concat(scope.requests).concat(scope.transactions);
             results.sort(function compare(item1, item2) {
                 return (item1.timestamp - item2.timestamp);

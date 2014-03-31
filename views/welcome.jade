@@ -1,37 +1,48 @@
+html(manifest='manifest.appcache')
 head
-    include partials/meta
-
-    title https://bitconnect.me
-
-    link(rel="stylesheet",type="text/css",href="css/main.css")
-    link(rel="stylesheet",type="text/css",href="css/welcome.css")
-    link(rel="stylesheet",type="text/css",href="css/bootstrap.min.css")
-body
-    .appContainer
-        #welcome_page
-            img.logo(src="/img/logo.png")
-            .title
-                div.medium social bitcoin wallet
-                div by automatic for the people
-            div.medium bitconnect, a new way to connect
-            div.medium a place where thanx means a lot
-            a.fbcon(href="/login") bitconnect me with facebook
-            div.terms
-                | by clicking the button above you agree
-                br
-                | to our 
-                u terms and conditions
-            .appDownload
-                div or download our app for
-                span
-                    img.downloadButton(src="img/googleplay.png")
-                    img.downloadButton(src="img/appstore.png")
-        script.
-            // When ready...
-            window.addEventListener("load",function() {
-                // Set a timeout...
-                setTimeout(function(){
-                    // Hide the address bar!
-                    window.scrollTo(0, 1);
-                }, 0);
-            });
+    title bitconnect
+    meta(charset='UTF-8')
+    meta(http-equiv='Content-Language', content='en')
+    meta(name='google', content='notranslate')
+    meta(name='apple-mobile-web-app-title', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='format-detection', content='telephone=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='/css/app.css', rel='stylesheet')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../assets/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../assets/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../assets/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='../assets/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+  body
+    .wrapper.indexpage
+      .top
+        .inner
+          .logo
+            img(src='/img/bitconnectlogobig.png')
+          .desc
+            | social bitcoin wallet. by automatic for the people.
+            | new way to connect. a place where thanx means a lot.
+          .mainpic
+            img(src='/img/mainpic.png')
+      .clear
+      .bottom
+        .inner
+          a.connectbut(href="/login")
+            | connect with facebook
+            img(src='/img/arrowright.png')
+          br
+          .clear
+          if tried
+              div
+                | sorry, we currently allow only invited users to join
+          .clear
+          br
+          br
+          br
+          br
+          .nav(style="display:none")
+            a(href='#') home
+            a(href='#') faq

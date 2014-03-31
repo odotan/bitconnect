@@ -4,7 +4,8 @@ var db = require('./db'),
     async = require('async'),
     _ = require('underscore'),
     https = require('https'),
-    Bitcoin = require('bitcoinjs-lib');
+    Bitcoin = require('bitcoinjs-lib'),
+    constants = require('./constants');
 
 var eh = util.eh,
     mkrespcb = util.mkrespcb,
@@ -85,22 +86,6 @@ m.sendBTC = FBify(function(profile, req, res) {
             }));
         },
         function(cb2) {
-            scope.satsent = 0;
-            txObj.outs.map(function(o) {
-                if (o.address == scope.to.address) scope.satsent += o.value;
-            });
-            db.Transaction.insert({
-                payer: dumpUser(scope.from),
-                payee: scope.to.id ? dumpUser(scope.to) : scope.to.address,
-                id: util.randomHex(32),
-                sat: scope.satsent,
-                txid: txHash,
-                confirmed: false,
-                message: message,
-                timestamp: new Date().getTime() / 1000
-            }, cb2);
-        },
-        function(cb2) {
             if (!requestId) {
                 cb2();
             }
@@ -114,6 +99,31 @@ m.sendBTC = FBify(function(profile, req, res) {
             }, {}, {}, {
                 remove: true
             }, setter(scope, 'deletedRequest', cb2));
+        },
+        function(cb2) {
+            var txType;
+            scope.satsent = 0;
+            txObj.outs.map(function(o) {
+                if (o.address == scope.to.address) scope.satsent += o.value;
+            });
+            if (scope.deletedRequest.requestType === constants.RequestTypes.GET) {
+                txType = constants.TxTypes.getRequest;
+            }
+            else if(scope.deletedRequest.requestType === constants.RequestTypes.GIVE) {
+                txType = constants.TxTypes.giveRequest;   
+            }
+            db.Transaction.insert({
+                payer: dumpUser(scope.from),
+                payee: scope.to.id ? dumpUser(scope.to) : scope.to.address,
+                id: util.randomHex(32),
+                sat: scope.satsent,
+                txid: txHash,
+                confirmed: false,
+                message: message,
+                timestamp: new Date().getTime() / 1000,
+                requestTimestamp: deletedRequest.timestamp,
+                txType: txType
+            }, cb2);
         },
         function(cb2) {
             if (scope.deletedRequest) {

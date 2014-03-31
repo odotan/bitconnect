@@ -118,3 +118,153 @@
     left: -2px;
   }
 }
+
+body { margin:0px; padding:0px;}
+body, input {font-family:'museo_sans500', Arial, Helvetica;}
+html {font-size:100%;}
+.clear { clear:both;}
+.wrapper {padding-top:13rem;}
+.header {position:fixed; top:0px; width:100%; z-index:999;}
+.header .top {background-color:#328080; padding:1.5rem 1.3rem 1.5rem 1.3rem; height:5.4rem; box-sizing: content-box; -webkit-box-sizing: content-box; -moz-box-sizing: content-box;}
+.header .top .l { position:absolute; left:1.3rem; top:1.3rem;}
+.header .top .l img, .header .top .r img {height:6.2rem;}
+.header .top .c { text-align:center; padding-bottom:1.2rem; font-size:4.4rem; color:#fff;}
+.header .top .c img {width:20.1rem;}
+.header .top .r { position:absolute; right:1.3rem; top:1.3rem;}
+.header .bottom { background-color:#003333; padding:1.0rem 1.3rem 0.6rem 1.3rem;}
+.header .bottom .l { float:left; width:80%; text-align:left; color:#fff; font-size:2.5rem;}
+.header .bottom .r { float:right; width:20%; text-align:right;}
+.header .bottom .r img { height:2.7rem;}
+.notifications .title {padding:1.0rem 1.3rem 1.0rem 1.3rem; font-size:2.5rem;}
+.notifications .row {background-color:#eaeaea; padding:1.5rem 1.3rem 1.5rem 1.3rem; position:relative; display:block; margin-bottom:2px;}
+.notifications .row .l { width:8.0rem; float:left; text-align:left;}
+.notifications .row .l img {-webkit-border-radius: 80px;-moz-border-radius: 80px;border-radius: 80px; width:8.0rem; height:8.0rem;}
+.notifications .row .c { float:left; text-align:left;}
+.notifications .row .c .name { font-size:3.4rem; padding:1.3rem 0rem 0rem 0.8rem; color:#000000;}
+.notifications .row .c .mes { font-size:2.0rem; color:#7c7c7c; padding:0rem 0rem 0rem 0.8rem;}
+.notifications .row .r {position:absolute; right:2.0rem; top:1.5rem; color:#7c7c7c; padding:1.7rem 0rem 0rem 1.3rem; font-size:2.0rem;}
+.notifications .row .r .alert {background-color:#db7932;-webkit-border-radius: 80px;-moz-border-radius: 80px;border-radius: 80px; color:#fff; font-weight:bold; padding:0.5rem 1.0rem 0.5rem 1.0rem; float:right; margin-top:1.0rem;}
+.connect .row .c .name {padding-top:2.3rem;}
+.connect .row .r {top:2.2rem;}
+
+.messages {padding:1.5rem 1.3rem 1.5rem 1.3rem; position:relative; display:block; margin-bottom:2px;}
+.messages .chatRow {margin-bottom:1.5rem; white-space:nowrap;}
+.messages .chatRow .l, .messages .chatRow .c {vertical-align:bottom; display: inline-block;zoom: 1;}
+.messages .chatRow .l { text-align:left; display: inline-block;}
+.messages .chatRow .l img {-webkit-border-radius: 80px;-moz-border-radius: 80px;border-radius: 80px; width:8.0rem; height:8.0rem;}
+.messages .chatRow .c {white-space:normal; display: inline-block;  text-align:left;background-color:#eaeaea; font-size:2.4rem; color:#7c7c7c;padding:1.5rem 1.5rem 1.5rem 1.5rem; -webkit-border-radius: 8px 8px 8px 0px;-moz-border-radius: 8px 8px 8px 0px;border-radius: 8px 8px 8px 0px; position:relative;}
+.messages .leftmsg .c .bub {background:url(../img/bubblel.png) 100% 100% no-repeat; background-size:100% 100%; width:2.5rem; height:3.4rem; position:absolute; bottom:0px; left:-2.5rem;}
+.messages .rightmsg .c .bub {background:url(../img/bubbler.png) 100% 100% no-repeat; background-size:100% 100%; width:2.5rem; height:3.4rem; position:absolute; bottom:0px; right:-2.5rem;}
+.messages .rightmsg .c {-webkit-border-radius: 8px 8px 0px 8px;-moz-border-radius: 8px 8px 0px 8px;border-radius: 8px 8px 0px 8px; margin-right:0.4rem;}
+.messages .leftmsg .c {margin-left:0.4rem;}
+.messages .rightmsg {text-align:right;}
+.messages .buts {margin-top:1.5rem; padding-top:1.8rem; border-top:1px solid #c3c3c3;}
+.messages .buts .circ {
+  float:left;
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+  border-radius:8px;
+  font-size:2.4rem;
+  padding:.5rem 1rem;
+  &.pendingLoss {
+    background-color:#8637a0;
+    color:#fff;
+  }
+  &.pendingGain {
+    background-color:#377D7D;
+    color:#fff;
+  }
+  &.gain {
+    background-color: transparent;
+    color:#377D7D;
+    border:.3rem solid #377D7D;
+  }
+  &.loss {
+    background-color: transparent;
+    color:#8637a0;
+    border:.3rem solid #8637a0;
+  }
+  &.cancelled {
+    background-color: transparent;
+    color:#7c7c7c;
+    border:.3rem solid #7c7c7c;
+  }
+}
+.messages .buts .circ span.amount {font-size:3.6rem;}
+.messages .buts .but { float:left;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px; background-color:#db7932; color:#fff;padding:0.5rem 1.0rem 0.5rem 1.0rem;font-size:3.6rem; display:block; margin-left:1rem; text-decoration:none;}
+.messages .buts .xico {padding-right:1.4rem;padding-left:1.4rem; background-color:#979797;}
+.messages .buts .xico img {width:2.5rem; height:2.5rem;}
+
+.meico {display:block; background:url(../img/meico.png) 100% 100%; background-size:100% 100%; width:4.5rem; height:6.2rem;}
+.connectico {display:block; background:url(../img/connectico.png) 100% 100%; background-size:100% 100%; width:6.9rem; height:6.2rem;}
+.leftarrowico {display:block; background:url(../img/leftarrow.png) 100% 100%; background-size:100% 100%; width:2.3rem; height:3.6rem; margin-top:1rem; margin-left:1rem;}
+.bitconnectlogo {display:block; background:url(../img/bitconnectlogo.png) 100% 100%; background-size:100% 100%; width:20.1rem; height:3.0rem; margin:0 auto; margin-top:1rem;}
+.but1 {background-color:#328080;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px;padding:1.0rem 1.3rem 1.0rem 1.3rem; color:#fff; text-decoration:none; font-size:3.4rem; }
+
+.sendform {background-color:#eaeaea; position:fixed; bottom:0px; width:100%;}
+.sendform .pad {padding:1.5rem 1.3rem 1.5rem 1.3rem;}
+  .mesgtxt::-webkit-input-placeholder { /* WebKit browsers */
+      color:    #bbbbbb;
+  }
+  .mesgtxt:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color:    #bbbbbb;
+  }
+  .mesgtxt::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color:    #bbbbbb;
+  }
+  .mesgtxt:-ms-input-placeholder { 
+    color:    #bbbbbb;
+  }
+.mesgtxt {font-size:3.0rem; color:#bbbbbb; background-color:#eaeaea; border:0px;
+
+}
+.sendform .chatRow {padding-top:1.5rem;}
+.sendform .chatRow .action {float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0px 8px;border-radius: 8px 0px 0px 8px; background-color:#8637a0; color:#fff;padding:0.5rem 1.0rem 0.5rem 1.0rem;font-size:3.6rem; display:block; text-decoration:none;}
+.sendform .chatRow img { width:2.9rem; vertical-align:middle;}
+.sendform .chatRow .amount {
+  margin-left:14rem;
+  margin-right:14rem;
+  -webkit-border-radius: 0px 8px 8px 0px;
+  -moz-border-radius: 0px 8px 8px 0px;
+  border-radius: 0px 8px 8px 0px;
+  background-color:#fff;
+  padding:0.5rem 1.0rem 0.5rem 1.0rem;
+  font-size:3.6rem;
+  display:block;
+  text-decoration:none;
+  color:#666666;
+
+  input {
+    background: transparent;
+    border: none;
+    color:#666666;
+    float:left;
+    margin-left: 1rem;
+  }
+}
+.sendform .chatRow .amount .cur {float:right;}
+.sendform .chatRow .sendbut {float:right;-webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px; background-color:#db7932; color:#fff;padding:0.5rem 3.0rem 0.5rem 3.0rem;font-size:3.6rem; display:block; text-decoration:none; margin-left:2rem; position:absolute; right:1.0rem; bottom:1.0rem;}
+
+.indexpage {padding-top:0rem;}
+.indexpage .mainpic {position:absolute; right:0px; top:50px;}
+.indexpage .inner { margin:0 auto; width:1000px; color:#fff; font-size:16px; position:relative;}
+.indexpage .inner a { color:#fff;}
+.indexpage .top {height:549px; background-color:#328080;}
+.indexpage .top .logo {padding-top:100px;}
+.indexpage .top .desc {padding-top:50px;color:#a3dede; font-size:24px; width:450px;}
+.indexpage .bottom {background-color:#003333; height:400px;}
+.indexpage .bottom .connectbut {margin-top:50px; margin-bottom:30px; padding:10px; background-color:#db7932; float:left; display:block; font-size:30px; color:#fff; text-decoration:none; -webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px;}
+.indexpage .nav a {font-size:18px; padding-right:20px; text-decoration:none;}
+
+@media screen and (max-width: 1200px) {
+  html {font-size:70%}
+}
+@media screen and (max-width: 1000px) {
+  html {font-size:40%}
+}
+@media screen and (max-width: 600px) {
+  html {font-size:6px;}
+}
+@media screen and (max-width: 500px) {
+  html {font-size:5.5px;}
+}

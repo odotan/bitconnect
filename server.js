@@ -6,7 +6,6 @@ var db = require('./db'),
     async = require('async'),
     http = require('http'),
     _ = require('underscore'),
-    http = require('http'),
     https = require('https'),
     fs = require('fs'),
     Facebook = require('facebook-node-sdk'),
@@ -90,16 +89,15 @@ app.configure(function() {
     app.use(Facebook.middleware({
         appId: config.FBappId,
         secret: config.FBsecret
-    })); 
-    app.use(express.static(__dirname + '/build'));
-    app.use(express.static(__dirname + '/public'));
+    }));
+    app.use(express['static'](__dirname + '/build'));
+    app.use(express['static'](__dirname + '/public'));
     app.use(app.router);
     app.use(function(req, res, next) {
         res.setHeader("X-Frame-Options", "SAMEORIGIN");
         return next();
     });
 });
-
 
 //app.get('/', Facebook.isRegistered(), function(req,res) {                       
 app.get('/', Facebook.loadRegisteredUser({}), function(req, res, next) {
@@ -163,12 +161,30 @@ app.post('/logout', Facebook.loginRequired(), FBify(function(profile, req, res) 
 }));
 
 // Show the app
-app.get('/app/newaccount', Facebook.loadRegisteredUser(), function(req, res) {
-    if (req.registeredUser) {
-        res.redirect('/app/us');
+app.get('/app/newaccount', Facebook.loadRegisteredUser(), FBify(function(profile, req, res) {
+    if (invitations.isLimitActive()) {
+        db.FBInvite.findOne({
+            to: profile.id
+        }, mkrespcb(res, 400, function(invite) {
+            if (!invite) {
+                res.render('welcome.jade', {
+                    tried: true
+                });
+            } else {
+                if (req.registeredUser) {
+                    res.redirect('/app/us');
+                }
+                res.render('newaccount.jade');
+            }
+        }));
+    } else {
+        if (req.registeredUser) {
+            res.redirect('/app/us');
+        }
+        res.render('newaccount.jade');
     }
-    res.render('newaccount.jade');
-});
+}));
+
 app.get('/app/*', Facebook.registerRequired(), function(req, res) {
     res.render('index.jade');
 });
