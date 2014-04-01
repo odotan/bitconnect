@@ -41,13 +41,13 @@ head
           input.mesgtxt(type='text', placeholder='your message here', ng-model="tx.message")
           .chatRow
             .action(ng-click="requestMode = requestMode == 'recieve' ? 'send'  : 'recieve'")
-              | {{ requestMode == 'recieve' ? 'recieve'  : 'send' }}
+              | {{ requestMode == 'recieve' ? 'recieve '  : 'send ' }}
               img(src='/img/arrowbottom.png')
             .amount
               input.mesgtxt(ng-if="!btcmode || btcmode =='tnx'", type="number", ng-model="tx.tnx",placeholder="0", min="0")
               input.mesgtxt(ng-if="btcmode =='sat'", type="number", ng-model="tx.sat",placeholder="0", min="0")
               .cur(ng-click="btcmode = btcmode =='sat' ? 'tnx' : 'sat'")
-                | {{ btcmode == 'sat' ? 'satoshi' :  'thanx' }}
+                | {{ btcmode == 'sat' ? 'satoshi ' :  'thanx ' }}
                 img(src='/img/arrowbottom2.png', align='absmiddle')
             .sendbut(ng-click="sendMessage()") ok
             .clear
