@@ -18,14 +18,14 @@ window.app.directive('historyItem', ['$location', '$timeout', 'TxTypes',
 			'<div ng-if="item.rejected" class="message">this request was rejected</div>' +
 			'<div ng-if="item.cancelled" class="message">this request was cancelled</div>' + 
 			'</div>',*/
-			template: '<a href="#" class="row">' +
+			template: '<a href="#" class="row", ng-click="goToUserPage()">' +
 				'<div class="l">' +
 				'<img ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\' && otherUser.fbUser" ng-src="/pic?username={{otherUser.username}}&size=100" />' +
 				'<img ng-if="item.txType != \''+TxTypes.inviteReward+'\' && item.txType != \''+TxTypes.signupReward+'\' && !otherUser.fbUser && otherUser" ng-src="https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png">' +
 				'<img ng-if="item.txType == \''+TxTypes.inviteReward+'\' || item.txType == \''+TxTypes.signupReward+'\'" ng-src="{{ item.tnx ? \'/img/x.svg\' : \'/img/s.svg\'}}"/>' +
 				'</div>' +
 				'<div class="c">' +
-				'<div class="name" ng-if="item.txType != \'' + TxTypes.inviteReward + '\' && item.txType != \'' + TxTypes.signupReward + '\'" title="{{otherUser.username}}" ng-click="goToUserPage()">{{ otherUser.fbUser ? otherUser.fbUser.first_name + \'  \'+ otherUser.fbUser.last_name : otherUser}}</div>' +
+				'<div class="name" ng-if="item.txType != \'' + TxTypes.inviteReward + '\' && item.txType != \'' + TxTypes.signupReward + '\'" title="{{otherUser.username}}">{{ otherUser.fbUser ? otherUser.fbUser.first_name + \'  \'+ otherUser.fbUser.last_name : otherUser}}</div>' +
 				'<div class="name" ng-if="item.txType == \'' + TxTypes.inviteReward + '\' || item.txType == \'' + TxTypes.signupReward + '\'" title="Reward">reward</div>' +
 				'<div class="mes">{{item.message}}</div>' +
 				'</div>' +

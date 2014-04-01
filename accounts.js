@@ -417,8 +417,15 @@ m.autoFill = function(req, res) {
 
 m.getUserById = function getUserById(req, res) {
 	db.User.findOne({
-		id: req.param('userId')
+		$or: [{
+			id: req.param('userId')
+		}, {
+			username: req.param('userId')
+		}]
 	}, mkrespcb(res, 400, function(u) {
+		if (!u.fbUser) {
+			return res.json('user not found', 400)
+		}
 		res.json({
 			username: u.username,
 			id: u.id,
@@ -608,6 +615,7 @@ m.changeUsername = FBify(function changeUsername(profile, req, res) {
 		return res.json(400, 'illegal username');
 	}
 	async.series([
+
 		function(cb) {
 			db.User.findOne({
 				username: newUsername
@@ -626,10 +634,9 @@ m.changeUsername = FBify(function changeUsername(profile, req, res) {
 					'changeable': false
 				}
 			}, function(err, user) {
-				if(!user) {
+				if (!user) {
 					cb('user not found');
-				}
-				else {
+				} else {
 					cb();
 				}
 			});

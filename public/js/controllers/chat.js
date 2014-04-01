@@ -162,6 +162,9 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 
 		var timer = setInterval(this.getInteraction, 5000),
 			that = this;
+		$http.get('/user?userId='+$routeParams.otherUserId).success(function(otherUser) {
+			$scope.otherUser = otherUser;
+		});
 		$timeout(function() {
 			that.getInteraction(true);
 		});

@@ -58,14 +58,14 @@ window.app.service('bitcoin', ['$rootScope', '$http', function($rootScope, $http
 
     $rootScope.bitcoinSend = function(userWalletAddr, satoshis, fee, message, requestId, cb) {
         function sendToUser(user) {
-            if (!user[0]) return cb('user not found');
-            if (!user[0].address) return cb('getter has no address');
+            if (!user) return cb('user not found');
+            if (!user.address) return cb('getter has no address');
             $rootScope.message = {
-                body: 'send ' + satoshis + ' satoshi to ' + user[0].username + '? a transaction fee of ' + fee + ' satoshi will be added',
+                body: 'send ' + satoshis + ' satoshi to ' + user.username + '? a transaction fee of ' + fee + ' satoshi will be added',
                 action: function() {
                     try {
-                        $rootScope.rawSend(user[0].address, satoshis, fee, '/sendbtc', {
-                            to: user[0].username,
+                        $rootScope.rawSend(user.address, satoshis, fee, '/sendbtc', {
+                            to: user.username,
                             message: message,
                             requestId: requestId
                         }, function(err) {
@@ -96,11 +96,11 @@ window.app.service('bitcoin', ['$rootScope', '$http', function($rootScope, $http
         } else if ($rootScope.balance < satoshis + fee) {
             cb('not enough balance!');
         } else if (userWalletAddr.indexOf('.') >= 0) {
-            $http.get('/userdata?username=' + encodeURIComponent(userWalletAddr))
+            $http.get('/user?username=' + encodeURIComponent(userWalletAddr))
                 .success(sendToUser)
                 .error(cb);
         } else if (/^[0-9]+$/.test(userWalletAddr)) {
-            $http.get('/userdata?id=' + encodeURIComponent(userWalletAddr))
+            $http.get('/user?userId=' + encodeURIComponent(userWalletAddr))
                 .success(sendToUser)
                 .error(cb);
         } else try {

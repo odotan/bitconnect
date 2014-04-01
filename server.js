@@ -290,10 +290,6 @@ dump('/userdump', 'User');
 dump('/requestdump', 'Request');
 dump('/historydump', 'Transaction');
 
-// Not for testing
-
-dump('/userdata', 'User');
-
 // All API routes
 
 app.post('/sendbtc', Facebook.loginRequired(), btc.sendBTC);
