@@ -141,7 +141,7 @@ html {font-size:100%;}
 .messages .chatRow .l, .messages .chatRow .c {vertical-align:bottom; display: inline-block;zoom: 1;}
 .messages .chatRow .l { text-align:left; display: inline-block;}
 .messages .chatRow .l img {-webkit-border-radius: 80px;-moz-border-radius: 80px;border-radius: 80px; width:8.0rem; height:8.0rem;}
-.messages .chatRow .c {white-space:normal; display: inline-block;  text-align:left;background-color:#eaeaea; font-size:2.4rem; color:#7c7c7c;padding:1.5rem 1.5rem 1.5rem 1.5rem; -webkit-border-radius: 8px 8px 8px 0px;-moz-border-radius: 8px 8px 8px 0px;border-radius: 8px 8px 8px 0px; position:relative;}
+.messages .chatRow .c {white-space:normal; display: inline-block;  text-align:left;background-color:#eaeaea; font-size:2.4rem; color:#7c7c7c;padding:1.5rem 1.5rem 1.5rem 1.5rem; -webkit-border-radius: 8px 8px 8px 0px;-moz-border-radius: 8px 8px 8px 0px;border-radius: 8px 8px 8px 0px; position:relative; max-width: 40rem;}
 .messages .leftmsg .c .bub {background:url(../img/bubblel.png) 100% 100% no-repeat; background-size:100% 100%; width:2.5rem; height:3.4rem; position:absolute; bottom:0px; left:-2.5rem;}
 .messages .rightmsg .c .bub {background:url(../img/bubbler.png) 100% 100% no-repeat; background-size:100% 100%; width:2.5rem; height:3.4rem; position:absolute; bottom:0px; right:-2.5rem;}
 .messages .rightmsg .c {-webkit-border-radius: 8px 8px 0px 8px;-moz-border-radius: 8px 8px 0px 8px;border-radius: 8px 8px 0px 8px; margin-right:0.4rem;}
@@ -239,11 +239,13 @@ html {font-size:100%;}
 .indexpage .mainpic {position:absolute; right:0px; top:50px;}
 .indexpage .inner { margin:0 auto; width:1000px; color:#fff; font-size:16px; position:relative;}
 .indexpage .inner a { color:#fff;}
-.indexpage .top {height:549px; background-color:#328080;}
+.indexpage .top {background-color:#328080;}
 .indexpage .top .logo {padding-top:100px;}
-.indexpage .top .desc {padding-top:50px;color:#a3dede; font-size:24px; width:450px;}
+.indexpage .top .logo img {width:207px;}
+.indexpage .top .desc {padding-top:50px;color:#a3dede; font-size:24px; width:450px;padding-bottom:50px;}
 .indexpage .bottom {background-color:#003333; height:400px;}
 .indexpage .bottom .connectbut {margin-top:50px; margin-bottom:30px; padding:10px; background-color:#db7932; float:left; display:block; font-size:30px; color:#fff; text-decoration:none; -webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px;}
+.indexpage .nav {padding-top:50px;}
 .indexpage .nav a {font-size:18px; padding-right:20px; text-decoration:none;}
 
 @media screen and (max-width: 1200px) {
@@ -251,6 +253,14 @@ html {font-size:100%;}
 }
 @media screen and (max-width: 1000px) {
   html {font-size:40%}
+  .indexpage .inner { width:100%; text-align:center;}
+  .indexpage .mainpic {display:none;}
+  .indexpage .top .logo {padding-top:5rem; text-align:center;}
+  .indexpage .top .logo img {width:30rem;}
+  .indexpage .top .desc {padding-top:5rem; text-align:center; color:#a3dede; font-size:3rem; width:80%; margin:0 auto; padding-bottom:6rem;}
+  .indexpage .bottom {padding-top:6rem; padding-bottom:6rem; height:auto;}
+  .indexpage .bottom .connectbut {margin:0 auto; width:50rem; float:none;font-size:4rem;}
+  .indexpage .nav {padding-top:3rem;}
 }
 @media screen and (max-width: 600px) {
   html {font-size:6px;}
