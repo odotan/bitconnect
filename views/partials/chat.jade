@@ -1,19 +1,53 @@
-.surround(ng-controller="ChatController")
-	.chat
-		.items(ng-repeat="item in interaction",style="margin: 5px 0px")
-			chat-item.item(item="item")
-		.placeHolderItem
-		.amountInput(ng-if="!btcmode || btcmode == 'tnx'")
-			input(type="number",ng-model="tx.tnx", min="0", ng-required="true", name="amount")
-		.amountInput(ng-if="btcmode == 'sat'")
-			input(type="number",ng-model="tx.sat", min="5430",ng-required="true", name="amount")
-		.amountInput(ng-if="btcmode == 'dollar'")
-			input(type="number",ng-model="tx.dollar",min="0.01", ng-required="true", name="amount")
-			span.dollarsInThanx(ng-show="tx.dollar") {{ ( tx.dollar / price ) * 100000000 | number: 0}} thanx
-		.messageInput
-			textarea(ng-model="tx.message")
-		.chatActionButtons
-			img.chatActionButton(ng-src="/img/give.png", ng-show="isMoneyTx()", ng-click="give()")
-			img.chatActionButton(ng-src="/img/get.png", ng-show="isMoneyTx()", ng-click="get()")
-			button.sendButton(ng-show="!isMoneyTx()", ng-disabled="!tx.message || submitDisabled", ng-click="sendMessage()") Send
-	include modal
+include modal
+html(manifest='manifest.appcache')
+head
+    title bitconnect
+    meta(charset='UTF-8')
+    meta(http-equiv='Content-Language', content='en')
+    meta(name='google', content='notranslate')
+    meta(name='apple-mobile-web-app-title', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='format-detection', content='telephone=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='css/site.css', rel='stylesheet')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../assets/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../assets/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../assets/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='../assets/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+  body
+    .wrapper
+      .header
+        .top
+          .l
+            a.leftarrowico(href='#')
+          .c connect with
+          .r
+          .clear
+        .bottom
+          .l {{user.tnx}} thanx
+          .r
+            a(href='#')
+              img(src='/img/searchico.png')
+          .clear
+      .content
+        .messages(ng-repeat="citem in interaction")
+            chat-item(item='citem')
+      div(style='height: 14rem;')
+      .sendform
+        .pad
+          input.mesgtxt(type='text', placeholder='your message here', ng-model="tx.message")
+          .chatRow
+            .action(ng-click="requestMode = requestMode == 'recieve' ? 'send'  : 'recieve'")
+              | {{ requestMode == 'recieve' ? 'recieve'  : 'send' }}
+              img(src='/img/arrowbottom.png')
+            .amount
+              input.mesgtxt(ng-if="!btcmode || btcmode =='tnx'", type="number", ng-model="tx.tnx",placeholder="0", min="0")
+              input.mesgtxt(ng-if="btcmode =='sat'", type="number", ng-model="tx.sat",placeholder="0", min="0")
+              .cur(ng-click="btcmode = btcmode =='sat' ? 'tnx' : 'sat'")
+                | {{ btcmode == 'sat' ? 'satoshi' :  'thanx' }}
+                img(src='/img/arrowbottom2.png', align='absmiddle')
+            .sendbut(ng-click="sendMessage()") ok
+            .clear

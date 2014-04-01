@@ -1,12 +1,19 @@
 window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeout', '$http', '$routeParams', 'HistoryService', 'me', 'bitcoin', 'RequestTypes',
 	function($scope, $rootScope, $timeout, $http, $routeParams, HistoryService, me, bitcoin, RequestTypes) {
 		this.getInteraction = function getInteraction(firstTime) {
+			function dumpInteraction(i) {
+				return {
+					id: i.id,
+					cancelled: i.cancelled,
+					rejected: i.rejected
+				};
+			}
 			if (firstTime) {
 				var cachedInteraction = HistoryService.getCachedInteractionWithUser($routeParams.otherUserId);
 				if (cachedInteraction) {
 					$scope.interaction = cachedInteraction;
 					$timeout(function() {
-						jQuery('.main').scrollTop(jQuery('.main')[0].scrollHeight);
+						jQuery('html,body').scrollTop(jQuery('body')[0].scrollHeight);
 					});
 					return;
 
@@ -17,17 +24,13 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 					$rootScope.goTo('app/thanx');
 				}
 				$scope.interaction = $scope.interaction || [];
-				var oldIds = $scope.interaction.map(function(i) {
-					return i.id;
-				});
-				var newIds = interaction.map(function(i) {
-					return i.id;
-				});
-				if (JSON.stringify(oldIds) !== JSON.stringify(newIds)) {
+				var oldInteraction = $scope.interaction.map(dumpInteraction);
+				var newInteraction = interaction.map(dumpInteraction);
+				if (!angular.equals(oldInteraction, newInteraction)) {
 					$scope.interaction = interaction;
 					if (firstTime) {
 						$timeout(function() {
-							jQuery('.main').scrollTop(jQuery('.main')[0].scrollHeight);
+							jQuery('html,body').scrollTop(jQuery('body')[0].scrollHeight);
 						});
 					}
 				}
@@ -46,7 +49,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 		function clearValues() {
 			$scope.tx = {};
 		}
-				
+
 		function errHandler(err) {
 			setSubmitDisabled(false);
 			if (err) {
@@ -64,6 +67,15 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 		}
 
 		$scope.sendMessage = function sendMessage() {
+			if (((!$scope.btcmode || $scope.btcmode === 'tnx') && parseInt($scope.tx.tnx) > 0) ||
+				(($scope.btcmode === 'sat') && parseInt($scope.tx.sat) > 0)) {
+				if ($scope.requestMode === 'recieve') {
+					$scope.get();
+				} else {
+					$scope.give();
+				}
+				return;
+			}
 			setSubmitDisabled(true);
 			$http.post('/mkrequest', {
 				tnx: 0,
@@ -148,8 +160,11 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 			$rootScope.bitcoinSend($routeParams.otherUserId, parseInt($scope.tx.sat), 10000, $scope.tx.message, undefined, errHandler);
 		}
 
-		var timer = setInterval(this.getInteraction, 5000);
-		this.getInteraction(true);
+		var timer = setInterval(this.getInteraction, 5000),
+			that = this;
+		$timeout(function() {
+			that.getInteraction(true);
+		});
 		$scope.$on("$destroy", function() {
 			clearInterval(timer);
 		});

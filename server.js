@@ -150,7 +150,7 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
             }
         } else if (req.param('goto')) {
             res.redirect(req.param('goto'));
-        } else if (u.firstUse) res.redirect('/app/us');
+        } else if (u.firstUse) res.redirect('/app/thanx');
         else res.redirect('/app/give');
     }));
 }));

@@ -1,5 +1,4 @@
 .appContainer {
-  width: 320px;
   margin: auto;
 }
 
@@ -7,17 +6,7 @@
   position: absolute;
 }
 
-.main {
-  position: absolute;
-  top: 146px;
-  width: 100%;
-  height: calc(100% - 146px);
-  overflow-y: auto;
-  background-color: #00ace2;
-}
-
 .main, .header{
-	max-width: 320px;
 	margin: 0 auto;
 }
 .modalbackground {
@@ -240,6 +229,7 @@ html {font-size:100%;}
     color:#666666;
     float:left;
     margin-left: 1rem;
+    width: 15rem;
   }
 }
 .sendform .chatRow .amount .cur {float:right;}

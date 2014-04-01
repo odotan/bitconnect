@@ -8,32 +8,20 @@
 
 /* line 1, ../sass/_common.scss */
 .appContainer {
-  width: 320px;
   margin: auto;
 }
 
-/* line 6, ../sass/_common.scss */
+/* line 5, ../sass/_common.scss */
 .header {
   position: absolute;
 }
 
-/* line 10, ../sass/_common.scss */
-.main {
-  position: absolute;
-  top: 146px;
-  width: 100%;
-  height: calc(100% - 146px);
-  overflow-y: auto;
-  background-color: #00ace2;
-}
-
-/* line 19, ../sass/_common.scss */
+/* line 9, ../sass/_common.scss */
 .main, .header {
-  max-width: 320px;
   margin: 0 auto;
 }
 
-/* line 23, ../sass/_common.scss */
+/* line 12, ../sass/_common.scss */
 .modalbackground {
   left: 0;
   top: 0;
@@ -45,7 +33,7 @@
   z-index: 1049;
 }
 
-/* line 33, ../sass/_common.scss */
+/* line 22, ../sass/_common.scss */
 .mymodal {
   position: fixed;
   top: 10%;
@@ -62,27 +50,27 @@
   -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
-/* line 48, ../sass/_common.scss */
+/* line 37, ../sass/_common.scss */
 .mymodal .body {
   top: 75px;
   position: relative;
   text-align: center;
   padding: 0px 25px;
 }
-/* line 54, ../sass/_common.scss */
+/* line 43, ../sass/_common.scss */
 .mymodal .footer {
   position: relative;
   top: 100px;
   text-align: center;
 }
-/* line 59, ../sass/_common.scss */
+/* line 48, ../sass/_common.scss */
 .mymodal .fullwidth {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 66, ../sass/_common.scss */
+/* line 55, ../sass/_common.scss */
 .btn {
   border: 2px solid #00ace2;
   border-radius: 30px;
@@ -90,18 +78,18 @@
   background-color: #f2fbff;
 }
 
-/* line 73, ../sass/_common.scss */
+/* line 62, ../sass/_common.scss */
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
   border-color: #dddddd;
 }
 
-/* line 77, ../sass/_common.scss */
+/* line 66, ../sass/_common.scss */
 .btn:hover, .btn:active {
   background-color: #3399cc;
   color: #f3f3f3;
 }
 
-/* line 82, ../sass/_common.scss */
+/* line 71, ../sass/_common.scss */
 .rightButtons {
   float: left;
   position: absolute;
@@ -109,7 +97,7 @@
   top: -2px;
 }
 
-/* line 89, ../sass/_common.scss */
+/* line 78, ../sass/_common.scss */
 .actionButton {
   display: inline;
   width: 50px;
@@ -119,7 +107,7 @@
   border: 1px solid #f2fbff;
 }
 
-/* line 98, ../sass/_common.scss */
+/* line 87, ../sass/_common.scss */
 .controlBar {
   position: relative;
   height: 50px;
@@ -127,7 +115,7 @@
   border-radius: 30px;
   margin-bottom: -2px;
 }
-/* line 104, ../sass/_common.scss */
+/* line 93, ../sass/_common.scss */
 .controlBar .controlBarButton {
   display: inline;
   width: 50px;
@@ -136,44 +124,44 @@
   border: 1px solid #3399cc;
   position: absolute;
 }
-/* line 112, ../sass/_common.scss */
+/* line 101, ../sass/_common.scss */
 .controlBar .controlBarButtonRight {
   top: -2px;
   right: -2px;
 }
-/* line 116, ../sass/_common.scss */
+/* line 105, ../sass/_common.scss */
 .controlBar .controlBarButtonLeft {
   top: -2px;
   left: -2px;
 }
 
-/* line 122, ../sass/_common.scss */
+/* line 111, ../sass/_common.scss */
 body {
   margin: 0px;
   padding: 0px;
 }
 
-/* line 123, ../sass/_common.scss */
+/* line 112, ../sass/_common.scss */
 body, input {
   font-family: 'museo_sans500', Arial, Helvetica;
 }
 
-/* line 124, ../sass/_common.scss */
+/* line 113, ../sass/_common.scss */
 html {
   font-size: 100%;
 }
 
-/* line 125, ../sass/_common.scss */
+/* line 114, ../sass/_common.scss */
 .clear {
   clear: both;
 }
 
-/* line 126, ../sass/_common.scss */
+/* line 115, ../sass/_common.scss */
 .wrapper {
   padding-top: 13rem;
 }
 
-/* line 127, ../sass/_common.scss */
+/* line 116, ../sass/_common.scss */
 .header {
   position: fixed;
   top: 0px;
@@ -181,7 +169,7 @@ html {
   z-index: 999;
 }
 
-/* line 128, ../sass/_common.scss */
+/* line 117, ../sass/_common.scss */
 .header .top {
   background-color: #328080;
   padding: 1.5rem 1.3rem 1.5rem 1.3rem;
@@ -191,19 +179,19 @@ html {
   -moz-box-sizing: content-box;
 }
 
-/* line 129, ../sass/_common.scss */
+/* line 118, ../sass/_common.scss */
 .header .top .l {
   position: absolute;
   left: 1.3rem;
   top: 1.3rem;
 }
 
-/* line 130, ../sass/_common.scss */
+/* line 119, ../sass/_common.scss */
 .header .top .l img, .header .top .r img {
   height: 6.2rem;
 }
 
-/* line 131, ../sass/_common.scss */
+/* line 120, ../sass/_common.scss */
 .header .top .c {
   text-align: center;
   padding-bottom: 1.2rem;
@@ -211,25 +199,25 @@ html {
   color: #fff;
 }
 
-/* line 132, ../sass/_common.scss */
+/* line 121, ../sass/_common.scss */
 .header .top .c img {
   width: 20.1rem;
 }
 
-/* line 133, ../sass/_common.scss */
+/* line 122, ../sass/_common.scss */
 .header .top .r {
   position: absolute;
   right: 1.3rem;
   top: 1.3rem;
 }
 
-/* line 134, ../sass/_common.scss */
+/* line 123, ../sass/_common.scss */
 .header .bottom {
   background-color: #003333;
   padding: 1.0rem 1.3rem 0.6rem 1.3rem;
 }
 
-/* line 135, ../sass/_common.scss */
+/* line 124, ../sass/_common.scss */
 .header .bottom .l {
   float: left;
   width: 80%;
@@ -238,25 +226,25 @@ html {
   font-size: 2.5rem;
 }
 
-/* line 136, ../sass/_common.scss */
+/* line 125, ../sass/_common.scss */
 .header .bottom .r {
   float: right;
   width: 20%;
   text-align: right;
 }
 
-/* line 137, ../sass/_common.scss */
+/* line 126, ../sass/_common.scss */
 .header .bottom .r img {
   height: 2.7rem;
 }
 
-/* line 138, ../sass/_common.scss */
+/* line 127, ../sass/_common.scss */
 .notifications .title {
   padding: 1.0rem 1.3rem 1.0rem 1.3rem;
   font-size: 2.5rem;
 }
 
-/* line 139, ../sass/_common.scss */
+/* line 128, ../sass/_common.scss */
 .notifications .row {
   background-color: #eaeaea;
   padding: 1.5rem 1.3rem 1.5rem 1.3rem;
@@ -265,14 +253,14 @@ html {
   margin-bottom: 2px;
 }
 
-/* line 140, ../sass/_common.scss */
+/* line 129, ../sass/_common.scss */
 .notifications .row .l {
   width: 8.0rem;
   float: left;
   text-align: left;
 }
 
-/* line 141, ../sass/_common.scss */
+/* line 130, ../sass/_common.scss */
 .notifications .row .l img {
   -webkit-border-radius: 80px;
   -moz-border-radius: 80px;
@@ -281,27 +269,27 @@ html {
   height: 8.0rem;
 }
 
-/* line 142, ../sass/_common.scss */
+/* line 131, ../sass/_common.scss */
 .notifications .row .c {
   float: left;
   text-align: left;
 }
 
-/* line 143, ../sass/_common.scss */
+/* line 132, ../sass/_common.scss */
 .notifications .row .c .name {
   font-size: 3.4rem;
   padding: 1.3rem 0rem 0rem 0.8rem;
   color: #000000;
 }
 
-/* line 144, ../sass/_common.scss */
+/* line 133, ../sass/_common.scss */
 .notifications .row .c .mes {
   font-size: 2.0rem;
   color: #7c7c7c;
   padding: 0rem 0rem 0rem 0.8rem;
 }
 
-/* line 145, ../sass/_common.scss */
+/* line 134, ../sass/_common.scss */
 .notifications .row .r {
   position: absolute;
   right: 2.0rem;
@@ -311,7 +299,7 @@ html {
   font-size: 2.0rem;
 }
 
-/* line 146, ../sass/_common.scss */
+/* line 135, ../sass/_common.scss */
 .notifications .row .r .alert {
   background-color: #db7932;
   -webkit-border-radius: 80px;
@@ -324,17 +312,17 @@ html {
   margin-top: 1.0rem;
 }
 
-/* line 147, ../sass/_common.scss */
+/* line 136, ../sass/_common.scss */
 .connect .row .c .name {
   padding-top: 2.3rem;
 }
 
-/* line 148, ../sass/_common.scss */
+/* line 137, ../sass/_common.scss */
 .connect .row .r {
   top: 2.2rem;
 }
 
-/* line 150, ../sass/_common.scss */
+/* line 139, ../sass/_common.scss */
 .messages {
   padding: 1.5rem 1.3rem 1.5rem 1.3rem;
   position: relative;
@@ -342,26 +330,26 @@ html {
   margin-bottom: 2px;
 }
 
-/* line 151, ../sass/_common.scss */
+/* line 140, ../sass/_common.scss */
 .messages .chatRow {
   margin-bottom: 1.5rem;
   white-space: nowrap;
 }
 
-/* line 152, ../sass/_common.scss */
+/* line 141, ../sass/_common.scss */
 .messages .chatRow .l, .messages .chatRow .c {
   vertical-align: bottom;
   display: inline-block;
   zoom: 1;
 }
 
-/* line 153, ../sass/_common.scss */
+/* line 142, ../sass/_common.scss */
 .messages .chatRow .l {
   text-align: left;
   display: inline-block;
 }
 
-/* line 154, ../sass/_common.scss */
+/* line 143, ../sass/_common.scss */
 .messages .chatRow .l img {
   -webkit-border-radius: 80px;
   -moz-border-radius: 80px;
@@ -370,7 +358,7 @@ html {
   height: 8.0rem;
 }
 
-/* line 155, ../sass/_common.scss */
+/* line 144, ../sass/_common.scss */
 .messages .chatRow .c {
   white-space: normal;
   display: inline-block;
@@ -385,7 +373,7 @@ html {
   position: relative;
 }
 
-/* line 156, ../sass/_common.scss */
+/* line 145, ../sass/_common.scss */
 .messages .leftmsg .c .bub {
   background: url(../img/bubblel.png) 100% 100% no-repeat;
   background-size: 100% 100%;
@@ -396,7 +384,7 @@ html {
   left: -2.5rem;
 }
 
-/* line 157, ../sass/_common.scss */
+/* line 146, ../sass/_common.scss */
 .messages .rightmsg .c .bub {
   background: url(../img/bubbler.png) 100% 100% no-repeat;
   background-size: 100% 100%;
@@ -407,7 +395,7 @@ html {
   right: -2.5rem;
 }
 
-/* line 158, ../sass/_common.scss */
+/* line 147, ../sass/_common.scss */
 .messages .rightmsg .c {
   -webkit-border-radius: 8px 8px 0px 8px;
   -moz-border-radius: 8px 8px 0px 8px;
@@ -415,24 +403,24 @@ html {
   margin-right: 0.4rem;
 }
 
-/* line 159, ../sass/_common.scss */
+/* line 148, ../sass/_common.scss */
 .messages .leftmsg .c {
   margin-left: 0.4rem;
 }
 
-/* line 160, ../sass/_common.scss */
+/* line 149, ../sass/_common.scss */
 .messages .rightmsg {
   text-align: right;
 }
 
-/* line 161, ../sass/_common.scss */
+/* line 150, ../sass/_common.scss */
 .messages .buts {
   margin-top: 1.5rem;
   padding-top: 1.8rem;
   border-top: 1px solid #c3c3c3;
 }
 
-/* line 162, ../sass/_common.scss */
+/* line 151, ../sass/_common.scss */
 .messages .buts .circ {
   float: left;
   -webkit-border-radius: 8px;
@@ -441,41 +429,41 @@ html {
   font-size: 2.4rem;
   padding: .5rem 1rem;
 }
-/* line 169, ../sass/_common.scss */
+/* line 158, ../sass/_common.scss */
 .messages .buts .circ.pendingLoss {
   background-color: #8637a0;
   color: #fff;
 }
-/* line 173, ../sass/_common.scss */
+/* line 162, ../sass/_common.scss */
 .messages .buts .circ.pendingGain {
   background-color: #377D7D;
   color: #fff;
 }
-/* line 177, ../sass/_common.scss */
+/* line 166, ../sass/_common.scss */
 .messages .buts .circ.gain {
   background-color: transparent;
   color: #377D7D;
   border: .3rem solid #377D7D;
 }
-/* line 182, ../sass/_common.scss */
+/* line 171, ../sass/_common.scss */
 .messages .buts .circ.loss {
   background-color: transparent;
   color: #8637a0;
   border: .3rem solid #8637a0;
 }
-/* line 187, ../sass/_common.scss */
+/* line 176, ../sass/_common.scss */
 .messages .buts .circ.cancelled {
   background-color: transparent;
   color: #7c7c7c;
   border: .3rem solid #7c7c7c;
 }
 
-/* line 193, ../sass/_common.scss */
+/* line 182, ../sass/_common.scss */
 .messages .buts .circ span.amount {
   font-size: 3.6rem;
 }
 
-/* line 194, ../sass/_common.scss */
+/* line 183, ../sass/_common.scss */
 .messages .buts .but {
   float: left;
   -webkit-border-radius: 8px;
@@ -490,20 +478,20 @@ html {
   text-decoration: none;
 }
 
-/* line 195, ../sass/_common.scss */
+/* line 184, ../sass/_common.scss */
 .messages .buts .xico {
   padding-right: 1.4rem;
   padding-left: 1.4rem;
   background-color: #979797;
 }
 
-/* line 196, ../sass/_common.scss */
+/* line 185, ../sass/_common.scss */
 .messages .buts .xico img {
   width: 2.5rem;
   height: 2.5rem;
 }
 
-/* line 198, ../sass/_common.scss */
+/* line 187, ../sass/_common.scss */
 .meico {
   display: block;
   background: url(../img/meico.png) 100% 100%;
@@ -512,7 +500,7 @@ html {
   height: 6.2rem;
 }
 
-/* line 199, ../sass/_common.scss */
+/* line 188, ../sass/_common.scss */
 .connectico {
   display: block;
   background: url(../img/connectico.png) 100% 100%;
@@ -521,7 +509,7 @@ html {
   height: 6.2rem;
 }
 
-/* line 200, ../sass/_common.scss */
+/* line 189, ../sass/_common.scss */
 .leftarrowico {
   display: block;
   background: url(../img/leftarrow.png) 100% 100%;
@@ -532,7 +520,7 @@ html {
   margin-left: 1rem;
 }
 
-/* line 201, ../sass/_common.scss */
+/* line 190, ../sass/_common.scss */
 .bitconnectlogo {
   display: block;
   background: url(../img/bitconnectlogo.png) 100% 100%;
@@ -543,7 +531,7 @@ html {
   margin-top: 1rem;
 }
 
-/* line 202, ../sass/_common.scss */
+/* line 191, ../sass/_common.scss */
 .but1 {
   background-color: #328080;
   -webkit-border-radius: 8px;
@@ -555,7 +543,7 @@ html {
   font-size: 3.4rem;
 }
 
-/* line 204, ../sass/_common.scss */
+/* line 193, ../sass/_common.scss */
 .sendform {
   background-color: #eaeaea;
   position: fixed;
@@ -563,35 +551,35 @@ html {
   width: 100%;
 }
 
-/* line 205, ../sass/_common.scss */
+/* line 194, ../sass/_common.scss */
 .sendform .pad {
   padding: 1.5rem 1.3rem 1.5rem 1.3rem;
 }
 
-/* line 206, ../sass/_common.scss */
+/* line 195, ../sass/_common.scss */
 .mesgtxt::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #bbbbbb;
 }
 
-/* line 209, ../sass/_common.scss */
+/* line 198, ../sass/_common.scss */
 .mesgtxt:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #bbbbbb;
 }
 
-/* line 212, ../sass/_common.scss */
+/* line 201, ../sass/_common.scss */
 .mesgtxt::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #bbbbbb;
 }
 
-/* line 215, ../sass/_common.scss */
+/* line 204, ../sass/_common.scss */
 .mesgtxt:-ms-input-placeholder {
   color: #bbbbbb;
 }
 
-/* line 218, ../sass/_common.scss */
+/* line 207, ../sass/_common.scss */
 .mesgtxt {
   font-size: 3.0rem;
   color: #bbbbbb;
@@ -599,12 +587,12 @@ html {
   border: 0px;
 }
 
-/* line 221, ../sass/_common.scss */
+/* line 210, ../sass/_common.scss */
 .sendform .chatRow {
   padding-top: 1.5rem;
 }
 
-/* line 222, ../sass/_common.scss */
+/* line 211, ../sass/_common.scss */
 .sendform .chatRow .action {
   float: left;
   -webkit-border-radius: 8px 0px 0px 8px;
@@ -618,13 +606,13 @@ html {
   text-decoration: none;
 }
 
-/* line 223, ../sass/_common.scss */
+/* line 212, ../sass/_common.scss */
 .sendform .chatRow img {
   width: 2.9rem;
   vertical-align: middle;
 }
 
-/* line 224, ../sass/_common.scss */
+/* line 213, ../sass/_common.scss */
 .sendform .chatRow .amount {
   margin-left: 14rem;
   margin-right: 14rem;
@@ -638,21 +626,22 @@ html {
   text-decoration: none;
   color: #666666;
 }
-/* line 237, ../sass/_common.scss */
+/* line 226, ../sass/_common.scss */
 .sendform .chatRow .amount input {
   background: transparent;
   border: none;
   color: #666666;
   float: left;
   margin-left: 1rem;
+  width: 15rem;
 }
 
-/* line 245, ../sass/_common.scss */
+/* line 235, ../sass/_common.scss */
 .sendform .chatRow .amount .cur {
   float: right;
 }
 
-/* line 246, ../sass/_common.scss */
+/* line 236, ../sass/_common.scss */
 .sendform .chatRow .sendbut {
   float: right;
   -webkit-border-radius: 8px 8px 8px 8px;
@@ -670,19 +659,19 @@ html {
   bottom: 1.0rem;
 }
 
-/* line 248, ../sass/_common.scss */
+/* line 238, ../sass/_common.scss */
 .indexpage {
   padding-top: 0rem;
 }
 
-/* line 249, ../sass/_common.scss */
+/* line 239, ../sass/_common.scss */
 .indexpage .mainpic {
   position: absolute;
   right: 0px;
   top: 50px;
 }
 
-/* line 250, ../sass/_common.scss */
+/* line 240, ../sass/_common.scss */
 .indexpage .inner {
   margin: 0 auto;
   width: 1000px;
@@ -691,23 +680,23 @@ html {
   position: relative;
 }
 
-/* line 251, ../sass/_common.scss */
+/* line 241, ../sass/_common.scss */
 .indexpage .inner a {
   color: #fff;
 }
 
-/* line 252, ../sass/_common.scss */
+/* line 242, ../sass/_common.scss */
 .indexpage .top {
   height: 549px;
   background-color: #328080;
 }
 
-/* line 253, ../sass/_common.scss */
+/* line 243, ../sass/_common.scss */
 .indexpage .top .logo {
   padding-top: 100px;
 }
 
-/* line 254, ../sass/_common.scss */
+/* line 244, ../sass/_common.scss */
 .indexpage .top .desc {
   padding-top: 50px;
   color: #a3dede;
@@ -715,13 +704,13 @@ html {
   width: 450px;
 }
 
-/* line 255, ../sass/_common.scss */
+/* line 245, ../sass/_common.scss */
 .indexpage .bottom {
   background-color: #003333;
   height: 400px;
 }
 
-/* line 256, ../sass/_common.scss */
+/* line 246, ../sass/_common.scss */
 .indexpage .bottom .connectbut {
   margin-top: 50px;
   margin-bottom: 30px;
@@ -737,7 +726,7 @@ html {
   border-radius: 8px 8px 8px 8px;
 }
 
-/* line 257, ../sass/_common.scss */
+/* line 247, ../sass/_common.scss */
 .indexpage .nav a {
   font-size: 18px;
   padding-right: 20px;
@@ -745,25 +734,25 @@ html {
 }
 
 @media screen and (max-width: 1200px) {
-  /* line 260, ../sass/_common.scss */
+  /* line 250, ../sass/_common.scss */
   html {
     font-size: 70%;
   }
 }
 @media screen and (max-width: 1000px) {
-  /* line 263, ../sass/_common.scss */
+  /* line 253, ../sass/_common.scss */
   html {
     font-size: 40%;
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 266, ../sass/_common.scss */
+  /* line 256, ../sass/_common.scss */
   html {
     font-size: 6px;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 269, ../sass/_common.scss */
+  /* line 259, ../sass/_common.scss */
   html {
     font-size: 5.5px;
   }

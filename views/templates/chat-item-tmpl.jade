@@ -1,11 +1,20 @@
-div(ng-class="{incoming: direction == 'incoming', outgoing: direction == 'outgoing', cancelled: item.cancelled || item.rejected}")
-	div.time {{time | date : "dd/MM/yy HH:mm"}}
-	div.message {{item.message}}
-	div(title="{{ item.cancelled ? 'this request was cancelled' : item.rejected ? 'this request was rejected' : ''}}")
-		span.tnx(ng-if='item.tnx') {{ item.tnx }} thanx
-		span.sat(ng-if='item.sat') {{ item.sat }} satoshi
-	span.accept(ng-switch="", on="item.requestType", ng-if="direction == \'incoming\' && !item.cancelled && !item.rejected")
-		img.requestActionButton(ng-switch-when="GIVE", src="/img/get.png", ng-click="accept()")
-		img.requestActionButton(ng-switch-when="GET", src="/img/give.png", ng-click="accept()")
-	span.reject(ng-if="item.requestType && !item.cancelled && !item.rejected")
-		img.requestActionButton(src="/img/reject_blue.png", ng-click="reject()")
+.chatRow(ng-class="{leftmsg: direction == 'incoming', rightmsg: direction == 'outgoing', cancelled: item.cancelled || item.rejected}")
+	.l(ng-if="direction=='incoming'")
+		img(ng-src="/pic?id={{item.sender.id}}")
+	.c
+		.msg {{item.message}}
+		.buts
+			.circ(ng-if="item.tnx || item.sat", ng-class="{pendingGain: isPending && isGain, pendingLoss: isPending && isLoss , gain: !isPending && isGain, loss: !isPending && isLoss, cancelled: item.cancelled || item.rejected}")
+				span(ng-if="item.requestType == 'GIVE' || item.txType == 'giveRequest'") sent
+				span(ng-if="item.requestType == 'GET'") requested
+				span(ng-if="item.txType == 'getRequest'") recieved
+
+				span.amount  {{ item.tnx || item.sat }} 
+				| {{item.tnx ? 'thanx' : 'satoshi'}}
+			a(ng-if="direction=='outgoing' && isPending",ng-click="reject()").but cancel
+			a(ng-if="direction=='incoming' && isPending",ng-click="reject()").but.xico
+				img(ng-src="/img/xico.png")
+		.bub
+	.l(ng-if="direction=='outgoing'")
+		img(ng-src="/pic?id={{item.sender.id}}")
+	.clear

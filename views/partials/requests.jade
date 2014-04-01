@@ -1,9 +1,36 @@
-body(ng-app="thanxbits")
-    .surround(ng-controller="RequestController")
-        .thanx
-            .history(ng-repeat="hitem in history",style="margin: 5px 0px")
-                .request(ng-if="hitem.payer.id == user.id", ng-class="{unconfirmed: hitem.confirmed == false}")
-                    history-item(item="hitem", other-user="hitem.payee")
-                .request(ng-if="hitem.payer.id != user.id", ng-class="{unconfirmed: hitem.confirmed == false}")
-                    history-item(item="hitem", other-user="hitem.payer")
-        include modal
+html(manifest='manifest.appcache')
+head
+    title bitconnect
+    meta(charset='UTF-8')
+    meta(http-equiv='Content-Language', content='en')
+    meta(name='google', content='notranslate')
+    meta(name='apple-mobile-web-app-title', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../assets/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../assets/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../assets/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='../assets/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+  body
+    .wrapper
+      .header
+        .top
+          .l
+            a.meico(href='#')
+          .c
+            a.bitconnectlogo(href='#')
+          .r
+            a.connectico(href='#')
+          .clear
+        .bottom
+          .l {{user.tnx}} thanx
+          .r
+            a(href='#')
+              img(src='/img/searchico.png')
+          .clear
+      .content
+        .notifications(ng-repeat="hitem in history")
+          history-item(ng-if="hitem.payer.id == user.id", item="hitem", other-user="hitem.payee")
+          history-item(ng-if="hitem.payer.id != user.id", item="hitem", other-user="hitem.payer")
