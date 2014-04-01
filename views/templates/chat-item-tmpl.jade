@@ -11,6 +11,8 @@
 
 				span.amount  {{ item.tnx || item.sat }} 
 				| {{item.tnx ? 'thanx' : 'satoshi'}}
+			a(ng-if="direction=='incoming' && isPending && item.requestType == 'GET'", ng-click="accept()").but send
+			a(ng-if="direction=='incoming' && isPending && item.requestType == 'GIVE'", ng-click="accept()").but accept
 			a(ng-if="direction=='outgoing' && isPending",ng-click="reject()").but cancel
 			a(ng-if="direction=='incoming' && isPending",ng-click="reject()").but.xico
 				img(ng-src="/img/xico.png")

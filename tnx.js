@@ -560,7 +560,7 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
             });
             var results = scope.archive.concat(scope.requests).concat(scope.transactions);
             results.sort(function compare(item1, item2) {
-                return (item1.timestamp - item2.timestamp);
+                return ((item1.requestTimestamp || item1.timestamp) - (item2.requestTimestamp || item2.timestamp));
             });
             res.json(results);
         }));
