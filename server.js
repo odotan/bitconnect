@@ -144,7 +144,7 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
                     if (err) {
                         res.redirect('/app/newaccount');
                     } else {
-                        res.redirect('/app/us');
+                        res.redirect('/app/thanx');
                     }
                 });
             }
