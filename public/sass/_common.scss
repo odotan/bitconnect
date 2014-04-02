@@ -208,7 +208,7 @@ html {font-size:100%;}
 .connectico {display:block; background:url(../img/connectico.png) 100% 100%; background-size:100% 100%; width:6.9rem; height:6.2rem;}
 .leftarrowico {display:block; background:url(../img/leftarrow.png) 100% 100%; background-size:100% 100%; width:2.3rem; height:3.6rem; margin-top:1rem; margin-left:1rem;}
 .bitconnectlogo {display:block; background:url(../img/bitconnectlogo.png) 100% 100%; background-size:100% 100%; width:20.1rem; height:3.0rem; margin:0 auto; margin-top:1rem;}
-.but1 {background-color:#328080;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px;padding:1.0rem 1.3rem 1.0rem 1.3rem; color:#fff; text-decoration:none; font-size:3.4rem; }
+.but1 {background-color:#328080;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px;padding:1.0rem 1.3rem 1.0rem 1.3rem; color:#fff; text-decoration:none; font-size:3.4rem;}
 
 .sendform {background-color:#eaeaea; position:fixed; bottom:0px; width:100%;}
 .sendform .pad {padding:1.5rem 1.3rem 1.5rem 1.3rem;}
@@ -228,8 +228,28 @@ html {font-size:100%;}
 
 }
 .sendform .chatRow {padding-top:1.5rem;}
-.sendform .chatRow .action {float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0px 8px;border-radius: 8px 0px 0px 8px; background-color:#8637a0; color:#fff;padding:0.5rem 1.0rem 0.5rem 1.0rem;font-size:3.6rem; display:block; text-decoration:none;}
-.sendform .chatRow img { width:2.9rem; vertical-align:middle;}
+.sendform .chatRow .action {
+float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0px 8px;border-radius: 8px 0px 0px 8px; color:#fff;padding:0.5rem 1.0rem 0.5rem 1.0rem;font-size:3.6rem; display:block; text-decoration:none; width:16rem;
+  .actionText {
+    width: calc(100% - 2.9rem);
+    text-align: left;
+    display:inline-block;
+  }
+  .actionArrow {
+    text-align: right;
+    display:inline-block;
+    img {
+      width:2.9rem;
+      vertical-align:middle;
+    }
+  }
+  &.send {
+    background-color:#8637a0; 
+  }
+  &.receive {
+    background-color:#377D7D;
+  }
+}
 .sendform .chatRow .amount {
   margin-left:14rem;
   margin-right:14rem;
