@@ -41,7 +41,7 @@ head
           .chatRow
             .action(ng-click="requestMode = requestMode == 'receive' ? 'send'  : 'receive'", ng-class="requestMode == 'receive' ? 'receive'  : 'send'")
               .actionText
-                {{ requestMode == 'receive' ? 'receive '  : 'send ' }}
+                {{ requestMode == 'receive' ? 'request'  : 'send' }}
               .actionArrow
                 img(src='/img/arrowbottom.png')
             .amount
