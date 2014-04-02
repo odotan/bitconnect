@@ -141,7 +141,7 @@ html {font-size:100%;}
 .messages .chatRow .l, .messages .chatRow .c {vertical-align:bottom; display: inline-block;zoom: 1;}
 .messages .chatRow .l { text-align:left; display: inline-block;}
 .messages .chatRow .l img {-webkit-border-radius: 80px;-moz-border-radius: 80px;border-radius: 80px; width:8.0rem; height:8.0rem;}
-.messages .chatRow .c {white-space:normal; display: inline-block;  text-align:left;background-color:#eaeaea; font-size:2.4rem; color:#7c7c7c;padding:1.5rem 1.5rem 1.5rem 1.5rem; -webkit-border-radius: 8px 8px 8px 0px;-moz-border-radius: 8px 8px 8px 0px;border-radius: 8px 8px 8px 0px; position:relative; max-width: 40rem;}
+.messages .chatRow .c {white-space:normal; display: inline-block;  text-align:left;background-color:#eaeaea; font-size:2.4rem; color:#7c7c7c;padding:1.5rem 1.5rem 1.5rem 1.5rem; -webkit-border-radius: 8px 8px 8px 0px;-moz-border-radius: 8px 8px 8px 0px;border-radius: 8px 8px 8px 0px; position:relative;}
 .messages .leftmsg .c .bub {background:url(../img/bubblel.png) 100% 100% no-repeat; background-size:100% 100%; width:2.5rem; height:3.4rem; position:absolute; bottom:0px; left:-2.5rem;}
 .messages .rightmsg .c .bub {background:url(../img/bubbler.png) 100% 100% no-repeat; background-size:100% 100%; width:2.5rem; height:3.4rem; position:absolute; bottom:0px; right:-2.5rem;}
 .messages .rightmsg .c {-webkit-border-radius: 8px 8px 0px 8px;-moz-border-radius: 8px 8px 0px 8px;border-radius: 8px 8px 0px 8px; margin-right:0.4rem;}
@@ -167,16 +167,36 @@ html {font-size:100%;}
     background-color: transparent;
     color:#377D7D;
     border:.3rem solid #377D7D;
+    &:after {
+      background: url("/img/vicongreen.png") no-repeat 0 0;
+    }
   }
   &.loss {
     background-color: transparent;
     color:#8637a0;
     border:.3rem solid #8637a0;
+    &:after {
+      background: url("/img/viconpurple.png") no-repeat 0 0;
+    }
   }
   &.cancelled {
     background-color: transparent;
     color:#7c7c7c;
     border:.3rem solid #7c7c7c;
+    &:after {
+      background: url("/img/xicongrey.png") no-repeat 0 0;
+    }
+  }
+  &.cancelled,&.loss,&.gain {
+    &:after {
+      display: inline-block;
+      width: 1.7rem;
+      height: 1.7rem;
+      content: "";
+      background-size: 100%;
+      margin-left: .8rem;
+      margin-bottom: .2rem;
+    }
   }
 }
 .messages .buts .circ span.amount {font-size:3.6rem;}
@@ -227,13 +247,15 @@ html {font-size:100%;}
     background: transparent;
     border: none;
     color:#666666;
-    float:left;
-    margin-left: 1rem;
-    width: 15rem;
+    width: calc(100% - 20rem);
+  }
+  input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
 .sendform .chatRow .amount .cur {float:right;}
-.sendform .chatRow .sendbut {float:right;-webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px; background-color:#db7932; color:#fff;padding:0.5rem 3.0rem 0.5rem 3.0rem;font-size:3.6rem; display:block; text-decoration:none; margin-left:2rem; position:absolute; right:1.0rem; bottom:1.0rem;}
+.sendform .chatRow .sendbut {float:right;-webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px; background-color:#db7932; color:#fff;padding:0.5rem 3.0rem 0.5rem 3.0rem;font-size:3.6rem; display:block; text-decoration:none; margin-left:2rem; position:absolute; right:1.0rem; bottom:1.5rem;}
 
 .indexpage {padding-top:0rem;}
 .indexpage .mainpic {position:absolute; right:0px; top:50px;}
@@ -247,6 +269,11 @@ html {font-size:100%;}
 .indexpage .bottom .connectbut {margin-top:50px; margin-bottom:30px; padding:10px; background-color:#db7932; float:left; display:block; font-size:30px; color:#fff; text-decoration:none; -webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px;}
 .indexpage .nav {padding-top:50px;}
 .indexpage .nav a {font-size:18px; padding-right:20px; text-decoration:none;}
+
+.popupbg {background-color:#000000; opacity:0.5; width:100%; height:100%; position:fixed; top:0px; left:0px; z-index:1001;}
+.popup {position:fixed; left:50%; width:40rem; margin-left:-20rem; top:20rem; background-color:#eaeaea;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px; z-index:1002; font-size:4rem; color:#777777;border:1rem solid rgba(0,0,0,0.3);}
+.popup .pad { padding:5rem;}
+
 
 @media screen and (max-width: 1200px) {
   html {font-size:70%}
