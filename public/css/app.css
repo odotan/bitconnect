@@ -371,7 +371,6 @@ html {
   -moz-border-radius: 8px 8px 8px 0px;
   border-radius: 8px 8px 8px 0px;
   position: relative;
-  max-width: 40rem;
 }
 
 /* line 145, ../sass/_common.scss */
@@ -446,25 +445,47 @@ html {
   color: #377D7D;
   border: .3rem solid #377D7D;
 }
-/* line 171, ../sass/_common.scss */
+/* line 170, ../sass/_common.scss */
+.messages .buts .circ.gain:after {
+  background: url("/img/vicongreen.png") no-repeat 0 0;
+}
+/* line 174, ../sass/_common.scss */
 .messages .buts .circ.loss {
   background-color: transparent;
   color: #8637a0;
   border: .3rem solid #8637a0;
 }
-/* line 176, ../sass/_common.scss */
+/* line 178, ../sass/_common.scss */
+.messages .buts .circ.loss:after {
+  background: url("/img/viconpurple.png") no-repeat 0 0;
+}
+/* line 182, ../sass/_common.scss */
 .messages .buts .circ.cancelled {
   background-color: transparent;
   color: #7c7c7c;
   border: .3rem solid #7c7c7c;
 }
+/* line 186, ../sass/_common.scss */
+.messages .buts .circ.cancelled:after {
+  background: url("/img/xicongrey.png") no-repeat 0 0;
+}
+/* line 191, ../sass/_common.scss */
+.messages .buts .circ.cancelled:after, .messages .buts .circ.loss:after, .messages .buts .circ.gain:after {
+  display: inline-block;
+  width: 1.7rem;
+  height: 1.7rem;
+  content: "";
+  background-size: 100%;
+  margin-left: .8rem;
+  margin-bottom: .2rem;
+}
 
-/* line 182, ../sass/_common.scss */
+/* line 202, ../sass/_common.scss */
 .messages .buts .circ span.amount {
   font-size: 3.6rem;
 }
 
-/* line 183, ../sass/_common.scss */
+/* line 203, ../sass/_common.scss */
 .messages .buts .but {
   float: left;
   -webkit-border-radius: 8px;
@@ -479,20 +500,20 @@ html {
   text-decoration: none;
 }
 
-/* line 184, ../sass/_common.scss */
+/* line 204, ../sass/_common.scss */
 .messages .buts .xico {
   padding-right: 1.4rem;
   padding-left: 1.4rem;
   background-color: #979797;
 }
 
-/* line 185, ../sass/_common.scss */
+/* line 205, ../sass/_common.scss */
 .messages .buts .xico img {
   width: 2.5rem;
   height: 2.5rem;
 }
 
-/* line 187, ../sass/_common.scss */
+/* line 207, ../sass/_common.scss */
 .meico {
   display: block;
   background: url(../img/meico.png) 100% 100%;
@@ -501,7 +522,7 @@ html {
   height: 6.2rem;
 }
 
-/* line 188, ../sass/_common.scss */
+/* line 208, ../sass/_common.scss */
 .connectico {
   display: block;
   background: url(../img/connectico.png) 100% 100%;
@@ -510,7 +531,7 @@ html {
   height: 6.2rem;
 }
 
-/* line 189, ../sass/_common.scss */
+/* line 209, ../sass/_common.scss */
 .leftarrowico {
   display: block;
   background: url(../img/leftarrow.png) 100% 100%;
@@ -521,7 +542,7 @@ html {
   margin-left: 1rem;
 }
 
-/* line 190, ../sass/_common.scss */
+/* line 210, ../sass/_common.scss */
 .bitconnectlogo {
   display: block;
   background: url(../img/bitconnectlogo.png) 100% 100%;
@@ -532,7 +553,7 @@ html {
   margin-top: 1rem;
 }
 
-/* line 191, ../sass/_common.scss */
+/* line 211, ../sass/_common.scss */
 .but1 {
   background-color: #328080;
   -webkit-border-radius: 8px;
@@ -544,7 +565,7 @@ html {
   font-size: 3.4rem;
 }
 
-/* line 193, ../sass/_common.scss */
+/* line 213, ../sass/_common.scss */
 .sendform {
   background-color: #eaeaea;
   position: fixed;
@@ -552,35 +573,35 @@ html {
   width: 100%;
 }
 
-/* line 194, ../sass/_common.scss */
+/* line 214, ../sass/_common.scss */
 .sendform .pad {
   padding: 1.5rem 1.3rem 1.5rem 1.3rem;
 }
 
-/* line 195, ../sass/_common.scss */
+/* line 215, ../sass/_common.scss */
 .mesgtxt::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #bbbbbb;
 }
 
-/* line 198, ../sass/_common.scss */
+/* line 218, ../sass/_common.scss */
 .mesgtxt:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #bbbbbb;
 }
 
-/* line 201, ../sass/_common.scss */
+/* line 221, ../sass/_common.scss */
 .mesgtxt::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #bbbbbb;
 }
 
-/* line 204, ../sass/_common.scss */
+/* line 224, ../sass/_common.scss */
 .mesgtxt:-ms-input-placeholder {
   color: #bbbbbb;
 }
 
-/* line 207, ../sass/_common.scss */
+/* line 227, ../sass/_common.scss */
 .mesgtxt {
   font-size: 3.0rem;
   color: #bbbbbb;
@@ -588,12 +609,12 @@ html {
   border: 0px;
 }
 
-/* line 210, ../sass/_common.scss */
+/* line 230, ../sass/_common.scss */
 .sendform .chatRow {
   padding-top: 1.5rem;
 }
 
-/* line 211, ../sass/_common.scss */
+/* line 231, ../sass/_common.scss */
 .sendform .chatRow .action {
   float: left;
   -webkit-border-radius: 8px 0px 0px 8px;
@@ -607,13 +628,13 @@ html {
   text-decoration: none;
 }
 
-/* line 212, ../sass/_common.scss */
+/* line 232, ../sass/_common.scss */
 .sendform .chatRow img {
   width: 2.9rem;
   vertical-align: middle;
 }
 
-/* line 213, ../sass/_common.scss */
+/* line 233, ../sass/_common.scss */
 .sendform .chatRow .amount {
   margin-left: 14rem;
   margin-right: 14rem;
@@ -627,22 +648,25 @@ html {
   text-decoration: none;
   color: #666666;
 }
-/* line 226, ../sass/_common.scss */
+/* line 246, ../sass/_common.scss */
 .sendform .chatRow .amount input {
   background: transparent;
   border: none;
   color: #666666;
-  float: left;
-  margin-left: 1rem;
-  width: 15rem;
+  width: calc(100% - 20rem);
+}
+/* line 252, ../sass/_common.scss */
+.sendform .chatRow .amount input[type=number]::-webkit-inner-spin-button, .sendform .chatRow .amount input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-/* line 235, ../sass/_common.scss */
+/* line 257, ../sass/_common.scss */
 .sendform .chatRow .amount .cur {
   float: right;
 }
 
-/* line 236, ../sass/_common.scss */
+/* line 258, ../sass/_common.scss */
 .sendform .chatRow .sendbut {
   float: right;
   -webkit-border-radius: 8px 8px 8px 8px;
@@ -657,22 +681,22 @@ html {
   margin-left: 2rem;
   position: absolute;
   right: 1.0rem;
-  bottom: 1.0rem;
+  bottom: 1.5rem;
 }
 
-/* line 238, ../sass/_common.scss */
+/* line 260, ../sass/_common.scss */
 .indexpage {
   padding-top: 0rem;
 }
 
-/* line 239, ../sass/_common.scss */
+/* line 261, ../sass/_common.scss */
 .indexpage .mainpic {
   position: absolute;
   right: 0px;
   top: 50px;
 }
 
-/* line 240, ../sass/_common.scss */
+/* line 262, ../sass/_common.scss */
 .indexpage .inner {
   margin: 0 auto;
   width: 1000px;
@@ -681,27 +705,27 @@ html {
   position: relative;
 }
 
-/* line 241, ../sass/_common.scss */
+/* line 263, ../sass/_common.scss */
 .indexpage .inner a {
   color: #fff;
 }
 
-/* line 242, ../sass/_common.scss */
+/* line 264, ../sass/_common.scss */
 .indexpage .top {
   background-color: #328080;
 }
 
-/* line 243, ../sass/_common.scss */
+/* line 265, ../sass/_common.scss */
 .indexpage .top .logo {
   padding-top: 100px;
 }
 
-/* line 244, ../sass/_common.scss */
+/* line 266, ../sass/_common.scss */
 .indexpage .top .logo img {
   width: 207px;
 }
 
-/* line 245, ../sass/_common.scss */
+/* line 267, ../sass/_common.scss */
 .indexpage .top .desc {
   padding-top: 50px;
   color: #a3dede;
@@ -710,13 +734,13 @@ html {
   padding-bottom: 50px;
 }
 
-/* line 246, ../sass/_common.scss */
+/* line 268, ../sass/_common.scss */
 .indexpage .bottom {
   background-color: #003333;
   height: 400px;
 }
 
-/* line 247, ../sass/_common.scss */
+/* line 269, ../sass/_common.scss */
 .indexpage .bottom .connectbut {
   margin-top: 50px;
   margin-bottom: 30px;
@@ -732,53 +756,87 @@ html {
   border-radius: 8px 8px 8px 8px;
 }
 
-/* line 248, ../sass/_common.scss */
+/* line 270, ../sass/_common.scss */
 .indexpage .nav {
   padding-top: 50px;
 }
 
-/* line 249, ../sass/_common.scss */
+/* line 271, ../sass/_common.scss */
 .indexpage .nav a {
   font-size: 18px;
   padding-right: 20px;
   text-decoration: none;
 }
 
+/* line 273, ../sass/_common.scss */
+.popupbg {
+  background-color: #000000;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1001;
+}
+
+/* line 274, ../sass/_common.scss */
+.popup {
+  position: fixed;
+  left: 50%;
+  width: 40rem;
+  margin-left: -20rem;
+  top: 20rem;
+  background-color: #eaeaea;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  z-index: 1002;
+  font-size: 4rem;
+  color: #777777;
+  border: 1rem solid rgba(0, 0, 0, 0.3);
+}
+
+/* line 275, ../sass/_common.scss */
+.popup .pad {
+  padding: 5rem;
+}
+
 @media screen and (max-width: 1200px) {
-  /* line 252, ../sass/_common.scss */
+  /* line 279, ../sass/_common.scss */
   html {
     font-size: 70%;
   }
 }
 @media screen and (max-width: 1000px) {
-  /* line 255, ../sass/_common.scss */
+  /* line 282, ../sass/_common.scss */
   html {
     font-size: 40%;
   }
 
-  /* line 256, ../sass/_common.scss */
+  /* line 283, ../sass/_common.scss */
   .indexpage .inner {
     width: 100%;
     text-align: center;
   }
 
-  /* line 257, ../sass/_common.scss */
+  /* line 284, ../sass/_common.scss */
   .indexpage .mainpic {
     display: none;
   }
 
-  /* line 258, ../sass/_common.scss */
+  /* line 285, ../sass/_common.scss */
   .indexpage .top .logo {
     padding-top: 5rem;
     text-align: center;
   }
 
-  /* line 259, ../sass/_common.scss */
+  /* line 286, ../sass/_common.scss */
   .indexpage .top .logo img {
     width: 30rem;
   }
 
-  /* line 260, ../sass/_common.scss */
+  /* line 287, ../sass/_common.scss */
   .indexpage .top .desc {
     padding-top: 5rem;
     text-align: center;
@@ -789,14 +847,14 @@ html {
     padding-bottom: 6rem;
   }
 
-  /* line 261, ../sass/_common.scss */
+  /* line 288, ../sass/_common.scss */
   .indexpage .bottom {
     padding-top: 6rem;
     padding-bottom: 6rem;
     height: auto;
   }
 
-  /* line 262, ../sass/_common.scss */
+  /* line 289, ../sass/_common.scss */
   .indexpage .bottom .connectbut {
     margin: 0 auto;
     width: 50rem;
@@ -804,19 +862,19 @@ html {
     font-size: 4rem;
   }
 
-  /* line 263, ../sass/_common.scss */
+  /* line 290, ../sass/_common.scss */
   .indexpage .nav {
     padding-top: 3rem;
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 266, ../sass/_common.scss */
+  /* line 293, ../sass/_common.scss */
   html {
     font-size: 6px;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 269, ../sass/_common.scss */
+  /* line 296, ../sass/_common.scss */
   html {
     font-size: 5.5px;
   }
