@@ -39,9 +39,11 @@ head
         .pad
           input.mesgtxt(type='text', placeholder='your message here', ng-model="tx.message")
           .chatRow
-            .action(ng-click="requestMode = requestMode == 'receive' ? 'send'  : 'receive'")
-              | {{ requestMode == 'receive' ? 'receive '  : 'send ' }}
-              img(src='/img/arrowbottom.png')
+            .action(ng-click="requestMode = requestMode == 'receive' ? 'send'  : 'receive'", ng-class="requestMode == 'receive' ? 'receive'  : 'send'")
+              .actionText
+                {{ requestMode == 'receive' ? 'receive '  : 'send ' }}
+              .actionArrow
+                img(src='/img/arrowbottom.png')
             .amount
               input.mesgtxt(ng-if="!btcmode || btcmode =='tnx'", type="number", ng-model="tx.tnx",placeholder="0", min="0")
               input.mesgtxt(ng-if="btcmode =='sat'", type="number", ng-model="tx.sat",placeholder="0", min="0")

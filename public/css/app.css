@@ -620,21 +620,39 @@ html {
   -webkit-border-radius: 8px 0px 0px 8px;
   -moz-border-radius: 8px 0px 0px 8px;
   border-radius: 8px 0px 0px 8px;
-  background-color: #8637a0;
   color: #fff;
   padding: 0.5rem 1.0rem 0.5rem 1.0rem;
   font-size: 3.6rem;
   display: block;
   text-decoration: none;
+  width: 16rem;
 }
-
-/* line 232, ../sass/_common.scss */
-.sendform .chatRow img {
+/* line 233, ../sass/_common.scss */
+.sendform .chatRow .action .actionText {
+  width: calc(100% - 2.9rem);
+  text-align: left;
+  display: inline-block;
+}
+/* line 238, ../sass/_common.scss */
+.sendform .chatRow .action .actionArrow {
+  text-align: right;
+  display: inline-block;
+}
+/* line 241, ../sass/_common.scss */
+.sendform .chatRow .action .actionArrow img {
   width: 2.9rem;
   vertical-align: middle;
 }
+/* line 246, ../sass/_common.scss */
+.sendform .chatRow .action.send {
+  background-color: #8637a0;
+}
+/* line 249, ../sass/_common.scss */
+.sendform .chatRow .action.receive {
+  background-color: #377D7D;
+}
 
-/* line 233, ../sass/_common.scss */
+/* line 253, ../sass/_common.scss */
 .sendform .chatRow .amount {
   margin-left: 14rem;
   margin-right: 14rem;
@@ -648,25 +666,25 @@ html {
   text-decoration: none;
   color: #666666;
 }
-/* line 246, ../sass/_common.scss */
+/* line 266, ../sass/_common.scss */
 .sendform .chatRow .amount input {
   background: transparent;
   border: none;
   color: #666666;
   width: calc(100% - 20rem);
 }
-/* line 252, ../sass/_common.scss */
+/* line 272, ../sass/_common.scss */
 .sendform .chatRow .amount input[type=number]::-webkit-inner-spin-button, .sendform .chatRow .amount input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* line 257, ../sass/_common.scss */
+/* line 277, ../sass/_common.scss */
 .sendform .chatRow .amount .cur {
   float: right;
 }
 
-/* line 258, ../sass/_common.scss */
+/* line 278, ../sass/_common.scss */
 .sendform .chatRow .sendbut {
   float: right;
   -webkit-border-radius: 8px 8px 8px 8px;
@@ -684,19 +702,19 @@ html {
   bottom: 1.5rem;
 }
 
-/* line 260, ../sass/_common.scss */
+/* line 280, ../sass/_common.scss */
 .indexpage {
   padding-top: 0rem;
 }
 
-/* line 261, ../sass/_common.scss */
+/* line 281, ../sass/_common.scss */
 .indexpage .mainpic {
   position: absolute;
   right: 0px;
   top: 50px;
 }
 
-/* line 262, ../sass/_common.scss */
+/* line 282, ../sass/_common.scss */
 .indexpage .inner {
   margin: 0 auto;
   width: 1000px;
@@ -705,27 +723,27 @@ html {
   position: relative;
 }
 
-/* line 263, ../sass/_common.scss */
+/* line 283, ../sass/_common.scss */
 .indexpage .inner a {
   color: #fff;
 }
 
-/* line 264, ../sass/_common.scss */
+/* line 284, ../sass/_common.scss */
 .indexpage .top {
   background-color: #328080;
 }
 
-/* line 265, ../sass/_common.scss */
+/* line 285, ../sass/_common.scss */
 .indexpage .top .logo {
   padding-top: 100px;
 }
 
-/* line 266, ../sass/_common.scss */
+/* line 286, ../sass/_common.scss */
 .indexpage .top .logo img {
   width: 207px;
 }
 
-/* line 267, ../sass/_common.scss */
+/* line 287, ../sass/_common.scss */
 .indexpage .top .desc {
   padding-top: 50px;
   color: #a3dede;
@@ -734,13 +752,13 @@ html {
   padding-bottom: 50px;
 }
 
-/* line 268, ../sass/_common.scss */
+/* line 288, ../sass/_common.scss */
 .indexpage .bottom {
   background-color: #003333;
   height: 400px;
 }
 
-/* line 269, ../sass/_common.scss */
+/* line 289, ../sass/_common.scss */
 .indexpage .bottom .connectbut {
   margin-top: 50px;
   margin-bottom: 30px;
@@ -756,19 +774,19 @@ html {
   border-radius: 8px 8px 8px 8px;
 }
 
-/* line 270, ../sass/_common.scss */
+/* line 290, ../sass/_common.scss */
 .indexpage .nav {
   padding-top: 50px;
 }
 
-/* line 271, ../sass/_common.scss */
+/* line 291, ../sass/_common.scss */
 .indexpage .nav a {
   font-size: 18px;
   padding-right: 20px;
   text-decoration: none;
 }
 
-/* line 273, ../sass/_common.scss */
+/* line 293, ../sass/_common.scss */
 .popupbg {
   background-color: #000000;
   opacity: 0.5;
@@ -780,7 +798,7 @@ html {
   z-index: 1001;
 }
 
-/* line 274, ../sass/_common.scss */
+/* line 294, ../sass/_common.scss */
 .popup {
   position: fixed;
   left: 50%;
@@ -797,46 +815,46 @@ html {
   border: 1rem solid rgba(0, 0, 0, 0.3);
 }
 
-/* line 275, ../sass/_common.scss */
+/* line 295, ../sass/_common.scss */
 .popup .pad {
   padding: 5rem;
 }
 
 @media screen and (max-width: 1200px) {
-  /* line 279, ../sass/_common.scss */
+  /* line 299, ../sass/_common.scss */
   html {
     font-size: 70%;
   }
 }
 @media screen and (max-width: 1000px) {
-  /* line 282, ../sass/_common.scss */
+  /* line 302, ../sass/_common.scss */
   html {
     font-size: 40%;
   }
 
-  /* line 283, ../sass/_common.scss */
+  /* line 303, ../sass/_common.scss */
   .indexpage .inner {
     width: 100%;
     text-align: center;
   }
 
-  /* line 284, ../sass/_common.scss */
+  /* line 304, ../sass/_common.scss */
   .indexpage .mainpic {
     display: none;
   }
 
-  /* line 285, ../sass/_common.scss */
+  /* line 305, ../sass/_common.scss */
   .indexpage .top .logo {
     padding-top: 5rem;
     text-align: center;
   }
 
-  /* line 286, ../sass/_common.scss */
+  /* line 306, ../sass/_common.scss */
   .indexpage .top .logo img {
     width: 30rem;
   }
 
-  /* line 287, ../sass/_common.scss */
+  /* line 307, ../sass/_common.scss */
   .indexpage .top .desc {
     padding-top: 5rem;
     text-align: center;
@@ -847,14 +865,14 @@ html {
     padding-bottom: 6rem;
   }
 
-  /* line 288, ../sass/_common.scss */
+  /* line 308, ../sass/_common.scss */
   .indexpage .bottom {
     padding-top: 6rem;
     padding-bottom: 6rem;
     height: auto;
   }
 
-  /* line 289, ../sass/_common.scss */
+  /* line 309, ../sass/_common.scss */
   .indexpage .bottom .connectbut {
     margin: 0 auto;
     width: 50rem;
@@ -862,19 +880,19 @@ html {
     font-size: 4rem;
   }
 
-  /* line 290, ../sass/_common.scss */
+  /* line 310, ../sass/_common.scss */
   .indexpage .nav {
     padding-top: 3rem;
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 293, ../sass/_common.scss */
+  /* line 313, ../sass/_common.scss */
   html {
     font-size: 6px;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 296, ../sass/_common.scss */
+  /* line 316, ../sass/_common.scss */
   html {
     font-size: 5.5px;
   }
