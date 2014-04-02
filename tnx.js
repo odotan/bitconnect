@@ -14,6 +14,65 @@ var eh = util.eh,
 
 var m = module.exports = {};
 
+function makeMessage(profile, otherUserId, msg, res, fb) {
+    var scope = {}, isUser = false;
+    async.series([
+
+        function(cb2) {
+            db.User.findOne({
+                id: profile.id
+            }, setter(scope, 'user', cb2));
+        },
+                function(cb2) {
+            if (!scope.user) return res.json('unauthorized', 403);
+            db.User.findOne({
+                $or: [{
+                    username: otherUserId
+                }, {
+                    id: otherUserId
+                }]
+            }, setter(scope, 'otherUser', cb2));
+        },
+        function(cb2) {
+            if (!scope.otherUser) {
+                if (parseInt(otherUserId)) {
+                    scope.otherUser = {
+                        id: otherUserId
+                    };
+                } else {
+                    return res.json('recipient not found', 400);
+                }
+            } else {
+                isUser = true;
+            }
+            scope.request = {
+                requestType: constants.RequestTypes.GIVE,
+                recipient: dumpUser(scope.otherUser),
+                sender: dumpUser(scope.user),
+                message: msg,
+                id: util.randomHex(32),
+                timestamp: new Date().getTime() / 1000,
+                cancelled: true
+            };
+            db.RequestArchive.insert(scope.request, cb2);
+        },
+        function(cb2) {
+            if (!isUser) {
+                return cb2();
+            }
+            var token = fb.getApplicationAccessToken(),
+                msg = profile.first_name + ' sent you a message.';
+            fb.api('/' + scope.otherUser.id + '/notifications', 'POST', {
+                access_token: token,
+                template: msg,
+                href: '?src=getRequest'
+            }, cb2);
+        }
+    ], mkrespcb(res, 400, function() {
+        res.json(scope.request);
+    }));
+}
+
 function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
     console.log('making get request');
     var scope = {}, isUser = false;
@@ -145,7 +204,9 @@ m.mkRequest = FBify(function(profile, req, res) {
         msg = req.param('message') || '',
         requestType = req.param('requestType'),
         fb = req.facebook;
-    if (requestType === constants.RequestTypes.GET) {
+    if (!tnx && !sat) {
+        makeMessage(profile, req.param('giveTo') || req.param('getFrom'), msg, res, fb)
+    } else if (requestType === constants.RequestTypes.GET) {
         var from = req.param('getFrom');
         return makeGetRequest(profile, from, sat, tnx, msg, res, fb);
     } else if (requestType === constants.RequestTypes.GIVE) {
