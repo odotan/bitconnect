@@ -11,7 +11,7 @@ var host = "bitconnect.me",
     secret_key = "32thanxBTCusa";
 
 /* These keys map to a specific site id configured on the querystring of the 
- * github post recieve hook URL you provided and the ref id corresponding to your
+ * github post receive hook URL you provided and the ref id corresponding to your
  * githum repo. We concatanate the two and replace / with _ to form unique keys that
  * identify the site and a git branch.
  */
@@ -45,7 +45,7 @@ http.createServer(function (req, res) {
 
       /* todo This code can be a lot more robust, with checks for request content type
        * and other error handling. I'm skipping that for now because I know exactly what 
-       * github sends in it's post recieve hooks. 
+       * github sends in it's post receive hooks. 
        *
        * For more details see, https://help.github.com/articles/post-receive-hooks
        */

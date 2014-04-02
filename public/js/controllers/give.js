@@ -172,7 +172,7 @@ window.controllers.controller('GiveController', ['$scope', '$rootScope', '$windo
                         })
                         .error(errHandler);
                 });
-                //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will recieve your satoshi when they sign up.', canceltext: 'invite' }
+                //$rootScope.message = { body: getter.fullname + ' is not signed up, would you like to invite them? They will receive your satoshi when they sign up.', canceltext: 'invite' }
             }
         };
 

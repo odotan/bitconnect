@@ -39,8 +39,8 @@ head
         .pad
           input.mesgtxt(type='text', placeholder='your message here', ng-model="tx.message")
           .chatRow
-            .action(ng-click="requestMode = requestMode == 'recieve' ? 'send'  : 'recieve'")
-              | {{ requestMode == 'recieve' ? 'recieve '  : 'send ' }}
+            .action(ng-click="requestMode = requestMode == 'receive' ? 'send'  : 'receive'")
+              | {{ requestMode == 'receive' ? 'receive '  : 'send ' }}
               img(src='/img/arrowbottom.png')
             .amount
               input.mesgtxt(ng-if="!btcmode || btcmode =='tnx'", type="number", ng-model="tx.tnx",placeholder="0", min="0")

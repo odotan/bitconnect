@@ -7,15 +7,16 @@ head
     meta(name='apple-mobile-web-app-title', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
     meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black-translucent')
     meta(name='format-detection', content='telephone=no')
     meta(name='description', content='')
     meta(name='author', content='')
     link(href='/css/app.css', rel='stylesheet')
-    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../assets/ico/apple-touch-icon-144-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../assets/ico/apple-touch-icon-114-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../assets/ico/apple-touch-icon-72-precomposed.png')
-    link(rel='apple-touch-icon-precomposed', href='../assets/ico/apple-touch-icon-57-precomposed.png')
-    link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+    link(rel='apple-touch-icon', sizes='76x76', href='../public/img/apple/touch-icon-ipad76x76.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='../public/img/apple/touch-icon-iphone-retina120x120.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='../public/img/apple/touch-icon-ipad-retina152x152.png')
+    link(rel='apple-touch-icon', href='../public/img/apple/touch-icon-iphone60x60.png')
+    link(rel='shortcut icon', type='image/x-icon', href='../public/img/favicon.ico')
   body
     .wrapper.indexpage
       .top
@@ -23,8 +24,14 @@ head
           .logo
             img(src='/img/bitconnectlogobig.png')
           .desc
-            | social bitcoin wallet. by automatic for the people.
-            | new way to connect. a place where thanx means a lot.
+            | bitcoin messenger
+            br
+            | by automatic for the people
+            br
+            br
+            | a new way to connect,
+            br
+            |where thanx means a lot
           .mainpic
             img(src='/img/mainpic.png')
       .clear
@@ -37,7 +44,7 @@ head
           .clear
           if tried
               div
-                | sorry, we currently allow only invited users to join
+                | Sorry, bitconnect is currently invitation-only. Please ask a friend who is signed up to invite you, or you can wait and we'll send you a facebook notification when you can connect.
           .clear
           br
           br
