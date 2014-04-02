@@ -64,7 +64,7 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
             }
             var token = fb.getApplicationAccessToken(),
                 amount = tnx > 0 ? tnx + " thanx" : sat + " satoshi",
-                msg = getterProfile.first_name + ' wants to get ' + amount + ' from you. Click to give it.';
+                msg = getterProfile.first_name + ' has requested to receive ' + amount + ' from you. Click to accept it.';
             fb.api('/' + scope.payer.id + '/notifications', 'POST', {
                 access_token: token,
                 template: msg,
@@ -126,7 +126,7 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
             }
             var token = fb.getApplicationAccessToken(),
                 amount = tnx > 0 ? tnx + " thanx" : sat + " satoshi",
-                msg = giverProfile.first_name + ' wants to give you ' + amount + '. Click to get it.';
+                msg = giverProfile.first_name + ' wants to send you ' + amount + '. Click to accept it.';
             fb.api('/' + scope.payee.id + '/notifications', 'POST', {
                 access_token: token,
                 template: msg,
@@ -196,9 +196,9 @@ m.clearRequest = FBify(function(profile, req, res) {
                 msg;
 
             if (reqType === 'get') {
-                msg = profile.first_name + ' didn\'t give you the ' + amount + ' you asked to get.';
+                msg = profile.first_name + ' didn\'t accept your request to send ' + amount + '.';
             } else {
-                msg = profile.first_name + ' didn\'t get the ' + amount + ' you gave.';
+                msg = profile.first_name + ' didn\'t accept the ' + amount + ' you sent.';
             }
 
             req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
@@ -343,7 +343,7 @@ m.sendTNX = FBify(function(profile, req, res) {
                 db.RequestArchive.insert(requestObj);
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = tnx + " thanx",
-                    msg = profile.first_name + ' gave you ' + amount + ' that you asked to get.';
+                    msg = profile.first_name + ' sent you ' + amount + ' that you requested.';
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
@@ -419,7 +419,7 @@ m.acceptGive = FBify(function(profile, req, res) {
                 db.RequestArchive.insert(requestObj);
                 var token = req.facebook.getApplicationAccessToken(),
                     amount = scope.request.tnx + " thanx",
-                    msg = profile.first_name + ' got the ' + amount + ' you gave.';
+                    msg = profile.first_name + ' accepted the ' + amount + ' you sent.';
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
