@@ -227,7 +227,13 @@ html {font-size:100%;}
 .mesgtxt {font-size:3.0rem; color:#bbbbbb; background-color:#eaeaea; border:0px;
 
 }
-.sendform .chatRow {padding-top:1.5rem;}
+.sendform .chatRow {
+  padding-top:1.5rem;
+  img {
+    width:2.9rem;
+    vertical-align:middle;
+  }
+}
 .sendform .chatRow .action {
 float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0px 8px;border-radius: 8px 0px 0px 8px; color:#fff;padding:0.5rem 1.0rem 0.5rem 1.0rem;font-size:3.6rem; display:block; text-decoration:none; width:16rem;
   .actionText {
@@ -238,10 +244,6 @@ float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0p
   .actionArrow {
     text-align: right;
     display:inline-block;
-    img {
-      width:2.9rem;
-      vertical-align:middle;
-    }
   }
   &.send {
     background-color:#8637a0; 
@@ -252,7 +254,7 @@ float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0p
 }
 .sendform .chatRow .amount {
   margin-left:14rem;
-  margin-right:14rem;
+  margin-right:10.5rem;
   -webkit-border-radius: 0px 8px 8px 0px;
   -moz-border-radius: 0px 8px 8px 0px;
   border-radius: 0px 8px 8px 0px;
