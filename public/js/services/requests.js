@@ -1,5 +1,5 @@
 /**
- *   This service gets from the server all pending request that the user sent or recieved.
+ *   This service gets from the server all pending request that the user sent or received.
  *   Requests are divided according to request direction (incoming/outgoing) and request type (give/get).
  *   Request type is always regarding the request sender (e.g. a give request is a request where the sender wants to give).
  *   Request are put in $rootScope.pendingRequests in the following way:

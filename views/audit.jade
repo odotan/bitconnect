@@ -16,7 +16,7 @@ body
                         from pybitcointools import *
                        
                         data = json.loads(urllib.urlopen('https://bitconnect.me/auditdata').read())
-                        unspent_outputs = unspent('34thanx7WzFR33Efzb9zbyLxLQHFVKn1HS')
+                        unspent_outputs = unspent('12thanx6bXb1ScDcDnHaGistMEVtYrjWMX')
                         balance = sum([x["output"] for x in unspent_outputs])
                         print "Loaded auditing data and balance, starting verification"
                         total = int(data["total"])

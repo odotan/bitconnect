@@ -7,7 +7,7 @@
 			.circ(ng-if="item.tnx || item.sat", ng-class="{pendingGain: isPending && isGain, pendingLoss: isPending && isLoss , gain: !isPending && isGain, loss: !isPending && isLoss, cancelled: item.cancelled || item.rejected}")
 				span(ng-if="item.requestType == 'GIVE' || item.txType == 'giveRequest'") sent
 				span(ng-if="item.requestType == 'GET'") requested
-				span(ng-if="item.txType == 'getRequest'") recieved
+				span(ng-if="item.txType == 'getRequest'") received
 
 				span.amount  {{ item.tnx || item.sat }} 
 				| {{item.tnx ? 'thanx' : 'satoshi'}}
