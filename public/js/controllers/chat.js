@@ -69,7 +69,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 		$scope.sendMessage = function sendMessage() {
 			if (((!$scope.btcmode || $scope.btcmode === 'tnx') && parseInt($scope.tx.tnx) > 0) ||
 				(($scope.btcmode === 'sat') && parseInt($scope.tx.sat) > 0)) {
-				if ($scope.requestMode === 'recieve') {
+				if ($scope.requestMode === 'receive') {
 					$scope.get();
 				} else {
 					$scope.give();
