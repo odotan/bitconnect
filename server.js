@@ -222,20 +222,14 @@ app.post('/canvas', function(req, res) {
 
     if (req.param('fb_source') === 'notification' && req.param('src')) {
         var src = req.param('src');
-        switch (src) {
-            case 'giveRequest':
-                redirectFromFacebook('/login?goto=/app/get');
-                break;
-            case 'getRequest':
-                redirectFromFacebook('/login?goto=/app/give');
-                break;
-            default:
-                redirectFromFacebook('/login?goto=/app/thanx');
-                break;
+        var userId = req.param('userId');
+        if (userId) {
+            redirectFromFacebook('/login?goto=/app/chat' + userId);
+        } else {
+            redirectFromFacebook('/login?goto=/app/thanx');
         }
     } else {
         redirectFromFacebook(newUrl);
-        return;
     }
 
     function redirectFromFacebook(url) {

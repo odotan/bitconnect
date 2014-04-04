@@ -700,21 +700,26 @@ html {
   position: absolute;
   right: 1.0rem;
   bottom: 1.5rem;
+  border: 0;
+}
+/* line 282, ../sass/_common.scss */
+.sendform .chatRow .sendbut:disabled {
+  background-color: #7c7c7c;
 }
 
-/* line 282, ../sass/_common.scss */
+/* line 287, ../sass/_common.scss */
 .indexpage {
   padding-top: 0rem;
 }
 
-/* line 283, ../sass/_common.scss */
+/* line 288, ../sass/_common.scss */
 .indexpage .mainpic {
   position: absolute;
   right: 0px;
   top: 50px;
 }
 
-/* line 284, ../sass/_common.scss */
+/* line 289, ../sass/_common.scss */
 .indexpage .inner {
   margin: 0 auto;
   width: 1000px;
@@ -723,27 +728,27 @@ html {
   position: relative;
 }
 
-/* line 285, ../sass/_common.scss */
+/* line 290, ../sass/_common.scss */
 .indexpage .inner a {
   color: #fff;
 }
 
-/* line 286, ../sass/_common.scss */
+/* line 291, ../sass/_common.scss */
 .indexpage .top {
   background-color: #328080;
 }
 
-/* line 287, ../sass/_common.scss */
+/* line 292, ../sass/_common.scss */
 .indexpage .top .logo {
   padding-top: 100px;
 }
 
-/* line 288, ../sass/_common.scss */
+/* line 293, ../sass/_common.scss */
 .indexpage .top .logo img {
   width: 207px;
 }
 
-/* line 289, ../sass/_common.scss */
+/* line 294, ../sass/_common.scss */
 .indexpage .top .desc {
   padding-top: 50px;
   color: #a3dede;
@@ -752,13 +757,13 @@ html {
   padding-bottom: 50px;
 }
 
-/* line 290, ../sass/_common.scss */
+/* line 295, ../sass/_common.scss */
 .indexpage .bottom {
   background-color: #003333;
   height: 400px;
 }
 
-/* line 291, ../sass/_common.scss */
+/* line 296, ../sass/_common.scss */
 .indexpage .bottom .connectbut {
   margin-top: 50px;
   margin-bottom: 30px;
@@ -774,19 +779,19 @@ html {
   border-radius: 8px 8px 8px 8px;
 }
 
-/* line 292, ../sass/_common.scss */
+/* line 297, ../sass/_common.scss */
 .indexpage .nav {
   padding-top: 50px;
 }
 
-/* line 293, ../sass/_common.scss */
+/* line 298, ../sass/_common.scss */
 .indexpage .nav a {
   font-size: 18px;
   padding-right: 20px;
   text-decoration: none;
 }
 
-/* line 295, ../sass/_common.scss */
+/* line 300, ../sass/_common.scss */
 .popupbg {
   background-color: #000000;
   opacity: 0.5;
@@ -798,7 +803,7 @@ html {
   z-index: 1001;
 }
 
-/* line 296, ../sass/_common.scss */
+/* line 301, ../sass/_common.scss */
 .popup {
   position: fixed;
   left: 50%;
@@ -815,46 +820,46 @@ html {
   border: 1rem solid rgba(0, 0, 0, 0.3);
 }
 
-/* line 297, ../sass/_common.scss */
+/* line 302, ../sass/_common.scss */
 .popup .pad {
   padding: 5rem;
 }
 
 @media screen and (max-width: 1200px) {
-  /* line 301, ../sass/_common.scss */
+  /* line 306, ../sass/_common.scss */
   html {
     font-size: 70%;
   }
 }
 @media screen and (max-width: 1000px) {
-  /* line 304, ../sass/_common.scss */
+  /* line 309, ../sass/_common.scss */
   html {
     font-size: 40%;
   }
 
-  /* line 305, ../sass/_common.scss */
+  /* line 310, ../sass/_common.scss */
   .indexpage .inner {
     width: 100%;
     text-align: center;
   }
 
-  /* line 306, ../sass/_common.scss */
+  /* line 311, ../sass/_common.scss */
   .indexpage .mainpic {
     display: none;
   }
 
-  /* line 307, ../sass/_common.scss */
+  /* line 312, ../sass/_common.scss */
   .indexpage .top .logo {
     padding-top: 5rem;
     text-align: center;
   }
 
-  /* line 308, ../sass/_common.scss */
+  /* line 313, ../sass/_common.scss */
   .indexpage .top .logo img {
     width: 30rem;
   }
 
-  /* line 309, ../sass/_common.scss */
+  /* line 314, ../sass/_common.scss */
   .indexpage .top .desc {
     padding-top: 5rem;
     text-align: center;
@@ -865,14 +870,14 @@ html {
     padding-bottom: 6rem;
   }
 
-  /* line 310, ../sass/_common.scss */
+  /* line 315, ../sass/_common.scss */
   .indexpage .bottom {
     padding-top: 6rem;
     padding-bottom: 6rem;
     height: auto;
   }
 
-  /* line 311, ../sass/_common.scss */
+  /* line 316, ../sass/_common.scss */
   .indexpage .bottom .connectbut {
     margin: 0 auto;
     width: 50rem;
@@ -880,19 +885,19 @@ html {
     font-size: 4rem;
   }
 
-  /* line 312, ../sass/_common.scss */
+  /* line 317, ../sass/_common.scss */
   .indexpage .nav {
     padding-top: 3rem;
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 315, ../sass/_common.scss */
+  /* line 320, ../sass/_common.scss */
   html {
     font-size: 6px;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 318, ../sass/_common.scss */
+  /* line 323, ../sass/_common.scss */
   html {
     font-size: 5.5px;
   }

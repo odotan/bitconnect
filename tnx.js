@@ -65,7 +65,7 @@ function makeMessage(profile, otherUserId, msg, res, fb) {
             fb.api('/' + scope.otherUser.id + '/notifications', 'POST', {
                 access_token: token,
                 template: msg,
-                href: '?src=getRequest'
+                href: '?src=getRequest&userId=' + profile.userId
             }, cb2);
         }
     ], mkrespcb(res, 400, function() {
@@ -127,7 +127,7 @@ function makeGetRequest(getterProfile, giver, sat, tnx, msg, res, fb) {
             fb.api('/' + scope.payer.id + '/notifications', 'POST', {
                 access_token: token,
                 template: msg,
-                href: '?src=getRequest'
+                href: '?src=getRequest&userId=' + getterProfile.id
             }, cb2);
         }
     ], mkrespcb(res, 400, function() {
@@ -189,7 +189,7 @@ function makeGiveRequest(giverProfile, getter, sat, tnx, msg, res, fb) {
             fb.api('/' + scope.payee.id + '/notifications', 'POST', {
                 access_token: token,
                 template: msg,
-                href: '?src=giveRequest'
+                href: '?src=giveRequest&userId=' + giverProfile.Id
             }, cb2);
         }
     ], mkrespcb(res, 400, function() {
@@ -265,7 +265,7 @@ m.clearRequest = FBify(function(profile, req, res) {
             req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                 access_token: token,
                 template: msg,
-                href: '?src=rejectRequest'
+                href: '?src=rejectRequest&userId' + profile.id
             }, cb);
         }));
 });
@@ -275,7 +275,7 @@ m.clearRequest = FBify(function(profile, req, res) {
 m.getPendingRequests = FBify(function(profile, req, res) {
     db.Request.find({
         $or: [{
-            'recipient.id': profile.id
+            'recipient.id': 'profile.id'
         }, {
             'sender.id': profile.id
         }]
@@ -408,7 +408,7 @@ m.sendTNX = FBify(function(profile, req, res) {
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
-                    href: '?src=confirmGet'
+                    href: '?src=confirmGet&userId=' & profile.id
                 }, cb2);
             });
 
@@ -484,7 +484,7 @@ m.acceptGive = FBify(function(profile, req, res) {
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
-                    href: '?src=confirmGive'
+                    href: '?src=confirmGive&userId=' & profile.id
                 }, cb);
             });
         }

@@ -137,7 +137,7 @@ m.sendBTC = FBify(function(profile, req, res) {
                 req.facebook.api('/' + scope.to.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
-                    href: '?src=confirmGive'
+                    href: '?src=confirmGive&userId=' + profile.id
                 }, cb2);
             }
         }

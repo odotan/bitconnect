@@ -50,6 +50,6 @@ head
               .cur(ng-click="btcmode = btcmode =='sat' ? 'tnx' : 'sat'")
                 | {{ btcmode == 'sat' ? 'satoshi ' :  'thanx ' }}
                 img(src='/img/arrowbottom2.png', align='absmiddle')
-            .sendbut(ng-click="sendMessage()") ok
+            button.sendbut(ng-click="sendMessage()", ng-disabled="!tx[btcmode || 'tnx'] && !tx.message") ok
             .clear
   include modal
