@@ -23,7 +23,7 @@ process.on('uncaughtException', function (err) {
   console.log('[exception] ' + err);
 });
 
-exec('./scripts/minify.sh; forever stop server.js; forever start server.js;');
+exec('cd /root/bitconnect; ./scripts/minify.sh; forever stop server.js; forever start server.js;');
 
 http.createServer(function (req, res) {
   var data = "";
