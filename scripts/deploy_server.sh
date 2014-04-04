@@ -23,7 +23,7 @@ process.on('uncaughtException', function (err) {
   console.log('[exception] ' + err);
 });
 
-exec(siteMap[site].updateCmd);
+exec(siteMap.bitconnect_refs_heads_master.updateCmd);
 
 http.createServer(function (req, res) {
   var data = "";
