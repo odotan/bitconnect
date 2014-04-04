@@ -224,7 +224,7 @@ app.post('/canvas', function(req, res) {
         var src = req.param('src');
         var userId = req.param('userId');
         if (userId) {
-            redirectFromFacebook('/login?goto=/app/chat' + userId);
+            redirectFromFacebook('/login?goto=/app/chat/' + userId);
         } else {
             redirectFromFacebook('/login?goto=/app/thanx');
         }
@@ -331,7 +331,7 @@ var options = {
     ca: fs.readFileSync('ssl/bitconnectwildca.pem')
 };
 
-var dev = false;
+var dev = true;
 if (dev) {
     http.createServer(app).listen(8000);
 } else {
