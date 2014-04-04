@@ -708,63 +708,54 @@ html {
 }
 
 /* line 287, ../sass/_common.scss */
-.indexpage {
+.indexpage, .termspage {
   padding-top: 0rem;
 }
-
-/* line 288, ../sass/_common.scss */
-.indexpage .mainpic {
+/* line 289, ../sass/_common.scss */
+.indexpage .mainpic, .termspage .mainpic {
   position: absolute;
   right: 0px;
   top: 50px;
 }
-
-/* line 289, ../sass/_common.scss */
-.indexpage .inner {
+/* line 290, ../sass/_common.scss */
+.indexpage .inner, .termspage .inner {
   margin: 0 auto;
   width: 1000px;
   color: #fff;
   font-size: 16px;
   position: relative;
 }
-
-/* line 290, ../sass/_common.scss */
-.indexpage .inner a {
+/* line 291, ../sass/_common.scss */
+.indexpage .inner a, .termspage .inner a {
   color: #fff;
 }
-
-/* line 291, ../sass/_common.scss */
-.indexpage .top {
+/* line 292, ../sass/_common.scss */
+.indexpage .top, .termspage .top {
   background-color: #328080;
 }
-
-/* line 292, ../sass/_common.scss */
-.indexpage .top .logo {
+/* line 293, ../sass/_common.scss */
+.indexpage .top .logo, .termspage .top .logo {
   padding-top: 100px;
 }
-
-/* line 293, ../sass/_common.scss */
-.indexpage .top .logo img {
+/* line 294, ../sass/_common.scss */
+.indexpage .top .logo img, .termspage .top .logo img {
   width: 207px;
 }
-
-/* line 294, ../sass/_common.scss */
-.indexpage .top .desc {
+/* line 295, ../sass/_common.scss */
+.indexpage .top .desc, .termspage .top .desc {
   padding-top: 50px;
   color: #a3dede;
   font-size: 24px;
   width: 450px;
   padding-bottom: 50px;
 }
-
-/* line 295, ../sass/_common.scss */
-.indexpage .bottom {
+/* line 296, ../sass/_common.scss */
+.indexpage .bottom, .termspage .bottom {
   background-color: #003333;
   height: 400px;
 }
-
-/* line 296, ../sass/_common.scss */
-.indexpage .bottom .connectbut {
+/* line 297, ../sass/_common.scss */
+.indexpage .bottom .connectbut, .termspage .bottom .connectbut {
   margin-top: 50px;
   margin-bottom: 30px;
   padding: 10px;
@@ -778,20 +769,31 @@ html {
   -moz-border-radius: 8px 8px 8px 8px;
   border-radius: 8px 8px 8px 8px;
 }
-
-/* line 297, ../sass/_common.scss */
-.indexpage .nav {
+/* line 298, ../sass/_common.scss */
+.indexpage .nav, .termspage .nav {
   padding-top: 50px;
 }
-
-/* line 298, ../sass/_common.scss */
-.indexpage .nav a {
+/* line 299, ../sass/_common.scss */
+.indexpage .nav a, .termspage .nav a {
   font-size: 18px;
   padding-right: 20px;
   text-decoration: none;
 }
-
 /* line 300, ../sass/_common.scss */
+.indexpage .terms, .termspage .terms {
+  background-color: #ffffff;
+  color: #328080;
+  border: #328080;
+  overflow-y: scroll;
+  height: 450px;
+  padding: 10px;
+  position: absolute;
+  right: -100px;
+  top: 80px;
+  left: 350px;
+}
+
+/* line 315, ../sass/_common.scss */
 .popupbg {
   background-color: #000000;
   opacity: 0.5;
@@ -803,7 +805,7 @@ html {
   z-index: 1001;
 }
 
-/* line 301, ../sass/_common.scss */
+/* line 316, ../sass/_common.scss */
 .popup {
   position: fixed;
   left: 50%;
@@ -820,47 +822,43 @@ html {
   border: 1rem solid rgba(0, 0, 0, 0.3);
 }
 
-/* line 302, ../sass/_common.scss */
+/* line 317, ../sass/_common.scss */
 .popup .pad {
   padding: 5rem;
 }
 
 @media screen and (max-width: 1200px) {
-  /* line 306, ../sass/_common.scss */
+  /* line 321, ../sass/_common.scss */
   html {
     font-size: 70%;
   }
 }
 @media screen and (max-width: 1000px) {
-  /* line 309, ../sass/_common.scss */
+  /* line 324, ../sass/_common.scss */
   html {
     font-size: 40%;
   }
 
-  /* line 310, ../sass/_common.scss */
-  .indexpage .inner {
+  /* line 326, ../sass/_common.scss */
+  .indexpage .inner, .termspage .inner {
     width: 100%;
     text-align: center;
   }
-
-  /* line 311, ../sass/_common.scss */
-  .indexpage .mainpic {
+  /* line 327, ../sass/_common.scss */
+  .indexpage .mainpic, .termspage .mainpic {
     display: none;
   }
-
-  /* line 312, ../sass/_common.scss */
-  .indexpage .top .logo {
+  /* line 328, ../sass/_common.scss */
+  .indexpage .top .logo, .termspage .top .logo {
     padding-top: 5rem;
     text-align: center;
   }
-
-  /* line 313, ../sass/_common.scss */
-  .indexpage .top .logo img {
+  /* line 329, ../sass/_common.scss */
+  .indexpage .top .logo img, .termspage .top .logo img {
     width: 30rem;
   }
-
-  /* line 314, ../sass/_common.scss */
-  .indexpage .top .desc {
+  /* line 330, ../sass/_common.scss */
+  .indexpage .top .desc, .termspage .top .desc {
     padding-top: 5rem;
     text-align: center;
     color: #a3dede;
@@ -869,35 +867,40 @@ html {
     margin: 0 auto;
     padding-bottom: 6rem;
   }
-
-  /* line 315, ../sass/_common.scss */
-  .indexpage .bottom {
+  /* line 331, ../sass/_common.scss */
+  .indexpage .bottom, .termspage .bottom {
     padding-top: 6rem;
     padding-bottom: 6rem;
     height: auto;
   }
-
-  /* line 316, ../sass/_common.scss */
-  .indexpage .bottom .connectbut {
+  /* line 332, ../sass/_common.scss */
+  .indexpage .bottom .connectbut, .termspage .bottom .connectbut {
     margin: 0 auto;
     width: 50rem;
     float: none;
     font-size: 4rem;
   }
-
-  /* line 317, ../sass/_common.scss */
-  .indexpage .nav {
+  /* line 333, ../sass/_common.scss */
+  .indexpage .nav, .termspage .nav {
     padding-top: 3rem;
+  }
+  /* line 334, ../sass/_common.scss */
+  .indexpage .terms, .termspage .terms {
+    position: static;
+    width: 50rem;
+    margin: 0 auto;
+    font-size: 2rem;
+    text-align: left;
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 320, ../sass/_common.scss */
+  /* line 345, ../sass/_common.scss */
   html {
     font-size: 6px;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 323, ../sass/_common.scss */
+  /* line 348, ../sass/_common.scss */
   html {
     font-size: 5.5px;
   }

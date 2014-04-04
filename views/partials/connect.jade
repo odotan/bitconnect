@@ -33,7 +33,7 @@ head
           .clear
       .content
         .notifications.connect(infinite-scroll="loadMoreFriends()", infinite-scroll-distance="2")
-          .title bitconnected facebook friends
+          .title(ng-show="FBfriends.registeredFriends && FBfriends.registeredFriends.length > 0") bitconnected facebook friends
           div(ng-repeat="userFriend in FBfriends.registeredFriends")
             .row(ng-click="goTo('chat/'+userFriend.id)")
               .l

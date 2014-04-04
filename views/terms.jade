@@ -1,10 +1,59 @@
-include partials/header
-   
-body
-    .surround
-        center
-            div 1. you promise to be nice to everyone and be nice to everyone
-            div
-                span 2. we promise to love you forever and ever and shower you with all our unrequited thanx
-            div &nbsp;
-            a(href="/") back to sanity
+html(manifest='manifest.appcache')
+head
+    title bitconnect
+    meta(charset='UTF-8')
+    meta(http-equiv='Content-Language', content='en')
+    meta(name='google', content='notranslate')
+    meta(name='apple-mobile-web-app-title', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black-translucent')
+    meta(name='format-detection', content='telephone=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='/css/app.css', rel='stylesheet')
+    link(rel='apple-touch-icon', sizes='76x76', href='../img/apple/touch-icon-ipad76x76.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='../img/apple/touch-icon-iphone-retina120x120.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='../img/apple/touch-icon-ipad-retina152x152.png')
+    link(rel='apple-touch-icon', href='../img/apple/touch-icon-iphone60x60.png')
+    link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+  body
+    .wrapper.termspage
+      .top
+        .inner
+          .logo
+            a(href="/")
+                img(src='/img/bitconnectlogobig.png')
+          .desc
+            | bitcoin messenger
+            br
+            | by automatic for the people
+            br
+            br
+            | a new way to connect,
+            br
+            |where thanx means a lot
+          .clear
+          .terms
+            h2 Terms and Conditions
+            p The information contained in this website is for general information purposes only. The information is provided by automatic for the people and while we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to the website or the information, products, services, or related graphics contained on the website for any purpose. Any reliance you place on such information is therefore strictly at your own risk.
+
+            p In no event will we be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
+
+            p Through this website you are able to link to other websites which are not under the control of automatic for the people. We have no control over the nature, content and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
+
+            p Every effort is made to keep the website up and running smoothly. However, automatic for the people takes no responsibility for, and will not be liable for, the website being temporarily unavailable due to technical issues beyond our control.
+
+            p automatic for the people takes no responsibility for and will not be liable for any financial loss arising from the use of our wallet service including any of the following.
+
+            p Financial loss due to wallet data being "Bruteforced".
+            p Financial loss due to server failure or data loss.
+            p Financial loss due to forgotten passwords
+            p Financial loss due to corrupted wallet files.
+            p Financial loss due to incorrectly constructed transactions or mistyped bitcoin addresses
+            p Financial loss due to "phishing" or other websites masquerading as bitconnect.me
+            p automatic for the people does not pretend to be a bank or regulated financial institution. Any Bitcoins stored using bitconnect wallet are not in automatic for the people's control we simply provide an interface to access them. automatic for the people does not have control over or take any responsibility for any transactions made through our wallet service.
+
+            p Any use of the term Money on this website refers to virtual currency only. Bitcoins are credit vouchers of which automatic for the people is not the issuer. automatic for the people makes no guarantees that bitcoins can be redeemed at the purchase price. Any exchange rates displayed are provided by 3rd party services and are not indicative of the Bitcoin being backed by any commodity or other form of money or having any other tangible value at all.
+      .clear
+      .bottom
