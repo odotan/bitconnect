@@ -6,8 +6,11 @@ head
     meta(name='google', content='notranslate')
     meta(name='apple-mobile-web-app-title', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='format-detection', content='telephone=no')
     meta(name='description', content='')
     meta(name='author', content='')
+    link(href='css/site.css', rel='stylesheet')
     link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../assets/ico/apple-touch-icon-144-precomposed.png')
     link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../assets/ico/apple-touch-icon-114-precomposed.png')
     link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../assets/ico/apple-touch-icon-72-precomposed.png')
@@ -18,19 +21,35 @@ head
       .header
         .top
           .l
-            a.meico(href='#')
-          .c
-            a.bitconnectlogo(href='#')
+            a.leftarrowico(href='/app/thanx')
+          .c connect with
           .r
-            a.connectico(href="/app/connect")
           .clear
         .bottom
-          .l {{user.tnx}} thanx
+          .l {{ user.tnx }} thanx
           .r
             a(href='#')
               img(src='/img/searchico.png')
           .clear
       .content
-        .notifications(ng-repeat="hitem in history")
-          history-item(ng-if="hitem.payer.id == user.id", item="hitem", other-user="hitem.payee")
-          history-item(ng-if="hitem.payer.id != user.id", item="hitem", other-user="hitem.payer")
+        .notifications.connect(infinite-scroll="loadMoreFriends()", infinite-scroll-distance="2")
+          .title bitconnected facebook friends
+          div(ng-repeat="userFriend in FBfriends.registeredFriends")
+            .row(ng-click="goTo('chat/'+userFriend.id)")
+              .l
+                img(ng-src='/pic?id={{userFriend.id}}')
+              .c
+                .name {{userFriend.first_name}} {{userFriend.last_name}}
+              .r
+              .clear
+
+          .title facebook friends
+          div(ng-repeat="friend in visibleFriends.otherFriends")
+            .row
+              .l
+                img(ng-src='/pic?id={{friend.id}}')
+              .c
+                .name {{friend.first_name}} {{friend.last_name}}
+              .r
+                a.but1(href="#", ng-click="invite(friend.id)") invite
+              .clear

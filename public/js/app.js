@@ -16,22 +16,18 @@ var errhandle = function(r) {
 window.app.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
-            .when('/app/give', {
-                templateUrl: '/partials/give',
-                controller: 'GiveController'
-            })
-            .when('/app/get', {
-                templateUrl: '/partials/get',
-                controller: 'GetController'
+            .when('/app/connect', {
+                templateUrl: '/partials/connect',
+                controller: 'InviteFriendsController'
             })
             .when('/app/thanx', {
                 templateUrl: '/partials/requests',
                 controller: 'RequestController'
-            }).
-        when('/app/chat/:otherUserId', {
-            templateUrl: '/partials/chat',
-            controller: 'ChatController'
-        })
+            })
+            .when('/app/chat/:otherUserId', {
+                templateUrl: '/partials/chat',
+                controller: 'ChatController'
+            })
             .when('/app/transaction/:id', {
                 templateUrl: '/partials/transaction',
                 controller: 'TransactionController'
@@ -39,10 +35,6 @@ window.app.config(['$routeProvider',
             .when('/app/me', {
                 templateUrl: '/partials/settings',
                 controller: 'SettingsController'
-            })
-            .when('/app/us', {
-                templateUrl: '/partials/invitefriends',
-                controller: 'InviteFriendsController'
             })
             .when('/app/newaccount', {
                 templateUrl: '/partials/newaccount',
@@ -62,39 +54,41 @@ window.app.config(['$routeProvider',
     }
 ]);
 
-window.app.run(['$rootScope', '$location', function($rootScope, $location) {
-    $rootScope.goTo = function(path, searchValues) {
-        if (window.location.pathname.indexOf(path) == -1) {
-            $location.path('/app/' + path);
-            if (searchValues) {
-                $location.search(searchValues);
+window.app.run(['$rootScope', '$location',
+    function($rootScope, $location) {
+        $rootScope.goTo = function(path, searchValues) {
+            if (window.location.pathname.indexOf(path) == -1) {
+                $location.path('/app/' + path);
+                if (searchValues) {
+                    $location.search(searchValues);
+                }
             }
-        }
-    };
-    $rootScope.path = function() {
-        var p = window.location.pathname.split('/');
-        return p[p.length - 1];
-    };
-    $rootScope.message = {};
+        };
+        $rootScope.path = function() {
+            var p = window.location.pathname.split('/');
+            return p[p.length - 1];
+        };
+        $rootScope.message = {};
 
-    $rootScope.errHandle = function(msg) {
-        $rootScope.message = {
-            body: msg || 'error',
-            canceltext: 'cool, thanx'
+        $rootScope.errHandle = function(msg) {
+            $rootScope.message = {
+                body: msg || 'error',
+                canceltext: 'cool, thanx'
+            };
         };
-    };
-    $rootScope.confirmDialog = function(msg, action) {
-        $rootScope.message = {
-            body: msg,
-            action: action,
-            actiontext: 'yes please',
-            canceltext: 'no thanx'
+        $rootScope.confirmDialog = function(msg, action) {
+            $rootScope.message = {
+                body: msg,
+                action: action,
+                actiontext: 'yes please',
+                canceltext: 'no thanx'
+            };
         };
-    };
-    $rootScope.showMessage = function(msg) {
-        $rootScope.message = {
-            body: msg || 'success',
-            canceltext: 'cool, thanx'
+        $rootScope.showMessage = function(msg) {
+            $rootScope.message = {
+                body: msg || 'success',
+                canceltext: 'cool, thanx'
+            };
         };
-    };
-}]);
+    }
+]);

@@ -352,19 +352,27 @@ m.getFriends = FBify(function(profile, req, res) {
 		},
 		function(cb2) {
 			if (!scope.me) return res.json('me not found', 400);
-			var friends = scope.response.data;
+			var fbFriends = scope.response.data;
+			var friends = {
+				registeredFriends: [],
+				otherFriends: []
+			};
 			var usermap = {};
 			scope.users.map(function(u) {
 				usermap[u.id] = u;
 			});
 			var friendmap = {};
-			friends.map(function(f) {
+			fbFriends.map(function(f) {
 				friendmap[f.id] = f;
 			});
-			friends.map(function(f) {
+			fbFriends.map(function(f) {
 				if (usermap[f.id]) {
 					f.isUser = true;
 					f.username = usermap[f.id].username;
+					friends.registeredFriends.push(f);
+				}
+				else {
+					friends.otherFriends.push(f);
 				}
 				if (friendmap[f.id]) f.isFriend = true;
 			});
@@ -423,7 +431,7 @@ m.getUserById = function getUserById(req, res) {
 			username: req.param('userId')
 		}]
 	}, mkrespcb(res, 400, function(u) {
-		if (!u.fbUser) {
+		if (!u || !u.fbUser) {
 			return res.json('user not found', 400)
 		}
 		res.json({
