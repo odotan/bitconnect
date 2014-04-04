@@ -110,7 +110,7 @@ window.controllers.controller('ChatController', ['$scope', '$rootScope', '$timeo
 			} else if ($scope.btcmode == 'dollar' && parseFloat($scope.tx.dollar) > 0.01) {
 				$scope.tx.tnx = ((parseFloat($scope.tx.dollar) * 100000000) / $rootScope.price).toFixed();
 				getTnxNotSafe();
-			} else if ($scope.btcmode == 'sat' && parseFloat($scope.tx.sat) > 5430) {
+			} else if ($scope.btcmode == 'sat' && parseFloat($scope.tx.sat) > 0) {
 				getSatNotSafe();
 			}
 		};
