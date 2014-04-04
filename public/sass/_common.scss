@@ -277,7 +277,12 @@ float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0p
   }
 }
 .sendform .chatRow .amount .cur {float:right;}
-.sendform .chatRow .sendbut {float:right;-webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px; background-color:#db7932; color:#fff;padding:0.5rem 3.0rem 0.5rem 3.0rem;font-size:3.6rem; display:block; text-decoration:none; margin-left:2rem; position:absolute; right:1.0rem; bottom:1.5rem;}
+.sendform .chatRow .sendbut {
+  float:right;-webkit-border-radius: 8px 8px 8px 8px;-moz-border-radius: 8px 8px 8px 8px;border-radius: 8px 8px 8px 8px; background-color:#db7932; color:#fff;padding:0.5rem 3.0rem 0.5rem 3.0rem;font-size:3.6rem; display:block; text-decoration:none; margin-left:2rem; position:absolute; right:1.0rem; bottom:1.5rem;border:0;
+  &:disabled {
+    background-color:#7c7c7c;
+  }
+}
 
 .indexpage {padding-top:0rem;}
 .indexpage .mainpic {position:absolute; right:0px; top:50px;}
