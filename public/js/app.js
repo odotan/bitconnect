@@ -37,7 +37,11 @@ window.app.config(['$routeProvider',
                 controller: 'TransactionController'
             })
             .when('/app/me', {
-                templateUrl: '/partials/settings',
+                templateUrl: '/partials/me',
+                controller: 'SettingsController'
+            })
+            .when('/app/settings', {
+                templateUrl: '/partials/me',
                 controller: 'SettingsController'
             })
             .when('/app/newaccount', {

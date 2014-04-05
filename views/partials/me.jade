@@ -1,0 +1,71 @@
+html(manifest='manifest.appcache')
+head
+    title bitconnect
+    meta(charset='UTF-8')
+    meta(http-equiv='Content-Language', content='en')
+    meta(name='google', content='notranslate')
+    meta(name='apple-mobile-web-app-title', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='format-detection', content='telephone=no')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(href='css/site.css', rel='stylesheet')
+    link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../assets/ico/apple-touch-icon-144-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../assets/ico/apple-touch-icon-114-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../assets/ico/apple-touch-icon-72-precomposed.png')
+    link(rel='apple-touch-icon-precomposed', href='../assets/ico/apple-touch-icon-57-precomposed.png')
+    link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
+  body
+    .wrapper
+      .header
+        .top
+          .l
+            a.leftarrowico(href='/app/conversations')
+          .c {{ settings }}
+          .r
+          .clear
+        .bottom
+          .l(ng-show="btcmode=='sat'") {{ balance || 0 }} satoshi
+          .l(ng-hide="btcmode=='sat'") {{ user.tnx || 0 }} thanx
+          .r
+            a(href='#')
+              img(src='/img/searchico.png')
+          .clear
+      .content.meContainer
+        .section(ng-hide="user.verified",ng-if="meAction == 'verify'")
+          div.phoneNumber
+            .displayField.odd mobile number
+              input(type="text",ng-model="$parent.phonenum", ng-pattern="/^([0-9]-?)*[0-9]$/", ng-blur="showErrors=true",ng-focus="showErrors=false",ng-class="{showErrors: showErrors}")
+              button.rightButton(ng-click="sendtext()") send sms
+          div.belowSection(ng-show="smsInfo") {{ smsInfo }}
+          div
+            .displayField.odd verification code
+              button.rightButton(ng-click="verify()") verify
+              input(type="text",ng-model="$parent.smscode")
+          div.belowSection(ng-show='verificationError') {{ verificationError }}
+        .section(ng-hide="user.address",ng-if="meAction == 'btcaddress'")
+          .displayField.odd generate bitcoin address
+            input(type="password",ng-model="cpassword",placeholder="password")
+            input(type="password",ng-model="cconfirm",placeholder="confirm")
+            button.rightButton(ng-hide="user.address",ng-click="checkLogin(cpassword,cconfirm)") generate
+        .section(ng-if="meAction == 'buy'")
+          .sectionTitle buy thanx or satoshi
+          div(ng-show="user.address")
+            .displayField.odd buy thanx
+              input(type="number",ng-model="amount", min="1" ,placeholder="number of satoshis")
+              button.rightButton(ng-click="buy()") buy thanx
+          div(ng-show="user.address")
+            .displayField.odd buy satoshi
+                input(type="number",ng-model="amountthanxtosatoshis",placeholder="number of thanx")
+                button.rightButton(ng-click="buy()") buy satoshi
+        .section(ng-if="meAction == 'withdraw'")
+          .sectionTitle withdraw satoshi to other bitcoin address
+          div
+            label you can withdraw satoshis to a bitcoin address (bitcoin transaction costs apply):
+            .displayField btc address
+              input(type="text",ng-model="withdrawbtcaddress",placeholder="bitcoin address to withdraw to")
+            .displayField number of satoshi
+              input(type="text",ng-model="withdraw")
+              button.rightButton(ng-click="withdraw()") withdraw
+  include modal

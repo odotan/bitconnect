@@ -844,14 +844,16 @@ html {
   border-bottom: 2px solid #a84d0b;
   text-decoration: none;
   padding: 1.8rem 1.6rem 1.8rem 1.6rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
-/* line 320, ../sass/_common.scss */
+/* line 324, ../sass/_common.scss */
 .me a img {
   float: right;
 }
 
-/* line 322, ../sass/_common.scss */
+/* line 326, ../sass/_common.scss */
 .popupbg {
   background-color: #000000;
   opacity: 0.5;
@@ -863,7 +865,7 @@ html {
   z-index: 1001;
 }
 
-/* line 323, ../sass/_common.scss */
+/* line 327, ../sass/_common.scss */
 .popup {
   position: fixed;
   left: 50%;
@@ -880,42 +882,42 @@ html {
   border: 1rem solid rgba(0, 0, 0, 0.3);
 }
 
-/* line 324, ../sass/_common.scss */
+/* line 328, ../sass/_common.scss */
 .popup .pad {
   padding: 5rem;
 }
 
 @media screen and (max-width: 1200px) {
-  /* line 327, ../sass/_common.scss */
+  /* line 331, ../sass/_common.scss */
   html {
     font-size: 70%;
   }
 }
 @media screen and (max-width: 1000px) {
-  /* line 330, ../sass/_common.scss */
+  /* line 334, ../sass/_common.scss */
   html {
     font-size: 40%;
   }
 
-  /* line 332, ../sass/_common.scss */
+  /* line 336, ../sass/_common.scss */
   .indexpage .inner, .termspage .inner {
     width: 100%;
     text-align: center;
   }
-  /* line 333, ../sass/_common.scss */
+  /* line 337, ../sass/_common.scss */
   .indexpage .mainpic, .termspage .mainpic {
     display: none;
   }
-  /* line 334, ../sass/_common.scss */
+  /* line 338, ../sass/_common.scss */
   .indexpage .top .logo, .termspage .top .logo {
     padding-top: 5rem;
     text-align: center;
   }
-  /* line 335, ../sass/_common.scss */
+  /* line 339, ../sass/_common.scss */
   .indexpage .top .logo img, .termspage .top .logo img {
     width: 30rem;
   }
-  /* line 336, ../sass/_common.scss */
+  /* line 340, ../sass/_common.scss */
   .indexpage .top .desc, .termspage .top .desc {
     padding-top: 5rem;
     text-align: center;
@@ -925,24 +927,24 @@ html {
     margin: 0 auto;
     padding-bottom: 6rem;
   }
-  /* line 337, ../sass/_common.scss */
+  /* line 341, ../sass/_common.scss */
   .indexpage .bottom, .termspage .bottom {
     padding-top: 6rem;
     padding-bottom: 6rem;
     height: auto;
   }
-  /* line 338, ../sass/_common.scss */
+  /* line 342, ../sass/_common.scss */
   .indexpage .bottom .connectbut, .termspage .bottom .connectbut {
     margin: 0 auto;
     width: 50rem;
     float: none;
     font-size: 4rem;
   }
-  /* line 339, ../sass/_common.scss */
+  /* line 343, ../sass/_common.scss */
   .indexpage .nav, .termspage .nav {
     padding-top: 3rem;
   }
-  /* line 340, ../sass/_common.scss */
+  /* line 344, ../sass/_common.scss */
   .indexpage .terms, .termspage .terms {
     position: static;
     width: 50rem;
@@ -952,13 +954,13 @@ html {
   }
 }
 @media screen and (max-width: 600px) {
-  /* line 351, ../sass/_common.scss */
+  /* line 355, ../sass/_common.scss */
   html {
     font-size: 6px;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 354, ../sass/_common.scss */
+  /* line 358, ../sass/_common.scss */
   html {
     font-size: 5.5px;
   }
@@ -1286,110 +1288,83 @@ html {
 }
 /* line 7, ../sass/_me.scss */
 .meContainer .section.odd {
-  background-color: #047bb2;
+  background-color: #eaeaea;
 }
 /* line 10, ../sass/_me.scss */
 .meContainer .section .sectionTitle {
-  font-size: 12px;
-  color: #f2fbff;
+  font-size: 3.4rem;
+  color: #000;
   text-align: center;
   font-weight: bold;
 }
 /* line 16, ../sass/_me.scss */
 .meContainer .section .displayField {
+  padding: 1rem;
   margin-top: 5px;
-  border-radius: 30px;
-  background-color: #047bb2;
-  color: #f2fbff;
-  height: 30px;
-  font-size: 12px;
-  line-height: 30px;
+  text-align: center;
+  background-color: #eaeaea;
+  color: #000;
+  font-size: 3.4rem;
   padding-left: 5px;
 }
-/* line 20, ../sass/_me.scss */
+/* line 21, ../sass/_me.scss */
 .meContainer .section .displayField .addressLabel {
   width: 50px;
-  line-height: 15px;
+  line-height: 7rem;
   margin-left: 5px;
   float: left;
 }
-/* line 26, ../sass/_me.scss */
+/* line 27, ../sass/_me.scss */
 .meContainer .section .displayField.odd {
-  background-color: #00ace2;
+  background-color: #eaeaea;
 }
-/* line 35, ../sass/_me.scss */
+/* line 34, ../sass/_me.scss */
 .meContainer .section .displayField input[type=number]::-webkit-inner-spin-button,
 .meContainer .section .displayField input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* line 39, ../sass/_me.scss */
+/* line 38, ../sass/_me.scss */
 .meContainer .section .displayField div, .meContainer .section .displayField input, .meContainer .section .displayField a {
   border: 0;
-  height: 100%;
-  border-radius: 30px;
-  float: right;
-  padding-left: 5px;
-  padding-right: 5px;
+  font-size: 3.4rem;
+  margin-top: .3rem;
+  margin-left: 2rem;
+  height: 6rem;
+  padding-left: 2rem;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #047bb2;
+  color: #7c7c7c;
   background-color: #f2fbff;
 }
-/* line 51, ../sass/_me.scss */
+/* line 50, ../sass/_me.scss */
 .meContainer .section .displayField div.readOnly, .meContainer .section .displayField input.readOnly, .meContainer .section .displayField a.readOnly {
   color: #f2fbff;
   background-color: #073651;
 }
-/* line 56, ../sass/_me.scss */
+/* line 55, ../sass/_me.scss */
 .meContainer .section .displayField .rightButton {
   position: absolute;
+  font-size: 3.4rem;
   right: 0;
-  background-color: #f2fbff;
-  border: 2px solid #047bb2;
-  line-height: 25px;
-  border-radius: 30px;
-}
-/* line 64, ../sass/_me.scss */
-.meContainer .section .displayField input:focus {
-  outline: 0;
+  background-color: #db7932;
+  color: #fff;
+  border: 0;
+  line-height: 6rem;
 }
 /* line 67, ../sass/_me.scss */
-.meContainer .section .displayField .red-outline {
-  border: 2px solid #BF433F;
-}
-/* line 72, ../sass/_me.scss */
-.meContainer .section .phoneNumber input {
-  padding-left: 10px;
-  border: 2px solid #f2fbff;
-}
-/* line 74, ../sass/_me.scss */
-.meContainer .section .phoneNumber input.ng-invalid-pattern.showErrors {
-  border: 2px solid #BF433F;
-}
-/* line 79, ../sass/_me.scss */
-.meContainer .section .phoneNumber .phonePrefix {
-  position: relative;
-  left: 12px;
-  color: #047bb2;
-}
-/* line 85, ../sass/_me.scss */
 .meContainer .section .belowSection {
-  font-size: 12px;
-  color: #f2fbff;
-  margin-top: 3px;
-  margin-left: 3px;
+  color: red;
 }
-/* line 91, ../sass/_me.scss */
+/* line 70, ../sass/_me.scss */
 .meContainer .section .changeUsername {
   height: 5px;
   width: 100%;
   cursor: pointer;
 }
-/* line 95, ../sass/_me.scss */
+/* line 74, ../sass/_me.scss */
 .meContainer .section .changeUsername a {
-  font-size: 12px;
   color: #f2fbff;
   margin-bottom: 10px;
   float: right;

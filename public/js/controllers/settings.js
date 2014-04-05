@@ -1,8 +1,8 @@
-window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$http', '$location', 'me', 'requests', 'bitcoin', 'friends',
-    function($scope, $rootScope, $http, $location, me, requests, bitcoin, friends) {
+window.controllers.controller('SettingsController', ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'me', 'requests', 'bitcoin', 'friends',
+    function($scope, $rootScope, $http, $location, $routeParams, me, requests, bitcoin, friends) {
 
         window.wscope = $scope;
-
+        $scope.meAction = $routeParams.action;
         $scope.sendtext = function sendtext() {
             if ($scope.smsInfo) {
                 // clear previous error/success msg:

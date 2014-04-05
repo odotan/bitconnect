@@ -5,31 +5,30 @@
 	.section {
 		padding: 15px 5px;
 		&.odd {
-			background-color: #047bb2;
+			background-color: #eaeaea;
 		}
 		.sectionTitle {
-			font-size: 12px;
-			color: #f2fbff;
+			font-size:3.4rem;
+			color: #000;
 			text-align: center;
 			font-weight: bold;
 		}
 		.displayField {
+			padding: 1rem;
 			margin-top: 5px;
-			border-radius: 30px;
-			background-color: #047bb2;
+			text-align:center;
+			background-color: #eaeaea;
 			.addressLabel {
 				width: 50px;
-				line-height: 15px;
+				line-height: 7rem;
 				margin-left: 5px;
 				float: left;
 			}
 			&.odd {
-				background-color: #00ace2;
+				background-color: #eaeaea;
 			}
-			color: #f2fbff;
-			height: 30px;
-			font-size: 12px;
-			line-height: 30px;
+			color: #000;
+			font-size: 3.4rem;
 			padding-left: 5px;
 			input[type=number]::-webkit-inner-spin-button,
 			input[type=number]::-webkit-outer-spin-button {
@@ -38,15 +37,15 @@
 			}
 			div, input, a {
 				border: 0;
-				height: 100%;
-				border-radius: 30px;
-				float:right;
-				padding-left:5px;
-				padding-right:5px;
+				font-size: 3.4rem;
+				margin-top: .3rem;
+				margin-left: 2rem;
+				height: 6rem;
+				padding-left:2rem;
 				text-align: left;
 				overflow:hidden;
 				text-overflow:ellipsis;
-				color: #047bb2;
+				color: #7c7c7c;
 				background-color: #f2fbff;
 				&.readOnly {
 					color: #f2fbff;
@@ -55,45 +54,24 @@
 			}
 			.rightButton {
 				position: absolute;
+				font-size: 3.4rem;
 				right: 0;
-				background-color: #f2fbff;
-				border: 2px solid #047bb2;
-				line-height: 25px;
-				border-radius: 30px;
+				background-color: #db7932;
+				color: #fff;
+				border:0;
+				line-height: 6rem;
 			}
-			input:focus {
-				outline: 0;
-			}
-			.red-outline {
-				border: 2px solid #BF433F;
-			}
+
 		}
-		.phoneNumber {
-			input {
-				padding-left: 10px;
-				&.ng-invalid-pattern.showErrors {
-					border: 2px solid #BF433F;
-				}
-				border: 2px solid #f2fbff;
-			}
-			.phonePrefix {
-				position: relative;
-				left: 12px;
-				color: #047bb2;
-			}
-		}
+
 		.belowSection {
-			font-size:12px;
-			color: #f2fbff;
-			margin-top: 3px;
-			margin-left: 3px;
+			color: red;
 		}
 		.changeUsername {
 			height: 5px;
 			width: 100%;
 			cursor: pointer;
 			a {
-				font-size: 12px;
 				color: #f2fbff;
 				margin-bottom: 10px;
 				float: right;
