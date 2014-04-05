@@ -2,6 +2,7 @@
 .popup(ng-show="message.body")
   .pad
     div {{ message.body }}
+    input.form-input(type="{{ field.type || 'text' }}",ng-repeat="field in message.fields",ng-model="field.value")
     div
       a(href='#',ng-show="message.actiontext",ng-click="message.action()") {{ message.actiontext }}
       a(href='#',ng-click="message.body = null") {{ message.canceltext || "Done" }}
