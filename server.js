@@ -302,6 +302,7 @@ app.post('/sendtnx', Facebook.loginRequired(), tnx.sendTNX);
 app.post('/acceptgive', Facebook.loginRequired(), tnx.acceptGive);
 app.get('/rawhistory', Facebook.loginRequired(), tnx.getHistory);
 app.get('/interaction', Facebook.loginRequired(), tnx.getInteractionWithUser);
+app.get('/latestinteractions', Facebook.loginRequired(), tnx.getLatestUserInteractions);
 
 app.post('/register', Facebook.loginRequired(), accounts.register);
 app.post('/changeusername', Facebook.loginRequired(), accounts.changeUsername);

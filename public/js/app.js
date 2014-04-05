@@ -20,6 +20,10 @@ window.app.config(['$routeProvider',
                 templateUrl: '/partials/connect',
                 controller: 'InviteFriendsController'
             })
+            .when('/app/conversations', {
+                templateUrl: '/partials/conversations',
+                controller: 'ConversationsController'
+            })
             .when('/app/thanx', {
                 templateUrl: '/partials/requests',
                 controller: 'RequestController'

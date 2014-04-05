@@ -1,7 +1,8 @@
 window.app.service('HistoryService', ['$http',
     function($http) {
         var history,
-        interactions = {};
+            interactions = {},
+            conversations;
         /*
          *   Fetches the history from the server.
          *   Calls the given callback with the results.
@@ -12,7 +13,7 @@ window.app.service('HistoryService', ['$http',
                 cb(h);
             });
         };
-        
+
         this.getCachedHistory = function getCachedHistory() {
             if (history)
                 return history;
@@ -23,9 +24,9 @@ window.app.service('HistoryService', ['$http',
             var result,
                 that = this,
                 /**
-                *   Find the item in the cached history object.
-                *   Calls the callback and returns true if item was found, returns false otherwise.
-                */
+                 *   Find the item in the cached history object.
+                 *   Calls the callback and returns true if item was found, returns false otherwise.
+                 */
                 findHistoryItem = function findHistoryItem() {
                     result = jQuery.grep(history, function(item) {
                         return item.id == id;
@@ -39,8 +40,7 @@ window.app.service('HistoryService', ['$http',
             if (!history) {
                 // no history is cached - go to server
                 this.getHistory(findHistoryItem);
-            }
-            else if (!findHistoryItem()) {
+            } else if (!findHistoryItem()) {
                 // history is cached but specific item not found
                 this.getHistory(findHistoryItem);
             }
@@ -61,5 +61,18 @@ window.app.service('HistoryService', ['$http',
             }
             return null;
         };
+
+        this.getConversations = function getConversations(cb) {
+            $http.get('/latestinteractions').success(function(result) {
+                conversations = result;
+                cb(null, result);
+            }).error(function(err) {
+                cb(err);
+            });
+        }
+
+        this.getCachedConversations = function getCachedConversations() {
+            return conversations || null;
+        }
     }
 ]);

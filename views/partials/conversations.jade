@@ -20,7 +20,7 @@ head
           .l
             a.meico(href='#')
           .c
-            a.bitconnectlogo(href='/app/conversations')
+            a.bitconnectlogo(href='/app/thanx')
           .r
             a.connectico(href="/app/connect")
           .clear
@@ -31,6 +31,5 @@ head
               img(src='/img/searchico.png')
           .clear
       .content
-        .notifications(ng-repeat="hitem in history")
-          history-item(ng-if="hitem.payer.id == user.id", item="hitem", other-user="hitem.payee")
-          history-item(ng-if="hitem.payer.id != user.id", item="hitem", other-user="hitem.payer")
+        .notifications(ng-repeat="hitem in conversations")
+          history-item(item="hitem", other-user="hitem[hitem.otherUserKey]")

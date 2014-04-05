@@ -23,7 +23,7 @@ function makeMessage(profile, otherUserId, msg, res, fb) {
                 id: profile.id
             }, setter(scope, 'user', cb2));
         },
-                function(cb2) {
+        function(cb2) {
             if (!scope.user) return res.json('unauthorized', 403);
             db.User.findOne({
                 $or: [{
@@ -622,6 +622,111 @@ m.getInteractionWithUser = FBify(function(profile, req, res) {
             var results = scope.archive.concat(scope.requests).concat(scope.transactions);
             results.sort(function compare(item1, item2) {
                 return ((item1.requestTimestamp || item1.timestamp) - (item2.requestTimestamp || item2.timestamp));
+            });
+            res.json(results);
+        }));
+});
+
+m.getLatestUserInteractions = FBify(function(profile, req, res) {
+    var scope = {};
+
+    function maxTimestamp(obj, prev) {
+        if (obj.requestTimestamp || obj.timestamp > prev.timestamp) {
+            prev.timestamp = obj.requestTimestamp || obj.timestamp;
+            prev.obj = obj;
+        }
+    }
+    async.series([
+
+            function(cb) {
+                // get transactions:
+                db.Transaction.
+                group([
+                    'payer.id',
+                    'payee.id'
+                ], {
+                    $or: [{
+                        'payer.id': profile.id
+                    }, {
+                        'payee.id': profile.id
+                    }]
+                }, {
+                    timestamp: 0
+                }, maxTimestamp, setter(scope, 'transactions', cb));
+            },
+            function(cb) {
+                // get archived requests:
+                db.RequestArchive.group(['sender.id', 'recipient.id'], {
+                    $and: [{
+                        $or: [{
+                            rejected: true
+                        }, {
+                            cancelled: true
+                        }]
+                    }, {
+                        $or: [{
+                            'sender.id': profile.id
+                        }, {
+                            'recipient.id': profile.id
+                        }]
+                    }]
+                }, {
+                    timestamp: 0
+                }, maxTimestamp, setter(scope, 'archive', cb));
+            },
+            function(cb) {
+                // get pending requests:
+                db.Request.group(['sender.id', 'recipient.id'],{
+                    $or: [{
+                        'sender.id': profile.id
+                    }, {
+                        'recipient.id': profile.id
+                    }]
+                },{timestamp:0},maxTimestamp, setter(scope,'requests' ,cb));
+            }
+        ],
+        mkrespcb(res, 400, function() {
+            var interactionsByOtherUser = {},
+            otherUserId,
+            results = [];
+            function requestParser(requestAggrObj) {
+                if ( requestAggrObj.obj.sender.id == profile.id ) {
+                    requestAggrObj.obj.otherUserKey = 'recipient';
+                }
+                else {
+                    requestAggrObj.obj.otherUserKey = 'sender';
+                }
+                otherUserId = requestAggrObj.obj[requestAggrObj.obj.otherUserKey].id;
+                if (!interactionsByOtherUser[otherUserId] ||
+                    interactionsByOtherUser[otherUserId].timestamp < requestAggrObj.timestamp) {
+                    interactionsByOtherUser[otherUserId] = requestAggrObj;
+                }
+            }
+            scope.transactions.forEach(function(txAggrObj) {
+                if(!txAggrObj.obj.payee || !txAggrObj.obj.payer || !txAggrObj.obj.payee.id || !txAggrObj.obj.payer.id) {
+                    return;
+                }
+                if (txAggrObj.obj.payee.id == profile.id ) {
+                    txAggrObj.obj.otherUserKey = 'payer';
+                }
+                else {
+                    txAggrObj.obj.otherUserKey = 'payee';
+                }
+                otherUserId = txAggrObj.obj[txAggrObj.obj.otherUserKey].id;
+                if (!interactionsByOtherUser[otherUserId] ||
+                    interactionsByOtherUser[otherUserId].timestamp < txAggrObj.timestamp) {
+                    interactionsByOtherUser[otherUserId] = txAggrObj;
+                }
+            });
+            scope.requests.forEach(requestParser);
+            scope.archive.forEach(requestParser);
+            for (otherUserId in interactionsByOtherUser) {
+                if (interactionsByOtherUser.hasOwnProperty(otherUserId)) {
+                    results.push(interactionsByOtherUser[otherUserId].obj);
+                }
+            }
+            results.sort(function(item1, item2) {
+                return -((item1.requestTimestamp || item1.timestamp) - (item2.requestTimestamp || item2.timestamp));
             });
             res.json(results);
         }));
