@@ -14,11 +14,12 @@ head
     link(rel='apple-touch-icon-precomposed', href='../assets/ico/apple-touch-icon-57-precomposed.png')
     link(rel='shortcut icon', type='image/x-icon', href='/favicon.ico')
   body
+    include menu
     .wrapper
       .header
         .top
           .l
-            a.meico(href='#')
+            a.meico(ng-click='toggleMenu()')
           .c
             a.bitconnectlogo(href='/app/thanx')
           .r

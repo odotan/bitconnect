@@ -1,0 +1,24 @@
+.me(ng-show="menuOpen", ng-controller='MeController')
+	.top
+		img(src='/img/leftarrow.png', align='absmiddle', ng-click="closeMenu()")
+		b {{ user.username }}
+	.cir
+		img(ng-src='/pic?id={{user.id}}&size=200')
+	a(href='#')
+		| generate bitcoin address
+		img(src='/img/arrowright.png')
+	a(href='#')
+		| verify your phone number
+		img(src='/img/arrowright.png')
+	a(href='#')
+		| buy thanx
+		img(src='/img/arrowright.png')
+	a(href='#')
+		| buy satoshi
+		img(src='/img/arrowright.png')
+	a(href='#')
+		| withdraw thanx or satoshi
+		img(src='/img/arrowright.png')
+	a(href='#', ng-click="logout()")
+		| sign out
+		img(src='/img/arrowright.png')

@@ -311,11 +311,17 @@ float:left;-webkit-border-radius: 8px 0px 0px 8px;-moz-border-radius: 8px 0px 0p
   }
 }
 
+.me {background-color:#db7932; width:53rem; height:100%; position:fixed; top:0px; left:0px; z-index:1000;-webkit-box-shadow: 8px 0px 66px 5px rgba(0,0,0,0.6);-moz-box-shadow: 8px 0px 66px 5px rgba(0,0,0,0.6);box-shadow: 8px 0px 66px 5px rgba(0,0,0,0.6);}
+.me .top {font-size:3.5rem; color:#ffffff;padding:2.2rem 1.6rem 1.2rem 1.6rem;}
+.me .top img { padding-right:2rem;}
+.me .cir {text-align:center;border-bottom:2px solid #a84d0b; padding-bottom:3rem;}
+.me .cir img {-webkit-border-radius: 300px;-moz-border-radius: 300px;border-radius: 300px; text-align:center; border:0.5rem solid #a84d0b; width:28rem;}
+.me a {font-size:3.5rem; color:#ffffff; display:block; border-bottom:2px solid #a84d0b; text-decoration:none; padding:1.8rem 1.6rem 1.8rem 1.6rem;}
+.me a img { float:right;}
 
 .popupbg {background-color:#000000; opacity:0.5; width:100%; height:100%; position:fixed; top:0px; left:0px; z-index:1001;}
 .popup {position:fixed; left:50%; width:40rem; margin-left:-20rem; top:20rem; background-color:#eaeaea;-webkit-border-radius: 8px;-moz-border-radius: 8px;border-radius: 8px; z-index:1002; font-size:4rem; color:#777777;border:1rem solid rgba(0,0,0,0.3);}
 .popup .pad { padding:5rem;}
-
 
 @media screen and (max-width: 1200px) {
   html {font-size:70%}

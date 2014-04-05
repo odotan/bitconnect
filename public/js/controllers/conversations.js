@@ -27,7 +27,9 @@ window.controllers.controller('ConversationsController', ['$scope', '$rootScope'
 			});
 		};
 
-
+		$scope.toggleMenu = function toggleMenu() {
+			$rootScope.menuOpen = !$rootScope.menuOpen;
+		}
 		var timer = setInterval(this.getConversations, 5000),
 			that = this;
 
