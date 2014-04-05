@@ -15,9 +15,6 @@ window.controllers.controller('ConversationsController', ['$scope', '$rootScope'
 				}
 			}
 			HistoryService.getConversations(function(err, conversations) {
-				if (!conversations) {
-					$rootScope.goTo('app/thanx');
-				}
 				$scope.conversations = $scope.conversations || [];
 				var oldConversations = $scope.conversations.map(dumpConversation);
 				var newConversations = conversations.map(dumpConversation);

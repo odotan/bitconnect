@@ -49,7 +49,7 @@ window.app.config(['$routeProvider',
                 controller: 'ProfileCtrl'
             })
             .otherwise({
-                redirectTo: '/app/thanx'
+                redirectTo: '/app/conversations'
             });
     }
 ]).config(['$locationProvider',
