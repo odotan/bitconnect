@@ -370,8 +370,7 @@ m.getFriends = FBify(function(profile, req, res) {
 					f.isUser = true;
 					f.username = usermap[f.id].username;
 					friends.registeredFriends.push(f);
-				}
-				else {
+				} else {
 					friends.otherFriends.push(f);
 				}
 				if (friendmap[f.id]) f.isFriend = true;
@@ -424,20 +423,30 @@ m.autoFill = function(req, res) {
 };
 
 m.getUserById = function getUserById(req, res) {
-	db.User.findOne({
-		$or: [{
-			id: req.param('userId')
-		}, {
-			username: req.param('userId')
-		}]
-	}, mkrespcb(res, 400, function(u) {
+	var userId = req.param('userId'),
+		username = req.param('username'),
+		condition;
+	if (userId) {
+		condition = {
+			id: userId
+		};
+	} else if (username) {
+		condition = {
+			username: username
+		};
+	} else {
+		return res.json('user not found', 400);
+	}
+
+	db.User.findOne(condition, mkrespcb(res, 400, function(u) {
 		if (!u || !u.fbUser) {
 			return res.json('user not found', 400)
 		}
 		res.json({
 			username: u.username,
 			id: u.id,
-			fullname: u.fbUser.first_name + " " + u.fbUser.last_name
+			fullname: u.fbUser.first_name + " " + u.fbUser.last_name,
+			address: u.address
 		});
 	}));
 };

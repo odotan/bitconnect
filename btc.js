@@ -106,12 +106,13 @@ m.sendBTC = FBify(function(profile, req, res) {
             txObj.outs.map(function(o) {
                 if (o.address == scope.to.address) scope.satsent += o.value;
             });
-            if (scope.deletedRequest.requestType === constants.RequestTypes.GET) {
-                txType = constants.TxTypes.getRequest;
+            if (!scope.deletedRequest || scope.deletedRequest.requestType ===  constants.RequestTypes.GIVE) {
+                txType = constants.TxTypes.giveRequest;
             }
-            else if(scope.deletedRequest.requestType === constants.RequestTypes.GIVE) {
-                txType = constants.TxTypes.giveRequest;   
+            else if(scope.deletedRequest.requestType === constants.RequestTypes.GET) {
+                txType = constants.TxTypes.getRequest;   
             }
+            var currentTimestamp = new Date().getTime() / 1000;
             db.Transaction.insert({
                 payer: dumpUser(scope.from),
                 payee: scope.to.id ? dumpUser(scope.to) : scope.to.address,
@@ -120,8 +121,8 @@ m.sendBTC = FBify(function(profile, req, res) {
                 txid: txHash,
                 confirmed: false,
                 message: message,
-                timestamp: new Date().getTime() / 1000,
-                requestTimestamp: deletedRequest.timestamp,
+                timestamp: currentTimestamp,
+                requestTimestamp: scope.deletedRequest ? scope.deletedRequest.timestamp : currentTimestamp,
                 txType: txType
             }, cb2);
         },
