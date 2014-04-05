@@ -24,6 +24,9 @@ window.controllers.controller('RequestController', ['$scope', '$rootScope', '$ti
                 }
             });
         };
+        $scope.toggleMenu = function toggleMenu() {
+            $rootScope.menuOpen = !$rootScope.menuOpen;
+        }
         setInterval(this.gethistory, 5000);
         this.gethistory(true);
     }
