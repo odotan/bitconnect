@@ -144,13 +144,13 @@ app.get('/login', Facebook.loginRequired(), FBify(function(profile, req, res) {
                     if (err) {
                         res.redirect('/app/newaccount');
                     } else {
-                        res.redirect('/app/thanx');
+                        res.redirect('/app/conversations');
                     }
                 });
             }
         } else if (req.param('goto')) {
             res.redirect(req.param('goto'));
-        } else if (u.firstUse) res.redirect('/app/thanx');
+        } else if (u.firstUse) res.redirect('/app/conversations');
         else res.redirect('/app/give');
     }));
 }));
@@ -226,7 +226,7 @@ app.post('/canvas', function(req, res) {
         if (userId) {
             redirectFromFacebook('/login?goto=/app/chat/' + userId);
         } else {
-            redirectFromFacebook('/login?goto=/app/thanx');
+            redirectFromFacebook('/login?goto=/app/conversations');
         }
     } else {
         redirectFromFacebook(newUrl);
