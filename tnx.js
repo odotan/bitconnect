@@ -408,7 +408,7 @@ m.sendTNX = FBify(function(profile, req, res) {
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
-                    href: '?src=confirmGet&userId=' & profile.id
+                    href: '?src=confirmGet&userId=' + profile.id
                 }, cb2);
             });
 
@@ -484,7 +484,7 @@ m.acceptGive = FBify(function(profile, req, res) {
                 req.facebook.api('/' + requestObj.sender.id + '/notifications', 'POST', {
                     access_token: token,
                     template: msg,
-                    href: '?src=confirmGive&userId=' & profile.id
+                    href: '?src=confirmGive&userId=' + profile.id
                 }, cb);
             });
         }

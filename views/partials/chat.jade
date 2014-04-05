@@ -26,7 +26,8 @@ head
           .r
           .clear
         .bottom
-          .l {{user.tnx}} thanx
+          .l(ng-show="btcmode=='sat'") {{ balance || 0 }} satoshi
+          .l(ng-hide="btcmode=='sat'") {{ user.tnx || 0 }} thanx
           .r
             a(href='#')
               img(src='/img/searchico.png')
