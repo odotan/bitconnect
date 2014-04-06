@@ -34,6 +34,7 @@ do
             #echo $ccgreen Not modified.$ccend
         fi
     done
+    cp -a ./public/js/lib/. ./build/js/lib/
 done
 
 
