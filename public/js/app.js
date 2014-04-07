@@ -28,6 +28,10 @@ window.app.config(['$routeProvider',
                 templateUrl: '/partials/requests',
                 controller: 'RequestController'
             })
+            .when('/app/give', {
+                templateUrl: '/partials/give',
+                controller: 'GiveController'
+            })
             .when('/app/chat/:otherUserId', {
                 templateUrl: '/partials/chat',
                 controller: 'ChatController'

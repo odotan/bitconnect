@@ -25,7 +25,7 @@ window.app.service('friends', ['$rootScope', '$http', 'UsersService',
                 return {};
             }
             var friendsById = {};
-            var friends = $rootScope.FBfriends.filter(function(user) {
+            var friends = $rootScope.FBfriends.registeredFriends.filter(function(user) {
                 return UsersService.userFilter(user, partialName);
             });
 
