@@ -3,7 +3,7 @@
 		img(src='/img/leftarrow.png', align='absmiddle', ng-click="closeMenu()")
 		b {{ user.username }}
 	.cir
-		img(ng-src='/pic?id={{user.id}}&size=200')
+		img(ng-src='/pic?id={{user.id}}&size=200', ng-if="user.id")
 	a(href='/app/me?action=btcaddress', ng-show="user.address")
 		| {{ user.address}}
 	a(href='/app/me?action=btcaddress', ng-show="!user.address")
