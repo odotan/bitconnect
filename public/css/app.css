@@ -472,12 +472,12 @@ html {
 /* line 191, ../sass/_common.scss */
 .messages .buts .circ.cancelled:after, .messages .buts .circ.loss:after, .messages .buts .circ.gain:after {
   display: inline-block;
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 2.8rem;
+  height: 2.8rem;
   content: "";
   background-size: 100%;
   margin-left: .8rem;
-  margin-bottom: .2rem;
+  margin-bottom: -.3rem;
 }
 
 /* line 202, ../sass/_common.scss */
