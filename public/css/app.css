@@ -8,7 +8,9 @@
 
 /* line 1, ../sass/_common.scss */
 .appContainer {
-  margin: auto;
+  margin: 0 auto;
+  width: 1200px;
+  background-color: #ffffff;
 }
 
 /* line 5, ../sass/_common.scss */
@@ -139,6 +141,7 @@
 body {
   margin: 0px;
   padding: 0px;
+  background-color: #eaeaea;
 }
 
 /* line 112, ../sass/_common.scss */
@@ -148,7 +151,7 @@ body, input {
 
 /* line 113, ../sass/_common.scss */
 html {
-  font-size: 100%;
+  font-size: 40%;
 }
 
 /* line 114, ../sass/_common.scss */
@@ -165,7 +168,7 @@ html {
 .header {
   position: fixed;
   top: 0px;
-  width: 100%;
+  width: 1200px;
   z-index: 999;
 }
 
@@ -570,7 +573,7 @@ html {
   background-color: #eaeaea;
   position: fixed;
   bottom: 0px;
-  width: 100%;
+  width: 1200px;
 }
 
 /* line 214, ../sass/_common.scss */
@@ -892,6 +895,7 @@ html {
   html {
     font-size: 70%;
   }
+  .appContainer, .header, .sendform {width: 100%;}
 }
 @media screen and (max-width: 1000px) {
   /* line 334, ../sass/_common.scss */
